@@ -100,8 +100,11 @@ module.exports = (env = {}) => {
           },
         }),
         new ESLintPlugin({
+          extensions: [`js`, `jsx`],
+          exclude: [`/node_modules/`],
           failOnWarning: true,
           failOnError: true,
+          fix: true,
         }),
         // new webpack.DefinePlugin({
         //   'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
