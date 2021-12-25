@@ -1,6 +1,6 @@
 {
-  "parser": "babel-eslint",
-  "extends": ["airbnb", "prettier", "prettier/react"],
+  "parser": "@babel/eslint-parser",
+  "extends": ["airbnb", "prettier"],
   "plugins": ["prettier", "react-hooks"],
   "env": {
     "browser": true
@@ -17,6 +17,8 @@
     "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "react/forbid-prop-types": "off"
+    "react/forbid-prop-types": "off",
+    "no-unsafe-optional-chaining" :"off",
+    "import/no-import-module-exports" :"off"
   }
 }

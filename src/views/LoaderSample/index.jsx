@@ -20,11 +20,11 @@ function Index({ getDashboardRequest, getMoreContentRequest, randomCharacters, r
 
   return (
     <div className="wrapper">
-      <div className="loader_item">{isDashboardLoading ? <img src={loaderGif} alt="loader" /> : dashboardData}</div>
+      <div className="loader_item"> {isDashboardLoading ? <img src={loaderGif} alt="loader" /> : dashboardData}</div>
       <div className="loader_item">
-        {randomCharacters.map((el) => {
-          return <p>{el}</p>;
-        })}
+        {randomCharacters?.map((el) => (
+          <p>{el}</p>
+        ))}
         {isRandomCharacterLoading ? (
           <img width="50px" src={loaderGif} alt="loader" />
         ) : (
@@ -39,9 +39,9 @@ function Index({ getDashboardRequest, getMoreContentRequest, randomCharacters, r
         )}
       </div>
       <div className="loader_item">
-        {randomNumbers.map((el) => {
-          return <p>{el}</p>;
-        })}
+        {randomNumbers.map((el) => (
+          <p>{el}</p>
+        ))}
 
         {isRandomNumberLoading ? (
           <img width="50px" src={loaderGif} alt="loader" />
@@ -60,20 +60,16 @@ function Index({ getDashboardRequest, getMoreContentRequest, randomCharacters, r
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getDashboardRequest: (payload) => dispatch(loaderSampleActions.getDashboardRequest(payload)),
-    getMoreContentRequest: (payload, key) => dispatch(loaderSampleActions.getMoreContentRequest(payload, key)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  getDashboardRequest: (payload) => dispatch(loaderSampleActions.getDashboardRequest(payload)),
+  getMoreContentRequest: (payload, key) => dispatch(loaderSampleActions.getMoreContentRequest(payload, key)),
+});
 
-const mapStateToProps = (state) => {
-  return {
-    randomCharacters: state.loadersample.randomCharacters,
-    randomNumbers: state.loadersample.randomNumbers,
-    dashboardData: state.loadersample.dashboardData,
-  };
-};
+const mapStateToProps = (state) => ({
+  randomCharacters: state.loadersample.randomCharacters,
+  randomNumbers: state.loadersample.randomNumbers,
+  dashboardData: state.loadersample.dashboardData,
+});
 
 Index.propTypes = {
   getDashboardRequest: PropTypes.func.isRequired,

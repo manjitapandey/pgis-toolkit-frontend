@@ -8,17 +8,15 @@ const initialState = {
 };
 
 const getDashboardSuccess = (state, action) => ({ ...state, dashboardData: action.payload });
-const getMoreContentSuccess = (state, action) => {
-  return {
-    ...state,
-    randomNumbers: action.payload.randomNumber
-      ? [...state.randomNumbers, action.payload.randomNumber]
-      : state.randomNumbers,
-    randomCharacters: action.payload.randomCharacter
-      ? [...state.randomCharacters, action.payload.randomCharacter]
-      : state.randomCharacters,
-  };
-};
+const getMoreContentSuccess = (state, action) => ({
+  ...state,
+  randomNumbers: action.payload.randomNumber
+    ? [...state.randomNumbers, action.payload.randomNumber]
+    : state.randomNumbers,
+  randomCharacters: action.payload.randomCharacter
+    ? [...state.randomCharacters, action.payload.randomCharacter]
+    : state.randomCharacters,
+});
 
 const laoderSampleReducer = createReducer(initialState, {
   [Types.GET_DASHBOARD_SUCCESS]: getDashboardSuccess,
