@@ -7,8 +7,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 const baseConfig = require('./webpack.base.config');
 
-const prodConfiguration = () => {
-  return merge([
+const prodConfiguration = () =>
+  merge([
     {
       output: {
         publicPath: '/',
@@ -50,8 +50,5 @@ const prodConfiguration = () => {
       devtool: 'eval',
     },
   ]);
-};
 
-module.exports = (env) => {
-  return merge(baseConfig(env), prodConfiguration(env));
-};
+module.exports = (env) => merge(baseConfig(env), prodConfiguration(env));
