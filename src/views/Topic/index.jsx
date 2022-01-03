@@ -6,7 +6,7 @@ import './styles.scss';
 
 const { addTopic, selectTopic } = Creators;
 
-const Topic = () => {
+function Topic() {
   const topics = useSelector((state) => state.topic.topics);
   const [topicInput, setTopicInput] = useState('');
   const totalTopics = useSelector(totalTopicsSelector);
@@ -62,6 +62,6 @@ const Topic = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Topic;

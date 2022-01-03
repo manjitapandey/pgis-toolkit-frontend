@@ -31,11 +31,9 @@ const handleTopicSelect = (state, action) => {
     topics,
   };
 };
-const getTopicSuccess = (state) => {
-  return {
-    ...state,
-  };
-};
+const getTopicSuccess = (state) => ({
+  ...state,
+});
 
 const topicReducer = createReducer(initialState, {
   [Types.ADD_TOPIC]: handleTopicAdd,

@@ -1,22 +1,21 @@
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const Visualizer = require('webpack-visualizer-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const baseConfig = require('./webpack.base.config');
 
-const prodConfiguration = () => {
-  return merge([
+const prodConfiguration = () =>
+  merge([
     {
       output: {
         publicPath: '/',
         filename: '[name].[contenthash].js',
       },
       optimization: {
-        minimizer: [new UglifyJsPlugin(), new OptimizeCssAssetsPlugin()],
+        minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
         splitChunks: {
           chunks: 'all',
         },
@@ -26,11 +25,15 @@ const prodConfiguration = () => {
       },
 
       plugins: [
-        new webpack.HashedModuleIdsPlugin(),
+        new webpack.ids.HashedModuleIdsPlugin({
+          context: __dirname,
+          hashFunction: 'sha256',
+          hashDigest: 'hex',
+          hashDigestLength: 20,
+        }),
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash].css',
         }),
-        new Visualizer({ filename: './statistics.html' }),
         new CompressionPlugin({
           algorithm: 'gzip',
           test: /\.js$|\.css$|\.html$/,
@@ -38,11 +41,14 @@ const prodConfiguration = () => {
           minRatio: 0,
         }),
       ],
-      devtool: '',
+      mode: 'production',
+      performance: {
+        hints: false,
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000,
+      },
+      devtool: 'eval',
     },
   ]);
-};
 
-module.exports = (env) => {
-  return merge(baseConfig(env), prodConfiguration(env));
-};
+module.exports = (env) => merge(baseConfig(env), prodConfiguration(env));

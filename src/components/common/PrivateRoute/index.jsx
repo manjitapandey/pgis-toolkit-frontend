@@ -4,14 +4,7 @@ import PropTypes from 'prop-types';
 
 export default function PrivateRoute({ path, component: Component }) {
   const token = localStorage.getItem('token');
-  return (
-    <Route
-      path={path}
-      render={(props) => {
-        return token ? <Component {...props} /> : <Redirect to="/login" />;
-      }}
-    />
-  );
+  return <Route path={path} render={(props) => (token ? <Component {...props} /> : <Redirect to="/login" />)} />;
 }
 
 PrivateRoute.propTypes = {

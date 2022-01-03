@@ -1,11 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 const path = require('path');
-const webpack = require('webpack');
-const merge = require('webpack-merge');
+// const webpack = require('webpack');
+const { merge } = require('webpack-merge');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const APP_DIR = path.resolve(__dirname, '../src');
 
@@ -13,7 +14,7 @@ module.exports = (env = {}) => {
   const { NODE_ENV } = env;
   return merge([
     {
-      entry: ['react-hot-loader/patch', '@babel/polyfill', APP_DIR],
+      entry: ['react-hot-loader/patch', APP_DIR],
       output: {
         publicPath: '/',
       },
@@ -37,14 +38,9 @@ module.exports = (env = {}) => {
       module: {
         rules: [
           {
-            enforce: 'pre',
+            // enforce: 'pre',
             test: /\.(js|jsx)$/,
             exclude: /node_modules/,
-            loader: 'eslint-loader',
-            options: {
-              failOnWarning: true,
-              failOnError: true,
-            },
           },
           {
             test: /\.(js|jsx)$/,
@@ -70,7 +66,8 @@ module.exports = (env = {}) => {
           },
           {
             test: /\.(png|jpg|gif)$/,
-            use: ['file-loader'],
+            // use: ['file-loader'],
+            type: 'asset/resource',
           },
           {
             test: /\.woff(2)?(\?v=[a-z0-9]\.[a-z0-9]\.[a-z0-9])?$/,
@@ -78,7 +75,7 @@ module.exports = (env = {}) => {
           },
           {
             test: /\.(ttf|eot)(\?v=[a-z0-9]\.[a-z0-9]\.[a-z0-9])?$/,
-            use: ['file-loader'],
+            type: 'asset/resource',
           },
           {
             test: /\.svg$/,
@@ -92,6 +89,7 @@ module.exports = (env = {}) => {
           template: 'public/index.html',
           filename: 'index.html',
           inject: true,
+          favicon: './src/assets/image/favicon.jpg',
           minify: {
             collapseWhitespace: true,
             collapseInlineTagWhitespace: true,
@@ -102,9 +100,16 @@ module.exports = (env = {}) => {
             removeRedundantAttributes: true,
           },
         }),
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+        new ESLintPlugin({
+          extensions: [`js`, `jsx`],
+          exclude: [`/node_modules/`],
+          failOnWarning: true,
+          failOnError: true,
+          fix: true,
         }),
+        // new webpack.DefinePlugin({
+        //   'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+        // }),
       ],
       devtool: 'eval-source-map',
     },

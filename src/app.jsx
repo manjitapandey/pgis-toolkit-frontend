@@ -17,7 +17,13 @@ function generateRoutes(routes) {
         ) : route.authenticated ? (
           <PrivateRoute component={route.component} exact={route.exact ?? false} path={route.path} key={route.name} />
         ) : (
-          <Route component={route.component} exact={route.exact ?? false} path={route.path} key={route.name} />
+          <Route
+            // eslint-disable-next-line no-unused-vars
+            component={route.component}
+            exact={route.exact ?? false}
+            path={route.path}
+            key={route.name}
+          />
         ),
       )}
     </Switch>

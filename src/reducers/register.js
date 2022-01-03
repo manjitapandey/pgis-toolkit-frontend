@@ -7,9 +7,7 @@ const initialState = {
 
 const registerUserRequest = (state) => ({ ...state, loading: true });
 
-const registerUserSuccess = (state) => {
-  return { ...state, loading: false };
-};
+const registerUserSuccess = (state) => ({ ...state, loading: false });
 
 const registerUserFailure = (state) => ({
   ...state,
