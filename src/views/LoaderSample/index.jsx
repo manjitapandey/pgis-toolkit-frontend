@@ -17,8 +17,6 @@ function Index({ getDashboardRequest, getMoreContentRequest, randomCharacters, r
   useEffect(() => {
     getDashboardRequest();
   }, [getDashboardRequest]);
-  // eslint-disable-next-line no-console
-  console.log('testing');
   return (
     <div className="wrapper">
       <div className="loader_item"> {isDashboardLoading ? <img src={loaderGif} alt="loader" /> : dashboardData}</div>

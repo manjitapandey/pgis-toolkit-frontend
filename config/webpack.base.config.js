@@ -1,12 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 const path = require('path');
-// const webpack = require('webpack');
+const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const dotenv = require('dotenv').config();
 
 const APP_DIR = path.resolve(__dirname, '../src');
 
@@ -66,20 +67,39 @@ module.exports = (env = {}) => {
           },
           {
             test: /\.(png|jpg|gif)$/,
-            // use: ['file-loader'],
             type: 'asset/resource',
+            // use: ['file-loader'],
+            // use: [
+            //   {
+            //     loader: 'url-loader',
+            //   },
+            // ],
           },
           {
             test: /\.woff(2)?(\?v=[a-z0-9]\.[a-z0-9]\.[a-z0-9])?$/,
-            use: ['url-loader?limit=10000'],
+            type: 'asset/resource',
           },
           {
             test: /\.(ttf|eot)(\?v=[a-z0-9]\.[a-z0-9]\.[a-z0-9])?$/,
             type: 'asset/resource',
           },
           {
+            // test: /\.svg$/,
+            // // use: ['@svgr/webpack', 'asset'],
+            // use: 'asset',
             test: /\.svg$/,
-            use: ['@svgr/webpack', 'url-loader'],
+            use: [
+              {
+                loader: '@svgr/webpack',
+              },
+              {
+                loader: 'file-loader',
+              },
+            ],
+            type: 'javascript/auto',
+            issuer: {
+              and: [/\.(ts|tsx|js|jsx|md|mdx)$/],
+            },
           },
         ],
       },
@@ -107,8 +127,11 @@ module.exports = (env = {}) => {
           failOnError: true,
           fix: true,
         }),
+        new webpack.DefinePlugin({
+          'process.env': JSON.stringify(dotenv.parsed),
+        }),
         // new webpack.DefinePlugin({
-        //   'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+        // 'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
         // }),
       ],
       devtool: 'eval-source-map',
