@@ -1,0 +1,187 @@
+.pm-checkbox {
+  @include flexbox();
+  @include justify-content(flex-start);
+  @include align-items(start);
+  position: relative;
+  margin-bottom: 0.6125rem;
+
+  label {
+    margin: 0;
+    i {
+      font-size: var(--fs-h6);
+    }
+  }
+
+  input {
+    position: absolute; // take it out of document flow
+    opacity: 0; // hide it
+    z-index: 9;
+    width: 18px;
+    height: 18px;
+
+    & + label {
+      position: relative;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    // Box.
+    & + label:before {
+      content: '';
+      margin-right: 10px;
+      display: inline-block;
+      vertical-align: text-top;
+      width: 18px;
+      height: 18px;
+      @include flex-value(0 0 18px);
+      max-width: 18px;
+      background: var(--clr-white-900);
+      border: 2px solid var(--clr-body-500);
+      @include radius(4px);
+    }
+
+    // Box focus
+    &:focus + label:before {
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+    }
+
+    // Disabled state label.
+    &:disabled + label {
+      color: #b8b8b8;
+      cursor: auto;
+    }
+
+    // Disabled box.
+    &:disabled + label:before {
+      box-shadow: none;
+      background: #ddd;
+    }
+
+    // Checkmark. Could be replaced with an image
+    &:checked + label:after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 8px;
+      background:var(--clr-white-900);
+      width: 2px;
+      height: 2px;
+      box-shadow: 
+        2px 0 0 var(--clr-white-900),
+        4px 0 0 var(--clr-white-900),
+        4px -2px 0 var(--clr-white-900),
+        4px -4px 0 var(--clr-white-900),
+        4px -6px 0 var(--clr-white-900),
+        4px -8px 0 var(--clr-white-900);
+      transform: rotate(45deg);
+    }
+
+    &:checked + label:before {
+      border-color: var(--clr-body-600);
+      background-color: var(--clr-body-600);
+    }
+
+    &:checked + label {
+      color: var(--clr-priamry-600);
+    }
+  }
+
+  // &:hover{
+  //     &::before{
+  //         opacity: 1;
+  //         visibility: visible;
+  //     }
+  // }
+}
+
+.pm-radio {
+  @include flexbox();
+  @include justify-content(flex-start);
+  @include align-items(center);
+  position: relative;
+  margin-bottom: 0.6125rem;
+
+  label {
+    margin: 0;
+    font-weight: 500;
+    font-size: 0.775rem;
+    @include flex-grow(1);
+  }
+
+  input {
+    position: absolute; // take it out of document flow
+    opacity: 0; // hide it
+    z-index: 9;
+
+    & + label {
+      position: relative;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    // Box.
+    & + label:before {
+      content: '';
+      margin-right: 10px;
+      display: inline-block;
+      vertical-align: text-top;
+      width: 18px;
+      height: 18px;
+      @include radius(50%);
+      background: var(--clr-white-900);
+      border: 1.5px solid var(--clr-body-300);
+    }
+
+    // Box hover
+    // &:hover + label:before {
+    //     background: var(--blue-color);
+    // }
+
+    // Box focus
+    &:focus + label:before {
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+    }
+
+    // Box checked
+    &:checked + label:before {
+      background: var(--clr-priamry-600);
+    }
+
+    // Disabled state label.
+    &:disabled + label {
+      color: #b8b8b8;
+      cursor: auto;
+    }
+
+    // Disabled box.
+    &:disabled + label:before {
+      box-shadow: none;
+      background: #ddd;
+    }
+
+    // Checkmark. Could be replaced with an image
+    &:checked + label:after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      @include prefix(
+        transform,
+        translateY(-50%),
+        ('webkit', 'ms', 'moz', 'o')
+      );
+      background: var(--clr-priamry-600);
+      width: 8px;
+      height: 8px;
+      @include radius(50%);
+    }
+
+    &:checked + label:before {
+      border-color: var(--clr-white-900);
+    }
+
+    &:checked + label {
+      color: var(--clr-priamry-600);
+    }
+  }
+}

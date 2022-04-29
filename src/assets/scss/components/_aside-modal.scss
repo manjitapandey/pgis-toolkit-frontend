@@ -1,0 +1,247 @@
+/* canvas Sidebar */
+
+.aside-modal {
+  .aside-overlay {
+    position: fixed;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    background: var(--secondary-200);
+    z-index: 999999;
+    visibility: hidden;
+    opacity: 0;
+    cursor: pointer;
+    @include prefix(transform, translateX(50px), ('webkit', 'ms', 'moz', 'o'));
+    @include transition(all 0.3s ease-in-out);
+  }
+
+  .close-aside {
+    position: fixed;
+    z-index: 9999999;
+    font-size: 1rem;
+    right: -100%;
+    background-color: var(--primary-color);
+    top: 0;
+    width: 30px;
+    height: 30px;
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    @include flex-direction(column);
+    cursor: pointer;
+
+    i {
+      color: var(--clr-white-900);
+    }
+  }
+
+  .aside-sidebar {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 50%;
+    padding: 2rem;
+    height: 100%;
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    @include prefix(transform, translateX(80px), ('webkit', 'ms', 'moz', 'o'));
+    background-color: var(--clr-white-900);
+    z-index: 999999;
+    @include transition(all 0.5s ease-in-out);
+  }
+
+  &.is-active {
+    .aside-overlay {
+      visibility: visible;
+      opacity: 0.8;
+      left: 0;
+      @include prefix(transform, translateX(0), ('webkit', 'ms', 'moz', 'o'));
+    }
+
+    .close-aside {
+      right: 50%;
+    }
+
+    .aside-sidebar {
+      right: 0;
+      visibility: visible;
+      opacity: 1;
+      @include prefix(transform, translateX(0), ('webkit', 'ms', 'moz', 'o'));
+    }
+  }
+
+  .destination-header {
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    h6 {
+      margin-top: 0.25rem;
+
+      a {
+        color: var(--primary-color);
+        font-family: var(--ff-bd);
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+      }
+    }
+
+    .time-dif {
+      max-width: 300px;
+    }
+
+    .is-time {
+      margin-top: 1rem;
+
+      .content {
+        h4 {
+          color: var(--primary-color);
+        }
+
+        span {
+          text-transform: capitalize;
+        }
+      }
+
+      i {
+        margin-right: 0.5rem;
+        font-size: 1.2rem;
+        line-height: 1;
+      }
+    }
+  }
+
+  .dec {
+    margin: 1rem 0;
+
+    p {
+      font-weight: 400;
+    }
+  }
+
+  .single-slider {
+    margin-bottom: 3rem;
+
+    .slick-dots {
+      text-align: left;
+      bottom: -25px !important;
+
+      li {
+        button {
+          &::before {
+            font-size: 0.775rem;
+          }
+        }
+
+        &.slick-active {
+          button {
+            &::before {
+              color: var(--primary-color);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .acc {
+    .acc-list {
+      .acc-header {
+        h5 {
+          font-size: 1.2rem;
+          font-family: var(--ff-bd);
+          font-weight: 700;
+          color: var(--primary-color);
+        }
+
+        &::after {
+          content: 'add_circle_outline';
+          font-size: 1.5rem;
+          color: var(--primary-color);
+        }
+      }
+
+      .acc-body {
+        ul {
+          &.is-list {
+            &.is-before {
+              li {
+                padding-left: 2.5rem;
+
+                &::before {
+                  color: var(--green-color);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.is-after {
+      .acc-list {
+        &.is-active {
+          .acc-header {
+            &::after {
+              content: 'remove_circle_outline';
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.hiking-details {
+  .hiking-title {
+    margin: 1.5rem 0;
+    font-size: 1.2rem;
+    font-family: var(--ff-bd);
+  }
+
+  .feedback {
+    textarea {
+      &.pm-control {
+        background-color: var(--bg-color);
+      }
+    }
+  }
+}
+
+.review {
+  .review-list {
+    padding: 0.6125rem 0;
+
+    .is-figure {
+      margin-bottom: 0.6125rem;
+
+      figure {
+        @include flex(0 0 50px);
+        max-width: 50px;
+
+        img {
+          width: 50px;
+          height: 50px;
+          @include radius(50%);
+        }
+      }
+
+      h5 {
+        font-family: var(--ff-bd);
+        font-weight: 500;
+        margin-left: 1rem;
+      }
+    }
+
+    p {
+      font-size: 0.875rem;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--clr-body-300);
+    }
+  }
+}

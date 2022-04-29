@@ -1,0 +1,7 @@
+@mixin backface($value) {
+    -webkit-backface-visibility: $type;
+    -moz-backface-visibility: $type;
+    -o-backface-visibility: $type;
+    -ms-backface-visibility: $type;
+    backface-visibility: $type;
+}

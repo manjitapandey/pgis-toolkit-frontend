@@ -1,0 +1,487 @@
+.pm-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  @include flexbox();
+  @include justify-content(center);
+  @include align-items(center);
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100vw;
+  height: 100vh;
+  z-index: 7;
+  opacity: 0;
+  visibility: hidden;
+  @include prefix(
+    transition,
+    all 0.5s ease-in-out,
+    ('webkit', 'moz', 'ms', 'o')
+  );
+  &_cntr {
+    min-width: 280px;
+    max-width: 100%;
+    max-height: 95vh;
+    @include flexbox();
+    @include flex-direction(column);
+    background-color: var(--clr-white-900);
+    flex-grow: 0;
+    flex-shrink: 0;
+    box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
+      0px 24px 38px 3px rgba(0, 0, 0, 0.14),
+      0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+    position: relative;
+    @include prefix(transform, scale(0), ('webkit', 'ms', 'moz', 'o'));
+    @include prefix(
+      transition,
+      all 0.9s ease-in-out,
+      ('webkit', 'moz', 'ms', 'o')
+    );
+    @include breakpoint-to('md-phone') {
+      max-width: 98vw;
+      width: 98vw;
+    }
+    @include breakpoint-to('md-tab') {
+      max-width: 576px;
+      min-width: 576px;
+    }
+    &_radius{
+      border-radius: 20px;
+    }
+    &_sm {
+      @include breakpoint-to('md-tab') {
+        max-width: 480px;
+        min-width: 480px;
+      }
+    }
+    &_lg {
+      @include breakpoint-to('xl-tab') {
+        max-width: 768px;
+        min-width: 768px;
+      }
+      @include breakpoint-to('md-desktop') {
+        max-width: 800px;
+        min-width: 800px;
+      }
+    }
+    &_xl {
+      @include breakpoint-to('md-tab') {
+        max-width: 95vw;
+        width: 95vw;
+      }
+    }
+  }
+  &_header {
+    flex-shrink: 0;
+    padding: 1rem;
+    padding-top:2rem;
+    &.is-border {
+      border-bottom: 1px solid var(--clr-body-400);
+    }
+  }
+  &_footer {
+    flex-shrink: 0;
+    padding: 1rem;
+    &.is-border {
+      border-top: 1px solid var(--clr-body-400);
+    }
+  }
+  &_body {
+    padding: 1rem;
+    @include flex-grow(1);
+    @include scrollbar(
+      var(--clr-body-400),
+      var(--clr-body-500),
+      var(--clr-primary-700)
+    );
+  }
+  &_close {
+    width: 34px;
+    height: 34px;
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    @include flex-direction(column);
+    @include radius(100%);
+    position: absolute;
+    right:2rem;
+    top:1rem;
+    @include prefix(
+      transition,
+      (all 0.5s ease-in-out),
+      ('web', 'ms', 'moz', 'o')
+    );
+    cursor: pointer;
+
+    &:hover {
+      color: var(--clr-red-700);
+      border-color: var(--clr-red-700);
+    }
+    &.is-border {
+      border: 1px solid var(--clr-body-400);
+    }
+  }
+  &_show {
+    z-index: 111112;
+    opacity: 1;
+    visibility: visible;
+    .pm-modal_cntr {
+      @include prefix(transform, scale(1), ('webkit', 'ms', 'moz', 'o'));
+      filter: alpha(opacity=100);
+    }
+  }
+}
+.popup,
+.window-popup {
+  .popup-body {
+    //
+
+    @include breakpoint-to('mmd-phone') {
+      max-width: 360px;
+      min-width: 360px;
+    }
+
+    @include breakpoint-to('md-phone') {
+      max-width: 460px;
+      min-width: 460px;
+    }
+
+    @include breakpoint-to('xl-tab') {
+      max-width: 576px;
+      min-width: 576px;
+    }
+
+    form {
+      max-height: inherit;
+      @include flexbox();
+      @include flex-direction(column);
+    }
+
+    span {
+      &.close-icon {
+        &:hover {
+          color: var(--red-color);
+          border-color: var(--red-color);
+        }
+      }
+    }
+
+    .next-prev {
+      position: absolute;
+      left: -25px;
+      right: -25px;
+      top: 50%;
+      @include prefix(
+        transform,
+        translateY(-50%),
+        ('webkit', 'ms', 'moz', 'o')
+      );
+      @include flexbox();
+      @include justify-content(space-between);
+      @include align-items(center);
+      z-index: 999;
+
+      span {
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary-light);
+        @include radius(5px);
+        text-align: center;
+        @include flexbox();
+        @include justify-content(center);
+        @include align-items(center);
+        @include flex-direction(column);
+        cursor: pointer;
+
+        &.next {
+          @include prefix(
+            transform,
+            rotate(180deg),
+            ('webkit', 'ms', 'moz', 'o')
+          );
+        }
+
+        &:hover {
+          background-color: var(--primary-color);
+          color: var(--clr-white-900);
+        }
+      }
+    }
+
+    .popup-header {
+      @include flexbox();
+      @include justify-content(space-between);
+      @include align-items(center);
+      flex-shrink: 0;
+      margin: 0;
+      padding: 0 1.2rem;
+      padding-top: 1.2rem;
+
+      // border-bottom: 1px solid var(--clr-body-300);
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: capitalize;
+      }
+
+      &.no-flex {
+        display: initial;
+      }
+    }
+
+    .popup-content {
+      -webkit-box-flex: 1;
+      flex-grow: 1;
+      margin: 0;
+      padding: 1rem;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+
+      // max-height: calc(100vh - 250px);
+      // height: 100vh;
+      @include breakpoint-to('xl-tab') {
+        padding: 1rem;
+      }
+
+      &::-webkit-scrollbar {
+        width: 4px;
+        background: var(--clr-body-300);
+        @include radius(4px);
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: var(--clr-body-300);
+        @include radius(4px);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        @include radius(4px);
+        background: var(--border-dark);
+      }
+
+      &.is-center {
+        text-align: center;
+      }
+
+      .custom-tab {
+        .tab-list {
+          li {
+            a {
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+    }
+
+    .popup-footer {
+      @include flexbox();
+      position: relative;
+      flex-shrink: 0;
+      @include flex-wrap(wrap);
+      @include justify-content(center);
+      @include align-items(center);
+      min-height: 50px;
+      margin: 0;
+      padding: 1rem 1rem 2rem 1rem;
+      // border-top: 1px solid var(--clr-body-300);
+    }
+  }
+
+  .popup-container {
+    @include flexbox();
+    @include flex-direction(row);
+    @include justify-content(space-around);
+    margin: 2rem;
+
+    &.sm-popup {
+      .popup-body {
+        @include breakpoint-to('md-phone') {
+          max-width: 480px;
+          min-width: 480px;
+        }
+        @include breakpoint-to('md-tab') {
+          max-width: 576px;
+          min-width: 576px;
+        }
+      }
+    }
+
+    &.lg-popup {
+      .popup-body {
+        position: relative;
+
+        span {
+          &.close-icon {
+            right: 2rem;
+            top: 2rem;
+          }
+        }
+
+        @include breakpoint-to('xl-phone') {
+          max-width: 576px;
+          min-width: 576px;
+          padding: 1rem;
+
+          span {
+            &.close-icon {
+              right: 1rem;
+              top: 1rem;
+            }
+          }
+        }
+
+        @include breakpoint-to('xl-tab') {
+          max-width: 768px;
+          min-width: 768px;
+          padding: 1.5rem;
+
+          span {
+            &.close-icon {
+              right: 1.5rem;
+              top: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+
+    &.xl-popup {
+      .popup-body {
+        position: relative;
+
+        span {
+          &.close-icon {
+            right: 2rem;
+            top: 2rem;
+          }
+        }
+
+        @include breakpoint-to('xl-phone') {
+          max-width: 576px;
+          min-width: 576px;
+          padding: 1rem;
+
+          span {
+            &.close-icon {
+              right: 1rem;
+              top: 1rem;
+            }
+          }
+        }
+
+        @include breakpoint-to('md-tab') {
+          max-width: 768px;
+          min-width: 768px;
+          padding: 1rem;
+
+          span {
+            &.close-icon {
+              right: 1rem;
+              top: 1rem;
+            }
+          }
+        }
+
+        @include breakpoint-to('xl-tab') {
+          max-width: 991px;
+          min-width: 991px;
+          padding: 1.5rem;
+
+          span {
+            &.close-icon {
+              right: 1.5rem;
+              top: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.login-popup {
+    .popup-container {
+      &.lg-popup {
+        .popup-body {
+          fiugre {
+            position: relative;
+            @include flex(0);
+            width: 30%;
+
+            img {
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              object-position: center center;
+            }
+          }
+
+          p {
+            a {
+              color: var(--primary-300);
+            }
+          }
+
+          .forgot-password {
+            color: var(--body-color);
+            text-transform: capitalize;
+          }
+
+          .popup-content {
+            padding: 0;
+
+            .login-content {
+              width: 70%;
+              min-height: 80vh;
+            }
+          }
+
+          @include breakpoint-to('md-tab') {
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &.is-radius {
+    .popup-body {
+      @include radius(10px);
+    }
+  }
+
+  &.open {
+    z-index: 1112;
+    opacity: 1;
+    visibility: visible;
+
+    .popup-container {
+      .popup-body {
+        @include prefix(transform, scale(1), ('webkit', 'ms', 'moz', 'o'));
+        filter: alpha(opacity=100);
+      }
+    }
+  }
+}
+
+.warning-content {
+  @include flex-direction(column);
+  padding: 3rem 3rem 1rem 3rem;
+  text-align: center;
+
+  h4 {
+    text-transform: capitalize;
+    margin-bottom: 0.5rem;
+  }
+
+  .warning-icon {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+
+    i {
+      font-size: 3rem;
+    }
+  }
+}

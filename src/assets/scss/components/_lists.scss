@@ -1,0 +1,316 @@
+dl,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul dt {
+  font-weight: 700;
+}
+
+dd {
+  margin-bottom: 0.5rem;
+  margin-left: 0;
+}
+
+ul {
+  &.pm-list {
+    li {
+      padding: 0.5rem 0.6125rem;
+      position: relative;
+      @include prefix(
+        transition,
+        (all 0.4s ease-in-out),
+        ('web', 'moz', 'ms', 'o')
+      );
+
+      &.is-active {
+        background-color: var(--clr-body-200);
+      }
+      &.is-selected {
+        background-color: var(--clr-body-200);
+        &::after {
+          content: 'check';
+          position: absolute;
+          top: 18px;
+          font-family: 'Material Icons';
+          font-size: var(--fs-h6);
+          right: 1rem;
+          color: var(--clr-body-600);
+          font-weight: bold;
+          @include prefix(
+            transform,
+            translateY(-50%),
+            ('webkit', 'ms', 'moz', 'o')
+          );
+        }
+      }
+    }
+
+    &_border {
+      li {
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--clr-body-300);
+        }
+      }
+    }
+
+    &_after {
+      li {
+        &::after {
+          content: 'expand_more';
+          margin-left: 0.6125rem;
+          content: 'chevron_right';
+          font-family: 'Material Icons';
+          z-index: 99;
+          line-height: 1;
+          position: absolute;
+          top: 50%;
+          right: 10px;
+          @include prefix(
+            transform,
+            translateY(-50%),
+            ('webkit', 'moz', 'ms', 'o')
+          );
+        }
+      }
+
+      &.is-check {
+        li {
+          &::after {
+            content: none;
+            top: 7px;
+            font-size: 1.3rem;
+          }
+
+          &.is-active {
+            background-color: var(--clr-primary-100);
+
+            &::after {
+              content: 'check';
+            }
+          }
+        }
+      }
+    }
+
+    &.is-plus {
+      padding-left: 10px;
+
+      li {
+        position: relative;
+        cursor: pointer;
+
+        a {
+          margin-left: 2rem;
+        }
+
+        &::before {
+          content: 'add_circle_outline';
+          font-size: 1.4rem;
+          font-family: 'Material Icons';
+          z-index: 99;
+          line-height: 1;
+          position: absolute;
+          top: 10px;
+          left: 10px;
+        }
+
+        &.is-active {
+          &::before {
+            content: 'remove_circle_outline';
+          }
+        }
+
+        &.is-checked {
+          &::before {
+            content: 'check';
+          }
+        }
+      }
+    }
+
+    &.is-drag {
+      li {
+        .drag-icon {
+          max-width: 20px;
+          margin-right: 0.6125rem;
+        }
+
+        &:hover {
+          cursor: move;
+        }
+      }
+    }
+
+    &_before {
+      li {
+        padding-left: 1.8rem;
+
+        &::before {
+          content: 'check_circle_outline';
+          font-family: 'Material Icons';
+          color: var(--clr-secondary-500);
+          z-index: 99;
+          line-height: 1;
+          position: absolute;
+          top: 7px;
+          left: 0;
+          font-size: 1.1rem;
+        }
+      }
+      &.is-check-icon {
+        li {
+          &::before {
+            content: 'check_circle';
+            font-size: 1.0975rem;
+            top: 8px;
+          }
+        }
+      }
+    }
+  }
+
+  &.is-checkbox {
+    .custom-checkbox {
+      width: 100%;
+      margin: 0;
+    }
+
+    .check-content {
+      @include flexbox();
+      @include justify-content(flex-start);
+      @include align-items(center);
+      flex-grow: 1;
+
+      i {
+        margin-right: 5px;
+        text-transform: initial;
+      }
+
+      b {
+        text-transform: capitalize;
+      }
+    }
+
+    li {
+      &:hover {
+        background-color: var(--clr-secondary-100);
+      }
+    }
+  }
+}
+
+.is-multi-list {
+  .is-parent {
+    .parent-header {
+      padding: 0.5rem 0.6125rem;
+
+      .custom-checkbox {
+        margin: 0;
+
+        label {
+          font-weight: 600;
+          font-size: 0.875rem;
+          text-transform: capitalize;
+
+          i {
+            margin-right: 0.5rem;
+          }
+        }
+      }
+    }
+
+    ul {
+      li {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+  }
+
+  &.is-after {
+    .is-parent {
+      .parent-header {
+        position: relative;
+
+        &::after {
+          font-size: 1.4rem;
+          font-family: 'Material Icons';
+          color: var(--clr-white-900);
+          z-index: 99;
+          line-height: 1;
+          @include flexbox();
+          @include justify-content(center);
+          @include align-items(center);
+          @include flex-direction(column);
+          @include radius(100%);
+          content: 'add_circle_outline';
+          width: 20px;
+          height: 20px;
+          border: 1px solid var(--clr-body-300);
+          margin-left: 0.6125rem;
+          font-size: 1rem;
+          position: absolute;
+          right: 7px;
+          top: 7px;
+          cursor: pointer;
+        }
+
+        &.is-active {
+          &::after {
+            content: 'remove_circle_outline';
+            border-color: var(--primary-color);
+          }
+        }
+      }
+    }
+  }
+}
+
+.is-chips {
+  @include flexbox();
+  @include align-items(center);
+
+  .chips-item {
+    @include radius(24px);
+    border: 1px solid var(--clr-body-300);
+    @include flexbox();
+    @include justify-content(flex-start);
+    @include align-items(center);
+    background-color: var(--clr-body-100);
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+
+    .chips-icon {
+      margin-left: .5rem;
+      &.is-circle {
+        width: 14px;
+        height: 14px;
+        @include radius(50%);
+        background-color: var(--bg-color);
+      }
+
+      &.is-line {
+        width: 18px;
+        height: 1.5px;
+        background-color: var(--bg-color);
+      }
+    }
+
+    &:not(:last-child) {
+      margin-right: 0.6125rem;
+    }
+  }
+}

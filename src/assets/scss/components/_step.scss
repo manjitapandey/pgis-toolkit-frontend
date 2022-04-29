@@ -1,0 +1,49 @@
+.multistep{
+    
+    &-number{
+        width: 34px;
+        height: 34px;
+        border:2px solid var(--clr-body-300);
+        color:var(--var-body-300);
+        @include radius(100%);
+    }
+    li{
+        position: relative;
+        @include flex-grow(1);
+        &:not(:last-child){
+            &::after{
+                content:'';
+                width:calc(100% - 68px);
+                position: absolute;
+                left:72%;
+                top:30%;
+                transform: translateY(-50%);
+                height: 2px;
+                background-color: var(--clr-body-300);
+            }
+        }
+        &.is-active{
+            font-weight: bold;
+            .multistep-number{
+                color:var(--clr-primary-500);
+                border-color: var(--clr-primary-500);
+            }
+            .multistep-lebel{
+                color:var(--clr-primary-500);
+                
+            }
+           
+        }
+        &.is-complete{
+            .multistep-number{
+                color:var(--clr-white-900);
+                background-color: var(--clr-primary-500);
+                border-color: var(--clr-primary-500);
+            }
+            .multistep-lebel{
+                color:var(--clr-primary-500);
+            }
+           
+        }
+    }
+}

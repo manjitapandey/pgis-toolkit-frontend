@@ -1,0 +1,18 @@
+.dbd-breadcrumb {
+  li {
+    &:not(:last-child) {
+      &::after {
+        content: '';
+        display: inline-flex;
+        width: 0.4rem;
+        height: 0.4rem;
+        border-top: 0.1rem solid #333;
+        border-right: 0.1rem solid #333;
+        -moz-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        margin: 0 0.5rem;
+      }
+    }
+  }
+}

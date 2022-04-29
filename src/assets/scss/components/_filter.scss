@@ -1,0 +1,66 @@
+.filter {
+  .filter-row {
+    .form-group {
+      margin: 0 10px 0 0;
+      max-width: 160px;
+
+      .common-button {
+        &.is-clear {
+          color: var(--secondary-color);
+          font-weight: 500;
+        }
+      }
+
+      .program-count {
+        b {
+          font-family: var(--ff-hd);
+          color: var(--heading-color);
+          margin-right: 0.5rem;
+        }
+      }
+
+      input {
+        &.pm-control {
+          height: calc(1.5em + 0.75rem + 2px);
+
+          @include input-placeholder {
+            color: var(--clr-body-300);
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+
+    .pm-select {
+      p {
+        display: block;
+
+        &.selected-item {
+          min-width: 80px;
+          color: var(--body-light);
+          text-transform: capitalize;
+
+          &::after {
+            text-transform: initial;
+          }
+
+          &.is-bg {
+            @include flexbox();
+            line-height: initial;
+            height: initial;
+            color: var(--clr-white-900);
+          }
+        }
+      }
+    }
+
+    .common-button {
+      padding: 0.5rem 1rem;
+    }
+  }
+}
+
+.filter-content {
+  flex-grow: 1;
+  display: none;
+}

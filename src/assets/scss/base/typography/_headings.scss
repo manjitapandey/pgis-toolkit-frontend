@@ -1,0 +1,86 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--ff-hd);
+  margin: 0;
+  position: relative;
+  line-height: 1.1;
+  background: none;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+  color: var(--heading-color);
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  letter-spacing: 0;
+  line-height: 1.16;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  line-height: 1.25;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.38;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: var(--fs-h4);
+  line-height: 1.19;
+  font-weight: normal;
+}
+
+h5 {
+  font-size: var(--fs-h5);
+  line-height: 1.15;
+  font-weight: normal;
+}
+
+h6 {
+  font-size: var(--fs-h6);
+  line-height: 1.27;
+  font-weight: normal;
+}
+
+.font-size-h6 {
+  font-size: var(--fs-h6);
+  font-weight: normal;
+}
+
+.fs-body {
+  font-size: var(--fs-body);
+  line-height: 1.375;
+}
+.fs-btn {
+  font-size: var(--fs-btn);
+  font-weight: bold;
+}
+
+.fs-btn-md {
+  font-size: var(--fs-md);
+  font-weight: normal;
+}
+.fs-md {
+  font-size: var(--fs-md);
+  line-height: 1.43;
+}
+.fs-sm {
+  font-size: var(--fs-sm);
+  line-height: 1.33;
+  font-weight: normal;
+}

@@ -1,0 +1,37 @@
+.pagination {
+    ul {
+        li {
+            a {
+                color: var(--primary-color);
+                font-weight: 500;
+                @include transition(all .5s ease-in-out);
+            }
+
+            &.page-number {
+                a {
+                    width: 32px;
+                    height: 32px;
+                    @include flexbox();;
+                    @include justify-content(center);
+                    @include align-items(center);
+                    @include flex-direction(column);
+                }
+            }
+
+            &.preview,
+            &.next {
+                padding: .25rem .5rem;
+            }
+
+            &.is-active,
+            &:hover {
+                background-color: var(--primary-light);
+            }
+
+            &:not(:last-child) {
+                margin-right: 1rem;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,192 @@
+.toaster {
+  position: fixed;
+  right: -100%;
+  @include transition(all 0.9s ease-in-out);
+  top: 10%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1001;
+
+  &.active {
+    opacity: 1;
+    right: 0;
+    visibility: visible;
+  }
+}
+
+.toast {
+  padding: 1.2rem 1rem;
+  background-color: var(--clr-white-900);
+  @include radius(4px);
+  max-width: 500px;
+  position: relative;
+  box-shadow: 1px 7px 14px -5px rgba(0, 0, 0, 0.2);
+  @include flexbox();
+  @include justify-content(flex-start);
+  @include align-items(center);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+
+  .toast__svg {
+    fill: var(--clr-white-900);
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+    padding: 7px;
+    @include radius(50%);
+    @include flexbox();
+    @include flex-direction(column);
+    @include justify-content(center);
+    @include align-items(center);
+  }
+
+  .type {
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    text-transform: capitalize;
+  }
+
+  .message {
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+
+  .content {
+    flex-grow: 1;
+    padding: 0 1rem;
+  }
+
+  &.is-success {
+    .icon,
+    &::before {
+      background-color: var(--primary-color);
+    }
+
+    .type {
+      color: var(--primary-color);
+    }
+  }
+
+  &.is-pending {
+    .icon,
+    &::before {
+      background-color: var(--blue-color);
+    }
+
+    .type {
+      color: var(--blue-color);
+    }
+  }
+
+  &.is-error {
+    .icon,
+    &::before {
+      background-color: var(--red-color);
+    }
+
+    .type {
+      color: var(--red-color);
+    }
+  }
+
+  &.invitation-toast {
+    display: block;
+
+    .card-header {
+      padding: 0;
+      margin-bottom: 10px;
+
+      h5 {
+        font-size: 0.875rem;
+      }
+
+      .inline-item {
+        &:last-child {
+          .common-button {
+            i {
+              color: var(--secondary-color);
+            }
+
+            color: var(--secondary-color);
+          }
+        }
+
+        &:not(:last-child) {
+          margin-right: 0.6125rem;
+        }
+      }
+    }
+
+    .common-button {
+      min-width: initial;
+      min-height: initial;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.6125rem;
+    }
+
+    .buttons {
+      .common-button {
+        @include radius(4px);
+      }
+    }
+
+    ul {
+      li {
+        display: block;
+
+        p {
+          a {
+            color: var(--primary-color);
+          }
+        }
+
+        .buttons {
+          @include flexbox();
+          @include justify-content(flex-start);
+          @include align-items(center);
+          margin-top: 8px;
+
+          .common-button {
+            padding: 5px 10px;
+
+            &.success {
+              border-color: var(--primary-color);
+              color: var(--primary-color);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}
+
+.close {
+  position: absolute;
+  right: 22px;
+  top: 20px;
+  width: 14px;
+  cursor: pointer;
+  height: 14px;
+  fill: var(--body-color);
+}

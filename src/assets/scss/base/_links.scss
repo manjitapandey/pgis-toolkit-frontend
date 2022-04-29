@@ -1,0 +1,38 @@
+// a {
+//     color: var(--primary-color);
+//     text-decoration:none;
+
+// 	&:visited {
+// 		color: var(--primary-color);
+// 	}
+
+// 	&:hover,
+// 	&:focus,
+// 	&:active {
+// 		color: var(--secondary-color);
+// 	}
+
+// 	&:focus {
+// 		outline: thin dotted;
+// 	}
+
+// 	&:hover,
+// 	&:active {
+// 		outline: 0;
+// 	}
+// }
+
+a {
+  text-decoration: none;
+  background-color: transparent;
+  color: var(--clr-body-900);
+
+  &:hover {
+    color: inherit;
+  }
+
+  &:not([href]) {
+    color: inherit;
+    text-decoration: none;
+  }
+}

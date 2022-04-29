@@ -1,0 +1,53 @@
+ul {
+  &.social-list {
+    @include flexbox();
+    @include justify-content(flex-start);
+    @include align-items(center);
+
+    li {
+      font-weight: 500;
+
+      a {
+        width: 30px;
+        height: 30px;
+        @include radius(50%);
+        @include flexbox();
+        @include justify-content(center);
+        @include align-items(center);
+        @include flex-direction(column);
+        @include box-shadow(0 10px 30px rgba(112, 112, 112, 0.33));
+        background-color: var(--clr-white-900);
+        @include transition(all 0.5s ease-in-out);
+
+        svg {
+          color: var(--body-color);
+          margin: 0;
+        }
+
+        &:hover {
+          background-color: var(--secondary-color);
+
+          svg {
+            color: var(--clr-white-900);
+          }
+        }
+      }
+
+      &:not(:last-child) {
+        margin-right: 0.6125rem;
+      }
+    }
+
+    &.is-center {
+      @include justify-content(center);
+    }
+
+    &.is-between {
+      @include justify-content(space-between);
+    }
+
+    &.is-end {
+      @include justify-content(flex-start);
+    }
+  }
+}

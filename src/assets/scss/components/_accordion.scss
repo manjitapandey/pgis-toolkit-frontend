@@ -1,0 +1,187 @@
+.acc {
+  .acc-list {
+    &_header {
+      position: relative;
+      padding: 0.5rem 0;
+      cursor: pointer;
+      h5 {
+        font-size: 0.8125rem;
+        @include flex-grow(1);
+        @include trim(1);
+      }
+      i {
+        font-size: 1.2rem;
+      }
+      &::after,
+      &::before {
+        font-size: 1.4rem;
+        font-family: 'Material Icons';
+        color: var(--body-color);
+        z-index: 99;
+        line-height: 1;
+        @include flexbox();
+        @include justify-content(center);
+        @include align-items(center);
+        @include flex-direction(column);
+        @include radius(100%);
+        position: absolute;
+        right: 0;
+        top:10px;
+      }
+      .custom-checkbox {
+        margin: 0;
+        label {
+          margin: 0;
+          font-weight: 600;
+          text-transform: capitalize;
+        }
+      }
+      &.is-start {
+        @include justify-content(flex-start);
+      }
+      &.is-end {
+        @include justify-content(flex-end);
+      }
+      &.is-between {
+        @include justify-content(space-between);
+      }
+    }
+    &_body {
+      display: none;
+      padding: 0.5rem 0;
+      &::-webkit-scrollbar {
+        width: 4px;
+        background: var(--clr-body-300);
+        @include radius(4px);
+      }
+      &::-webkit-scrollbar-track {
+        background-color: var(--clr-body-300);
+        @include radius(4px);
+      }
+      &::-webkit-scrollbar-thumb {
+        @include radius(4px);
+        background: var(--border-dark);
+      }
+
+      ul {
+        &.is-list {
+          li {
+            &:hover,
+            &.is-list_active {
+              background-color: var(--secondary-100);
+              cursor: pointer;
+            }
+          }
+          &_after {
+            li {
+              position: relative;
+            }
+            &.is-check {
+              li {
+                &.is-active {
+                  background-color: var(--secondary-100);
+                  a {
+                    color: var(--heading-color);
+                  }
+                }
+              }
+            }
+          }
+          ul {
+            li {
+              padding-left: 3.5rem;
+            }
+          }
+        }
+      }
+    }
+    &.is-bg {
+      background-color: var(--bg-color);
+      @include radius(5px);
+      .acc-header {
+        padding: 0.6125rem;
+      }
+      .acc-body {
+        padding: 0 0.6125rem 0.6125rem 0.6125rem;
+        &.is-bg {
+          background-color: var(--clr-white-900);
+          border: 1px solid var(--clr-body-300);
+          @include radius(5px);
+          padding-top: 10px;
+        }
+      }
+    }
+    &_active {
+      .acc-list_header {
+        h5 {
+          color: var(--primary-color);
+        }
+      }
+      .acc-list_body {
+        display: block;
+      }
+    }
+  }
+  &-before {
+    .acc-list {
+      .acc-list_header {
+        padding-left:1.5rem;
+        &::before {
+          content: 'expand_more';
+          margin-right: 0.5rem;
+          right: unset;
+          left:0;
+        }
+      }
+      &_active {
+        .acc-list_header {
+          &::before {
+            content: 'expand_less';
+          }
+        }
+      }
+    }
+  }
+  &-after {
+    .acc-list {
+      .acc-list_header {
+        &::after {
+          content: 'expand_more';
+          width: 24px;
+          height: 24px;
+        }
+      }
+      &_active {
+        .acc-list_header {
+          &::after {
+            content: 'expand_less';
+            color: var(--primary-color);
+          }
+        }
+      }
+    }
+  }
+  &_border {
+    @include radius(4px);
+    .acc-list {
+      &_header {
+        padding: 0.5rem 0.6125rem;
+      }
+      &_body {
+        padding: 0;
+        ul {
+          li {
+            padding: 0.35rem 0.6125rem;
+            padding-left: 2.2rem;
+            a {
+              text-transform: capitalize;
+            }
+          }
+        }
+      }
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--clr-body-300);
+      }
+    }
+  }
+}

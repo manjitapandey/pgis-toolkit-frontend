@@ -1,0 +1,47 @@
+// Breakpoints
+
+// calling method
+
+$breakpoints: (
+  'sm-phone': (
+    min-width: 320px,
+  ),
+  'mmd-phone': (
+    min-width: 375px,
+  ),
+  'md-phone': (
+    min-width: 480px,
+  ),
+  'xl-phone': (
+    min-width: 576px,
+  ),
+  'md-tab': (
+    min-width: 767.9px,
+  ),
+  'lg-tab': (
+    min-width: 991.9px,
+  ),
+  'xl-tab': (
+    min-width: 1024px,
+  ),
+  'md-desktop': (
+    min-width: 1280px,
+  ),
+  'xl-desktop': (
+    min-width: 1368px,
+  ),
+);
+
+// calling method
+// @include breakpoint-to('sm-phone') {
+//     color: blue;
+//   }
+
+// Breakpoints
+// $breakpoints:( small:40em, medium:65em);
+// @mixin mq($key) {
+//     $size: map-get($breakpoints, $key);
+//     @media only screen and (min-width: $size) {
+//         @content;
+//     }
+// }

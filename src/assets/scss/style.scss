@@ -1,0 +1,40 @@
+/*
+Template Name: USAFIRI;
+Template URI:
+Author: Prem Prasad Khanal
+Author URI: http://premkhanal.com.np/
+Description: USAFIRI is the first humanitarian digital platform designed for project monitoring and infrastructure quality assurance. 
+Version: 1.0.0
+Primary use: Monitoring system
+*/
+
+@charset 'utf-8';
+
+// Import variables and mixins.
+@import 'abstracts/abstracts';
+
+/*--------------------------------------------------------------
+# Base
+--------------------------------------------------------------*/
+@import 'base/base';
+
+/* Accessibility
+--------------------------------------------- */
+@import 'utilities/accessibility';
+
+/* Alignments
+--------------------------------------------- */
+@import 'utilities/alignments';
+
+/* Layout
+--------------------------------------------- */
+@import 'layouts/layout';
+
+/*--------------------------------------------------------------
+# Components
+--------------------------------------------------------------*/
+@import 'components/components';
+
+/* pages
+--------------------------------------------- */
+@import 'pages/pages';

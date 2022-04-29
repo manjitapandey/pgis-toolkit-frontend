@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2964" data-name="Rectangle 2964" width="32" height="32" transform="translate(32 362)" fill="#d7d7d7"/>
+    </clipPath>
+  </defs>
+  <g id="form-icon" transform="translate(-32 -362)" clip-path="url(#clip-path)">
+    <g id="Group_6909" data-name="Group 6909" transform="translate(-24 -454.508)">
+      <g id="Page-1" transform="translate(61 818.508)" opacity="0.5">
+        <g id="Icon-Set-Filled">
+          <path id="file-document" d="M172.9,107.759a1.69,1.69,0,0,1-1.69-1.69V102.69l5.069,5.069ZM171.207,101v.024L159.379,101A3.379,3.379,0,0,0,156,104.379v20.276a3.379,3.379,0,0,0,3.379,3.379h15.207a3.379,3.379,0,0,0,3.379-3.379v-16.9L171.207,101Z" transform="translate(-156 -101)" fill="#05f" fill-rule="evenodd"/>
+        </g>
+      </g>
+      <g id="Page-1-2" data-name="Page-1" transform="translate(65.744 831.017)">
+        <g id="Icon-Set-Filled-2" data-name="Icon-Set-Filled" transform="translate(0 0)">
+          <path id="multiple-documents-files" d="M228.34,115.588h-9.491a1.053,1.053,0,1,1,0-2.107h9.491a1.053,1.053,0,1,1,0,2.107Zm0,5.267h-9.491a1.053,1.053,0,1,1,0-2.107h9.491a1.053,1.053,0,1,1,0,2.107Z" transform="translate(-217.794 -113.481)" fill="#05f" fill-rule="evenodd"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

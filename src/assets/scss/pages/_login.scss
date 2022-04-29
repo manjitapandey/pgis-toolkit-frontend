@@ -1,0 +1,59 @@
+.login-page{
+    padding:1rem;
+    .login-cover{
+        min-height: calc(100vh - 2rem);
+        @include flex-value(0 0 100%);
+        max-width: 100%;
+        border-radius: 16px;
+
+        @include breakpoint-to('lg-tab') {
+            @include flex-value(0 0 360px);
+            max-width: 360px;
+        }
+        
+        @include breakpoint-to('md-desktop') {
+            @include flex-value(0 0 460px);
+            max-width: 460px;
+        }
+        padding:2rem;
+        background-size: cover;
+            object-fit: cover;
+            background-position: bottom;
+        &_header{
+            
+        }
+        &_body{
+            color:var(--clr-white-900);
+        }
+    }
+    .login-form{
+        width:100% ;
+        @include breakpoint-to('lg-tab') {
+            width:calc(100% - 360px);
+        }
+        
+        @include breakpoint-to('md-desktop') {
+            width:calc(100% - 460px);
+        }
+        &_content{
+            max-width: 500px;
+            width: 100%;
+            margin:0 auto;
+            padding:2rem;
+        }
+        &_header{
+            figure{
+                margin:0 auto;
+            }
+        }
+        .is-btn{
+            &_secondary{
+                color:var(--clr-body-600);
+                font-weight: normal;
+                svg{
+                    max-width: 16px;
+                }
+            }
+        }
+    }
+}

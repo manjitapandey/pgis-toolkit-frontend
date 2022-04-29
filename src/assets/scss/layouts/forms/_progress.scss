@@ -1,0 +1,62 @@
+.pm-progress {
+  @include flexbox();
+  @include align-items(center);
+  height: 10px;
+  @include radius(24px);
+  background-color: var(--clr-body-300);
+
+  &_bar {
+    @include flexbox();
+    @include justify-content(center);
+    @include flex-direction(column);
+    color: var(--clr-white-900);
+    text-align: center;
+    white-space: nowrap;
+    @include transition(width 0.6s ease);
+    height: 100%;
+    font-size: var(--fs-sm);
+
+    &.is-primary {
+      background-color: var(--clr-primary-500);
+    }
+
+    &.is-secondary {
+      background-color: var(--clr-secondary-500);
+    }
+
+    &.is-green {
+      background-color: var(--clr-green-500);
+    }
+
+    &.is-orange {
+      background-color: var(--clr-orange-500);
+    }
+
+    &.is-red {
+      background-color: var(--clr-red-500);
+    }
+
+    &.is-blue {
+      background-color: var(--clr-blue-500);
+    }
+
+    &.is-purple {
+      background-color: var(--clr-purple-500);
+    }
+
+    &:last-child {
+      border-radius: 0 24px 24px 0;
+    }
+
+    &:first-child {
+      border-radius: 24px 0 0 24px;
+    }
+  }
+  &_sm {
+    height: 8px;
+  }
+
+  &_md {
+    height: 20px;
+  }
+}

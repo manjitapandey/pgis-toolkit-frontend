@@ -1,0 +1,61 @@
+/// Mixin helper to output vendor prefixes
+/// @access public
+/// @author Prem Prasad Khanal
+/// @param {String} $property - Unprefixed CSS property
+/// @param {*} $value - Raw CSS value
+/// @param {List} $prefixes - List of prefixes to output
+@mixin prefix($property, $value, $prefixes: ()) {
+    @each $prefix in $prefixes {
+        -#{$prefix}-#{$property}: $value;
+    }
+    // #{$property}: $value;
+}
+
+// calling method
+//  @include prefix(transform, scale(90deg), ('webkit', 'ms', 'moz', 'o'));
+/// Responsive breakpoint manager
+/// @access public
+/// @param {String} $breakpoint - Breakpoint
+/// @requires $breakpoints
+@mixin breakpoint-to($breakpoint) {
+    $raw-query: map-get($breakpoints, $breakpoint);
+    @if $raw-query {
+        $query: if(type-of($raw-query)=='string', unquote($raw-query), inspect($raw-query));
+        @media #{$query} {
+            @content;
+        }
+    }
+    @else {
+        @error 'No value found for `#{$breakpoint}`. '+'Please make sure it is defined in `$breakpoints` map.';
+    }
+}
+
+// size
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+// calling method 
+// @include size(100%, 10em);
+// scss-docs-start mixin-color-scheme
+@mixin color-scheme($name) {
+    @media (prefers-color-scheme: #{$name}) {
+        @content;
+    }
+}
+
+@import "dark-mode";
+@import "flex";
+@import "radius";
+@import "break-word";
+@import "boxshadow";
+@import "placeholder";
+@import "cover";
+@import "ellipsis";
+@import "clear";
+// @import "backface-visibility";
+@import "scrollbar";
+@import "opacity";
+@import "user-select";
+@import "animation";

@@ -1,0 +1,27 @@
+@mixin scrollbar($bg, $thumb, $hover) {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 100vw;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $bg;
+    border-radius: 100vw;
+    margin-block: 0.5em;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 100vw;
+    background: $thumb;
+  }
+
+  @support (scrollbar-color:$bg $hover) {
+    scrollbar-color: $bg $hover;
+    scrollbar-width: auto;
+  }
+}

@@ -1,113 +1,198 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import loginActions from '@Actions/login';
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react-hooks/exhaustive-deps */
+
+import React, { useState, useRef, useEffect } from 'react';
+// import PropTypes from 'prop-types';
+// import { Link } from 'react-router-dom';
+import loginActions, { Types } from '@Actions/login';
 import Loader from '@Components/common/Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import LoaderImage from '@Assets/images/login-cover.png';
+import LoginLogo from '@Assets/images/login-logo.png';
+import useForm from '@Hooks/useForm';
+import { loadingSelector } from '@src/selectors/loader';
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-    };
-  }
+const initialState = {
+  username: '',
+  password: '',
+  // user_type: 'ODP',
+};
 
-  handleInputChange = (e) => {
-    const {
-      target: { name, value },
-    } = e;
-    this.setState({
-      [name]: value,
-    });
-  };
+const Login = () => {
+  const dispatch = useDispatch();
+  const loginbodyRef = useRef();
+  const submitButtonRef = useRef();
+  const [showPassword, setShowPassword] = useState(false);
 
-  handleLogin = (e) => {
-    e.preventDefault();
-    const {
-      state: { username, password },
-      props: { loginRequest },
-    } = this;
+  const isLoading = useSelector(loadingSelector([Types.LOGIN_REQUEST]));
 
-    loginRequest({ username, password });
-  };
+  const { values, meta, inputProps, handleChange, handleSubmit } = useForm({
+    initialValues: initialState,
+    required: ['username', 'password'],
+    onSubmit: (data) => {
+      console.log(data, 'data');
+      dispatch(loginActions.loginRequest(data));
+    },
+  });
 
-  render() {
-    const {
-      state: { username, password },
-      props: { loading },
-      handleInputChange,
-
-      handleLogin,
-    } = this;
-
-    if (loading) {
-      return <Loader />;
+  const onSubmitEnter = (event) => {
+    if (event.key === 'Enter') {
+      submitButtonRef.current.click();
     }
+  };
 
-    return (
-      <div>
-        <div className="row">
-          <div className="col-sm-6 col-md-4 col-md-offset-4">
-            <h1 className="text-center login-title">Login to continue to Bootsnipp</h1>
-            <div className="account-wall">
-              <img
-                className="profile-img"
-                src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-                alt=""
-              />
-              <form className="form-signin" onSubmit={handleLogin}>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Name"
-                  name="username"
-                  value={username}
-                  onChange={handleInputChange}
-                  required
-                />
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Password"
-                  name="password"
-                  value={password}
-                  onChange={handleInputChange}
-                  required
-                />
-                <button className="btn btn-lg btn-primary btn-block" type="submit">
-                  Login
+  useEffect(() => {
+    loginbodyRef.current.addEventListener('keypress', onSubmitEnter);
+    return () => {
+      loginbodyRef.current.removeEventListener('keypress', onSubmitEnter);
+    };
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+  return (
+    <main className="login-page">
+      <div className="container-fluid">
+        <div className="is-flex is-wrap">
+          <div className="login-cover bg-image" style={{ background: `url(${LoaderImage})` }}>
+            <div className="loing-cover_header">
+              <a href="#">
+                <img src={LoginLogo} alt="" />
+              </a>
+            </div>
+            <div className="login-cover_body mt-30">
+              <h3 className="mb-30">Integrated Mapping tool for Spatial Data-driven Interventions Planning</h3>
+              <p>Piloting the tool for Transport Mobility Assessment</p>
+            </div>
+          </div>
+          <div className="login-form flex-1 is-flex is-center is-column is-align-center">
+            <div className="login-form_content">
+              <div className="login-form_header is-text-center">
+                <figure className="is-circle is-circle_sm is-circle_img">
+                  <img src="images/admin/profile.jpg" alt="" />
+                </figure>
+                <h3>Sign in</h3>
+              </div>
+              <div className="login-form_body mt-30" ref={loginbodyRef}>
+                <div className="pm-group">
+                  <button
+                    type="button"
+                    className="is-flex is-center is-align-center is-btn is-btn_secondary is-btn_full is-gap-10"
+                  >
+                    <svg
+                      id="search"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24.049"
+                      height="24.049"
+                      viewBox="0 0 24.049 24.049"
+                    >
+                      <path
+                        id="Path_3168"
+                        data-name="Path 3168"
+                        d="M5.33,146.307l-.837,3.125-3.06.065a12.046,12.046,0,0,1-.089-11.228h0l2.724.5,1.193,2.708a7.176,7.176,0,0,0,.067,4.832Z"
+                        transform="translate(0 -131.773)"
+                        fill="#fbbb00"
+                      />
+                      <path
+                        id="Path_3169"
+                        data-name="Path 3169"
+                        d="M273.178,208.176a12.02,12.02,0,0,1-4.286,11.623h0l-3.431-.175-.486-3.031a7.167,7.167,0,0,0,3.083-3.66h-6.43v-4.757h11.55Z"
+                        transform="translate(-249.339 -198.398)"
+                        fill="#518ef8"
+                      />
+                      <path
+                        id="Path_3170"
+                        data-name="Path 3170"
+                        d="M48.628,316.277h0A12.028,12.028,0,0,1,30.509,312.6l3.9-3.19a7.152,7.152,0,0,0,10.305,3.661Z"
+                        transform="translate(-29.076 -294.876)"
+                        fill="#28b446"
+                      />
+                      <path
+                        id="Path_3171"
+                        data-name="Path 3171"
+                        d="M46.979,2.768l-3.9,3.189A7.15,7.15,0,0,0,32.542,9.7L28.625,6.495h0A12.027,12.027,0,0,1,46.979,2.768Z"
+                        transform="translate(-27.28)"
+                        fill="#f14336"
+                      />
+                    </svg>
+                    <span>Sign in with Google</span>
+                  </button>
+                </div>
+                <div className="pm-group">
+                  <div className="or is-flex is-start is-align-center is-gap-10">
+                    <span className="t-border is-grow" />
+                    <span>Or</span>
+                    <span className="t-border is-grow" />
+                  </div>
+                </div>
+                <div className="pm-group">
+                  <label className="fw-bold">Email</label>
+                  <input
+                    type="email"
+                    className={`pm-control ${meta.username.error && meta.password.touched ? 'is-invalid' : ''}`}
+                    placeholder="Email"
+                    name="username"
+                    value={values.username}
+                    onChange={handleChange}
+                    {...inputProps}
+                  />
+                </div>
+                <div className="pm-group">
+                  <label className="fw-bold"> password</label>
+                  <div className="custom-input-group">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      className={`pm-control ${meta.username.error && meta.password.touched ? 'is-invalid' : ''}`}
+                      placeholder="passowrd"
+                      name="password"
+                      value={values.password}
+                      onChange={handleChange}
+                      {...inputProps}
+                    />
+                    <span
+                      className="span-group pr-10"
+                      onClick={() => setShowPassword(!showPassword)}
+                      onKeyDown={() => {}}
+                    >
+                      <i className="material-icons">{`${showPassword ? 'visibility' : 'visibility_off'}`}</i>
+                    </span>
+                  </div>
+                </div>
+                <div className="pm-group">
+                  <div className="is-flex is-between is-align-center is-wrap">
+                    <div className="pm-checkbox mb-0">
+                      <input type="checkbox" id="signin" />
+                      <label htmlFor="signin" className="fs-md">
+                        Keep me signed in
+                      </label>
+                    </div>
+                    <a href="#" className="is-forgot is-underline">
+                      Forgot Your Password?
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="login-form_footer is-flex is-center is-align-center mt-30">
+                <button
+                  ref={submitButtonRef}
+                  type="button"
+                  className="is-btn is-btn_primary is-btn_full is-center"
+                  onClick={handleSubmit}
+                >
+                  Sign in
                 </button>
-                <span className="clearfix" />
-                <Link className="btn btn-lg btn-primary btn-block mt-10" to="/register">
-                  Register
-                </Link>
-              </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
-}
-
-Login.propTypes = {
-  loginRequest: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
+    </main>
+  );
 };
+// Login.propTypes = {
+//   loginRequest: PropTypes.func.isRequired,
+//   loading: PropTypes.bool.isRequired,
+// };
 
-const mapStateToProps = (state) => {
-  const {
-    login: { loading },
-  } = state;
-  return {
-    loading,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  loginRequest: (payload) => dispatch(loginActions.loginRequest(payload)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

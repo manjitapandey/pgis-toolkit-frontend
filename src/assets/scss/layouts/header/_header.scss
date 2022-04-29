@@ -1,0 +1,11 @@
+@import 'breadcrumb';
+@import 'menu';
+.dbd-header {
+  .logo{
+    img{
+      max-height: 50px;
+    }
+  }
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--clr-body-500);
+}

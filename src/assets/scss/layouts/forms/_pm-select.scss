@@ -1,0 +1,234 @@
+.pm-select {
+  position: relative;
+  width: min(120px, 150px);
+  &_100 {
+    width: 100%;
+  }
+
+  .search-bar {
+    position: relative;
+    max-width: 94%;
+    margin: 0.6125rem auto;
+
+    .search-wrap {
+      max-width: 100%;
+
+      .span-group {
+        width: 40px;
+      }
+    }
+  }
+
+  &_item {
+    width: 100%;
+    position: relative;
+    border: 1px solid var(--clr-body-300);
+    border-radius: 4px;
+    height: calc(1.45em + 0.75rem + 2px);
+    padding: 0.45rem 0.75rem;
+    padding-right: 2.3rem;
+    position: relative;
+    cursor: pointer;
+    background-color: var(--clr-white-900);
+    @include trim(1);
+    // min-width: 120px;
+    text-transform: capitalize;
+    @include trim(1);
+    span{
+      @include trim(1)
+    }
+    &.is-radius-24{
+      border-radius: 24px;
+    }
+
+    &.is-bg {
+      @include radius(24px);
+      line-height: auto;
+      @include flexbox();
+      @include justify-content(flex-start);
+      @include align-items(center);
+
+      &::after {
+        text-transform: initial;
+        top: 50%;
+        @include prefix(
+          transform,
+          translateY(-50%),
+          ('webkit', 'ms', 'moz', 'o')
+        );
+        color: var(--clr-white-900);
+      }
+    }
+    
+
+    i {
+      margin-right: 0.5rem;
+      font-size: 1rem;
+    }
+
+    &::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-top: 0.3rem solid;
+      border-right: 0.3rem solid transparent;
+      border-bottom: 0;
+      border-left: 0.3rem solid transparent;
+      @include prefix(
+        transform,
+        translateY(-50%),
+        ('webkit', 'ms', 'moz', 'o')
+      );
+      position: absolute;
+      right: 15px;
+      top: 1rem;
+      @include box-shadow(0 10px 40px rgba(var(--clr-body-900), 0.2));
+    }
+  }
+
+  &_list {
+    min-width: 150px;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    z-index: 1012;
+    background-color: var(--clr-white-900);
+    @include box-shadow(0 5px 15px rgba(0, 0, 0, 0.15));
+    max-height: 300px;
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    border-radius: 4px;
+    @include prefix(
+      transition,
+      (all 0.2s ease-in-out),
+      ('webkit', 'ms', 'moz', 'o')
+    );
+    padding: 0.5rem 0;
+
+    li {
+      padding: 0.35rem 0.6125rem;
+      cursor: pointer;
+      @include transition(all 0.3s linear);
+      &.is-active {
+        &::after {
+          position: absolute;
+          content: '';
+          display: inline-block;
+          transform: rotate(45deg);
+          height: 14px;
+          width: 7px;
+          right: 1rem;
+          border-bottom: 2px solid var(--clr-primary-500);
+          border-right: 2px solid var(--clr-primary-500);
+        }
+      }
+      i {
+        font-size: 1.2rem;
+        max-width: 18px;
+        @include flex(0 0 24px);
+        max-width: 24px;
+        line-height: 1;
+      }
+
+      img {
+        max-width: 14px;
+      }
+
+      &:hover {
+        background-color: var(--clr-body-100);
+      }
+    }
+
+    &.right-select {
+      right: 0;
+    }
+
+    &.left-select {
+      left: 0;
+    }
+  }
+
+  &.is-bg {
+    .select-item {
+      border-color: var(--clr-body-500);
+
+    }
+  }
+  &_min {
+    width: min(70px, 150px);
+  }
+
+  &_sort {
+    p {
+      &.pm-select_item {
+        border: none;
+      }
+    }
+  }
+
+  &_inline {
+    display: inline-block;
+    width: auto;
+  }
+
+  &_show {
+    .pm-select_item {
+      border-color: var(--clr-body-600);
+      background-color: var(--clr-body-100);
+
+      &::after {
+        border-top: 0;
+        border-right: 0.3rem solid transparent;
+        border-bottom: 0.3rem solid;
+        border-left: 0.3rem solid transparent;
+      }
+    }
+
+    .pm-select_list {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &_disable {
+    .pm-select_item {
+      background-color: transparent;
+      cursor: not-allowed;
+    }
+  }
+
+  &_transparent {
+    .pm-select_item {
+      background-color: transparent;
+      border: none;
+      width: auto;
+      display: inline-block;
+      padding: 0;
+      padding-right: 2rem;
+
+      &::after {
+        top: -2px;
+        transform: none;
+        line-height: 1;
+      }
+    }
+  }
+}
+
+.select-add-icon {
+  i {
+    font-size: var(--fs-h6);
+    cursor: pointer;
+  }
+
+  &.is-right {
+    margin-left: 0.5rem;
+  }
+
+  &.is-left {
+    margin-right: 0.5rem;
+  }
+}

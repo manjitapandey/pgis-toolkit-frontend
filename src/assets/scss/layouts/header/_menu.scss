@@ -1,0 +1,18 @@
+.nav{
+    ul{
+        width: 100%;
+        li{
+            opacity: .5;
+            a{
+                font-weight: bold;
+                text-transform: capitalize;
+                i{
+                    font-size: var(--fs-body);
+                }
+            }
+            &.is-active{
+                opacity: 1;
+            }
+        }
+    }
+}

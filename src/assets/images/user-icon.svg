@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2965" data-name="Rectangle 2965" width="32" height="32" transform="translate(32 223)" fill="#d7d7d7"/>
+    </clipPath>
+  </defs>
+  <g id="user-icon" transform="translate(-32 -223)" clip-path="url(#clip-path)">
+    <g id="Group_6910" data-name="Group 6910" transform="translate(24 -133.157)">
+      <g id="Page-1" transform="translate(11 359.156)" opacity="0.5">
+        <g id="Icon-Set-Filled">
+          <path id="user-list" d="M423.171,325.674c4.144,0,7.5-3.733,7.5-8.337s-3.359-8.337-7.5-8.337-7.5,3.733-7.5,8.337,3.359,8.337,7.5,8.337Zm7.256-2.235a8.7,8.7,0,0,1-14.512,0,4.942,4.942,0,0,0-1.915,3.9v3.335a5,5,0,0,0,5,5h8.337a5,5,0,0,0,5-5v-3.335a4.942,4.942,0,0,0-1.915-3.9Z" transform="translate(-414 -309)" fill="#05f" fill-rule="evenodd"/>
+        </g>
+      </g>
+      <g id="Page-1-2" data-name="Page-1" transform="translate(29.83 362.285)">
+        <g id="Icon-Set-Filled-2" data-name="Icon-Set-Filled" transform="translate(0 0)">
+          <path id="user-list-2" data-name="user-list" d="M441.125,324.347h-5a.834.834,0,1,0,0,1.667h5a.834.834,0,1,0,0-1.667Zm0-5h-6.67c-.461,0-.461,1.667,0,1.667h6.67a.834.834,0,1,0,0-1.667Zm-6.67-3.335h6.67a.834.834,0,0,0,0-1.667h-6.67c-.461,0-.461,1.667,0,1.667Zm6.67,13.34h-5a.834.834,0,1,0,0,1.667h5a.834.834,0,1,0,0-1.667Z" transform="translate(-434.109 -314.342)" fill="#05f" fill-rule="evenodd"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

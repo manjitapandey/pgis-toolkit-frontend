@@ -1,0 +1,95 @@
+// slider
+
+.slider {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 2rem;
+    margin: 0 auto;
+    margin-top: 1rem;
+}
+
+// number indicator below slider
+.slider-output {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    display: block;
+    box-sizing: border-box;
+    transform: translateX(-50%);
+    color: var(--primary-color);
+}
+
+.slider-track {
+    height: .35rem;
+    background-color: var(--bg-color);
+    border-radius: .25rem;
+}
+
+// slider circle handle
+.slider-thumb {
+    position: absolute;
+    top: -.5rem;
+    left: 50%;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-left: -1rem;
+    border-radius: 1rem;
+    background-color: var(--primary-color);
+}
+
+// dark gray part of slider
+.slider-level {
+    width: 50%;
+    height: .35rem;
+    background-color: var(--primary-color);
+    border-radius: 1rem;
+}
+
+// actual slider
+.slider-input {
+    -webkit-appearance: none;
+    position: absolute;
+    width: 105%; // specific width is required for Firefox
+    height: 1.5rem;
+    margin-left: -2.5%;
+    background-color: transparent;
+    outline: none;
+}
+
+.slider-input::-webkit-slider-thumb {
+    width: 2rem;
+    height: 8rem;
+    -webkit-appearance: none;
+}
+
+// removes the blue border but should add focus styling for accessibility
+input[type=range]:focus {
+    outline: none;
+}
+
+// removes the dotted border in Firefox
+input[type=range]::-moz-focus-outer {
+    border: 0;
+}
+
+// Firefox
+input[type=range]::-moz-range-thumb {
+    background-color: transparent;
+    opacity: 0;
+    visibility: hidden;
+    background: transparent;
+    background-color: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+// IE
+input[type=range]::-ms-track {
+    width: 100%;
+    background: transparent;
+    background-color: transparent;
+    border-color: transparent;
+    color: transparent;
+}

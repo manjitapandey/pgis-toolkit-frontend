@@ -1,0 +1,126 @@
+.search {
+  @include flexbox();
+  @include justify-content(flex-start);
+  @include align-items(center);
+  min-width: 150px;
+
+  .search-wrap {
+    @include flexbox();
+    @include justify-content(space-between);
+    border: 1px solid var(--clr-body-300);
+    @include align-items(stretch);
+    background-color: var(--clr-body-200);
+    flex-grow: 1;
+    max-width: 240px;
+    border-radius: 30px;
+
+    input {
+      &.pm-control {
+        flex-grow: 1;
+        border: none;
+        display: initial;
+        background-color: var(--clr-body-200);
+        @include radius(30px);
+        @include input-placeholder {
+          color: var(--clr-body-500);
+        }
+      }
+    }
+
+    &_icon {
+      padding: 0 0.5rem;
+      padding-right: 0;
+      text-align: center;
+      @include flexbox();
+      @include justify-content(center);
+      @include align-items(center);
+      @include flex-direction(column);
+      cursor: pointer;
+
+      i {
+        font-size: 1.2rem;
+        color: var(--clr-body-600);
+      }
+
+      &.is-right {
+        padding-right: 0.5rem;
+        padding-left: 0;
+      }
+    }
+  }
+  &_100 {
+    .search-wrap {
+      max-width: 100%;
+    }
+  }
+
+  button {
+    padding: 0;
+    width: 40px;
+    height: 37px;
+    min-width: initial;
+    border-color: var(--border-dark);
+    @include radius(8px);
+    margin-left: 0.6125rem;
+    background-color: var(--clr-white-900);
+    color: var(--secondary-color);
+    margin-left: 1rem;
+
+    &:focus,
+    &:hover {
+      background-color: var(--secondary-color);
+      color: var(--clr-white-900);
+      outline: none;
+      -webkit-outline: none;
+      box-shadow: none;
+    }
+  }
+
+  a {
+    &.toggle-icon {
+      margin-left: 1rem;
+      color: var(--body-color);
+
+      svg {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &.is-large {
+    .search-wrap {
+      @include box-shadow(0 15px 50px rgba(var(--heading-color), 0.16));
+
+      input {
+        &.pm-control {
+          height: calc(3rem + 0.75rem + 2px);
+
+          &:focus {
+            background-color: var(--clr-white-900);
+          }
+
+          @include input-placeholder {
+            color: var(--heading-color);
+          }
+        }
+      }
+    }
+  }
+
+  &.is-full {
+    .search-wrap {
+      max-width: 100%;
+    }
+  }
+}
+.pmsearch{
+  background-color: var(--clr-white-900);
+  @include radius(6px);
+  border:1px solid var(--clr-body-300);
+  padding:.6125rem;
+  .search{
+    .search-wrap{
+      background-color: var(--clr-body-200);
+    }
+  }
+}
