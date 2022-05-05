@@ -1,23 +1,40 @@
 import Login from '../views/Login';
-import Register from '../views/Register';
-import Dashboard from '../views/Dashboard';
-import Topic from '../views/Topic';
-import LoaderSample from '../views/LoaderSample';
+import Organizations from '../views/Organizations';
+import OrganizationsUsers from '../views/OrganizationUsers';
+import IndividualOrganization from '../views/IndividualOrganization';
+import IndividualProject from '../views/IndividualProject';
 
 const indexRoutes = [
   { path: '/login', name: 'Login', component: Login },
-  { path: '/register', name: 'Register', component: Register },
   {
-    path: '/topics',
-    name: 'Topic',
-    component: Topic,
+    path: '/organizations/:id/:uniqueId',
+    name: 'Individual Project',
+    component: IndividualProject,
+    // authenticated: true,
   },
-  { path: '/actionloader', name: 'Loaders', component: LoaderSample },
   {
-    path: '/',
-    name: 'Dashboard',
-    component: Dashboard,
-    authenticated: true,
+    path: '/organizations/:id',
+    name: 'Individual Organization',
+    component: IndividualOrganization,
+    // authenticated: true,
+  },
+  {
+    path: '/organizations',
+    name: 'Organizations',
+    component: Organizations,
+    // authenticated: true,
+  },
+  {
+    path: '/new/:id',
+    name: 'Individual Organization',
+    component: IndividualOrganization,
+    // authenticated: true,
+  },
+  {
+    path: '/users',
+    name: 'OrganizationsUsers',
+    component: OrganizationsUsers,
+    // authenticated: true,
   },
 ];
 
