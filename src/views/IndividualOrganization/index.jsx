@@ -5,31 +5,20 @@ import MapSidebar from '@Components/IndividualOrganizations/MapSidebar/index';
 import FilterSidebar from '@Components/IndividualOrganizations/FilterSidebar/index';
 import OlMap from '@Components/IndividualOrganizations/OlMap/index';
 import UsersData from '@Components/IndividualOrganizations/UsersData/index';
+import Tab from '@Components/common/Tab/index';
+import { sidebarTabOptions } from '@src/constants/commonData';
+import CreateProjectPopup from '@Components/IndividualOrganizations/CreateProjectPopup/index';
 
 const IndividualOrganization = () => {
-  const [tab, setTab] = useState('projects');
+  const [tab, setTab] = useState('Projects');
   const active = useSelector((state) => state.individualOrganizations.active);
   const mapToggle = useSelector((state) => state.individualOrganizations.mapToggle);
 
-  const handleClick = (value) => {
-    setTab(value);
-  };
   return (
     <main className="mt-30">
       <div className="container-fluid">
         <Banner />
-        <ul className="pm-tab pm-tab_border pm-tab_btm-border">
-          <li>
-            <a className={tab === 'projects' ? 'is-active' : ''} onClick={() => handleClick('projects')} key="projects">
-              Projects
-            </a>
-          </li>
-          <li>
-            <a className={tab === 'users' ? 'is-active' : ''} onClick={() => handleClick('users')} key="users">
-              users
-            </a>
-          </li>
-        </ul>
+        <Tab activeTab={tab} options={sidebarTabOptions} setTab={setTab} />
         <div className="pm-modal" id="warning-modal">
           <div className="pm-modal_cntr pm-modal_cntr_sm">
             <div className="pm-modal_header is-flex is-between is-gap-15">
@@ -95,322 +84,12 @@ const IndividualOrganization = () => {
           </div>
         </div>
 
-        {tab === 'projects' && (
+        {tab === 'Projects' && (
           <div className="dbd-body">
             <div className={mapToggle ? 'dbd-map is-flex dbd-map_active' : 'dbd-map is-flex'}>
               <MapSidebar />
               <FilterSidebar active={active} />
-              <div className="pm-modal" id="create-project">
-                <div className="pm-modal_cntr pm-modal_cntr_lg pm-modal_cntr_radius">
-                  <div className="pm-modal_header is-gap-15">
-                    <h3 className="is-grow">Create Project Details</h3>
-                    <div className="is-flex is-end is-align-center">
-                      <a className="pm-modal_close">
-                        <i className="material-icons">close</i>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="pm-modal_body">
-                    <ul className="multistep is-flex is-between is-align-center is-wrap">
-                      <li className=" is-complete is-flex is-center is-align-center is-column flex-1">
-                        <span className=" multistep-number is-flex is-center is-align-center is-column material-icons">
-                          check
-                        </span>
-                        <div className="multistep-lebel mt-10">Basic Info</div>
-                      </li>
-                      <li className="is-flex is-center is-align-center is-column is-active flex-1">
-                        <span className="multistep-number is-flex is-center is-align-center is-column ">2</span>
-                        <div className="multistep-lebel mt-10">Location</div>
-                      </li>
-                      <li className="is-flex is-center is-align-center is-column flex-1">
-                        <span className=" multistep-number is-flex is-center is-align-center is-column ">3</span>
-                        <div className="multistep-lebel mt-10">Document</div>
-                      </li>
-                      <li className="is-flex is-center is-align-center is-column flex-1">
-                        <span className="multistep-number is-flex is-center is-align-center is-column ">4</span>
-                        <div className="multistep-lebel mt-10">Data</div>
-                      </li>
-                      <li className="is-flex is-center is-align-center is-column flex-1">
-                        <span className="multistep-number is-flex is-center is-align-center is-column  ">5</span>
-                        <div className="multistep-lebel mt-10">Map</div>
-                      </li>
-                    </ul>
-                    <div className="pm-group">
-                      <label className="fw-bold"> phone </label>
-                      <input type="text" className="pm-control" placeholder="ST-34536" />
-                    </div>
-                    <div className="is-flex is-wrap is-gap-15">
-                      <div className="pm-group is-grow">
-                        <label className="fw-bold"> password</label>
-                        <div className="custom-input-group">
-                          <input type="password" className="pm-control" placeholder="ST-34536" />
-                          <span className="span-group pr-10">
-                            <i className="material-icons">visibility</i>
-                          </span>
-                        </div>
-                      </div>
-                      <div className="pm-group is-grow">
-                        <label className="fw-bold is-capitalize"> confirm password</label>
-                        <div className="custom-input-group">
-                          <input type="password" className="pm-control" placeholder="Start Date" />
-                          <span className="span-group pr-10">
-                            <i className="material-icons">visibility</i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="is-flex  is-gap-15 is-wrap">
-                      <div className="pm-group is-grow">
-                        <label className="fw-bold is-capitalize"> Project start Date</label>
-                        <div className="custom-input-group">
-                          <input type="text" className="pm-control" placeholder="start Date" />
-                          <span className="span-group pr-10">
-                            <i className="material-icons">calendar_today</i>
-                          </span>
-                        </div>
-                      </div>
-                      <div className="pm-group is-grow">
-                        <label className="fw-bold is-capitalize">Project end Date</label>
-                        <div className="custom-input-group">
-                          <input type="password" className="pm-control" placeholder="end date" />
-                          <span className="span-group pr-10">
-                            <i className="material-icons">calendar_today</i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="pm-group">
-                      <label className="fw-bold">Email</label>
-                      <div className="custom-input-group">
-                        <span className="span-group pl-10">
-                          <i className="material-icons">email</i>
-                        </span>
-                        <input type="email" className="pm-control" placeholder="ST-34536" />
-                      </div>
-                    </div>
-
-                    <div className="pm-group">
-                      <label className="fw-bold">Email</label>
-                      <textarea type="text" className="pm-control" placeholder="ST-34536" />
-                    </div>
-                    <div className="pm-group">
-                      <label className="is-capitalize fw-bold">Choose the Geographic Boundary</label>
-                      <div className="options is-flex is-start is-align-center">
-                        <div className="options-btn options-btn_active">Upload Area</div>
-                        <div className="options-btn">Draw Area on map</div>
-                      </div>
-                    </div>
-                    <div className="pm-group">
-                      <label className="is-capitalize fw-bold">
-                        Upload Organization Logo <sup>*</sup>
-                      </label>
-                      <div className="pmupload-btn is-flex is-start is-align-center">
-                        <label htmlFor="upload " className="is-flex is-align-center is-btn is-btn_icon is-btn_link">
-                          <i className="material-icons">upload</i>
-                          <span>upload</span>
-                          <input type="file" id="upload" />
-                        </label>
-                        <span className="fs-md">SHP, CSV, KML, GPX or GEOJSON</span>
-                      </div>
-                    </div>
-                    <div className="pm-group">
-                      <div className="pmupload-file is-gap-15 is-border">
-                        <div className="pmupload-file_content is-flex is-start is-align-center">
-                          <div className="is-circle is-circle_xs is-bg-white">
-                            <i className="material-icons clr-primary-500">description</i>
-                          </div>
-                          <div className="pmupload-file_name ml-10">
-                            <p className="fw-600">Area_doc-file.gson</p>
-                            <span className="fs-md">2.4 MB</span>
-                          </div>
-                        </div>
-                        <div className="pmupload-file_icons is-flex is-gap-10">
-                          <button className="is-btn is-btn_link pd-0" type="button">
-                            <i className="material-icons">download</i>
-                          </button>
-                          <button className="is-btn is-btn_link pd-0" type="button">
-                            <i className="material-icons">delete</i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="pm-table pm-table_border pm-table_sticky">
-                      <table className="table">
-                        <thead>
-                          <tr>
-                            <th>
-                              <div className="is-flex is-start is-gap-10">
-                                <span>SN</span>
-                                <div className="pm-table_arrow">
-                                  <div className="updown-arrow">
-                                    <i className="material-icons">unfold_more</i>
-                                  </div>
-                                </div>
-                              </div>
-                            </th>
-                            <th>
-                              <div className="is-flex is-start is-gap-10">
-                                <span>Cluster Name</span>
-                                <div className="pm-table_arrow">
-                                  <div className="updown-arrow">
-                                    <i className="material-icons">unfold_more</i>
-                                  </div>
-                                </div>
-                              </div>
-                            </th>
-
-                            <th />
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>
-                              <p className="fw-bold">WOrld Bicycle Relief</p>
-                            </td>
-
-                            <td>
-                              <div className="is-flex is-end">
-                                <div className="pm-dropdown pm-dropdown_option pm-dropdown_right">
-                                  <a className="is-circle is-circle_xs">
-                                    <i className="material-icons">more_vert</i>
-                                  </a>
-                                  <ul className="pm-dropdown_menu">
-                                    <li>
-                                      <a>
-                                        <i className="material-icons">edit</i>
-                                        <span>edit</span>
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a>
-                                        <i className="material-icons">delete</i>
-                                        <span>delete</span>
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>
-                              <p className="fw-bold">WOrld Bicycle Relief</p>
-                            </td>
-
-                            <td>
-                              <div className="is-flex is-end">
-                                <div className="pm-dropdown pm-dropdown_option pm-dropdown_right">
-                                  <a className="is-circle is-circle_xs">
-                                    <i className="material-icons">more_vert</i>
-                                  </a>
-                                  <ul className="pm-dropdown_menu">
-                                    <li>
-                                      <a>
-                                        <i className="material-icons">edit</i>
-                                        <span>edit</span>
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a>
-                                        <i className="material-icons">delete</i>
-                                        <span>delete</span>
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>
-                              <p className="fw-bold">WOrld Bicycle Relief</p>
-                            </td>
-
-                            <td>
-                              <div className="is-flex is-end">
-                                <div className="pm-dropdown pm-dropdown_option pm-dropdown_right">
-                                  <a className="is-circle is-circle_xs">
-                                    <i className="material-icons">more_vert</i>
-                                  </a>
-                                  <ul className="pm-dropdown_menu">
-                                    <li>
-                                      <a>
-                                        <i className="material-icons">edit</i>
-                                        <span>edit</span>
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a>
-                                        <i className="material-icons">delete</i>
-                                        <span>delete</span>
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>
-                              <p className="fw-bold">WOrld Bicycle Relief</p>
-                            </td>
-
-                            <td>
-                              <div className="is-flex is-end">
-                                <div className="pm-dropdown pm-dropdown_option pm-dropdown_right">
-                                  <a className="is-circle is-circle_xs">
-                                    <i className="material-icons">more_vert</i>
-                                  </a>
-                                  <ul className="pm-dropdown_menu">
-                                    <li>
-                                      <a>
-                                        <i className="material-icons">edit</i>
-                                        <span>edit</span>
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a>
-                                        <i className="material-icons">delete</i>
-                                        <span>delete</span>
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-
-                    <div className="pm-group">
-                      <div className="is-flex is-center is-column is-align-center">
-                        <figure>
-                          <img src="images/map.png" alt="" />
-                        </figure>
-                        <p className="fw-bold mt-10">Change layers on Map</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pm-modal_footer is-flex is-start is-gap-10">
-                    <button className="is-btn is-btn_link" type="button">
-                      <span>Back</span>
-                    </button>
-                    <div className="is-flex is-center is-align-center is-grow pr-30">
-                      <button className="is-btn is-btn_primary" type="button">
-                        invaite & save
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <CreateProjectPopup />
 
               <div className="pm-modal" id="create-project">
                 <div className="pm-modal_cntr pm-modal_cntr_lg pm-modal_cntr_radius">
@@ -523,7 +202,7 @@ const IndividualOrganization = () => {
             </div>
           </div>
         )}
-        {tab === 'users' && <UsersData />}
+        {tab === 'Users' && <UsersData />}
       </div>
     </main>
   );

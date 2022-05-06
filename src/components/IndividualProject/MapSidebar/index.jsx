@@ -34,7 +34,7 @@ const MapSidebar = () => {
               body={
                 <ul className="is-list">
                   {filter.map(({ uniqueId, catName, isSelected, icon }) => (
-                    <li className="is-flex is-between is-align-start is-gap-10">
+                    <li className="is-flex is-between is-align-start is-gap-10" key={`${uniqueId}${catName}`}>
                       <Checkbox
                         id={uniqueId}
                         type={type}
@@ -43,6 +43,7 @@ const MapSidebar = () => {
                         label={catName}
                         onChange={(event) => handleCheckbox(event, name, catName)}
                         icon={icon}
+                        className="is-flex is-grow"
                       />
                       <div className="is-flex is-end is-icon_list is-align-center">
                         <button type="button" className="is-btn is-btn_link is-btn_sm">

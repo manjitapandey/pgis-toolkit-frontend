@@ -9,8 +9,8 @@ const Checkbox = ({ className, id, type, name, checked, label, onChange, icon })
     setToggle((prevState) => !prevState);
   };
   return (
-    <div className="pm-checkbox is-flex is-grow">
-      <input type={type} id={id} ame={name} checked={checked} onChange={onChange} />
+    <div className={`pm-checkbox ${className}`}>
+      <input type={type} id={id} name={name} checked={checked} onChange={onChange} />
       <label htmlFor={id} className="is-grow is-flex is-start is-align-start" onClick={handleToggle}>
         {icon && <i className="material-icons mr-10">{icon}</i>}
         <span className="is-grow is-trim-1">{label}</span>
@@ -22,15 +22,18 @@ const Checkbox = ({ className, id, type, name, checked, label, onChange, icon })
 Checkbox.defaultProps = {
   checked: false,
   onChange: () => {},
+  className: '',
+  icon: '',
+  type: 'checkbox',
 };
 
 Checkbox.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   id: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   onChange: PropTypes.func,
 };

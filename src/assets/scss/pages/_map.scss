@@ -197,7 +197,7 @@
       visibility: hidden;
       padding:0;
       @include prefix(
-        transition all 0.5s ease-in-out,
+        transition,
         ('webkit', 'ms', 'moz', 'o')
       );
     }

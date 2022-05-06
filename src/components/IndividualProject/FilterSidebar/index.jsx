@@ -2,12 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import individualProjectAction from '@Actions/individualProject';
+import Select from '@Components/common/Select/index';
+import { selectOptions } from '@src/constants/commonData';
+import Search from '@Components/common/Search/index';
+import Text from '@Components/common/Text/index';
 
 const FilterSidebar = ({ active }) => {
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(individualProjectAction.setActive('map'));
   };
+  const handleSearch = () => {};
+  const onTextChangeHandler = () => {};
   return (
     <aside
       className={
@@ -22,43 +28,16 @@ const FilterSidebar = ({ active }) => {
       <div className="filter-sidebar_body is-overflow" style={{ height: '80vh' }}>
         <div className="pm-group">
           <label>Themes</label>
-          <div className="pm-select pm-select_100">
-            <div className="pm-select_item">
-              <span>obstacles Datasets </span>
-            </div>
-            <ul className="pm-select_list left-dropdown">
-              <li data-value="Bagmati pardesh">Bagmati Pardesh</li>
-              <li data-value="Gandaki">Gandaki</li>
-              <li data-value="Lumbini">Lumbini</li>
-              <li data-value="Bagmati">Gandaki</li>
-            </ul>
-          </div>
+          <Select options={selectOptions} selected="obstacles Datasets " className="pm-select_100" />
         </div>
         <div className="pm-group">
           <label>Layers</label>
-          <div className="pm-select pm-select_100">
-            <div className="pm-select_item">
-              <span>Road Crash/ Accident Data </span>
-            </div>
-            <ul className="pm-select_list left-dropdown">
-              <li data-value="Bagmati pardesh">Bagmati Pardesh</li>
-              <li data-value="Gandaki">Gandaki</li>
-              <li data-value="Lumbini">Lumbini</li>
-              <li data-value="Bagmati">Gandaki</li>
-            </ul>
-          </div>
+          <Select selected="Road Crash/ Accident Data" options={selectOptions} className="pm-select_100" />
         </div>
         <div className="pm-group">
           <label>attribute</label>
           <div className="pmsearch">
-            <div className="search search_100">
-              <div className="search-wrap">
-                <span className="search-wrap_icon">
-                  <i className="material-icons">search</i>
-                </span>
-                <input className="pm-control" type="search" autoComplete="off" placeholder="search" />
-              </div>
-            </div>
+            <Search className="search_100" handleSearch={handleSearch} />
             <ul className="pm-list ">
               <li>
                 <a href="">Id</a>
@@ -87,18 +66,10 @@ const FilterSidebar = ({ active }) => {
             <li className="">Or</li>
           </ul>
         </div>
-
         <div className="pm-group">
           <label>value</label>
           <div className="pmsearch">
-            <div className="search search_100">
-              <div className="search-wrap">
-                <span className="search-wrap_icon">
-                  <i className="material-icons">search</i>
-                </span>
-                <input className="pm-control" type="search" autoComplete="off" placeholder="search" />
-              </div>
-            </div>
+            <Search className="search_100" handleSearch={handleSearch} />
             <ul className="pm-list ">
               <li>
                 <a href="">Id</a>
@@ -115,10 +86,13 @@ const FilterSidebar = ({ active }) => {
             </ul>
           </div>
         </div>
-        <div className="pm-group">
-          <label>Filter</label>
-          <input type="text" placeholder="Road length=40" className="pm-control pm-control_white" />
-        </div>
+        <Text
+          label="Filter"
+          placeholder="Road length=40"
+          className="pm-control pm-control_white"
+          name="filter"
+          onChange={onTextChangeHandler}
+        />
       </div>
       <div className="filter-sidebar_footer is-flex is-start is-gap-30">
         <button type="button" className="is-btn is-btn_link">

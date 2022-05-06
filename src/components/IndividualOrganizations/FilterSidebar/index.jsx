@@ -3,8 +3,7 @@ import Select from '@Components/common/Select/index';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import individualActions from '@Actions/individualOrganizations';
-
-const options = ['Bagmati Pradesh', 'Gandaki', 'Lumbini'];
+import { selectOptions } from '@src/constants/commonData';
 
 const FilterSidebar = ({ active }) => {
   const dispatch = useDispatch();
@@ -27,15 +26,15 @@ const FilterSidebar = ({ active }) => {
       <div className="filter-sidebar_body is-overflow" style={{ height: '60vh' }}>
         <div className="pm-group">
           <label className="is-capitalize">Layer</label>
-          <Select selected="Choose" onClick={handleSelect} options={options} className="pm-select_100" />
+          <Select selected="Choose" onClick={handleSelect} options={selectOptions} className="pm-select_100" />
         </div>
         <div className="pm-group">
           <label className="is-capitalize">Attribute</label>
-          <Select selected="Choose" onClick={handleSelect} options={options} className="pm-select_100" />
+          <Select selected="Choose" onClick={handleSelect} options={selectOptions} className="pm-select_100" />
         </div>
         <div className="pm-group">
           <label className="is-capitalize">Standard</label>
-          <Select selected="Choose" onClick={handleSelect} options={options} className="pm-select_100" />
+          <Select selected="Choose" onClick={handleSelect} options={selectOptions} className="pm-select_100" />
         </div>
         <div className="pm-group">
           <label>Custom</label>

@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fromLonLat } from 'ol/proj';
 import MapContainer from '@Components/common/OpenLayersComponent/MapContainer';
 import useOLMap from '@Components/common/OpenLayersComponent/useOLMap';
-import LayerSwitcherControl from '@Components/common/OpenLayersComponent/LayerSwitcher';
 import Scalebar from '@Components/common/OpenLayersComponent/Scalebar';
 import individualActions from '@Actions/individualOrganizations';
 // import MapLegend from '@Components/common/OpenLayersComponent/Legend';
 import '@Components/common/OpenLayersComponent/map.scss';
 import CustomLayerSwitcher from '@Components/common/OpenLayersComponent/LayerSwitcher/CustomLayerSwitcher';
 import ZoomControl from '@Components/common/OpenLayersComponent/Control/ZoomControl';
+import { switcherOptions } from '@src/constants/commonData';
 
 const OlMap = () => {
   const dispatch = useDispatch();
@@ -71,7 +71,7 @@ const OlMap = () => {
               <i className="material-icons">info</i>
             </a>
           </div>
-          <CustomLayerSwitcher map={map} />
+          <CustomLayerSwitcher map={map} options={switcherOptions} />
           <ZoomControl map={map} />
         </div>
       </div>

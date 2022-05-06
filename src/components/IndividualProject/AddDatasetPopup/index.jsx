@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Popup from '@Components/common/Popup/index';
 import individualProjectAction from '@Actions/individualProject';
+import Text from '@Components/common/Text/index';
+import TextArea from '@Components/common/TextArea/index';
 
 const AddDatasetPopup = () => {
   const dispatch = useDispatch();
@@ -10,6 +12,8 @@ const AddDatasetPopup = () => {
   const handleCloseClick = () => {
     dispatch(individualProjectAction.openDatasetPopup(false));
   };
+  const onTextChangeHandler = () => {};
+  const onTextAreaChangeHandler = () => {};
   return (
     <Popup
       className="pm-modal_cntr_radius"
@@ -20,15 +24,14 @@ const AddDatasetPopup = () => {
       handleButtonClick={handleButtonClick}
       body={
         <div className="mt-15 mb-15">
-          <div className="pm-group">
-            <label>Theme *</label>
-            <input type="text" placeholder="layer name" className="pm-control" />
-          </div>
-          <div className="pm-group">
-            <label>description </label>
-            <textarea type="text" placeholder="layer name" className="pm-control" />
-          </div>
-
+          <Text label="Theme *" name="layerName" value="" onChange={onTextChangeHandler} placeholder="Layer Name" />
+          <TextArea
+            label="Description"
+            name="layerName"
+            value=""
+            onChange={onTextAreaChangeHandler}
+            placeholder="Layer Name"
+          />
           <div className="pm-group">
             <label>Default Color </label>
             <div className="color-list">

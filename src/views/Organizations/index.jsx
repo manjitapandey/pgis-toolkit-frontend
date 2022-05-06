@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable react/jsx-no-useless-fragment */
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Table, { TableHeader } from '@Components/common/Table';
@@ -44,23 +45,63 @@ const Organizations = () => {
           <div className="container-fluid">
             <Table data={tableData} onRowClick={handleRowClick}>
               <TableHeader
-                dataField="S.N."
+                dataField="S.N"
                 dataFormat={(row, _, index) => <span>{row.id}</span>}
+                dataHeader={
+                  <div className="is-flex is-start is-gap-10">
+                    <span>S.N</span>
+                    <div className="pm-table_arrow">
+                      <div className="updown-arrow">
+                        <i className="material-icons">unfold_more</i>
+                      </div>
+                    </div>
+                  </div>
+                }
                 // headerClassName="table-header-align-start"
               />
               <TableHeader
                 dataField="Organization Name"
-                dataFormat={(row, _, index) => <span>{row.name}</span>}
+                dataFormat={(row, _, index) => <p className="fw-bold">{row.name}</p>}
+                dataHeader={
+                  <div className="is-flex is-start is-gap-10">
+                    <span>Organization name</span>
+                    <div className="pm-table_arrow">
+                      <div className="updown-arrow">
+                        <i className="material-icons">unfold_more</i>
+                      </div>
+                    </div>
+                  </div>
+                }
                 // headerClassName="table-header-align-start"
               />
               <TableHeader
                 dataField="Admin"
-                dataFormat={(row, _, index) => <span>{row.admin}</span>}
+                dataFormat={(row, _, index) => <span className="is-break">{row.admin}</span>}
+                dataHeader={
+                  <div className="is-flex is-start is-gap-10">
+                    <span>Admin</span>
+                    <div className="pm-table_arrow">
+                      <div className="updown-arrow">
+                        <i className="material-icons">unfold_more</i>
+                      </div>
+                    </div>
+                  </div>
+                }
                 // headerClassName="table-header-align-start"
               />
               <TableHeader
                 dataField="Projects"
-                dataFormat={(row, _, index) => <span>{row.projects}</span>}
+                dataFormat={(row, _, index) => <>{row.projects}</>}
+                dataHeader={
+                  <div className="is-flex is-start is-gap-10">
+                    <span>Projects</span>
+                    <div className="pm-table_arrow">
+                      <div className="updown-arrow">
+                        <i className="material-icons">unfold_more</i>
+                      </div>
+                    </div>
+                  </div>
+                }
                 // headerClassName="table-header-align-start"
               />
               <TableHeader dataFormat={(row, _, index) => <TableDropdown />} />

@@ -84,3 +84,28 @@ export const switcherOptions = [
   { id: '5', name: 'Monochrome' },
   { id: '6', name: 'Monochrome Midnight' },
 ];
+
+export const checkboxOptions = [
+  { id: '1', name: 'Health', isSelected: false },
+  { id: '2', name: 'Education', isSelected: false },
+  { id: '3', name: 'Road', isSelected: false },
+  { id: '4', name: 'Building', isSelected: false },
+  { id: '5', name: 'Tree', isSelected: false },
+  { id: '6', name: 'Health', isSelected: false },
+  { id: '7', name: 'Education', isSelected: false },
+];
+
+export const sidebarTabOptions = [
+  { id: '1', name: 'Projects' },
+  { id: '2', name: 'Users' },
+];
+
+export const layerPopupTabOptions = [
+  { id: '1', name: 'OpenstreetMap' },
+  { id: '2', name: 'Template' },
+  { id: '3', name: 'Upload' },
+  { id: '4', name: 'Custom' },
+  { id: '5', name: 'WMS layer' },
+];
+
+export const selectOptions = ['Bagmati', 'Gandaki', 'Lumbini', 'Gandaki'];

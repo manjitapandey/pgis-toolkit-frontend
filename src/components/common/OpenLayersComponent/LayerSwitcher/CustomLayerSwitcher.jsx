@@ -6,9 +6,8 @@ import React, { useEffect, useState } from 'react';
 import LayerGroup from 'ol/layer/Group';
 import PropTypes from 'prop-types';
 import { mapboxMap, mapboxOutdoors, osm, topoMap, monochrome, monochromeMidNight } from './index';
-import { switcherOptions } from '../../../../constants/commonData';
 
-const CustomLayerSwitcher = ({ layerSource, map }) => {
+const CustomLayerSwitcher = ({ layerSource, map, options }) => {
   const [layerSwitcherName, setLayerSwitcherName] = useState('Mapbox Light');
   const [toggle, setToggle] = useState(false);
 
@@ -63,10 +62,11 @@ const CustomLayerSwitcher = ({ layerSource, map }) => {
           <p className="font-size-h6 is-uppercase">Base Layers</p>
         </div>
         <ul className="pm-list pm-list_after">
-          {switcherOptions.map(({ id, name }) => (
+          {options.map(({ id, name }) => (
             <li
               className={name.toLowerCase() === layerSwitcherName.toLowerCase() ? 'is-active' : ''}
               onClick={() => handleListClick(id, name)}
+              key={`${id}${name}`}
             >
               {name}
             </li>
@@ -80,9 +80,18 @@ const CustomLayerSwitcher = ({ layerSource, map }) => {
 CustomLayerSwitcher.propTypes = {
   layerSource: PropTypes.array,
   map: PropTypes.object.isRequired,
+  options: PropTypes.object,
 };
 CustomLayerSwitcher.defaultProps = {
   layerSource: [osm(), topoMap(), mapboxMap(), mapboxOutdoors(), monochrome(), monochromeMidNight()],
+  options: [
+    { id: '1', name: 'Mapbox Outdoors' },
+    { id: '2', name: 'OSM' },
+    { id: '3', name: 'Topo Map' },
+    { id: '4', name: 'Mapbox Light' },
+    { id: '5', name: 'Monochrome' },
+    { id: '6', name: 'Monochrome Midnight' },
+  ],
 };
 
 export default CustomLayerSwitcher;

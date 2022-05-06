@@ -7,7 +7,7 @@ import IndividualProject from '../views/IndividualProject';
 const indexRoutes = [
   { path: '/login', name: 'Login', component: Login },
   {
-    path: '/organizations/:id/:uniqueId',
+    path: '/organizations/:id/projects/:uniqueId',
     name: 'Individual Project',
     component: IndividualProject,
     // authenticated: true,
@@ -18,12 +18,7 @@ const indexRoutes = [
     component: IndividualOrganization,
     // authenticated: true,
   },
-  {
-    path: '/organizations',
-    name: 'Organizations',
-    component: Organizations,
-    // authenticated: true,
-  },
+
   {
     path: '/new/:id',
     name: 'Individual Organization',
@@ -34,6 +29,12 @@ const indexRoutes = [
     path: '/users',
     name: 'OrganizationsUsers',
     component: OrganizationsUsers,
+    // authenticated: true,
+  },
+  {
+    path: '/',
+    name: 'Organizations',
+    component: Organizations,
     // authenticated: true,
   },
 ];
