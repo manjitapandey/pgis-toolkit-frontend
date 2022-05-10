@@ -10,6 +10,7 @@ import configureStore from './store';
 import history from './utils/history';
 // import './assets/css/index.css';
 import './assets/scss/style.scss';
+import './assets/fonts/fonts.css';
 
 const { persistor, store } = configureStore();
 

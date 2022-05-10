@@ -53,6 +53,15 @@
       max-width: 100%;
     }
   }
+  &_sm{
+    .search-wrap{
+      input {
+        &.pm-control {
+          height: calc(1.5rem + 0.75rem + 2px);
+        }
+      }
+    }
+  }
 
   button {
     padding: 0;

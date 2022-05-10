@@ -63,8 +63,8 @@ export function camelCaseToSnake(str) {
  * @param {object} data - object
  * @returns {object}
  */
-export const camelizeObjectKey = (data) => {
-  return Object.keys(data).reduce(
+export const camelizeObjectKey = (data) =>
+  Object.keys(data).reduce(
     (obj, item) => ({
       ...obj,
       [snakeCaseToCamel(item)]: (() => {
@@ -78,4 +78,3 @@ export const camelizeObjectKey = (data) => {
     }),
     {},
   );
-};

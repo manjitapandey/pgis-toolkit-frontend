@@ -197,7 +197,7 @@
       visibility: hidden;
       padding:0;
       @include prefix(
-        transition all 0.5s ease-in-out,
+        transition, (all 0.5s ease-in-out),
         ('webkit', 'ms', 'moz', 'o')
       );
     }
@@ -477,7 +477,6 @@
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
-    @include transition(all 0.3s ease-in-out);
     width: 30px;
     height: 30px;
 
@@ -536,7 +535,7 @@
     .acc-list{
       background-color: var(--clr-white-900);
       border:1px solid var(--clr-body-300);
-      @include radius(8px);
+      @include radius(10px);
       padding:.6125rem;
       
       margin-bottom: .6125rem;

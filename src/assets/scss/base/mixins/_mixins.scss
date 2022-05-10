@@ -8,7 +8,7 @@
     @each $prefix in $prefixes {
         -#{$prefix}-#{$property}: $value;
     }
-    // #{$property}: $value;
+    #{$property}: $value;
 }
 
 // calling method

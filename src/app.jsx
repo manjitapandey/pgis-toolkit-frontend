@@ -1,9 +1,10 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import PrivateRoute from '@Components/common/PrivateRoute';
 import Toast from '@Components/common/Toast';
+import Header from '@Components/common/Header/index';
 import indexRoutes from './routes';
 
 function generateRoutes(routes) {
@@ -31,9 +32,13 @@ function generateRoutes(routes) {
 }
 
 function App() {
+  const { pathname } = useLocation();
+  const routesWithoutHeader = ['/login', '/organizations/'];
+  const hasNoHeader = routesWithoutHeader.includes(pathname);
   return (
     <>
       <Toast />
+      {!hasNoHeader && <Header />}
       {generateRoutes(indexRoutes)}
     </>
   );
