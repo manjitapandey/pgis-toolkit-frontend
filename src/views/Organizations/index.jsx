@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import Table, { TableHeader } from '@Components/common/Table';
 import TableDropdown from '@Components/Organizations/OrganizationsTableDropdown/index';
 import { tableData } from '@src/constants/commonData';
-import OrganizationPopup from '@Components/Organizations/OrganizarionPopup/indes';
+import CreateOrganizationPopup from '@Components/Organizations/CreateOrganizarionPopup/index';
 import Search from '@Components/common/Search/index';
 
 const Organizations = () => {
@@ -40,7 +40,7 @@ const Organizations = () => {
           </div>
           <Search className="mt-15" handleSearch={handleSearch} />
         </div>
-        <OrganizationPopup openPopup={openPopup} setOpenPopup={setOpenPopup} />
+        <CreateOrganizationPopup openPopup={openPopup} setOpenPopup={setOpenPopup} />
         <div className="dbd-body">
           <div className="container-fluid">
             <Table data={tableData} onRowClick={handleRowClick}>
@@ -104,7 +104,18 @@ const Organizations = () => {
                 }
                 // headerClassName="table-header-align-start"
               />
-              <TableHeader dataFormat={(row, _, index) => <TableDropdown />} />
+              <TableHeader
+                dataFormat={(row, _, index) => (
+                  <div
+                    className="is-flex is-end"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                    }}
+                  >
+                    <TableDropdown />
+                  </div>
+                )}
+              />
             </Table>
           </div>
         </div>

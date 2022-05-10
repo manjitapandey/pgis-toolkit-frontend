@@ -2,12 +2,13 @@
   @each $color, $shades in $colors {
     @each $shade, $value in $shades {
       --clr-#{$color}-#{$shade}: #{$value};
-    }
+    } 
   }
   --fs-sm: clamp(0.88rem, calc(0.88rem + 0.00vw), 0.88rem);
-  --fs-md: clamp(0.88rem, calc(0.88rem + 0.00vw), 0.88rem);
-  --fs-body: clamp(0.88rem, calc(0.84rem + 0.19vw), 1.00rem);
-  --fs-btn: clamp(0.88rem, calc(0.84rem + 0.19vw), 1.00rem);;
+  --fs-md: clamp(0.795rem, calc(0.775rem + 0.00vw), 0.8rem);
+  --fs-body: clamp(0.8rem, calc(0.775rem + 0.19vw), .875rem);
+  --fs-lg: clamp(0.88rem, calc(0.84rem + 0.19vw), 1.00rem);
+  --fs-btn: clamp(0.8rem, calc(0.775rem + 0.19vw), .875rem);
   --fs-h6: clamp(1rem, .975rem + 0.07vw, 1.1rem);
   --fs-h5: clamp(1.1rem, 1rem + 0.16vw, 1.2rem);
   --fs-h4: clamp(1.31rem, 1.2rem + 0.3vw, 1.5rem);
@@ -45,21 +46,6 @@
 //   }
 // }
 
-/// Slightly lighten a color
-@function tint($color, $percentage) {
-  @return mix(white, $color, $percentage);
-}
 
-/// Slightly darken a color
-@function shade($color, $percentage) {
-  @return mix(black, $color, $percentage);
-}
 
-/// Slightly lighten a color
-@function tint($color, $percentage) {
-  @return mix(white, $color, $percentage);
-}
-/// Slightly darken a color
-@function shade($color, $percentage) {
-  @return mix(black, $color, $percentage);
-}
+

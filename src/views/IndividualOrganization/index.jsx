@@ -90,7 +90,6 @@ const IndividualOrganization = () => {
               <MapSidebar />
               <FilterSidebar active={active} />
               <CreateProjectPopup />
-
               <div className="pm-modal" id="create-project">
                 <div className="pm-modal_cntr pm-modal_cntr_lg pm-modal_cntr_radius">
                   <div className="pm-modal_header is-gap-15">
