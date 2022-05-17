@@ -5,12 +5,15 @@ import { fromLonLat } from 'ol/proj';
 import MapContainer from '@Components/common/OpenLayersComponent/MapContainer';
 import useOLMap from '@Components/common/OpenLayersComponent/useOLMap';
 import Scalebar from '@Components/common/OpenLayersComponent/Scalebar';
-import individualActions from '@Actions/individualOrganizations';
+import individualActions from '@Actions/individualOrganization';
 // import MapLegend from '@Components/common/OpenLayersComponent/Legend';
 import '@Components/common/OpenLayersComponent/map.scss';
 import CustomLayerSwitcher from '@Components/common/OpenLayersComponent/LayerSwitcher/CustomLayerSwitcher';
 import ZoomControl from '@Components/common/OpenLayersComponent/Control/ZoomControl';
-import { switcherOptions } from '@src/constants/commonData';
+import { switcherOptions, vectorTileData } from '@src/constants/commonData';
+import VectorTileLayer from '@Components/common/OpenLayersComponent/Layers/VectorTileLayer';
+
+import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
 
 const OlMap = () => {
   const dispatch = useDispatch();
@@ -41,6 +44,15 @@ const OlMap = () => {
         >
           {/*  <LayerSwitcherControl />
           <Scalebar /> */}
+          {/* vectorTileData.map(({ id, checked, url }, index) => (
+            <VectorTileLayer
+              key={id}
+              visibleOnMap={checked}
+              url={url}
+              style={{ ...defaultStyles, fillOpacity: '16' }}
+              zIndex={vectorTileData.length - index}
+            />
+          )) */}
         </MapContainer>
         <a
           className={

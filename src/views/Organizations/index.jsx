@@ -1,16 +1,23 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/jsx-no-useless-fragment */
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Table, { TableHeader } from '@Components/common/Table';
 import TableDropdown from '@Components/Organizations/OrganizationsTableDropdown/index';
-import { tableData } from '@src/constants/commonData';
 import CreateOrganizationPopup from '@Components/Organizations/CreateOrganizarionPopup/index';
 import Search from '@Components/common/Search/index';
+import { Creators } from '@Actions/organizations';
+
+const { getOrganizationDataRequest } = Creators;
 
 const Organizations = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [openPopup, setOpenPopup] = useState(false);
+  const organizationData = useSelector((state) => state.organizations.organizationData);
 
   const handleRowClick = (row) => {
     history.push(`/organizations/${row.id}`);
@@ -21,6 +28,10 @@ const Organizations = () => {
   };
 
   const handleSearch = () => {};
+
+  useEffect(() => {
+    dispatch(getOrganizationDataRequest());
+  }, []);
 
   return (
     <main className="mt-30">
@@ -43,7 +54,7 @@ const Organizations = () => {
         <CreateOrganizationPopup openPopup={openPopup} setOpenPopup={setOpenPopup} />
         <div className="dbd-body">
           <div className="container-fluid">
-            <Table data={tableData} onRowClick={handleRowClick}>
+            <Table data={organizationData} onRowClick={handleRowClick}>
               <TableHeader
                 dataField="S.N"
                 dataFormat={(row, _, index) => <span>{row.id}</span>}
@@ -76,7 +87,7 @@ const Organizations = () => {
               />
               <TableHeader
                 dataField="Admin"
-                dataFormat={(row, _, index) => <span className="is-break">{row.admin}</span>}
+                dataFormat={(row, _, index) => <span className="is-break">{row.email}</span>}
                 dataHeader={
                   <div className="is-flex is-start is-gap-10">
                     <span>Admin</span>

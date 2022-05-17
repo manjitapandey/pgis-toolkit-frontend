@@ -19,8 +19,14 @@ const CreateOrganizationPopup = ({ openPopup, setOpenPopup }) => {
         <>
           <div className="row">
             <div className="grid-md-6">
-              <Text label="Name of organization" placeholder="ST-34536" onChange={handleTextChange} />
-              <Text label="Organization email" placeholder="ST-34536" type="emaill" onChange={handleTextChange} />
+              <Text label="Name of organization" placeholder="ST-34536" onChange={handleTextChange} id="organization" />
+              <Text
+                label="Organization email"
+                placeholder="ST-34536"
+                type="email"
+                onChange={handleTextChange}
+                id="organization email"
+              />
             </div>
             <div className="grid-md-6">
               <div className="pm-group">
@@ -41,12 +47,14 @@ const CreateOrganizationPopup = ({ openPopup, setOpenPopup }) => {
             label="Organization phone number"
             placeholder="ST-34536"
             type="number"
+            id="organization number"
             onChange={handleTextChange}
           />
           <Text
             labelClassName="fw-bold"
             label="Organization address"
             placeholder="ST-34536"
+            id="address"
             onChange={handleTextChange}
           />
           <div className="is-flex is-wrap is-gap-15">
@@ -54,6 +62,7 @@ const CreateOrganizationPopup = ({ openPopup, setOpenPopup }) => {
               icon="visibility"
               type="password"
               label="Password"
+              id="password"
               placeholder="ST-34536"
               onChange={handleTextChange}
               className1="is-grow"
@@ -63,6 +72,7 @@ const CreateOrganizationPopup = ({ openPopup, setOpenPopup }) => {
               type="password"
               label="Confirm Password"
               placeholder="ST-34536"
+              id="confirm password"
               className1="is-grow"
               onChange={handleTextChange}
             />
@@ -73,6 +83,7 @@ const CreateOrganizationPopup = ({ openPopup, setOpenPopup }) => {
             icon="email"
             label="Email"
             type="email"
+            id="email"
             placeholder="ST-34536"
             onChange={handleTextChange}
           />

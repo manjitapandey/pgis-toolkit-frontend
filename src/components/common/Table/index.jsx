@@ -200,7 +200,7 @@ export default class Table extends Component {
 TableHeader.defaultProps = {
   dataField: '',
   dataFormat: null,
-  dataHeader: null,
+  dataHeader: '',
   rowcolSpan: '',
   headerClassName: '',
   isSubHeader: false,

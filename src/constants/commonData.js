@@ -109,3 +109,11 @@ export const layerPopupTabOptions = [
 ];
 
 export const selectOptions = ['Bagmati', 'Gandaki', 'Lumbini', 'Gandaki'];
+
+export const vectorTileData = [
+  {
+    id: '1',
+    checked: true,
+    url: 'https://pccmis.karnali.gov.np/api/v1/layer_vectortile/{z}/{x}/{y}/?layer=district&pro_code=6',
+  },
+];

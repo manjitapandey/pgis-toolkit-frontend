@@ -1,8 +1,9 @@
 import React from 'react';
 import Popup from '@Components/common/Popup/index';
-import { Creators } from '@Actions/individualOrganizations';
+import { Creators } from '@Actions/individualOrganization';
 import { useDispatch, useSelector } from 'react-redux';
 import MultistepLabel from '@Components/common/MultistepLabel/index';
+import Text from '@Components/common/Text/index';
 
 const { openProjectPopup } = Creators;
 
@@ -13,6 +14,7 @@ const CreateProjectPopup = () => {
   const handleCloseClick = () => {
     dispatch(openProjectPopup(false));
   };
+  const changeTextHandler = () => {};
   return (
     <Popup
       header="Create Project Details"
@@ -20,61 +22,60 @@ const CreateProjectPopup = () => {
       body={
         <>
           <MultistepLabel />
-          <div className="pm-group">
-            <label className="fw-bold"> phone </label>
-            <input type="text" className="pm-control" placeholder="ST-34536" />
-          </div>
+          <Text label="phone" placeholder="ST-34536" id="phone" onChange={changeTextHandler} />
+
           <div className="is-flex is-wrap is-gap-15">
-            <div className="pm-group is-grow">
-              <label className="fw-bold"> password</label>
-              <div className="custom-input-group">
-                <input type="password" className="pm-control" placeholder="ST-34536" />
-                <span className="span-group pr-10">
-                  <i className="material-icons">visibility</i>
-                </span>
-              </div>
-            </div>
-            <div className="pm-group is-grow">
-              <label className="fw-bold is-capitalize"> confirm password</label>
-              <div className="custom-input-group">
-                <input type="password" className="pm-control" placeholder="Start Date" />
-                <span className="span-group pr-10">
-                  <i className="material-icons">visibility</i>
-                </span>
-              </div>
-            </div>
+            <Text
+              className1="is-grow"
+              icon="visibility"
+              label="password"
+              type="password"
+              onChange={changeTextHandler}
+              id="password"
+              placeholder="ST-34536"
+            />
+            <Text
+              className1="is-grow"
+              icon="visibility"
+              type="password"
+              label="confirm password"
+              onChange={changeTextHandler}
+              id="confirm password"
+              placeholder="ST-34536"
+            />
           </div>
           <div className="is-flex  is-gap-15 is-wrap">
-            <div className="pm-group is-grow">
-              <label className="fw-bold is-capitalize"> Project start Date</label>
-              <div className="custom-input-group">
-                <input type="text" className="pm-control" placeholder="start Date" />
-                <span className="span-group pr-10">
-                  <i className="material-icons">calendar_today</i>
-                </span>
-              </div>
-            </div>
-            <div className="pm-group is-grow">
-              <label className="fw-bold is-capitalize">Project end Date</label>
-              <div className="custom-input-group">
-                <input type="password" className="pm-control" placeholder="end date" />
-                <span className="span-group pr-10">
-                  <i className="material-icons">calendar_today</i>
-                </span>
-              </div>
-            </div>
+            <Text
+              className1="is-grow"
+              labelClassName="fw-bold is-capitalize"
+              icon="calendar_today"
+              label="Project start Date"
+              onChange={changeTextHandler}
+              id="start date"
+              placeholder="start Date"
+            />
+            <Text
+              className1="is-grow"
+              labelClassName="fw-bold is-capitalize"
+              icon="calendar_today"
+              label="Project end Date"
+              onChange={changeTextHandler}
+              id="end date"
+              placeholder="end Date"
+            />
           </div>
 
-          <div className="pm-group">
-            <label className="fw-bold">Email</label>
-            <div className="custom-input-group">
-              <span className="span-group pl-10">
-                <i className="material-icons">email</i>
-              </span>
-              <input type="email" className="pm-control" placeholder="ST-34536" />
-            </div>
-          </div>
-
+          <Text
+            className1="is-grow"
+            labelClassName="fw-bold"
+            icon="email"
+            type="email"
+            label="Email"
+            onChange={changeTextHandler}
+            id="email"
+            placeholder="email"
+            iconAhead
+          />
           <div className="pm-group">
             <label className="fw-bold">Email</label>
             <textarea type="text" className="pm-control" placeholder="ST-34536" />

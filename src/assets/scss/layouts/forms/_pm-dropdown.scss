@@ -51,12 +51,12 @@
     @include align-items(center);
     font-weight: 500;
     i {
-      font-size: var(--fs-h6);
       margin-right: 0.5rem;
     }
   }
   &_after {
     .pm-dropdown_btn {
+      font-weight: bold;
       &::after {
         content: '';
         width: 0;
@@ -73,7 +73,7 @@
         );
         position: absolute;
         right: 15px;
-        top: 1rem;
+        top: 50%;
         @include box-shadow(0 10px 40px rgba(var(--clr-body-900), 0.2));
       }
     }
@@ -136,7 +136,6 @@
           i,
           svg {
             margin-right: 0.6125rem;
-            font-size: 1rem;
             img {
               max-width: 16px;
             }
@@ -230,9 +229,7 @@
     margin: 0 10px;
   }
   &_show {
-    .pm-dropdown_btn {
-      color: var(--clr-primary-500);
-    }
+    
     ul {
       &.pm-dropdown_menu {
         display: block;

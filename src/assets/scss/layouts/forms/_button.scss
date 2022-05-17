@@ -11,23 +11,19 @@
   @include user-select(none);
   overflow: hidden;
   vertical-align: middle;
-  @include radius(6px);
+  @include radius(8px);
   cursor: pointer;
   @include flexbox();
   width: fit-content;
   @include align-items(center);
   font-weight: 600;
-  @include prefix(
-    transition,
-    (all 0.5s ease-in-out),
-    ('webkit', 'ms', 'moz', 'o')
-  );
+  
   &:focus {
     border-color: var(--clr-primary-500);
   }
   &_icon {
     i {
-      font-size: var(--fs-h6);
+      // font-size: var(--fs-h6);
       margin-right: 0.45rem;
     }
   }
@@ -48,7 +44,7 @@
       }
     }
     &:hover {
-      background-color: var(--clr-primary-600);
+      background-color: var(--clr-primary-700);
       color:var(--clr-white-900);
     }
     &:active,
@@ -61,14 +57,16 @@
     color: var(--clr-white-900);
   }
   &_secondary {
-    background-color: var(--clr-body-50);
+    background-color: var(--clr-white-900);
     color:var(--clr-secondary-500);
-    border: 1px solid var(--clr-body-400);
+    border: 1px solid var(--clr-body-300);
     &:hover,
     &:active,
     &__active {
       border-color: var(--clr-body-600);
-      color:var(--clr-primary-500);
+      color:var(--clr-secondary-500);
+      background-color: var(--clr-body-100);
+      
     }
     &:active,
     &__active {
@@ -84,7 +82,7 @@
     }
   }
   &_sm {
-    padding: 0.5rem 0.875rem;
+    padding: 0.35rem 0.6125rem;
   }
   &_radius {
     @include radius(24px);

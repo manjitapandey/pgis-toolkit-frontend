@@ -24,14 +24,14 @@
   &_wrap {
     width: 100%;
     @include breakpoint-to('md-desktop') {
-      width: calc(100% - 400px);
+      width: calc(100% - 440px);
     }
   }
   &_sidebar {
     width: 100%;
     @include breakpoint-to('md-desktop') {
-      max-width: 380px;
-      width: 380px;
+      max-width: 460px;
+      width: 460px;
     }
   }
 }

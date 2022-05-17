@@ -4,9 +4,10 @@ import history from '../utils/history';
 import login from './login';
 import toast from './toast';
 import loader from './loader.reducer';
-import individualOrganizations from './individualOrganizations';
+import individualOrganizations from './individualOrganization';
 import individualProject from './individualProject';
 import popup from './popup';
+import organizations from './organizations';
 
 export default combineReducers({
   router: connectRouter(history),
@@ -16,4 +17,5 @@ export default combineReducers({
   individualOrganizations,
   individualProject,
   popup,
+  organizations,
 });

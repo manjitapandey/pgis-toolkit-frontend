@@ -2,7 +2,7 @@ import React from 'react';
 import Select from '@Components/common/Select/index';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import individualActions from '@Actions/individualOrganizations';
+import individualActions from '@Actions/individualOrganization';
 import { selectOptions } from '@src/constants/commonData';
 
 const FilterSidebar = ({ active }) => {

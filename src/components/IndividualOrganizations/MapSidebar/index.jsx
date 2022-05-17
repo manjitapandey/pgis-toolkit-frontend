@@ -3,7 +3,7 @@ import React from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { Creators } from '@Actions/individualOrganizations';
+import { Creators } from '@Actions/individualOrganization';
 import { mapProjectOptions } from '@src/constants/commonData';
 import Sidebar from '@Components/common/Sidebar/index';
 import Dropdown from '../Dropdown/index';

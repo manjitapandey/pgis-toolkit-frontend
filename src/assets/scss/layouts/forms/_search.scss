@@ -47,6 +47,9 @@
         padding-left: 0;
       }
     }
+    &:focus-within{
+      border-color: var(--clr-body-900);
+    }
   }
   &_100 {
     .search-wrap {
@@ -58,6 +61,16 @@
       input {
         &.pm-control {
           height: calc(1.5rem + 0.75rem + 2px);
+        }
+      }
+    }
+  }
+  &_white{
+    .search-wrap{
+      background-color: var(--clr-white-900);
+      input{
+        &.pm-control{
+          background-color: var(--clr-white-900);
         }
       }
     }

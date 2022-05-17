@@ -74,6 +74,10 @@ table th {
               }
             }
           }
+          &:hover{
+            color: var(--clr-body-900);
+            cursor: pointer;
+          }
           &.serial-no {
             width: 50px;
           }
@@ -119,8 +123,11 @@ table th {
 
     .is-circle {
       &.is-circle_xs {
-        max-width: 26px;
-        height: 26px;
+        max-width: 32px;
+        height: 32px;
+        &:hover{
+          background-color: var(--clr-white-900);
+        }
       }
     }
 
