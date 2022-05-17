@@ -29,13 +29,13 @@ h1 {
 
 h2 {
   font-size: var(--fs-h2);
-  line-height: 1.25;
+  line-height: 1.125;
   font-weight: bold;
 }
 
 h3 {
   font-size: var(--fs-h3);
-  line-height: 1.38;
+  line-height: 1.125;
   font-weight: bold;
 }
 
@@ -61,6 +61,10 @@ h6 {
   font-size: var(--fs-h6);
   font-weight: normal;
 }
+.fs-lg{
+  font-size: var(--fs-lg);
+  line-height: 1.2;
+}
 
 .fs-body {
   font-size: var(--fs-body);
@@ -69,6 +73,7 @@ h6 {
 .fs-btn {
   font-size: var(--fs-btn);
   font-weight: bold;
+  line-height: 1;
 }
 
 .fs-btn-md {

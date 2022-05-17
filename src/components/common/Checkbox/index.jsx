@@ -9,7 +9,7 @@ const Checkbox = ({ className, id, type, name, checked, label, onChange, icon })
     setToggle((prevState) => !prevState);
   };
   return (
-    <div className={`pm-checkbox ${className}`}>
+    <div className={`pm-checkbox ${className}`} key={`${id}${name}`}>
       <input type={type} id={id} name={name} checked={checked} onChange={onChange} />
       <label htmlFor={id} className="is-grow is-flex is-start is-align-start" onClick={handleToggle}>
         {icon && <i className="material-icons mr-10">{icon}</i>}

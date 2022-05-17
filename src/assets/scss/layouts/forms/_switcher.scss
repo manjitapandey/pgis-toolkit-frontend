@@ -37,7 +37,7 @@
   }
 
   input:checked + .switch-slider {
-    background-color: var(--clr-body-600);
+    background-color: var(--clr-secondary-500);
   }
 
   input:checked + .switch-slider:before {

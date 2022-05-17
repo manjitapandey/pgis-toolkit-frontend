@@ -2,13 +2,13 @@
     padding:1rem;
     .login-cover{
         min-height: calc(100vh - 2rem);
-        @include flex-value(0 0 100%);
-        max-width: 100%;
+        display: none;
         border-radius: 16px;
 
         @include breakpoint-to('lg-tab') {
             @include flex-value(0 0 360px);
             max-width: 360px;
+            display: block
         }
         
         @include breakpoint-to('md-desktop') {
@@ -20,7 +20,9 @@
             object-fit: cover;
             background-position: bottom;
         &_header{
-            
+            img{
+                max-height: 50px;
+            }
         }
         &_body{
             color:var(--clr-white-900);
@@ -28,8 +30,18 @@
     }
     .login-form{
         width:100% ;
+        &_logo{
+            display: block;
+            width: 100%;
+            img{
+                max-height: 40px;
+            }
+        }
         @include breakpoint-to('lg-tab') {
             width:calc(100% - 360px);
+            &_logo{
+                display: none;
+            }
         }
         
         @include breakpoint-to('md-desktop') {
@@ -45,14 +57,30 @@
             figure{
                 margin:0 auto;
             }
+            .is-circle{
+                &.is-bg{
+                    background-color: var(--clr-primary-500);
+                    color:var(--clr-white-900);
+                    svg{
+                        fill:var(--clr-white-900);
+                    }
+                }
+            } 
         }
         .is-btn{
             &_secondary{
                 color:var(--clr-body-600);
-                font-weight: normal;
                 svg{
                     max-width: 16px;
                 }
+                &:hover{
+                    background-color: var(--clr-body-100);
+                }
+            }
+        }
+        .is-forgot{
+            &:hover{
+                color:var(--clr-secondary-500);
             }
         }
     }

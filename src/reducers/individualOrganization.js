@@ -1,5 +1,5 @@
 import { createReducer } from 'reduxsauce';
-import { Types } from '@Actions/individualOrganizations';
+import { Types } from '@Actions/individualOrganization';
 
 const initialState = {
   active: 'map',
