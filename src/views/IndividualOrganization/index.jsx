@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import Banner from '@Components/IndividualOrganizations/Banner';
 import MapSidebar from '@Components/IndividualOrganizations/MapSidebar/index';
 import FilterSidebar from '@Components/IndividualOrganizations/FilterSidebar/index';
@@ -8,14 +10,23 @@ import UsersData from '@Components/IndividualOrganizations/UsersData/index';
 import Tab from '@Components/common/Tab/index';
 import { sidebarTabOptions } from '@src/constants/commonData';
 import CreateProjectPopup from '@Components/IndividualOrganizations/CreateProjectPopup/index';
+import { Creators } from '@Actions/individualOrganization';
+
+const { getIndividualOrganizationDataRequest } = Creators;
 
 const IndividualOrganization = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
   const [tab, setTab] = useState('Projects');
   const active = useSelector((state) => state.individualOrganizations.active);
   const mapToggle = useSelector((state) => state.individualOrganizations.mapToggle);
 
+  useEffect(() => {
+    dispatch(getIndividualOrganizationDataRequest(id));
+  }, []);
+
   return (
-    <main className="mt-30">
+    <main className="mt-15 pl-30 pr-30">
       <div className="container-fluid">
         <Banner />
         <Tab activeTab={tab} options={sidebarTabOptions} setTab={setTab} />

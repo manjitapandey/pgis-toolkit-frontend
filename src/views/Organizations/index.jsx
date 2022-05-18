@@ -34,7 +34,7 @@ const Organizations = () => {
   }, []);
 
   return (
-    <main className="mt-30">
+    <main className="mt-30 pl-30 pr-30">
       <div className="container-fluid">
         <div className="mb-15">
           <div className="is-flex is-between is-align-start is-grow">
@@ -45,7 +45,7 @@ const Organizations = () => {
               modal-link="create-organization"
               onClick={handleClick}
             >
-              <i className="material-icons">add_circle_outline</i>
+              <i className="material-icons-outlined">add_circle_outline</i>
               <span>Create New</span>
             </button>
           </div>

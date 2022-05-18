@@ -6,7 +6,7 @@ import ProfileImage from '@Assets/images/admin/profile.jpg';
 const Header = () => {
   const { pathname } = useLocation();
   return (
-    <header className="dbd-header pd-10">
+    <header className="dbd-header pd-10 pl-30 pr-30">
       <div className="container-fluid">
         <div className="is-flex is-between is-align-center is-wrap is-gap-15">
           <Link to="/" className="logo">

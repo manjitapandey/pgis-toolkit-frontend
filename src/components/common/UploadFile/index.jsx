@@ -6,13 +6,14 @@ import PropTypes from 'prop-types';
 
 const UploadFile = ({ onChange, value, name, accept, title, spanDescription }) => (
   <div className="pm-group">
-    <div className="pmupload-btn is-flex is-start is-align-center">
-      <label htmlFor="upload" className="is-flex is-align-center is-btn is-btn_icon is-btn_link">
-        <i className="material-icons">upload</i>
-        <span>{title}</span>
-        <input type="file" id="upload" onChange={onChange} value={value} name={name} accept={accept} />
+    <div className="upload">
+      <input type="file" id="upload" onChange={onChange} value={value} name={name} accept={accept} />
+      <label htmlFor="upload">
+        <div className="upload-icon">
+          <i className="material-icons">backup</i>
+        </div>
+        <p className="opacity-5">{spanDescription}</p>
       </label>
-      <span className="fs-md">{spanDescription}</span>
     </div>
   </div>
 );

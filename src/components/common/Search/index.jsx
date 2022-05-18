@@ -5,7 +5,7 @@ const Search = ({ handleSearch, children, className, value, insideWrap, color })
   <div className={`search ${className}`}>
     <div className="search-wrap">
       <span className="search-wrap_icon">
-        <i className="material-icons">search</i>
+        <i className="material-icons-outlined">search</i>
       </span>
       <input
         className="pm-control"

@@ -6,21 +6,23 @@ import { Creators } from '@Actions/individualProject';
 import FilterSidebar from '../FilterSidebar/index';
 import CustomInput from './CustomInput/index';
 import ListCustomInput from './ListCustomInput/index';
+import LayerStyleFilter from '../FilterSidebar/LayerStyleFilter';
 
 const { setActive, openDatasetPopup, openLayerPopup, getSelectedFromLayer, getSelectedFromSubLayer } = Creators;
 
 const MapSidebar = () => {
   const dispatch = useDispatch();
   const active = useSelector((state) => state.individualProject.active);
+  const layerFilterActive = useSelector((state) => state.individualProject.layerFilterActive);
   const layerData = useSelector((state) => state.individualProject.layerData);
   const handleSearch = () => {};
   const handleCheckbox = (e, parId, name, catName) => {
     const { id } = e.target;
     dispatch(getSelectedFromLayer({ id, parentId: parId, name, categoryName: catName }));
   };
-  const handleListCheckbox = (e, parId, name) => {
+  const handleListCheckbox = (e, parId, name, catName) => {
     const { id } = e.target;
-    dispatch(getSelectedFromSubLayer({ id, parentId: parId, name }));
+    dispatch(getSelectedFromSubLayer({ id, parentId: parId, name, categoryName: catName }));
   };
   const handleClick = () => {
     dispatch(setActive('filter'));
@@ -43,8 +45,8 @@ const MapSidebar = () => {
                 handleButtonClick={handleButtonClick}
                 body={
                   <ul className="is-list">
-                    {hasSubLayer
-                      ? options.length &&
+                    {
+                      options.length &&
                         options?.map((element) => (
                           <ListCustomInput
                             uniqueId={element?.id}
@@ -52,21 +54,22 @@ const MapSidebar = () => {
                             isSelected={element?.isSelected}
                             onChange={(event) => handleCheckbox(event, element.id, name, element.name)}
                             icon={element?.icon}
-                            onListChange={(event) => handleListCheckbox(event, element.id, name)}
+                            onListChange={(event) => handleListCheckbox(event, element.id, name, element.name)}
                             options={element?.options}
                           />
                         ))
-                      : options &&
-                        options?.map(({ uniqueId, catName, isSelected, icon }) => (
-                          <CustomInput
-                            uniqueId={uniqueId}
-                            catName={catName}
-                            isSelected={isSelected}
-                            icon={icon}
-                            type={type}
-                            onChange={(event) => handleCheckbox(event, uniqueId, name)}
-                          />
-                        ))}
+                      // : options &&
+                      //   options?.map((element) => (
+                      //     <CustomInput
+                      //       uniqueId={element.id}
+                      //       catName={element.name}
+                      //       isSelected={element.isSelected}
+                      //       icon={element.icon}
+                      //       type={type}
+                      //       onChange={(event) => handleCheckbox(event, element.id, name)}
+                      //     />
+                      //   ))
+                    }
                   </ul>
                 }
               />
@@ -74,6 +77,7 @@ const MapSidebar = () => {
         </div>
       </div>
       <FilterSidebar active={active} />
+      <LayerStyleFilter active={layerFilterActive} />
     </Sidebar>
   );
 };
