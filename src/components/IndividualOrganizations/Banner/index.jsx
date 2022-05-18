@@ -6,13 +6,13 @@ import { dropdownOptions } from '../../../constants/commonData';
 const Banner = () => {
   const handleSelect = () => {};
   return (
-    <div className="is-flex is-between is-align-start gap-15 mb-15">
+    <div className="is-flex is-between is-align-start gap-10 mb-10">
       <div className="is-flex is-start is-align-start is-grow">
-        <Link to="/" className="is-back is-circle is-circle_sm mr-15">
+        <Link to="/" className="is-back is-circle is-circle_sm mr-15 is-circle_hover">
           <i className="material-icons">arrow_back</i>
         </Link>
         <div className="is-flex is-start is-align-start is-grow">
-          <div className="is-circle is-radius-4 is-circle_img is-circle_md is-circle_bg">
+          <div className="is-circle is-radius-4 is-circle_img is-circle_sm is-circle_bg">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               // xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -57,22 +57,22 @@ const Banner = () => {
             </svg>
           </div>
           <div className="is-grow ml-15">
-            <div className="is-flex is-start is-align-start is-grow mb-05">
+            <div className="is-flex is-start is-align-start is-grow">
               <h3 className="mr-15 is-trim-2">World Bicycle Relief</h3>
               <button className="is-btn is-btn_link is-btn_sm" type="button">
-                <i className="fs-md material-icons mr-10">info</i>
+                <i className="material-icons-outlined mr-10">info</i>
                 <span>Info</span>
               </button>
             </div>
 
-            <ul className="is-gap-50 is-flex is-wrap is-start">
+            <ul className="is-gap-50 is-flex is-wrap is-start is-align-start">
               <li className="is-flex is-start is-align-center is-gap-10">
-                <i className="material-icons clr-primary-500">mail_outline</i>
-                <span>worldbicyclereleif@mail.com</span>
+                <i className="material-icons-outlined clr-primary-500 fs-body">mail</i>
+                <span className="fs-md is-break">worldbicyclereleif@mail.com</span>
               </li>
               <li className="is-flex is-start is-align-center is-gap-10">
-                <i className="material-icons clr-primary-500">language</i>
-                <span>www.worldbicyclereleif.com</span>
+                <i className="material-icons-outlined clr-primary-500 fs-body">language</i>
+                <span className="fs-md is-break">www.worldbicyclereleif.com</span>
               </li>
             </ul>
           </div>

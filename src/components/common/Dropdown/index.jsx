@@ -6,9 +6,15 @@ import { isEmpty } from '@Utils/commonUtils';
 const Dropdown = ({ options, selected, onClick }) => {
   const [toggleRef, toggle, handleToggle] = useOutsideClick();
   return (
-    <div className={toggle ? 'pm-dropdown pm-dropdown_right pm-dropdown_show' : 'pm-dropdown pm-dropdown_right'}>
-      <a className="is-btn is-btn_secondary is-btn_icon" ref={toggleRef} onClick={handleToggle}>
-        <i className="material-icons">settings</i>
+    <div
+      className={
+        toggle
+          ? 'pm-dropdown pm-dropdown_right  pm-dropdown_after pm-dropdown_show'
+          : 'pm-dropdown pm-dropdown_right  pm-dropdown_after'
+      }
+    >
+      <a className="is-btn is-btn_secondary is-btn_icon pm-dropdown_btn" ref={toggleRef} onClick={handleToggle}>
+        <i className="material-icons-outlined">settings</i>
         <div>settings</div>
       </a>
       <ul className="pm-dropdown_menu right-select" style={{ display: toggle ? 'block' : 'none' }}>

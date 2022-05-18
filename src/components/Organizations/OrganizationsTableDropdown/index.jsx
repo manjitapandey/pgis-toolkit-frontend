@@ -17,13 +17,19 @@ const TableDropdown = () => {
       <ul className="pm-dropdown_menu">
         <li>
           <a>
-            <i className="material-icons">edit</i>
+            <i className="material-icons-outlined">edit</i>
             <span className="is-capitalize">edit</span>
           </a>
         </li>
         <li>
+          <a>
+            <i className="material-icons-outlined">manage_accounts</i>
+            <span className="is-capitalize">Asign</span>
+          </a>
+        </li>
+        <li>
           <a className="clr-primary-500">
-            <i className="material-icons">delete</i>
+            <i className="material-icons-outlined">delete</i>
             <span className="is-capitalize">delete</span>
           </a>
         </li>

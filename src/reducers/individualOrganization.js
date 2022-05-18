@@ -5,6 +5,7 @@ const initialState = {
   active: 'map',
   mapToggle: false,
   openProjectPopup: false,
+  individualOrganizationData: null,
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
@@ -19,10 +20,21 @@ const openProjectPopup = (state, action) => ({
   openProjectPopup: action.payload,
 });
 
+const getIndividualOrganizationDataSuccess = (state, action) => {
+  const {
+    payload: { data },
+  } = action;
+  return {
+    ...state,
+    individualOrganizationData: data.results,
+  };
+};
+
 const individualOrganizationsReducer = createReducer(initialState, {
   [Types.SET_ACTIVE]: setActive,
   [Types.HANDLE_MAP_TOGGLE]: handleMapToggle,
   [Types.OPEN_PROJECT_POPUP]: openProjectPopup,
+  [Types.GET_INDIVIDUAL_ORGANIZATION_DATA_SUCCESS]: getIndividualOrganizationDataSuccess,
 });
 
 export default individualOrganizationsReducer;

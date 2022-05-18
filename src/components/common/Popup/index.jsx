@@ -5,11 +5,11 @@ import popupAction from '@Actions/popup';
 const Popup = ({ className, header, body, buttonTitle, handleButtonClick, popup, handleCloseClick }) => (
   <div className={popup ? 'pm-modal pm-modal_show' : 'pm-modal'} id="create-theme">
     <div className={`pm-modal_cntr ${className}`}>
-      <div className="pm-modal_header  is-flex is-between is-gap-15">
+      <div className="pm-modal_header is-gap-15 mt-15">
         <h3 className="is-grow is-capitalize">{header}</h3>
         <div className="is-flex is-end is-align-center">
           <a className="pm-modal_close" onClick={handleCloseClick}>
-            <i className="material-icons">close</i>
+            <i className="material-icons-outlined">close</i>
           </a>
         </div>
       </div>

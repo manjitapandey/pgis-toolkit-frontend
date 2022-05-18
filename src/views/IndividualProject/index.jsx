@@ -10,7 +10,7 @@ import AddLayerPopup from '@Components/IndividualProject/AddLayerPopup/index';
 import FilterSidebar from '@Components/IndividualProject/FilterSidebar/index';
 import { Creators } from '@Actions/individualProject';
 
-const { getProjectLayerDataRequest } = Creators;
+const { getProjectLayerDataRequest, getLayerTemplateListRequest } = Creators;
 
 const IndividualProject = () => {
   const { id, uniqueId } = useParams();
@@ -23,6 +23,7 @@ const IndividualProject = () => {
 
   useEffect(() => {
     dispatch(getProjectLayerDataRequest(uniqueId));
+    dispatch(getLayerTemplateListRequest());
   }, [dispatch]);
   return (
     <>
