@@ -11,7 +11,7 @@ import WmsLayer from './WmsLayer/index';
 
 const AddLayerPopup = () => {
   const dispatch = useDispatch();
-  const [activeTab, setActiveTab] = useState('OpenstreetMap');
+  const [activeTab, setActiveTab] = useState('Template');
   const openLayerPopup = useSelector((state) => state.individualProject.openLayerPopup);
 
   const handleButtonClick = () => {};

@@ -15,6 +15,7 @@ const initialState = {
   addUploadData: {
     layerName: '',
   },
+  searchData: '',
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
@@ -228,6 +229,11 @@ const setAddUploadData = (state, action) => {
   };
 };
 
+const getSearchData = (state, action) => ({
+  ...state,
+  searchData: action.payload,
+});
+
 const individualProjectReducer = createReducer(initialState, {
   [Types.GET_PROJECT_LAYER_DATA_SUCCESS]: getProjectLayerDataSuccess,
   [Types.GET_LAYER_TEMPLATE_LIST_SUCCESS]: getLayerTemplateListSuccess,
@@ -240,6 +246,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.GET_SELECTED_FROM_SUB_LAYER]: getSelectedFromSubLayer,
   [Types.SET_ADD_UPLOAD_DATA_FILE]: setAddUploadDataFile,
   [Types.SET_ADD_UPLOAD_DATA]: setAddUploadData,
+  [Types.GET_SEARCH_DATA]: getSearchData,
 });
 
 export default individualProjectReducer;

@@ -12,7 +12,7 @@ import { sidebarTabOptions } from '@src/constants/commonData';
 import CreateProjectPopup from '@Components/IndividualOrganizations/CreateProjectPopup/index';
 import { Creators } from '@Actions/individualOrganization';
 
-const { getIndividualOrganizationDataRequest } = Creators;
+const { getIndividualOrganizationDataRequest, getOrganizationDetailDataRequest } = Creators;
 
 const IndividualOrganization = () => {
   const { id } = useParams();
@@ -23,6 +23,7 @@ const IndividualOrganization = () => {
 
   useEffect(() => {
     dispatch(getIndividualOrganizationDataRequest(id));
+    dispatch(getOrganizationDetailDataRequest(id));
   }, []);
 
   return (

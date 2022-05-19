@@ -3,19 +3,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import Sidebar from '@Components/common/Sidebar/index';
 import Accordion from '@Components/common/Accordion/index';
 import { Creators } from '@Actions/individualProject';
+import { searchedLayerSelector } from '@Selectors/individualProject';
 import FilterSidebar from '../FilterSidebar/index';
 import CustomInput from './CustomInput/index';
 import ListCustomInput from './ListCustomInput/index';
 import LayerStyleFilter from '../FilterSidebar/LayerStyleFilter';
 
-const { setActive, openDatasetPopup, openLayerPopup, getSelectedFromLayer, getSelectedFromSubLayer } = Creators;
+const { setActive, openDatasetPopup, openLayerPopup, getSelectedFromLayer, getSelectedFromSubLayer, getSearchData } =
+  Creators;
 
 const MapSidebar = () => {
   const dispatch = useDispatch();
   const active = useSelector((state) => state.individualProject.active);
   const layerFilterActive = useSelector((state) => state.individualProject.layerFilterActive);
   const layerData = useSelector((state) => state.individualProject.layerData);
-  const handleSearch = () => {};
+  const searchData = useSelector((state) => state.individualProject.searchData);
+  const searchedLayerData = useSelector(searchedLayerSelector);
+
+  const handleSearch = (event) => {
+    dispatch(getSearchData(event.target.value));
+  };
   const handleCheckbox = (e, parId, name, catName) => {
     const { id } = e.target;
     dispatch(getSelectedFromLayer({ id, parentId: parId, name, categoryName: catName }));
@@ -35,11 +42,17 @@ const MapSidebar = () => {
     dispatch(openLayerPopup(true));
   };
   return (
-    <Sidebar handleClick={handleClick} handleSearch={handleSearch} buttonTitle="Add" onButtonClick={onButtonClick}>
+    <Sidebar
+      handleClick={handleClick}
+      searchValue={searchData}
+      handleSearch={handleSearch}
+      buttonTitle="Add"
+      onButtonClick={onButtonClick}
+    >
       <div className="dvd-sidebar-body is-overflow" style={{ height: '75vh' }}>
         <div className="acc acc-after">
-          {layerData &&
-            layerData?.map(({ name, type, options, hasSubLayer }) => (
+          {searchedLayerData &&
+            searchedLayerData?.map(({ name, type, options, hasSubLayer }) => (
               <Accordion
                 header={<h4 className="is-grow ">{name}</h4>}
                 handleButtonClick={handleButtonClick}

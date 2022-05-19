@@ -26,9 +26,9 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
           className="is-flex is-grow"
         />
         <div className="is-flex is-end is-icon_list is-align-center">
-          <button type="button" className="is-btn is-btn_link is-btn_sm">
+          {/* <button type="button" className="is-btn is-btn_link is-btn_sm">
             <span>Explore</span>
-          </button>
+  </button> */}
           <div className="pm-dropdown pm-dropdown_option">
             <a href="#" className="is-circle is-circle_xs" onClick={handleEdit}>
               <i className="material-icons">edit</i>
@@ -51,9 +51,9 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                 className="is-flex is-grow"
               />
               <div className="is-flex is-end is-icon_list is-align-center">
-                <button type="button" className="is-btn is-btn_link is-btn_sm" onClick={handleEdit}>
+                {/* <button type="button" className="is-btn is-btn_link is-btn_sm" onClick={handleEdit}>
                   <span>Explore</span>
-                </button>
+          </button> */}
                 <div className="pm-dropdown pm-dropdown_option">
                   <a href="#" className="is-circle is-circle_xs">
                     <i className="material-icons">edit</i>

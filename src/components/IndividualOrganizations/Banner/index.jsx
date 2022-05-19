@@ -1,9 +1,12 @@
-import Dropdown from '@Components/common/Dropdown/index';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Dropdown from '@Components/common/Dropdown/index';
 import { dropdownOptions } from '../../../constants/commonData';
 
 const Banner = () => {
+  const organizationData = useSelector((state) => state.individualOrganizations.organizationData);
+  console.log(organizationData, 'data');
   const handleSelect = () => {};
   return (
     <div className="is-flex is-between is-align-start gap-10 mb-10">
@@ -58,7 +61,7 @@ const Banner = () => {
           </div>
           <div className="is-grow ml-15">
             <div className="is-flex is-start is-align-start is-grow">
-              <h3 className="mr-15 is-trim-2">World Bicycle Relief</h3>
+              <h3 className="mr-15 is-trim-2">{organizationData?.name}</h3>
               <button className="is-btn is-btn_link is-btn_sm" type="button">
                 <i className="material-icons-outlined mr-10">info</i>
                 <span>Info</span>
@@ -68,17 +71,17 @@ const Banner = () => {
             <ul className="is-gap-50 is-flex is-wrap is-start is-align-start">
               <li className="is-flex is-start is-align-center is-gap-10">
                 <i className="material-icons-outlined clr-primary-500 fs-body">mail</i>
-                <span className="fs-md is-break">worldbicyclereleif@mail.com</span>
+                <span className="fs-md is-break">{organizationData?.email}</span>
               </li>
               <li className="is-flex is-start is-align-center is-gap-10">
                 <i className="material-icons-outlined clr-primary-500 fs-body">language</i>
-                <span className="fs-md is-break">www.worldbicyclereleif.com</span>
+                <span className="fs-md is-break">{organizationData?.link}</span>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <Dropdown options={dropdownOptions} onClick={handleSelect} />
+      {/* <Dropdown options={dropdownOptions} onClick={handleSelect} /> */}
     </div>
   );
 };

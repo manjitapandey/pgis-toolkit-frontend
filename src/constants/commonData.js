@@ -97,15 +97,15 @@ export const checkboxOptions = [
 
 export const sidebarTabOptions = [
   { id: '1', name: 'Projects' },
-  { id: '2', name: 'Users' },
+  // { id: '2', name: 'Users' },
 ];
 
 export const layerPopupTabOptions = [
-  { id: '1', name: 'OpenstreetMap' },
+  // { id: '1', name: 'OpenstreetMap' },
   { id: '2', name: 'Template' },
   { id: '3', name: 'Upload' },
-  { id: '4', name: 'Custom' },
-  { id: '5', name: 'WMS layer' },
+  // { id: '4', name: 'Custom' },
+  // { id: '5', name: 'WMS layer' },
 ];
 
 export const selectOptions = ['Bagmati', 'Gandaki', 'Lumbini', 'Gandaki'];

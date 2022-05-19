@@ -11,7 +11,7 @@ const ProjectHeader = ({ title, handleClick }) => (
           </a>
           <h5>{title}</h5>
         </div>
-        <nav className="nav is-grow">
+        {/* <nav className="nav is-grow">
           <ul className="is-end is-flex is-align-center is-gap-30 is-grow">
             <li className="is-active">
               <a href="#">map</a>
@@ -88,7 +88,7 @@ const ProjectHeader = ({ title, handleClick }) => (
               </li>
             </ul>
           </div>
-        </div>
+</div> */}
       </div>
     </div>
   </header>
