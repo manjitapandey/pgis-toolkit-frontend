@@ -65,9 +65,9 @@ const OlMap = () => {
               <i className="material-icons">crop_free</i>
             </a>
 
-            <a className="">
+            {/* <a className="">
               <i className="material-icons">info</i>
-            </a>
+        </a> */}
           </div>
           <CustomLayerSwitcher map={map} options={switcherOptions} />
           <ZoomControl map={map} />

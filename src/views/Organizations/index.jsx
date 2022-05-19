@@ -39,7 +39,7 @@ const Organizations = () => {
         <div className="mb-15">
           <div className="is-flex is-between is-align-start is-grow">
             <h3 className="mr-15 is-trim-2">Organizations</h3>
-            <button
+            {/* <button
               type="button"
               className="is-btn is-btn_primary is-btn_icon"
               modal-link="create-organization"
@@ -47,7 +47,7 @@ const Organizations = () => {
             >
               <i className="material-icons-outlined">add_circle_outline</i>
               <span>Create New</span>
-            </button>
+  </button> */}
           </div>
           <Search className="mt-15" handleSearch={handleSearch} />
         </div>
@@ -123,7 +123,7 @@ const Organizations = () => {
                       event.stopPropagation();
                     }}
                   >
-                    <TableDropdown />
+                    {/* <TableDropdown /> */}
                   </div>
                 )}
               />

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Search = ({ handleSearch, children, className, value, insideWrap, color }) => (
+  // console.log(value, 'searchValue');
   <div className={`search ${className}`}>
     <div className="search-wrap">
       <span className="search-wrap_icon">
@@ -21,7 +22,6 @@ const Search = ({ handleSearch, children, className, value, insideWrap, color })
     {!insideWrap && children}
   </div>
 );
-
 Search.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   children: PropTypes.node,

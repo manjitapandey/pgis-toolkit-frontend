@@ -23,12 +23,12 @@ const Dropdown = () => {
               <span>Zoom to layer</span>
             </a>
           </li>
-          <li>
+          {/* <li>
             <a>
               <i className="material-icons">star_border</i>
               <span>add Feature</span>
             </a>
-          </li>
+      </li> */}
           <li>
             <a>
               <i className="material-icons">delete</i>
