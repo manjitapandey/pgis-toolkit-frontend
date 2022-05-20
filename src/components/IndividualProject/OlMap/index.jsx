@@ -3,12 +3,14 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromLonLat } from 'ol/proj';
 import MapContainer from '@Components/common/OpenLayersComponent/MapContainer';
+import FullScreenControl from '@Components/common/OpenLayersComponent/Control/FullScreenControl';
+import CustomLayerSwitcher from '@Components/common/OpenLayersComponent/LayerSwitcher/CustomLayerSwitcher';
+import ZoomControl from '@Components/common/OpenLayersComponent/Control/ZoomControl';
 import useOLMap from '@Components/common/OpenLayersComponent/useOLMap';
 import Scalebar from '@Components/common/OpenLayersComponent/Scalebar';
 import individualActions from '@Actions/individualProject';
-import CustomLayerSwitcher from '@Components/common/OpenLayersComponent/LayerSwitcher/CustomLayerSwitcher';
-import ZoomControl from '@Components/common/OpenLayersComponent/Control/ZoomControl';
 import { switcherOptions } from '@src/constants/commonData';
+import MeasureControl from '@Components/common/OpenLayersComponent/Control/MeasureControl';
 
 const OlMap = () => {
   const dispatch = useDispatch();
@@ -58,12 +60,17 @@ const OlMap = () => {
         </a>
         <div className="map-setting is-bottom is-right">
           <div className="setting-list" title="Tools">
-            <a className="sidebar-collapse">
+            {/* <a className="sidebar-collapse">
               <i className="material-icons">straighten</i>
-            </a>
-            <a className="is-settings">
+        </a> 
+
+        <a className="is-settings">
               <i className="material-icons">crop_free</i>
             </a>
+      */}
+            <MeasureControl map={map} buttonText={<i className="material-icons">straighten</i>} measureBoth />
+
+            <FullScreenControl map={map} />
 
             {/* <a className="">
               <i className="material-icons">info</i>
