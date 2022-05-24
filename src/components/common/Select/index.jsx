@@ -1,11 +1,16 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import useOutsideClick from '@Hooks/useOutsideClick';
 import { toTitleCase } from '@Utils/commonUtils';
 
-const Select = ({ options, selected, onClick, className, className1 }) => {
+const Select = ({ options, selected, handleSelect, className, className1 }) => {
+  const [state, setState] = useState('');
   const [toggleRef, toggle, handleToggle] = useOutsideClick();
+  const handleClick = (item, id) => {
+    setState(item);
+    handleSelect(item, id);
+  };
   return (
     <div
       className={toggle ? `pm-select ${className} pm-select_show` : `pm-select ${className}`}
@@ -13,21 +18,21 @@ const Select = ({ options, selected, onClick, className, className1 }) => {
       onClick={handleToggle}
     >
       <div className={`pm-select_item ${className1}`}>
-        <span>{selected}</span>
+        <span>{state || selected}</span>
       </div>
       <ul className="pm-select_list left-dropdown">
         {options &&
           options.map((data, index) =>
             typeof data === 'string' ? (
-              <li role="menuitem" onKeyDown={() => {}} onClick={() => onClick(data)} key={`${data}${index}`}>
+              <li role="menuitem" onKeyDown={() => {}} onClick={() => handleClick(data)} key={`${data}${index}`}>
                 {toTitleCase(data)}
               </li>
             ) : (
               <li
                 role="menuitem"
                 onKeyDown={() => {}}
-                onClick={() => onClick(data.name, data.id)}
-                key={`${data}${index}`}
+                onClick={() => handleClick(data.name, data.id)}
+                key={`${data.name}${data.id}`}
               >
                 {toTitleCase(data.name)}
               </li>
@@ -42,6 +47,7 @@ Select.defaultProps = {
   options: [],
   className: '',
   className1: '',
+  handleSelect: () => {},
 };
 
 Select.propTypes = {
@@ -49,7 +55,7 @@ Select.propTypes = {
   options: PropTypes.array,
   className: PropTypes.string,
   className1: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
+  handleSelect: PropTypes.func,
 };
 
 export default Select;

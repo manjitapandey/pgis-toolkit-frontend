@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import toastActions from '@Actions/toast';
+import './toast.scss';
 
 function Toast({ type, message, clearToast }) {
   useEffect(() => {
@@ -10,8 +11,10 @@ function Toast({ type, message, clearToast }) {
 
   if (type && typeof message === 'string') {
     return (
-      <div className={`alert alert-${type}`}>
-        <p>{message}</p>
+      <div className={`toast-wrapper toast-${type}`}>
+        <div className={`alert alert-${type} toast-message`}>
+          <p>{message}</p>
+        </div>
       </div>
     );
   }

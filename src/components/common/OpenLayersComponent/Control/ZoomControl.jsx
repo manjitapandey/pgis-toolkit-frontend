@@ -1,18 +1,9 @@
 /* eslint-disable consistent-return */
-import React, { useEffect } from 'react';
-import { Zoom } from 'ol/control';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const ZoomControl = ({ map }) => {
-  //   useEffect(() => {
-  //     if (!map) return;
-  //     const zoomControl = new Zoom({});
-  //     map.controls.push(zoomControl);
-  //     return () => map.controls.remove(zoomControl);
-  //   }, [map]);
-
   const handleZoomIn = () => {
-    // map.getView().setZoom(map.getView().getZoom() + 1);
     map.getView().animate({
       zoom: map.getView().getZoom() + 1,
       duration: 200,

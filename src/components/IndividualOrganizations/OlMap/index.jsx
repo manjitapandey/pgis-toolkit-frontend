@@ -32,6 +32,7 @@ const OlMap = () => {
 
     return () => clearTimeout(timer);
   }, [map, mapToggle]);
+  console.log(vectorTileData, 'vectorTileData');
   return (
     <div className="dbd-map_cntr is-grow">
       <div className="dbd-map_wrap">
@@ -44,15 +45,13 @@ const OlMap = () => {
         >
           {/*  <LayerSwitcherControl />
           <Scalebar /> */}
-          {/* vectorTileData.map(({ id, checked, url }, index) => (
-            <VectorTileLayer
-              key={id}
-              visibleOnMap={checked}
-              url={url}
-              style={{ ...defaultStyles, fillOpacity: '16' }}
-              zIndex={vectorTileData.length - index}
-            />
-          )) */}
+
+          {vectorTileData.map((item) => (
+            <VectorTileLayer url={item.url} />
+          ))}
+          {vectorTileData.map((item) => (
+            <VectorTileLayer url={item.url} />
+          ))}
         </MapContainer>
         <a
           className={

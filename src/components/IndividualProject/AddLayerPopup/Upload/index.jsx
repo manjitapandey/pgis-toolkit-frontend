@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import UploadButton from '@Components/common/UploadButton/index';
 import Text from '@Components/common/Text/index';
 import UploadFile from '@Components/common/UploadFile/index';
 import { Creators } from '@Actions/individualProject';
-import { useDispatch, useSelector } from 'react-redux';
+import Select from '@Components/common/Select/index';
+import { selectOptions } from '@src/constants/commonData';
+import CustomSwitch from '@Components/common/CustomSwitch/index';
 
 const { setAddUploadDataFile, setAddUploadData } = Creators;
 
@@ -20,6 +23,15 @@ const Upload = () => {
     const { name, value } = event.target;
     dispatch(setAddUploadData({ name, value }));
   };
+  const onCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    dispatch(setAddUploadData({ name, value: checked ? 'True' : 'False' }));
+  };
+  const handleSelect = (event) => {
+    const { name, value, id } = event.target;
+    dispatch(setAddUploadData({ name, value }));
+  };
+
   useEffect(() => {
     setActive('');
   }, []);
@@ -52,9 +64,37 @@ const Upload = () => {
             <Text
               label="Layer Name"
               name="layerName"
-              value={addUploadData.layerName}
+              value={addUploadData?.layerName}
               onChange={onTextChangeHandler}
               placeholder="Layer Name"
+            />
+            <div className="is-flex is-start is-align-start is-gap-15 is-wrap">
+              <Text
+                label="Theme"
+                name="theme"
+                value={addUploadData?.theme}
+                onChange={onTextChangeHandler}
+                className1="is-grow"
+                readOnly
+              />
+              <div className="pm-group is-grow">
+                <label>Group</label>
+                <Select
+                  className="pm-select_100"
+                  selected={addUploadData?.group || 'Choose'}
+                  options={selectOptions}
+                  value={addUploadData?.group}
+                  handleSelect={(value, id) => handleSelect({ target: { name: 'group', value, id } })}
+                />
+              </div>
+            </div>
+            <CustomSwitch
+              id="1"
+              label="Default"
+              onChange={onCheckboxChange}
+              value={addUploadData?.default === 'True'}
+              checked={addUploadData?.default === 'True'}
+              name="default"
             />
           </>
         ) : (

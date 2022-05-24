@@ -9,8 +9,15 @@ import CustomInput from './CustomInput/index';
 import ListCustomInput from './ListCustomInput/index';
 import LayerStyleFilter from '../FilterSidebar/LayerStyleFilter';
 
-const { setActive, openDatasetPopup, openLayerPopup, getSelectedFromLayer, getSelectedFromSubLayer, getSearchData } =
-  Creators;
+const {
+  setActive,
+  openDatasetPopup,
+  openLayerPopup,
+  getSelectedFromLayer,
+  getSelectedFromSubLayer,
+  getSearchData,
+  setAddUploadData,
+} = Creators;
 
 const MapSidebar = () => {
   const dispatch = useDispatch();
@@ -37,9 +44,11 @@ const MapSidebar = () => {
   const onButtonClick = () => {
     dispatch(openDatasetPopup(true));
   };
-  const handleButtonClick = (e) => {
+  const handleButtonClick = (e, id, name) => {
     e.stopPropagation();
     dispatch(openLayerPopup(true));
+    dispatch(setAddUploadData({ name: 'theme', value: name }));
+    dispatch(setAddUploadData({ name: 'themeId', value: id }));
   };
   return (
     <Sidebar
@@ -52,10 +61,10 @@ const MapSidebar = () => {
       <div className="dvd-sidebar-body is-overflow" style={{ height: '75vh' }}>
         <div className="acc acc-after">
           {searchedLayerData &&
-            searchedLayerData?.map(({ name, type, options, hasSubLayer }) => (
+            searchedLayerData?.map(({ id, name, type, options, hasSubLayer }) => (
               <Accordion
                 header={<h4 className="is-grow ">{name}</h4>}
-                handleButtonClick={handleButtonClick}
+                handleButtonClick={(event) => handleButtonClick(event, id, name)}
                 body={
                   <ul className="is-list">
                     {

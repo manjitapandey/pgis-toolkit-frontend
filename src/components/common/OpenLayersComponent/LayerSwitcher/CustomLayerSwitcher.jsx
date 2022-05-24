@@ -80,7 +80,7 @@ const CustomLayerSwitcher = ({ layerSource, map, options }) => {
 CustomLayerSwitcher.propTypes = {
   layerSource: PropTypes.array,
   map: PropTypes.object.isRequired,
-  options: PropTypes.object,
+  options: PropTypes.arrayOf(PropTypes.object),
 };
 CustomLayerSwitcher.defaultProps = {
   layerSource: [osm(), topoMap(), mapboxMap(), mapboxOutdoors(), monochrome(), monochromeMidNight()],

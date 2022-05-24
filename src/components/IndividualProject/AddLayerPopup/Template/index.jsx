@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { selectOptions } from '@src/constants/commonData';
-import Text from '@Components/common/Text/index';
-import Select from '@Components/common/Select/index';
 import { useSelector } from 'react-redux';
+import Text from '@Components/common/Text/index';
+import { selectOptions } from '@src/constants/commonData';
+import Select from '@Components/common/Select/index';
 
 const { BASE_URL } = process.env;
 

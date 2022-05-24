@@ -17,6 +17,7 @@ const VectorTileLayer = ({
   setStyle,
   // properties,
 }) => {
+  console.log(url, 'url');
   const vectorTileLayer = useMemo(
     () =>
       new VectorTile({

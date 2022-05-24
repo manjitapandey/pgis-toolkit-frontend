@@ -21,7 +21,7 @@ Tab.defaultProps = {
 
 Tab.propTypes = {
   activeTab: PropTypes.string,
-  options: PropTypes.object,
+  options: PropTypes.arrayOf(PropTypes.object),
   setTab: PropTypes.func,
 };
 
