@@ -33,7 +33,6 @@ const AddLayerPopup = () => {
   const handleButtonClick = () => {
     if (activeTab === 'Upload') {
       if (sameLayerName) {
-        // console.log('ssssss');
         dispatch(toastAction.error({ message: 'Layer name exists' }));
       } else {
         dispatch(postUploadDataRequest({ finalUploadData }));

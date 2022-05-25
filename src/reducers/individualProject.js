@@ -186,7 +186,7 @@ const getSelectedFromSubLayer = (state, action) => {
             element.name === categoryName
               ? {
                   ...element,
-                  // isSelected: element.options.some((datas) => datas.isSelected !== true),
+                  // isSelected: element.options.some((datas) => datas.isSelected === true),
                   options: element.options.map((items) =>
                     items.id === +id
                       ? {
@@ -201,9 +201,16 @@ const getSelectedFromSubLayer = (state, action) => {
         }
       : { ...item },
   );
+  const finalData = data.map((item) => ({
+    ...item,
+    options: item.options.map((element) => ({
+      ...element,
+      isSelected: element.options.some((datas) => datas.isSelected === true),
+    })),
+  }));
   return {
     ...state,
-    layerData: data,
+    layerData: finalData,
   };
 };
 
@@ -313,7 +320,6 @@ const setLayerDeleteData = (state, action) => {
 
 const deleteLayerDataSuccess = (state, action) => {
   const { layerData } = state;
-  console.log(action.payload, layerData, 'delete');
   return {
     ...state,
     // layerData: state.layerData.filter((item) => item.id !== action.payload),

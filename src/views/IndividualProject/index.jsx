@@ -32,7 +32,7 @@ const IndividualProject = () => {
       // IndividualProjectTypes.GET_LAYER_TEMPLATE_LIST_REQUEST,
     ),
   );
-  console.log(isLoading, 'load');
+
   const handleClick = () => {
     history.push(`/organizations/${id}`);
   };

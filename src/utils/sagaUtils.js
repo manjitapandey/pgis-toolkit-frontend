@@ -21,7 +21,7 @@ export default function withLoader(func) {
         loaderActions.startAction({
           action: {
             name: action.type,
-            params: action.params || action.payload || '',
+            // params: action.params || action.payload || '',
           },
         }),
       );

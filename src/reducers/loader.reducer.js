@@ -20,7 +20,7 @@ const stopAction = (state, { payload }) => ({
   ...state,
   loader: {
     ...state.loader,
-    actions: state.loader.actions.filter((action) => JSON.stringify(action) !== JSON.stringify(payload.action)),
+    actions: state.loader.actions.filter((action) => JSON.stringify(action) !== JSON.stringify(payload)),
   },
 });
 const refreshActionStart = (state, { payload }) => ({
