@@ -1,5 +1,7 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import Sidebar from '@Components/common/Sidebar/index';
 import Accordion from '@Components/common/Accordion/index';
 import { Creators } from '@Actions/individualProject';
@@ -8,11 +10,19 @@ import FilterSidebar from '../FilterSidebar/index';
 import CustomInput from './CustomInput/index';
 import ListCustomInput from './ListCustomInput/index';
 import LayerStyleFilter from '../FilterSidebar/LayerStyleFilter';
+import CustomInputLoader from './CustomInputLoader/index';
 
-const { setActive, openDatasetPopup, openLayerPopup, getSelectedFromLayer, getSelectedFromSubLayer, getSearchData } =
-  Creators;
+const {
+  setActive,
+  openDatasetPopup,
+  openLayerPopup,
+  getSelectedFromLayer,
+  getSelectedFromSubLayer,
+  getSearchData,
+  setAddUploadData,
+} = Creators;
 
-const MapSidebar = () => {
+const MapSidebar = ({ isLoading }) => {
   const dispatch = useDispatch();
   const active = useSelector((state) => state.individualProject.active);
   const layerFilterActive = useSelector((state) => state.individualProject.layerFilterActive);
@@ -37,9 +47,11 @@ const MapSidebar = () => {
   const onButtonClick = () => {
     dispatch(openDatasetPopup(true));
   };
-  const handleButtonClick = (e) => {
+  const handleButtonClick = (e, id, name) => {
     e.stopPropagation();
     dispatch(openLayerPopup(true));
+    dispatch(setAddUploadData({ name: 'theme', value: name }));
+    dispatch(setAddUploadData({ name: 'themeId', value: id }));
   };
   return (
     <Sidebar
@@ -51,15 +63,18 @@ const MapSidebar = () => {
     >
       <div className="dvd-sidebar-body is-overflow" style={{ height: '75vh' }}>
         <div className="acc acc-after">
-          {searchedLayerData &&
-            searchedLayerData?.map(({ name, type, options, hasSubLayer }) => (
+          {isLoading ? (
+            <CustomInputLoader />
+          ) : (
+            searchedLayerData &&
+            searchedLayerData?.map(({ id, name, type, options, hasSubLayer }) => (
               <Accordion
                 header={<h4 className="is-grow ">{name}</h4>}
-                handleButtonClick={handleButtonClick}
+                handleButtonClick={(event) => handleButtonClick(event, id, name)}
                 body={
                   <ul className="is-list">
                     {
-                      options.length &&
+                      options.length ? (
                         options?.map((element) => (
                           <ListCustomInput
                             uniqueId={element?.id}
@@ -71,6 +86,9 @@ const MapSidebar = () => {
                             options={element?.options}
                           />
                         ))
+                      ) : (
+                        <></>
+                      )
                       // : options &&
                       //   options?.map((element) => (
                       //     <CustomInput
@@ -86,13 +104,18 @@ const MapSidebar = () => {
                   </ul>
                 }
               />
-            ))}
+            ))
+          )}
         </div>
       </div>
       <FilterSidebar active={active} />
       <LayerStyleFilter active={layerFilterActive} />
     </Sidebar>
   );
+};
+
+MapSidebar.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default MapSidebar;

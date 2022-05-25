@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import popupAction from '@Actions/popup';
-import Spinner from '../Spinner/index';
 
-const Popup = ({ className, header, body, buttonTitle, handleButtonClick, popup, handleCloseClick, isLoading }) => (
+const DeletePopup = ({ className, header, handleButtonClick, popup, handleCloseClick, name }) => (
   <div className={popup ? 'pm-modal pm-modal_show' : 'pm-modal'} id="create-theme">
     <div className={`pm-modal_cntr ${className}`}>
       <div className="pm-modal_header is-gap-15 mt-15">
@@ -14,47 +12,34 @@ const Popup = ({ className, header, body, buttonTitle, handleButtonClick, popup,
           </a>
         </div>
       </div>
-      <div className="pm-modal_body">{body}</div>
+      <div className="pm-modal_body">
+        <p>{`Do you want to delete ${name}?`}</p>
+      </div>
       <div className="pm-modal_footer  is-flex is-center is-gap-10">
-        {isLoading ? (
-          <Spinner
-            style={{
-              width: '30px',
-              height: '30px',
-              border: '3px solid #ffffff',
-              borderTop: '3px solid #0055ff',
-              marginLeft: '6px',
-            }}
-          />
-        ) : (
-          <button type="button" className="is-btn is-btn_primary" onClick={handleButtonClick}>
-            {buttonTitle}
-          </button>
-        )}
+        <button type="button" className="is-btn is-btn_primary" onClick={handleButtonClick}>
+          Delete
+        </button>
       </div>
     </div>
   </div>
 );
 
-Popup.defaultProps = {
+DeletePopup.defaultProps = {
   className: '',
   header: '',
-  buttonTitle: '',
+  name: '',
   handleButtonClick: () => {},
   handleCloseClick: () => {},
   popup: false,
-  isLoading: false,
 };
 
-Popup.propTypes = {
+DeletePopup.propTypes = {
   className: PropTypes.string,
   header: PropTypes.string,
-  body: PropTypes.node.isRequired,
-  buttonTitle: PropTypes.string,
+  name: PropTypes.string,
   handleButtonClick: PropTypes.func,
   handleCloseClick: PropTypes.func,
   popup: PropTypes.bool,
-  isLoading: PropTypes.bool,
 };
 
-export default Popup;
+export default DeletePopup;

@@ -30,7 +30,6 @@ const Login = () => {
     initialValues: initialState,
     required: ['username', 'password'],
     onSubmit: (data) => {
-      console.log(data, 'data');
       dispatch(loginActions.loginRequest(data));
     },
   });

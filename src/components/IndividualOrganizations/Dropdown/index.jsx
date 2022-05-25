@@ -1,7 +1,8 @@
 import React from 'react';
 import useOutsideClick from '@Hooks/useOutsideClick';
+import PropTypes from 'prop-types';
 
-const Dropdown = () => {
+const Dropdown = ({ handleZoomClick, handleDeleteClick }) => {
   const [toggleRef, toggle, handleToggle] = useOutsideClick();
 
   return (
@@ -18,7 +19,7 @@ const Dropdown = () => {
         </a>
         <ul className="pm-dropdown_menu">
           <li>
-            <a>
+            <a onClick={handleZoomClick}>
               <i className="material-icons">zoom_in</i>
               <span>Zoom to layer</span>
             </a>
@@ -30,7 +31,7 @@ const Dropdown = () => {
             </a>
       </li> */}
           <li>
-            <a>
+            <a onClick={handleDeleteClick}>
               <i className="material-icons">delete</i>
               <span>delete</span>
             </a>
@@ -39,6 +40,16 @@ const Dropdown = () => {
       </div>
     </div>
   );
+};
+
+Dropdown.propTypes = {
+  handleDeleteClick: PropTypes.func,
+  handleZoomClick: PropTypes.func,
+};
+
+Dropdown.defaultProps = {
+  handleDeleteClick: () => {},
+  handleZoomClick: () => {},
 };
 
 export default Dropdown;

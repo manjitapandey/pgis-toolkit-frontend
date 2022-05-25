@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { selectOptions } from '@src/constants/commonData';
-import Text from '@Components/common/Text/index';
-import Select from '@Components/common/Select/index';
 import { useSelector } from 'react-redux';
+import Text from '@Components/common/Text/index';
+import { selectOptions } from '@src/constants/commonData';
+import Select from '@Components/common/Select/index';
 
 const { BASE_URL } = process.env;
 
@@ -15,7 +15,7 @@ const Template = () => {
       <h6 className="mb-15">Select a Template</h6>
       <ul className="pm-list pm-list_border is-border pm-list_search is-overflow mb-15">
         {templateList?.map(({ id, name, geometry_type }) => (
-          <li className="is-flex is-start is-align-start" kye={`${name}${id}`}>
+          <li className="is-flex is-start is-align-start" key={`${name}${id}`}>
             <div className="is-grow">
               <p className="fw-600 mb-05">{name}</p>
               <div className="is-flex is-start is-gap-15">

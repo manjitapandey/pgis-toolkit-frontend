@@ -1,0 +1,35 @@
+.toast-wrapper {
+    position: fixed;
+    right: 25px;
+    top: 25px;
+    z-index: 10000000;
+    background: #40b449;
+    border-radius: 7px;
+    // height: 50px;
+  
+    &.toast-danger {
+      // background: #ca2929;
+      background: #fd4f4c;
+    }
+  }
+  
+  .toast-wrapper .toast-message {
+    padding: 10px 30px 10px 10px;
+    color: white;
+    font-size: 13px;
+    float: left;
+    margin: 10px 0;
+  }
+  
+  .toast-wrapper .toast-close {
+    float: right;
+    padding-top: 15px;
+    color: white;
+  }
+  
+  .toast-wrapper .toast-close i {
+    font-size: 15px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  

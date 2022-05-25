@@ -10,8 +10,25 @@ export const { Types, Creators } = createActions(
     getLayerTemplateListSuccess: ['payload'],
     getLayerTemplateListFailure: null,
 
+    getTaskResponseRequest: ['params'],
+    getTaskResponseSuccess: ['payload'],
+    getTaskResponseFailure: null,
+
+    postUploadDataRequest: ['payload'],
+    postUploadDataSuccess: ['payload'],
+    postUploadDataFailure: null,
+
+    postThemeDataRequest: ['payload'],
+    postThemeDataSuccess: ['payload'],
+    postThemeDataFailure: null,
+
+    deleteLayerDataRequest: ['payload'],
+    deleteLayerDataSuccess: ['payload'],
+    deleteLayerDataFailure: null,
+
     setAddUploadDataFile: ['payload'],
     setAddUploadData: ['payload'],
+    setAddThemeData: ['payload'],
 
     getSelectedFromLayer: ['payload'],
     getSelectedFromSubLayer: ['payload'],
@@ -21,6 +38,9 @@ export const { Types, Creators } = createActions(
     openLayerPopup: ['payload'],
     openDatasetPopup: ['payload'],
     getSearchData: ['payload'],
+    clearData: ['payload'],
+    setLayerDeleteData: ['payload'],
+    setThemeAddSuccess: ['payload'],
   },
   { prefix: 'IndividualProject/' },
 );

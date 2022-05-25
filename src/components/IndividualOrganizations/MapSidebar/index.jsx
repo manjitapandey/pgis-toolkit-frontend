@@ -7,10 +7,11 @@ import { Creators } from '@Actions/individualOrganization';
 import { mapProjectOptions } from '@src/constants/commonData';
 import Sidebar from '@Components/common/Sidebar/index';
 import Dropdown from '../Dropdown/index';
+import CardLoader from '../CardLoader/index';
 
 const { setActive, openProjectPopup } = Creators;
 
-const MapSidebar = ({ active }) => {
+const MapSidebar = ({ active, isLoading }) => {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -32,22 +33,26 @@ const MapSidebar = ({ active }) => {
     <Sidebar handleClick={handleClick} handleSearch={handleSearch} buttonTitle="Project" onButtonClick={onButtonClick}>
       <div className="dvd-sidebar-body is-overflow" style={{ height: '60vh' }}>
         <div className="project-list ">
-          {individualOrganizationData?.map((item, index) => (
-            <div
-              className="project-list_item project-list_item-active is-flex is-between is-align-start  pd-15"
-              key={`${index}${item.name}`}
-            >
+          {isLoading ? (
+            <CardLoader />
+          ) : (
+            individualOrganizationData?.map((item, index) => (
               <div
-                className="flex-content is-grow mr-15"
-                onClick={() => handleRoute(item.id)}
-                style={{ cursor: 'pointer' }}
+                className="project-list_item project-list_item-active is-flex is-between is-align-start  pd-15"
+                key={`${index}${item.name}`}
               >
-                <h4>{item.name}</h4>
-                <p className="mt-05">{`${item?.state},${item?.country}`}</p>
+                <div
+                  className="flex-content is-grow mr-15"
+                  onClick={() => handleRoute(item.id)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <h4>{item.name}</h4>
+                  <p className="mt-05">{`${item?.state},${item?.country}`}</p>
+                </div>
+                <Dropdown />
               </div>
-              <Dropdown />
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </Sidebar>
@@ -56,10 +61,12 @@ const MapSidebar = ({ active }) => {
 
 MapSidebar.propTypes = {
   active: PropTypes.string,
+  isLoading: PropTypes.bool,
 };
 
 MapSidebar.defaultProps = {
   active: '',
+  isLoading: false,
 };
 
 export default MapSidebar;

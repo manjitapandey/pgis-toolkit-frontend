@@ -10,7 +10,8 @@ import UsersData from '@Components/IndividualOrganizations/UsersData/index';
 import Tab from '@Components/common/Tab/index';
 import { sidebarTabOptions } from '@src/constants/commonData';
 import CreateProjectPopup from '@Components/IndividualOrganizations/CreateProjectPopup/index';
-import { Creators } from '@Actions/individualOrganization';
+import { Creators, Types as IndividualOrganizationTypes } from '@Actions/individualOrganization';
+import { checkIfLoading } from '@Utils/loaderSelector';
 
 const { getIndividualOrganizationDataRequest, getOrganizationDetailDataRequest } = Creators;
 
@@ -20,6 +21,13 @@ const IndividualOrganization = () => {
   const [tab, setTab] = useState('Projects');
   const active = useSelector((state) => state.individualOrganizations.active);
   const mapToggle = useSelector((state) => state.individualOrganizations.mapToggle);
+  const isLoading = useSelector((state) =>
+    checkIfLoading(
+      state,
+      IndividualOrganizationTypes.GET_INDIVIDUAL_ORGANIZATION_DATA_REQUEST,
+      IndividualOrganizationTypes.GET_ORGANIZATION_DETAIL_DATA_REQUEST,
+    ),
+  );
 
   useEffect(() => {
     dispatch(getIndividualOrganizationDataRequest(id));
@@ -99,7 +107,7 @@ const IndividualOrganization = () => {
         {tab === 'Projects' && (
           <div className="dbd-body">
             <div className={mapToggle ? 'dbd-map is-flex dbd-map_active' : 'dbd-map is-flex'}>
-              <MapSidebar />
+              <MapSidebar isLoading={isLoading} />
               <FilterSidebar active={active} />
               <CreateProjectPopup />
               <div className="pm-modal" id="create-project">

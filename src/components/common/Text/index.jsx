@@ -48,7 +48,7 @@ const Text = ({
         </div>
       </div>
     ) : (
-      <div className="pm-group">
+      <div className={`pm-group ${className1}`}>
         <label className={labelClassName}>{label}</label>
         <input
           type={type}

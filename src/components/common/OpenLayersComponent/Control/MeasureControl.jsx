@@ -60,9 +60,13 @@ function MeasureControl({ map, style, buttonText, measureBoth = false }) {
       const length = getLength(line);
       let output;
       if (length > 100) {
-        output = `${Math.round((length / 1000) * 100) / 100} km <i class='close-icons material-icons'>close</i>`;
+        output = `${
+          Math.round((length / 1000) * 100) / 100
+        } km <i class='close-icons material-icons' style="cursor:pointer;">close</i>`;
       } else {
-        output = `${Math.round(length * 100) / 100} m <i class='close-icons material-icons'>close</i>`;
+        output = `${
+          Math.round(length * 100) / 100
+        } m <i class='close-icons material-icons' style="cursor:pointer;">close</i>`;
       }
       return output;
     };
@@ -72,9 +76,11 @@ function MeasureControl({ map, style, buttonText, measureBoth = false }) {
       if (area > 10000) {
         output = `${
           Math.round((area / 1000000) * 100) / 100
-        } km<sup>2 </sup><i class='close-icons material-icons'>close</i>`;
+        } km<sup>2 </sup><i class='close-icons material-icons' style="cursor:pointer;">close</i>`;
       } else {
-        output = `${Math.round(area * 100) / 100} m<sup>2 </sup><i class='close-icons material-icons'>close</i>`;
+        output = `${
+          Math.round(area * 100) / 100
+        } m<sup>2 </sup><i class='close-icons material-icons' style="cursor:pointer;">close</i>`;
       }
       return output;
     };

@@ -6,7 +6,6 @@ import { dropdownOptions } from '../../../constants/commonData';
 
 const Banner = () => {
   const organizationData = useSelector((state) => state.individualOrganizations.organizationData);
-  console.log(organizationData, 'data');
   const handleSelect = () => {};
   return (
     <div className="is-flex is-between is-align-start gap-10 mb-10">
