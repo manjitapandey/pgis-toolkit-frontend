@@ -32,7 +32,6 @@ const OlMap = () => {
 
     return () => clearTimeout(timer);
   }, [map, mapToggle]);
-  console.log(vectorTileData, 'vectorTileData');
   return (
     <div className="dbd-map_cntr is-grow">
       <div className="dbd-map_wrap">

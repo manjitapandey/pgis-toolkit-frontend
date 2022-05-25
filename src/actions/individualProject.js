@@ -40,6 +40,7 @@ export const { Types, Creators } = createActions(
     getSearchData: ['payload'],
     clearData: ['payload'],
     setLayerDeleteData: ['payload'],
+    setThemeAddSuccess: ['payload'],
   },
   { prefix: 'IndividualProject/' },
 );

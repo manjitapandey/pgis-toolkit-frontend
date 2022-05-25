@@ -86,7 +86,7 @@ ListCustomInput.propTypes = {
   onChange: PropTypes.func,
   icon: PropTypes.string,
   onListChange: PropTypes.func,
-  options: PropTypes.object,
+  options: PropTypes.arrayOf(PropTypes.object),
 };
 
 ListCustomInput.defaultProps = {

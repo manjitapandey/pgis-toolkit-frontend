@@ -30,6 +30,7 @@ const initialState = {
     themeName: '',
   },
   searchData: '',
+  themeAddSuccess: false,
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
@@ -319,6 +320,11 @@ const deleteLayerDataSuccess = (state, action) => {
   };
 };
 
+const setThemeAddSuccess = (state, action) => ({
+  ...state,
+  themeAddSuccess: action.payload,
+});
+
 const clearData = (state, action) => {
   const { addUploadData } = state;
   return {
@@ -350,6 +356,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.GET_SEARCH_DATA]: getSearchData,
   [Types.CLEAR_DATA]: clearData,
   [Types.SET_LAYER_DELETE_DATA]: setLayerDeleteData,
+  [Types.SET_THEME_ADD_SUCCESS]: setThemeAddSuccess,
 });
 
 export default individualProjectReducer;

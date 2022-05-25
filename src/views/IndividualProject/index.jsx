@@ -10,7 +10,8 @@ import AddLayerPopup from '@Components/IndividualProject/AddLayerPopup/index';
 import DeletePopup from '@Components/common/DeletePopup/index';
 import FilterSidebar from '@Components/IndividualProject/FilterSidebar/index';
 import popupAction from '@Actions/popup';
-import { Creators } from '@Actions/individualProject';
+import { Creators, Types as IndividualProjectTypes } from '@Actions/individualProject';
+import { checkIfLoading } from '@Utils/loaderSelector';
 
 const { getProjectLayerDataRequest, getLayerTemplateListRequest, deleteLayerDataRequest } = Creators;
 
@@ -23,6 +24,15 @@ const IndividualProject = () => {
   const selectedLayerName = useSelector((state) => state.individualProject.selectedLayerName);
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const deletePopup = useSelector((state) => state.popup.deletePopup);
+  const themeAddSuccess = useSelector((state) => state.individualProject.themeAddSuccess);
+  const isLoading = useSelector((state) =>
+    checkIfLoading(
+      state,
+      IndividualProjectTypes.GET_PROJECT_LAYER_DATA_REQUEST,
+      // IndividualProjectTypes.GET_LAYER_TEMPLATE_LIST_REQUEST,
+    ),
+  );
+  console.log(isLoading, 'load');
   const handleClick = () => {
     history.push(`/organizations/${id}`);
   };
@@ -41,7 +51,7 @@ const IndividualProject = () => {
 
   useEffect(() => {
     dispatch(getProjectLayerDataRequest(uniqueId));
-  }, [dispatch, layerId]);
+  }, [dispatch, layerId, themeAddSuccess]);
 
   return (
     <>
@@ -49,7 +59,7 @@ const IndividualProject = () => {
       <main className="dbd-main">
         <div className="dbd-body">
           <div className={mapToggle ? 'dbd-map is-flex dbd-map_active' : 'dbd-map is-flex'}>
-            <MapSidebar />
+            <MapSidebar isLoading={isLoading} />
             <DeletePopup
               name={selectedLayerName}
               popup={deletePopup}

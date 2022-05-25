@@ -91,7 +91,6 @@ export function* postThemeDataRequest(action) {
     params,
     payload: { finalThemeData },
   } = action;
-  console.log(finalThemeData, 'dat');
   try {
     const formData = new FormData();
     Object.entries(finalThemeData).forEach(([key, value]) => {
@@ -99,6 +98,7 @@ export function* postThemeDataRequest(action) {
     });
     const response = yield call(postThemeData, formData);
     yield put(projectActions.postThemeDataSuccess({ data: response.data }));
+    yield put(projectActions.setThemeAddSuccess(true));
     yield put(projectActions.openDatasetPopup(false));
     // yield put(toastActions.success({ message: 'Layer added successfully' }));
   } catch (error) {

@@ -26,7 +26,6 @@ CustomSwitch.defaultProps = {
 };
 
 CustomSwitch.propTypes = {
-  select: PropTypes.array.isRequired,
   onChange: PropTypes.func,
   name: PropTypes.string,
   value: PropTypes.bool,
