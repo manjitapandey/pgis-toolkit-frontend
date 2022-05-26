@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromLonLat } from 'ol/proj';
 import MapContainer from '@Components/common/OpenLayersComponent/MapContainer';
+import VectorTileLayer from '@Components/common/OpenLayersComponent/Layers/VectorTileLayer';
 import FullScreenControl from '@Components/common/OpenLayersComponent/Control/FullScreenControl';
 import CustomLayerSwitcher from '@Components/common/OpenLayersComponent/LayerSwitcher/CustomLayerSwitcher';
 import ZoomControl from '@Components/common/OpenLayersComponent/Control/ZoomControl';
@@ -12,9 +13,13 @@ import individualActions from '@Actions/individualProject';
 import { switcherOptions } from '@src/constants/commonData';
 import MeasureControl from '@Components/common/OpenLayersComponent/Control/MeasureControl';
 
+const { BASE_URL } = process.env;
+
 const OlMap = () => {
   const dispatch = useDispatch();
   const mapToggle = useSelector((state) => state.individualProject.mapToggle);
+  const geomData = useSelector((state) => state.individualProject.geomData);
+  const authToken = '0d133cd783c0bd4288ef0b8dca02de3889845612';
   const { mapRef, map, renderComplete } = useOLMap({
     center: fromLonLat([85.3, 27.7]),
     zoom: 2,
@@ -41,6 +46,20 @@ const OlMap = () => {
         >
           {/* <LayerSwitcherControl />
   <Scalebar /> */}
+          {geomData &&
+            geomData?.map((item) => (
+              <VectorTileLayer
+                url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
+                authToken={authToken}
+              />
+            ))}
+          {geomData &&
+            geomData?.map((item) => (
+              <VectorTileLayer
+                url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
+                authToken={authToken}
+              />
+            ))}
         </MapContainer>
         <a
           className={
@@ -70,9 +89,9 @@ const OlMap = () => {
       */}
             <MeasureControl map={map} buttonText={<i className="material-icons">straighten</i>} measureBoth />
 
-            <FullScreenControl map={map} />
+            {/* <FullScreenControl map={map} />
 
-            {/* <a className="">
+             <a className="">
               <i className="material-icons">info</i>
         </a> */}
           </div>
