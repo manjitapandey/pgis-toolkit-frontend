@@ -77,7 +77,8 @@ const Upload = () => {
                 className1="is-grow"
                 readOnly
               />
-              <div className="pm-group is-grow">
+
+              {/* <div className="pm-group is-grow">
                 <label>Group</label>
                 <Select
                   className="pm-select_100"
@@ -86,7 +87,7 @@ const Upload = () => {
                   value={addUploadData?.group}
                   handleSelect={(value, id) => handleSelect({ target: { name: 'group', value, id } })}
                 />
-              </div>
+        </div> */}
             </div>
             <CustomSwitch
               id="1"

@@ -18,6 +18,7 @@ const initialState = {
   taskLoading: false,
   selectedLayerName: '',
   selectedLayerId: null,
+  geomData: [],
   addUploadData: {
     layerName: '',
     default: 'False',
@@ -167,16 +168,21 @@ const getSelectedFromLayer = (state, action) => {
         }
       : { ...item },
   );
-  // const geomData = data
-  //   .map((lyr) => ({
-  //     options: lyr.options.filter((item) => item.isSelected === true),
-  //   }))
-  //   .filter((element) => element.options.length);
+  const geomData = data
+    .map((lyr) => ({
+      options: lyr.options.filter((item) => item.isSelected === true),
+    }))
+    .filter((element) => element.options.length)
+    .reduce((arr, items) => [...arr, ...items.options], []);
 
-  // console.log(geomData, 'data');
+  // const geomData = data
+  //   ?.reduce((arr, item) => [...arr, item.options.filter((element) => element.isSelected === true)], [])
+  //   ?.filter((element) => element.length)[0];
+
   return {
     ...state,
     layerData: data,
+    geomData,
   };
 };
 
