@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Text from '@Components/common/Text/index';
 import { selectOptions } from '@src/constants/commonData';
 import Select from '@Components/common/Select/index';
+import { authenticated } from '@Services/index';
 
 const { BASE_URL } = process.env;
 
@@ -37,7 +38,7 @@ const Template = () => {
           </li>
         ))}
       </ul>
-      <h6 className="mt-15">Add Custom</h6>
+      {/* <h6 className="mt-15">Add Custom</h6>
       <div className="mt-15 mb-15">
         <Text label="Layer Name" name="layerName" value="" onChange={onTextChangeHandler} placeholder="Layer Name" />
         <div className="pm-group">
@@ -61,7 +62,7 @@ const Template = () => {
           <i className="material-icons">add_circle_outline</i>
           <span>add</span>
         </button>
-      </div>
+        </div> */}
     </div>
   );
 };
