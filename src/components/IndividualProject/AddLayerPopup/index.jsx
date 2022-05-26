@@ -26,9 +26,9 @@ const AddLayerPopup = () => {
   const finalUploadData = useSelector((state) => state.individualProject.finalUploadData);
   const sameLayerName = layerData
     ?.map((data) => data?.options?.map((element) => element?.name))
-    .reduce((arr, item) => [...arr, ...item], [])
+    ?.reduce((arr, item) => [...arr, ...item], [])
     ?.find(
-      (item) => item?.toLowerCase().replace(/\s/g, '') === finalUploadData?.name?.toLowerCase().replace(/\s/g, ''),
+      (item) => item?.toLowerCase()?.replace(/\s/g, '') === finalUploadData?.name?.toLowerCase().replace(/\s/g, ''),
     );
   const handleButtonClick = () => {
     if (activeTab === 'Upload') {
@@ -41,9 +41,9 @@ const AddLayerPopup = () => {
   };
 
   const handleCloseClick = () => {
-    dispatch(clearData());
     setActiveTab('Template');
     dispatch(openLayerPopup(false));
+    dispatch(clearData());
   };
 
   useEffect(() => {

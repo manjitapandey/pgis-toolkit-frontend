@@ -167,6 +167,13 @@ const getSelectedFromLayer = (state, action) => {
         }
       : { ...item },
   );
+  // const geomData = data
+  //   .map((lyr) => ({
+  //     options: lyr.options.filter((item) => item.isSelected === true),
+  //   }))
+  //   .filter((element) => element.options.length);
+
+  // console.log(geomData, 'data');
   return {
     ...state,
     layerData: data,
@@ -332,7 +339,7 @@ const setThemeAddSuccess = (state, action) => ({
 });
 
 const clearData = (state, action) => {
-  const { addUploadData } = state;
+  const { addUploadData, addThemeData } = state;
   return {
     ...state,
     addUploadData: addUploadData.initialState,
@@ -340,6 +347,7 @@ const clearData = (state, action) => {
     taskId: null,
     taskResponse: null,
     taskLoading: false,
+    addThemeData: addThemeData.initialState,
   };
 };
 

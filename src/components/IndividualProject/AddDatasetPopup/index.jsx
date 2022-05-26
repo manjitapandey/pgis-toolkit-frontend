@@ -42,7 +42,7 @@ const AddDatasetPopup = ({ id }) => {
           <Text
             label="Theme *"
             name="themeName"
-            value={addThemeData.themeName}
+            value={addThemeData?.themeName}
             onChange={onTextChangeHandler}
             placeholder="Theme Name"
           />
