@@ -29,6 +29,7 @@ export const { Types, Creators } = createActions(
     setAddUploadDataFile: ['payload'],
     setAddUploadData: ['payload'],
     setAddThemeData: ['payload'],
+    deleteUploadDataFile: ['payload'],
 
     getSelectedFromLayer: ['payload'],
     getSelectedFromSubLayer: ['payload'],

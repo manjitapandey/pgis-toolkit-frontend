@@ -1,25 +1,36 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import UploadButton from '@Components/common/UploadButton/index';
+import { Creators } from '@Actions/individualProject';
 import Text from '@Components/common/Text/index';
 import UploadFile from '@Components/common/UploadFile/index';
-import { Creators } from '@Actions/individualProject';
+import UploadContent from '@Components/common/UploadContent/index';
 import Select from '@Components/common/Select/index';
 import { selectOptions } from '@src/constants/commonData';
 import CustomSwitch from '@Components/common/CustomSwitch/index';
 
-const { setAddUploadDataFile, setAddUploadData } = Creators;
+const { setAddUploadDataFile, setAddUploadData, deleteUploadDataFile } = Creators;
 
 const Upload = () => {
   const dispatch = useDispatch();
   const [active, setActive] = useState(null);
+  const [checkState, setCheckState] = useState(false);
   const addUploadData = useSelector((state) => state.individualProject.addUploadData);
+  const file = useSelector((state) => state.individualProject.file);
+  const layerData = useSelector((state) => state.individualProject.layerData);
+  const sameLayerName = layerData
+    ?.map((data) => data?.options?.map((element) => element?.name))
+    ?.reduce((arr, item) => [...arr, ...item], [])
+    ?.find(
+      (item) => item?.toLowerCase()?.replace(/\s/g, '') === addUploadData?.layerName?.toLowerCase().replace(/\s/g, ''),
+    );
 
   const onChangeHandler = (event) => {
     const { files } = event.target;
     dispatch(setAddUploadDataFile({ value: files[0] }));
   };
   const onTextChangeHandler = (event) => {
+    setCheckState(true);
     const { name, value } = event.target;
     dispatch(setAddUploadData({ name, value }));
   };
@@ -30,6 +41,9 @@ const Upload = () => {
   const handleSelect = (event) => {
     const { name, value, id } = event.target;
     dispatch(setAddUploadData({ name, value }));
+  };
+  const handleDelete = () => {
+    dispatch(deleteUploadDataFile());
   };
 
   useEffect(() => {
@@ -61,12 +75,20 @@ const Upload = () => {
           <>
             <h6 className="mb-15">Upload Vector</h6>
             <UploadFile spanDescription="TIFF, JPG or PNG" onChange={onChangeHandler} value="" name="file" />
+            {file && <UploadContent fileName={file.name} fileSize={file.size} handleDelete={handleDelete} />}
             <Text
               label="Layer Name"
               name="layerName"
               value={addUploadData?.layerName}
               onChange={onTextChangeHandler}
               placeholder="Layer Name"
+              errorMessage={
+                sameLayerName
+                  ? '*Same layer name'
+                  : checkState && addUploadData?.layerName === ''
+                  ? '*Layer name cannot be empty.'
+                  : null
+              }
             />
             <div className="is-flex is-start is-align-start is-gap-15 is-wrap">
               <Text

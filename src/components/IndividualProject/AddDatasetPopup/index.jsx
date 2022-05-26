@@ -1,31 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Popup from '@Components/common/Popup/index';
 import { Creators } from '@Actions/individualProject';
+import toastAction from '@Actions/toast';
 import Text from '@Components/common/Text/index';
 
 const { setAddThemeData, openDatasetPopup, postThemeDataRequest } = Creators;
 
 const AddDatasetPopup = ({ id }) => {
   const dispatch = useDispatch();
+  const [checkState, setCheckState] = useState(false);
   const openPopup = useSelector((state) => state.individualProject.openDatasetPopup);
   const addThemeData = useSelector((state) => state.individualProject.addThemeData);
 
   const handleButtonClick = () => {
-    dispatch(
-      postThemeDataRequest({
-        finalThemeData: {
-          name: addThemeData.themeName,
-          project: id,
-        },
-      }),
-    );
+    if (checkState) {
+      dispatch(toastAction.error({ message: 'Fields cannot be empty' }));
+    } else {
+      dispatch(
+        postThemeDataRequest({
+          finalThemeData: {
+            name: addThemeData.themeName,
+            project: id,
+          },
+        }),
+      );
+    }
   };
   const handleCloseClick = () => {
     dispatch(openDatasetPopup(false));
   };
   const onTextChangeHandler = (event) => {
+    setCheckState(true);
     const { name, value } = event.target;
     dispatch(setAddThemeData({ name, value }));
   };
@@ -45,6 +52,7 @@ const AddDatasetPopup = ({ id }) => {
             value={addThemeData?.themeName}
             onChange={onTextChangeHandler}
             placeholder="Theme Name"
+            errorMessage={checkState && addThemeData?.themeName === '' ? '*Theme name cannot be empty.' : null}
           />
           {/* <TextArea
             label="Description"

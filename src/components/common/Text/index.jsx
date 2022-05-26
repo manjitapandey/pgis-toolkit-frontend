@@ -18,6 +18,7 @@ const Text = ({
   iconAhead,
   labelClassName,
   className1,
+  errorMessage,
 }) => (
   <>
     {icon ? (
@@ -45,6 +46,7 @@ const Text = ({
               <i className="material-icons">{icon}</i>
             </span>
           )}
+          {errorMessage && <span className="is-error">{errorMessage}</span>}
         </div>
       </div>
     ) : (
@@ -61,6 +63,7 @@ const Text = ({
           readOnly={readOnly}
           id={id}
         />
+        {errorMessage && <span className="is-error">{errorMessage}</span>}
       </div>
     )}
   </>
@@ -80,6 +83,7 @@ Text.defaultProps = {
   icon: '',
   labelClassName: 'fw-bold',
   className1: '',
+  errorMessage: '',
 };
 
 Text.propTypes = {
@@ -96,6 +100,7 @@ Text.propTypes = {
   icon: PropTypes.string,
   labelClassName: PropTypes.string,
   className1: PropTypes.string,
+  errorMessage: PropTypes.string,
 };
 
 export default Text;
