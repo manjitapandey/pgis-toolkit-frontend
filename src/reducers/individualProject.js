@@ -26,7 +26,6 @@ const initialState = {
     themeId: '',
     group: '',
   },
-  finalUploadData: null,
   addThemeData: {
     themeName: '',
   },
@@ -254,20 +253,18 @@ const setAddUploadDataFile = (state, action) => {
   const {
     payload: { value },
   } = action;
-  let { addUploadData } = state;
+  const { layerData, addUploadData } = state;
 
   const layerNameFromFile = value?.name?.split('.')[0];
-  if (value) {
-    addUploadData = {
-      ...addUploadData,
-      layerName: layerNameFromFile,
-    };
-  }
+  const newAddUploadData = {
+    ...addUploadData,
+    layerName: layerNameFromFile,
+  };
 
   return {
     ...state,
     file: value,
-    addUploadData,
+    addUploadData: newAddUploadData,
   };
 };
 
@@ -275,26 +272,16 @@ const setAddUploadData = (state, action) => {
   const {
     payload: { name, value },
   } = action;
-  const { addUploadData, file } = state;
+  const { addUploadData } = state;
 
   const newUploadData = {
     ...addUploadData,
     [name]: value,
   };
 
-  const finalUploadData = {
-    file,
-    theme: newUploadData.themeId,
-    name: newUploadData.layerName,
-    default: newUploadData.default,
-    layer_type: 'Vector',
-    is_osm_layer: 'False',
-  };
-
   return {
     ...state,
     addUploadData: newUploadData,
-    finalUploadData,
   };
 };
 
@@ -344,19 +331,23 @@ const setThemeAddSuccess = (state, action) => ({
   themeAddSuccess: action.payload,
 });
 
-const clearData = (state, action) => {
-  const { addUploadData, addThemeData } = state;
-  return {
+const deleteUploadDataFile = (state, action) => ({
+  ...state,
+  file: null,
+});
+
+const clearData = (state, action) =>
+  // const { addUploadData, addThemeData } = state;
+  ({
     ...state,
-    addUploadData: addUploadData.initialState,
+    addUploadData: initialState?.addUploadData,
     file: null,
     taskId: null,
     taskResponse: null,
     taskLoading: false,
-    addThemeData: addThemeData.initialState,
-  };
-};
-
+    addThemeData: initialState?.addThemeData,
+    sameLayerName: false,
+  });
 const individualProjectReducer = createReducer(initialState, {
   [Types.GET_PROJECT_LAYER_DATA_SUCCESS]: getProjectLayerDataSuccess,
   [Types.GET_LAYER_TEMPLATE_LIST_SUCCESS]: getLayerTemplateListSuccess,
@@ -371,6 +362,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.GET_SELECTED_FROM_LAYER]: getSelectedFromLayer,
   [Types.GET_SELECTED_FROM_SUB_LAYER]: getSelectedFromSubLayer,
   [Types.SET_ADD_UPLOAD_DATA_FILE]: setAddUploadDataFile,
+  [Types.DELETE_UPLOAD_DATA_FILE]: deleteUploadDataFile,
   [Types.SET_ADD_UPLOAD_DATA]: setAddUploadData,
   [Types.SET_ADD_THEME_DATA]: setAddThemeData,
   [Types.GET_SEARCH_DATA]: getSearchData,
