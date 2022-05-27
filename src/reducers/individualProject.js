@@ -230,12 +230,12 @@ const getTaskResponseSuccess = (state, action) => {
   const {
     payload: { data },
   } = action;
-  const taskLoading = data.message === 'Please wait result';
+  // const taskLoading = data.message === 'Please wait result';
   return {
     ...state,
     taskResponse: data.message,
     layerId: data.layer_id,
-    taskLoading,
+    taskLoading: !data.layer_id,
   };
 };
 
@@ -246,6 +246,7 @@ const postUploadDataSuccess = (state, action) => {
   return {
     ...state,
     taskId: data.task_id,
+    taskLoading: !!data.task_id,
   };
 };
 
