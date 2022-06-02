@@ -37,7 +37,7 @@ const Landing = () => {
       <header className={!header ? 'dbd-header dbd-header_home' : 'dbd-header dbd-header_home is-fixed'}>
         <div className="container">
           <div className="is-flex is-between is-align-center is-wrap is-gap-15">
-            <a href="index.html" className="logo">
+            <a href={() => {}} className="logo">
               <img src={logoWhite} alt="logo" />
             </a>
             <nav className="nav is-grow">
@@ -84,7 +84,7 @@ const Landing = () => {
                         </a>
                       </div>
                     </div>
-                    <a href="#usafir-works" className="is-circle is-circle_sm is-circle_hover scroll-down mt-30">
+                    <a href={() => {}} className="is-circle is-circle_sm is-circle_hover scroll-down mt-30">
                       <i className="material-icons-outlined">expand_more</i>
                     </a>
                   </div>
@@ -303,7 +303,7 @@ const Landing = () => {
             <div className="cases-tab">
               <ul className="is-flex is-center is-align-center is-gap-10 is-wrap">
                 <li className="is-active">
-                  <a href="#" className="is-flex is-column is-center is-align-center">
+                  <a href={() => {}} className="is-flex is-column is-center is-align-center">
                     <div className="tab-icon">
                       <i className="material-icons-outlined">layers</i>
                     </div>
@@ -311,7 +311,7 @@ const Landing = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="is-flex is-column is-center is-align-center">
+                  <a href={() => {}} className="is-flex is-column is-center is-align-center">
                     <div className="tab-icon">
                       <i className="material-icons-outlined">health_and_safety</i>
                     </div>
@@ -319,7 +319,7 @@ const Landing = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="is-flex is-column is-center is-align-center">
+                  <a href={() => {}} className="is-flex is-column is-center is-align-center">
                     <div className="tab-icon">
                       <i className="material-icons-outlined">warning_amber</i>
                     </div>
@@ -442,7 +442,7 @@ const Landing = () => {
                 <div className="partnerBox">
                   <p className="mb-20">Supported by</p>
                   <div className="partnerBox-logos is-flex is-start is-align-center is-gap-15 is-wrap">
-                    <a href="#">
+                    <a href={() => {}}>
                       <img src={partners2} alt="tech4dev" />
                     </a>
                   </div>
@@ -452,7 +452,7 @@ const Landing = () => {
                 <div className="partnerBox">
                   <p className="mb-20">Implementing partner</p>
                   <div className="partnerBox-logos is-flex is-start is-align-center is-gap-15 is-wrap">
-                    <a href="#">
+                    <a href={() => {}}>
                       <img src={partners1} alt="world bicycle" />
                     </a>
                   </div>
@@ -462,7 +462,7 @@ const Landing = () => {
                 <div className="partnerBox">
                   <p className="mb-20">Research partner</p>
                   <div className="partnerBox-logos is-flex is-start is-align-center is-gap-15 is-wrap">
-                    <a href="#">
+                    <a href={() => {}}>
                       <img src={partners3} alt="ceat " />
                     </a>
                   </div>
@@ -472,7 +472,7 @@ const Landing = () => {
                 <div className="partnerBox">
                   <p className="mb-20">Technology partners</p>
                   <div className="partnerBox-logos is-flex is-start is-align-center is-gap-15 is-wrap ">
-                    <a href="#">
+                    <a href={() => {}}>
                       <img src={partners4} alt="naxa " />
                     </a>
                   </div>
@@ -588,15 +588,15 @@ const Landing = () => {
       <footer className="site-footer pt-5 pb-5">
         <div className="container">
           <div className="site-footer_up is-flex  is-align-center is-wrap">
-            <a href="index.html" className="site-footer_logo is-grow is-flex ">
+            <a href={() => {}} className="site-footer_logo is-grow is-flex ">
               <img src={logo} alt="logo" />
             </a>
             <ul className="site-footer_nav is-flex is-grow is-align-center is-wrap is-gap-15 fw-bold">
               <li>
-                <a href="">Use cases</a>
+                <a href={() => {}}>Use cases</a>
               </li>
               <li>
-                <a href="">About</a>
+                <a href={() => {}}>About</a>
               </li>
             </ul>
           </div>
@@ -607,10 +607,10 @@ const Landing = () => {
                   <p>© 2022 USAFIR.</p>
                   <ul className="is-flex is-start is-align-center is-gap-15 fw-bold">
                     <li>
-                      <a href="">Terms of Service</a>
+                      <a href={() => {}}>Terms of Service</a>
                     </li>
                     <li>
-                      <a href="">Privacy Policy</a>
+                      <a href={() => {}}>Privacy Policy</a>
                     </li>
                   </ul>
                 </div>
@@ -618,22 +618,22 @@ const Landing = () => {
               <div className="grid-lg-4 grid-md-6 grid-sm-12">
                 <ul className="is-flex  is-align-center is-gap-20 social-icons mb-10">
                   <li>
-                    <a href="">
+                    <a href={() => {}}>
                       <img src={fbLogo} alt="facebook" />
                     </a>
                   </li>
                   <li>
-                    <a href="">
+                    <a href={() => {}}>
                       <img src={twitterLogo} alt="twitter" />
                     </a>
                   </li>
                   <li>
-                    <a href="">
+                    <a href={() => {}}>
                       <img src={linkedinLogo} alt="linkedin" />
                     </a>
                   </li>
                   <li>
-                    <a href="">
+                    <a href={() => {}}>
                       <img src={youtubeLogo} alt="youtube" />
                     </a>
                   </li>
@@ -642,7 +642,7 @@ const Landing = () => {
               <div className="grid-lg-4  grid-sm-12">
                 <div className="designed-by fs-md is-flex  is-align-center is-gap-05">
                   <span>Designed & Developed by</span>
-                  <a href="" className="fw-bold is-uppercase">
+                  <a href={() => {}} className="fw-bold is-uppercase">
                     Naxa
                   </a>
                 </div>
