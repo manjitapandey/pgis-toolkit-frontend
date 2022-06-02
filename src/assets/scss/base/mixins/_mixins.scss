@@ -1,15 +1,23 @@
 /// Mixin helper to output vendor prefixes
-/// @access public
-/// @author Prem Prasad Khanal
-/// @param {String} $property - Unprefixed CSS property
-/// @param {*} $value - Raw CSS value
-/// @param {List} $prefixes - List of prefixes to output
-@mixin prefix($property, $value, $prefixes: ()) {
-    @each $prefix in $prefixes {
-        -#{$prefix}-#{$property}: $value;
+$known-prefixes: webkit, moz, ms, o;
+
+@mixin prefix($property, $value, $prefixes) {
+  @each $prefix in $prefixes {
+    @if not index($known-prefixes, $prefix) {
+      @warn "Unknown prefix #{$prefix}.";
     }
-    #{$property}: $value;
+
+    -#{$prefix}-#{$property}: $value;
+  }
+  #{$property}: $value;
 }
+
+// @mixin prefix($property, $value, $prefixes: ()) {
+//     @each $prefix in $prefixes {
+//         -#{$prefix}-#{$property}: $value;
+//     }
+//     #{$property}: $value;
+// }
 
 // calling method
 //  @include prefix(transform, scale(90deg), ('webkit', 'ms', 'moz', 'o'));
@@ -30,11 +38,7 @@
     }
 }
 
-// size
-@mixin size($width, $height: $width) {
-    width: $width;
-    height: $height;
-}
+
 
 // calling method 
 // @include size(100%, 10em);
@@ -44,6 +48,8 @@
         @content;
     }
 }
+
+
 
 @import "dark-mode";
 @import "flex";

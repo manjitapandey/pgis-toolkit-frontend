@@ -3,6 +3,7 @@ import Organizations from '../views/Organizations';
 import OrganizationsUsers from '../views/OrganizationUsers';
 import IndividualOrganization from '../views/IndividualOrganization';
 import IndividualProject from '../views/IndividualProject';
+import Landing from '../views/Landing';
 
 const indexRoutes = [
   { path: '/login', name: 'Login', component: Login },
@@ -32,9 +33,15 @@ const indexRoutes = [
     // authenticated: true,
   },
   {
-    path: '/',
+    path: '/organizations',
     name: 'Organizations',
     component: Organizations,
+    // authenticated: true,
+  },
+  {
+    path: '/',
+    name: 'Landing',
+    component: Landing,
     // authenticated: true,
   },
 ];

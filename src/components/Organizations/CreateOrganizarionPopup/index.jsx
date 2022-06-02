@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Popup from '@Components/common/Popup/index';
-import Text from '@Components/common/Text/index';
+import Input from '@Components/common/Input/index';
 
 const CreateOrganizationPopup = ({ openPopup, setOpenPopup }) => {
   const handleClose = () => {
@@ -19,8 +19,13 @@ const CreateOrganizationPopup = ({ openPopup, setOpenPopup }) => {
         <>
           <div className="row">
             <div className="grid-md-6">
-              <Text label="Name of organization" placeholder="ST-34536" onChange={handleTextChange} id="organization" />
-              <Text
+              <Input
+                label="Name of organization"
+                placeholder="ST-34536"
+                onChange={handleTextChange}
+                id="organization"
+              />
+              <Input
                 label="Organization email"
                 placeholder="ST-34536"
                 type="email"
@@ -42,7 +47,7 @@ const CreateOrganizationPopup = ({ openPopup, setOpenPopup }) => {
               </div>
             </div>
           </div>
-          <Text
+          <Input
             labelClassName="fw-bold"
             label="Organization phone number"
             placeholder="ST-34536"
@@ -50,7 +55,7 @@ const CreateOrganizationPopup = ({ openPopup, setOpenPopup }) => {
             id="organization number"
             onChange={handleTextChange}
           />
-          <Text
+          <Input
             labelClassName="fw-bold"
             label="Organization address"
             placeholder="ST-34536"
@@ -58,7 +63,7 @@ const CreateOrganizationPopup = ({ openPopup, setOpenPopup }) => {
             onChange={handleTextChange}
           />
           <div className="is-flex is-wrap is-gap-15">
-            <Text
+            <Input
               icon="visibility"
               type="password"
               label="Password"
@@ -67,7 +72,7 @@ const CreateOrganizationPopup = ({ openPopup, setOpenPopup }) => {
               onChange={handleTextChange}
               className1="is-grow"
             />
-            <Text
+            <Input
               icon="visibility"
               type="password"
               label="Confirm Password"
@@ -77,7 +82,7 @@ const CreateOrganizationPopup = ({ openPopup, setOpenPopup }) => {
               onChange={handleTextChange}
             />
           </div>
-          <Text
+          <Input
             labelClassName="fw-bold"
             iconAhead
             icon="email"

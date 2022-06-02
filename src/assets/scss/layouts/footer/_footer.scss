@@ -1,0 +1,59 @@
+.site-footer{
+    &_logo{
+        @include justify-content(center);
+            
+            @include breakpoint-up('xl-phone'){
+                @include justify-content(start);
+            }
+        img{
+            max-height: 50px;
+        }
+    }
+    a{
+        &:hover{
+            color:var(--clr-secondary-500);
+        }
+    }
+    &_up{
+        width: 100%;
+        .copyright-term{
+            @include justify-content(center);
+            
+            @include breakpoint-up('xl-phone'){
+                @include justify-content(space-between);
+            }
+        }
+    }
+    &_nav{
+        @include justify-content(center);
+        margin-top:10px;
+            
+        @include breakpoint-up('xl-phone'){
+            @include justify-content(end);
+            margin:0;
+        }
+    }
+    .copyright-term{
+        @include justify-content(center);
+        
+        
+        @include breakpoint-up('md-tab'){
+            @include justify-content(start);
+        }
+    }
+    .social-icons{
+        @include justify-content(center);
+        @include breakpoint-up('md-tab'){
+            @include justify-content(end);
+        }
+        @include breakpoint-up('lg-tab'){
+            @include justify-content(center);
+        }
+    }
+    .designed-by{
+        @include justify-content(center);
+        @include breakpoint-up('lg-tab'){
+            @include justify-content(end);
+        }
+    }
+}

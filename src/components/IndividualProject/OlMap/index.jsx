@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromLonLat } from 'ol/proj';
 import MapContainer from '@Components/common/OpenLayersComponent/MapContainer';
@@ -12,13 +12,19 @@ import Scalebar from '@Components/common/OpenLayersComponent/Scalebar';
 import individualActions from '@Actions/individualProject';
 import { switcherOptions } from '@src/constants/commonData';
 import MeasureControl from '@Components/common/OpenLayersComponent/Control/MeasureControl';
+import { selectedLayerStyleSelector } from '@Selectors/individualProject';
+import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
 
 const { BASE_URL } = process.env;
 
 const OlMap = () => {
   const dispatch = useDispatch();
+  const windowHeight = window.innerHeight;
   const mapToggle = useSelector((state) => state.individualProject.mapToggle);
   const geomData = useSelector((state) => state.individualProject.geomData);
+  const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
+  const projectHeaderHeight = useSelector((state) => state.projectHeader.projectHeaderHeight);
+  const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
   const authToken = '0d133cd783c0bd4288ef0b8dca02de3889845612';
   const { mapRef, map, renderComplete } = useOLMap({
     center: fromLonLat([85.3, 27.7]),
@@ -34,6 +40,11 @@ const OlMap = () => {
 
     return () => clearTimeout(timer);
   }, [map, mapToggle]);
+
+  // const getLayerStyle = useCallback(
+  //   (id) => (id === selectedLayerId ? selectedLayerStyle : geomData.filter((element) => element.id === 2)[0]?.style),
+  //   [geomData, selectedLayerId, selectedLayerStyle],
+  // );
   return (
     <div className="dbd-map_cntr is-grow">
       <div className="dbd-map_wrap">
@@ -42,7 +53,8 @@ const OlMap = () => {
           mapInstance={map}
           className="map"
           // className="map leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-touch-drag leaflet-touch-zoom"
-          style={{ height: '92vh' }}
+          // style={{ height: '92vh' }}
+          style={{ height: `${windowHeight - projectHeaderHeight}px` }}
         >
           {/* <LayerSwitcherControl />
   <Scalebar /> */}
@@ -51,6 +63,7 @@ const OlMap = () => {
               <VectorTileLayer
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
+                style={selectedLayerId ? selectedLayerStyle : item?.style || { ...defaultStyles }}
               />
             ))}
           {geomData &&
@@ -58,6 +71,7 @@ const OlMap = () => {
               <VectorTileLayer
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
+                style={selectedLayerId ? selectedLayerStyle : item?.style || { ...defaultStyles }}
               />
             ))}
         </MapContainer>

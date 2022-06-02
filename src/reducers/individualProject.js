@@ -2,6 +2,7 @@
 import { createReducer } from 'reduxsauce';
 import { Types } from '@Actions/individualProject';
 import { isEmpty } from '@Utils/commonUtils';
+import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
 
 const initialState = {
   active: 'map',
@@ -18,6 +19,7 @@ const initialState = {
   taskLoading: false,
   selectedLayerName: '',
   selectedLayerId: null,
+  themeId: null,
   geomData: [],
   addUploadData: {
     layerName: '',
@@ -29,8 +31,12 @@ const initialState = {
   addThemeData: {
     themeName: '',
   },
+  selectedLayerStyle: {},
   searchData: '',
   themeAddSuccess: false,
+  groupList: null,
+  popupName: '',
+  mapIcon: null,
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
@@ -47,10 +53,12 @@ const openLayerPopup = (state, action) => ({
   openLayerPopup: action.payload,
 });
 
-const openDatasetPopup = (state, action) => ({
-  ...state,
-  openDatasetPopup: action.payload,
-});
+const openDatasetPopup = (state, action) => {
+  const {
+    payload: { value, name },
+  } = action;
+  return { ...state, openDatasetPopup: value, popupName: name };
+};
 
 const getLayerTemplateListSuccess = (state, action) => {
   const {
@@ -66,7 +74,6 @@ const getProjectLayerDataSuccess = (state, action) => {
   const {
     payload: { data },
   } = action;
-
   const layerData = data.map((item) => ({
     id: item.id,
     name: item.name,
@@ -139,6 +146,16 @@ const getProjectLayerDataSuccess = (state, action) => {
   return {
     ...state,
     layerData,
+  };
+};
+
+const getGroupListSuccess = (state, action) => {
+  const {
+    payload: { data },
+  } = action;
+  return {
+    ...state,
+    groupList: data,
   };
 };
 
@@ -308,6 +325,34 @@ const getSearchData = (state, action) => ({
   searchData: action.payload,
 });
 
+const handleStyleInput = (state, action) => {
+  const {
+    payload: { name, value },
+  } = action;
+
+  const selectedLayerStyle = {
+    ...defaultStyles,
+    ...state.selectedLayerStyle,
+    [name]: value,
+  };
+
+  // const newData = state.layerData.map((item) =>
+  //   item.id === state.themeId
+  //     ? {
+  //         ...item,
+  //         options: item.options.map((element) =>
+  //           element.id === state.selectedLayerId ? { ...element, style: selectedLayerStyle } : { ...element },
+  //         ),
+  //       }
+  //     : { ...item },
+  // );
+
+  return {
+    ...state,
+    selectedLayerStyle,
+  };
+};
+
 const setLayerDeleteData = (state, action) => {
   const {
     payload: { id, name },
@@ -316,6 +361,18 @@ const setLayerDeleteData = (state, action) => {
     ...state,
     selectedLayerName: name,
     selectedLayerId: id,
+  };
+};
+
+const setEditLayerData = (state, action) => {
+  const {
+    payload: { id, name, theId },
+  } = action;
+  return {
+    ...state,
+    selectedLayerName: name,
+    selectedLayerId: id,
+    themeId: theId,
   };
 };
 
@@ -337,6 +394,11 @@ const deleteUploadDataFile = (state, action) => ({
   file: null,
 });
 
+const setMapIcon = (state, action) => ({
+  ...state,
+  mapIcon: action.payload,
+});
+
 const clearData = (state, action) =>
   // const { addUploadData, addThemeData } = state;
   ({
@@ -348,10 +410,16 @@ const clearData = (state, action) =>
     taskLoading: false,
     addThemeData: initialState?.addThemeData,
     sameLayerName: false,
+    selectedLayerId: null,
+    selectedLayerName: '',
+    themeId: null,
+    mapIcon: null,
   });
+
 const individualProjectReducer = createReducer(initialState, {
   [Types.GET_PROJECT_LAYER_DATA_SUCCESS]: getProjectLayerDataSuccess,
   [Types.GET_LAYER_TEMPLATE_LIST_SUCCESS]: getLayerTemplateListSuccess,
+  [Types.GET_GROUP_LIST_SUCCESS]: getGroupListSuccess,
   [Types.GET_TASK_RESPONSE_SUCCESS]: getTaskResponseSuccess,
   [Types.POST_UPLOAD_DATA_SUCCESS]: postUploadDataSuccess,
   [Types.DELETE_LAYER_DATA_SUCCESS]: deleteLayerDataSuccess,
@@ -366,10 +434,13 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.DELETE_UPLOAD_DATA_FILE]: deleteUploadDataFile,
   [Types.SET_ADD_UPLOAD_DATA]: setAddUploadData,
   [Types.SET_ADD_THEME_DATA]: setAddThemeData,
+  [Types.SET_EDIT_LAYER_DATA]: setEditLayerData,
   [Types.GET_SEARCH_DATA]: getSearchData,
   [Types.CLEAR_DATA]: clearData,
   [Types.SET_LAYER_DELETE_DATA]: setLayerDeleteData,
   [Types.SET_THEME_ADD_SUCCESS]: setThemeAddSuccess,
+  [Types.HANDLE_STYLE_INPUT]: handleStyleInput,
+  [Types.SET_MAP_ICON]: setMapIcon,
 });
 
 export default individualProjectReducer;

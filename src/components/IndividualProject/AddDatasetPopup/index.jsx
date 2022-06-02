@@ -4,20 +4,23 @@ import PropTypes from 'prop-types';
 import Popup from '@Components/common/Popup/index';
 import { Creators } from '@Actions/individualProject';
 import toastAction from '@Actions/toast';
-import Text from '@Components/common/Text/index';
+import Input from '@Components/common/Input/index';
 
-const { setAddThemeData, openDatasetPopup, postThemeDataRequest } = Creators;
+const { setAddThemeData, openDatasetPopup, postThemeDataRequest, postGroupDataRequest } = Creators;
 
 const AddDatasetPopup = ({ id }) => {
   const dispatch = useDispatch();
   const [checkState, setCheckState] = useState(false);
   const openPopup = useSelector((state) => state.individualProject.openDatasetPopup);
   const addThemeData = useSelector((state) => state.individualProject.addThemeData);
+  const popupName = useSelector((state) => state.individualProject.popupName);
+  const themeId = useSelector((state) => state.individualProject.themeId);
 
   const handleButtonClick = () => {
     if (checkState) {
       dispatch(toastAction.error({ message: 'Fields cannot be empty' }));
-    } else {
+    }
+    if (!checkState && popupName === 'theme') {
       dispatch(
         postThemeDataRequest({
           finalThemeData: {
@@ -27,33 +30,56 @@ const AddDatasetPopup = ({ id }) => {
         }),
       );
     }
+    if (!checkState && popupName === 'group') {
+      dispatch(
+        postGroupDataRequest({
+          finalGroupData: {
+            name: addThemeData.groupName,
+            theme: themeId,
+          },
+        }),
+      );
+    }
   };
   const handleCloseClick = () => {
-    dispatch(openDatasetPopup(false));
+    dispatch(openDatasetPopup({ value: false, name: '' }));
   };
   const onTextChangeHandler = (event) => {
     setCheckState(true);
     const { name, value } = event.target;
     dispatch(setAddThemeData({ name, value }));
+    setCheckState(false);
   };
   return (
     <Popup
       className="pm-modal_cntr_radius"
-      header="create ana Theme/Dataset"
-      buttonTitle="add to map"
+      header={popupName === 'theme' ? 'Create Theme/Dataset' : 'Add group'}
+      buttonTitle={popupName === 'theme' ? 'add to map' : 'add group'}
       popup={openPopup}
       handleCloseClick={handleCloseClick}
       handleButtonClick={handleButtonClick}
       body={
         <div className="mt-15 mb-15">
-          <Text
-            label="Theme *"
-            name="themeName"
-            value={addThemeData?.themeName}
-            onChange={onTextChangeHandler}
-            placeholder="Theme Name"
-            errorMessage={checkState && addThemeData?.themeName === '' ? '*Theme name cannot be empty.' : null}
-          />
+          {popupName === 'theme' && (
+            <Input
+              label="Theme *"
+              name="themeName"
+              value={addThemeData?.themeName}
+              onChange={onTextChangeHandler}
+              placeholder="Theme Name"
+              errorMessage={checkState && addThemeData?.themeName === '' ? '*Theme name cannot be empty.' : null}
+            />
+          )}
+          {popupName === 'group' && (
+            <Input
+              label="Group *"
+              name="groupName"
+              value={addThemeData?.groupName}
+              onChange={onTextChangeHandler}
+              placeholder="Group Name"
+              errorMessage={checkState && addThemeData?.groupName === '' ? '*Theme name cannot be empty.' : null}
+            />
+          )}
           {/* <TextArea
             label="Description"
             name="layerName"

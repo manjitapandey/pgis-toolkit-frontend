@@ -5,7 +5,7 @@ import individualProjectAction from '@Actions/individualProject';
 import Select from '@Components/common/Select/index';
 import { selectOptions } from '@src/constants/commonData';
 import Search from '@Components/common/Search/index';
-import Text from '@Components/common/Text/index';
+import Input from '@Components/common/Input/index';
 
 const FilterSidebar = ({ active }) => {
   const dispatch = useDispatch();
@@ -86,7 +86,7 @@ const FilterSidebar = ({ active }) => {
             </ul>
           </div>
         </div>
-        <Text
+        <Input
           label="Filter"
           placeholder="Road length=40"
           className="pm-control pm-control_white"

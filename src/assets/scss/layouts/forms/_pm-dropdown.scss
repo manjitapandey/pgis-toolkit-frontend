@@ -4,7 +4,7 @@
     position: relative;
     @include prefix(
       transition,
-      (all 0.5s ease-in-out),
+      (all 0.1s ease-in-out),
       ('web', 'moz', 'ms', 'o')
     );
     &.is-border,
@@ -83,6 +83,11 @@
       &:hover {
         background-color: var(--clr-body-200);
       }
+      &.is-circle_hover__white{
+        &:hover{
+          background-color: var(--clr-white-900);
+        }
+      }
     }
     a {
       &_icon {
@@ -102,7 +107,7 @@
       padding:.5rem 0;
       @include prefix(
         transition,
-        (all 0.4s ease-in-out),
+        (all 0.2s ease-in-out),
         ('web', 'moz', 'ms', 'o')
       );
       position: absolute;
@@ -129,7 +134,7 @@
         padding: 0;
         a {
           padding: 0.5rem 0.6125rem;
-          
+          transition: none;
           @include flexbox();
           @include justify-content(flex-start);
           @include align-items(center);

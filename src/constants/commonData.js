@@ -110,6 +110,12 @@ export const layerPopupTabOptions = [
 
 export const selectOptions = ['Bagmati', 'Gandaki', 'Lumbini', 'Gandaki'];
 
+export const selectSizeOptions = [
+  { id: '1', name: 'Small', size: '' },
+  { id: '2', name: 'Medium', size: '' },
+  { id: '3', name: 'Large', size: '' },
+];
+
 export const vectorTileData = [
   {
     id: '1',
@@ -117,3 +123,7 @@ export const vectorTileData = [
     url: 'https://pccmis.karnali.gov.np/api/v1/layer_vectortile/{z}/{x}/{y}/?layer=district&pro_code=',
   },
 ];
+
+export const optionTypeList = ['Individual', 'Group', 'Sub-layer'];
+
+export const optionStyleList = ['Standard', 'Advance'];

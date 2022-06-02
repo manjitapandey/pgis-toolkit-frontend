@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Text from '@Components/common/Text/index';
+import Input from '@Components/common/Input/index';
 import { selectOptions } from '@src/constants/commonData';
 import Select from '@Components/common/Select/index';
 import { authenticated } from '@Services/index';
@@ -40,7 +40,7 @@ const Template = () => {
       </ul>
       {/* <h6 className="mt-15">Add Custom</h6>
       <div className="mt-15 mb-15">
-        <Text label="Layer Name" name="layerName" value="" onChange={onTextChangeHandler} placeholder="Layer Name" />
+        <Input label="Layer Name" name="layerName" value="" onChange={onTextChangeHandler} placeholder="Layer Name" />
         <div className="pm-group">
           <label>Feature Type</label>
           <Select className="pm-select_100" selected="choose" options={selectOptions} />

@@ -168,7 +168,7 @@
       }
     }
   }
-  &_border {
+  &-border {
     @include radius(4px);
     .acc-list {
       &_header {

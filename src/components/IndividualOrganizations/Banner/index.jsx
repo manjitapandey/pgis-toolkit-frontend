@@ -10,7 +10,7 @@ const Banner = () => {
   return (
     <div className="is-flex is-between is-align-start gap-10 mb-10">
       <div className="is-flex is-start is-align-start is-grow">
-        <Link to="/" className="is-back is-circle is-circle_sm mr-15 is-circle_hover">
+        <Link to="/organizations" className="is-back is-circle is-circle_sm mr-15 is-circle_hover">
           <i className="material-icons">arrow_back</i>
         </Link>
         <div className="is-flex is-start is-align-start is-grow">
