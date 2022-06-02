@@ -9,7 +9,7 @@
     @include justify-content(space-between);
     border: 1px solid var(--clr-body-300);
     @include align-items(stretch);
-    background-color: var(--clr-body-200);
+    background-color: var(--clr-body-100);
     flex-grow: 1;
     max-width: 240px;
     border-radius: 30px;
@@ -19,7 +19,7 @@
         flex-grow: 1;
         border: none;
         display: initial;
-        background-color: var(--clr-body-200);
+        background-color: var(--clr-body-100);
         @include radius(30px);
         @include input-placeholder {
           color: var(--clr-body-500);

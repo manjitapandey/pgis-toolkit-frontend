@@ -14,6 +14,14 @@ export const { Types, Creators } = createActions(
     getTaskResponseSuccess: ['payload'],
     getTaskResponseFailure: null,
 
+    getGroupListRequest: ['params'],
+    getGroupListSuccess: ['payload'],
+    getGroupListFailure: null,
+
+    postGroupDataRequest: ['payload'],
+    postGroupDataSuccess: ['payload'],
+    postGroupDataFailure: null,
+
     postUploadDataRequest: ['payload'],
     postUploadDataSuccess: ['payload'],
     postUploadDataFailure: null,
@@ -22,6 +30,10 @@ export const { Types, Creators } = createActions(
     postThemeDataSuccess: ['payload'],
     postThemeDataFailure: null,
 
+    postLayerStyleRequest: ['payload'],
+    postLayerStyleSuccess: ['payload'],
+    postLayerStyleFailure: null,
+
     deleteLayerDataRequest: ['payload'],
     deleteLayerDataSuccess: ['payload'],
     deleteLayerDataFailure: null,
@@ -29,6 +41,7 @@ export const { Types, Creators } = createActions(
     setAddUploadDataFile: ['payload'],
     setAddUploadData: ['payload'],
     setAddThemeData: ['payload'],
+    setEditLayerData: ['payload'],
     deleteUploadDataFile: ['payload'],
 
     getSelectedFromLayer: ['payload'],
@@ -42,6 +55,8 @@ export const { Types, Creators } = createActions(
     clearData: ['payload'],
     setLayerDeleteData: ['payload'],
     setThemeAddSuccess: ['payload'],
+    handleStyleInput: ['payload'],
+    setMapIcon: ['payload'],
   },
   { prefix: 'IndividualProject/' },
 );

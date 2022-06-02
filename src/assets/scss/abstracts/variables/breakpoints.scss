@@ -50,7 +50,7 @@ $breakpoints-up :(
 );
 
 @mixin breakpoint-up($size){
-  @media (min-width:map-get($breakpoints,$size)){
+  @media (min-width:map-get($breakpoints-up,$size)){
     @content;
   }
 }
@@ -68,7 +68,7 @@ $breakpoints-down :(
 );
 
 @mixin breakpoint-down($size){
-  @media (max-width:map-get($breakpoints,$size)){
+  @media (max-width:map-get($breakpoints-down,$size)){
     @content;
   }
 }

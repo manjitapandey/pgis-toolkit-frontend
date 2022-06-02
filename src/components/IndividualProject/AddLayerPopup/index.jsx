@@ -65,8 +65,6 @@ const AddLayerPopup = () => {
     }
   };
 
-  console.log(taskLoading, 'loading');
-
   return (
     <Popup
       className="pm-modal_cntr_lg pm-modal_cntr_radius"

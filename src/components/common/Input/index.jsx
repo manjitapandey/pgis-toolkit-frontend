@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Text = ({
+const Input = ({
   value,
   onChange,
   label,
@@ -69,7 +69,7 @@ const Text = ({
   </>
 );
 
-Text.defaultProps = {
+Input.defaultProps = {
   onChange: () => {},
   value: '',
   label: '',
@@ -86,7 +86,7 @@ Text.defaultProps = {
   errorMessage: '',
 };
 
-Text.propTypes = {
+Input.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string,
   label: PropTypes.string,
@@ -103,4 +103,4 @@ Text.propTypes = {
   errorMessage: PropTypes.string,
 };
 
-export default Text;
+export default Input;

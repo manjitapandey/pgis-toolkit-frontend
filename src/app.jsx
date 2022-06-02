@@ -33,7 +33,7 @@ function generateRoutes(routes) {
 
 function App() {
   const { pathname } = useLocation();
-  const routesWithoutHeader = ['/login', '/organizations/1/projects/1'];
+  const routesWithoutHeader = ['/login', '/', '/organizations/1/projects/1'];
   const hasNoHeader = routesWithoutHeader.includes(pathname);
   return (
     <>

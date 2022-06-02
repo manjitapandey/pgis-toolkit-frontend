@@ -20,3 +20,39 @@
         }
     }
 }
+.dbd-header{
+    &_home{
+        .nav{
+            ul{
+                li{
+                    a{
+                        color:var(--clr-white-900);
+                    }
+                    
+                }
+            }
+        }
+        &.is-fixed{
+            .nav{
+                ul{
+                    li{
+                        a{
+                            color:var(--clr-body-500);
+                        }
+                        &.is-active{
+                            a{
+                                color:var(--clr-body-900);
+                            }
+                        }
+                        &:hover{
+                            a{
+                                color:var(--clr-secondary-500);
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+}

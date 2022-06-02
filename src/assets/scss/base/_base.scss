@@ -15,6 +15,9 @@
 
 /* Links
 --------------------------------------------- */
+@import 'links';
+
+
 
 body {
   font-family: var(--ff-bd);
@@ -27,7 +30,7 @@ body {
   }
 }
 
-@import 'links';
+
 .is-flex {
   @include flexbox();
 }
@@ -122,6 +125,12 @@ body {
 .is-text-center {
   text-align: center !important;
 }
+.is-hide{
+  display: none;
+}
+.is-show{
+  display: block;
+}
 
 .is-scroll {
   -ms-flex-wrap: nowrap;
@@ -155,7 +164,7 @@ body {
 }
 
 .pt-10 {
-  padding-top: 0.5;
+  padding-top: 0.5rem;
 }
 
 .pb-10 {
@@ -224,7 +233,9 @@ body {
 .mb-15 {
   margin-bottom: 1rem;
 }
-
+.mr-15 {
+  margin-right: 1rem;
+}
 .ml-15 {
   margin-left: 1rem;
 }
@@ -249,9 +260,48 @@ body {
   padding-right: 1rem;
 }
 
-.mr-15 {
-  margin-right: 1rem;
+
+
+.mt-20 {
+  margin-top: 1.25rem;
 }
+
+.mb-20 {
+  margin-bottom: 1.25rem;
+}
+
+.ml-20 {
+  margin-left: 1.25rem;
+}
+.mr-20 {
+  margin-right: 1.25rem;
+}
+
+.pd-20 {
+  padding: 1.25rem;
+}
+
+.pl-20 {
+  padding-left: 1.25rem;
+}
+
+.pt-20 {
+  padding-top: 1.25rem;
+}
+
+.pb-20 {
+  padding-bottom: 1.25rem;
+}
+
+.pr-20 {
+  padding-right: 1.25rem;
+}
+.pd-20{
+  padding:1.25rem;
+}
+
+
+
 .mt-25 {
   margin-top: 1.5rem;
 }
@@ -276,7 +326,41 @@ body {
 .pr-25 {
   padding-right: 1.5rem;
 }
+.pd-25{
+  padding:1.5rem;
+}
 
+.mt-40 {
+  margin-top: 2.5rem;
+}
+.mb-40 {
+  margin-bottom: 2.5rem;
+}
+.ml-40 {
+  margin-left: 2.5rem;
+}
+.mr-40 {
+  margin-right: 2.5rem;
+}
+.pt-40 {
+  padding-top: 2.5rem;
+}
+.pb-40 {
+  padding-bottom: 2.5rem;
+}
+.pl-40 {
+  padding-left: 2.5rem;
+}
+.pr-40 {
+  padding-right: 2.5rem;
+}
+
+.pt-pb-100{
+  padding:58px 0;
+  @include breakpoint-up('md-desktop'){
+    padding:98px 0;
+  }
+}
 
 
 
@@ -519,7 +603,7 @@ body {
 }
 
 .is-bg {
-  background-color: var(--clr-body-400);
+  background-color: var(--clr-body-100);
 }
 
 .is-align-right {
@@ -579,6 +663,10 @@ body {
     var(--clr-body-500),
     var(--clr-primary-700)
   );
+  overflow: hidden;
+  &:hover{
+    overflow: auto;
+  }
 }
 
 .is-square {

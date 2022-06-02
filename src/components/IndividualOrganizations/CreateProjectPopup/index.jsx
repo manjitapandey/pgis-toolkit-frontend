@@ -3,7 +3,7 @@ import Popup from '@Components/common/Popup/index';
 import { Creators } from '@Actions/individualOrganization';
 import { useDispatch, useSelector } from 'react-redux';
 import MultistepLabel from '@Components/common/MultistepLabel/index';
-import Text from '@Components/common/Text/index';
+import Input from '@Components/common/Input/index';
 
 const { openProjectPopup } = Creators;
 
@@ -22,10 +22,9 @@ const CreateProjectPopup = () => {
       body={
         <>
           <MultistepLabel />
-          <Text label="phone" placeholder="ST-34536" id="phone" onChange={changeTextHandler} />
-
+          <Input label="phone" placeholder="ST-34536" id="phone" onChange={changeTextHandler} />
           <div className="is-flex is-wrap is-gap-15">
-            <Text
+            <Input
               className1="is-grow"
               icon="visibility"
               label="password"
@@ -34,7 +33,7 @@ const CreateProjectPopup = () => {
               id="password"
               placeholder="ST-34536"
             />
-            <Text
+            <Input
               className1="is-grow"
               icon="visibility"
               type="password"
@@ -45,7 +44,7 @@ const CreateProjectPopup = () => {
             />
           </div>
           <div className="is-flex  is-gap-15 is-wrap">
-            <Text
+            <Input
               className1="is-grow"
               labelClassName="fw-bold is-capitalize"
               icon="calendar_today"
@@ -54,7 +53,7 @@ const CreateProjectPopup = () => {
               id="start date"
               placeholder="start Date"
             />
-            <Text
+            <Input
               className1="is-grow"
               labelClassName="fw-bold is-capitalize"
               icon="calendar_today"
@@ -65,7 +64,7 @@ const CreateProjectPopup = () => {
             />
           </div>
 
-          <Text
+          <Input
             className1="is-grow"
             labelClassName="fw-bold"
             icon="email"

@@ -4,10 +4,13 @@ import toastActions from '@Actions/toast';
 import {
   getProjectLayerData,
   getLayerTemplateList,
+  getGroupList,
+  postGroupData,
   postUploadData,
   postThemeData,
   getTaskResponse,
   deleteLayerData,
+  postLayerData,
 } from '@Services/individualProject';
 import withLoader from '@Utils/sagaUtils';
 import popupAction from '@Actions/popup';
@@ -61,6 +64,47 @@ export function* getTaskResponseRequest(action) {
   }
 }
 
+export function* getGroupListRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getGroupList, params);
+    yield put(projectActions.getGroupListSuccess({ data: response.data }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(projectActions.getGroupListFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
+export function* postGroupDataRequest(action) {
+  const {
+    type,
+    params,
+    payload: { finalGroupData },
+  } = action;
+  try {
+    const formData = new FormData();
+    Object.entries(finalGroupData).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    const response = yield call(postGroupData, formData);
+    yield put(projectActions.postGroupDataSuccess({ data: response.data }));
+    yield put(projectActions.openDatasetPopup({ value: false, name: '' }));
+    // yield put(toastActions.success({ message: 'Layer added successfully' }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(projectActions.postGroupDataFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
 export function* postUploadDataRequest(action) {
   const {
     type,
@@ -100,7 +144,7 @@ export function* postThemeDataRequest(action) {
     const response = yield call(postThemeData, formData);
     yield put(projectActions.postThemeDataSuccess({ data: response.data }));
     yield put(projectActions.setThemeAddSuccess(true));
-    yield put(projectActions.openDatasetPopup(false));
+    yield put(projectActions.openDatasetPopup({ value: false, name: '' }));
     // yield put(toastActions.success({ message: 'Layer added successfully' }));
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));
@@ -109,6 +153,21 @@ export function* postThemeDataRequest(action) {
     // }
     yield put(projectActions.postThemeDataFailure());
     yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
+export function* postLayerDataRequest({ payload }) {
+  try {
+    const { id, finalLayerStyle } = payload;
+    const data = new FormData();
+    Object.entries(finalLayerStyle).forEach(([key, value]) => {
+      data.append(key, value);
+    });
+    yield call(postLayerData, id, data);
+    yield put(projectActions.postLayerDataSuccess(id));
+    yield put(toastActions.success({ message: 'Layer style successfully edited.' }));
+  } catch (error) {
+    yield put(toastActions.error({ message: 'Something went wrong!' }));
   }
 }
 
@@ -131,6 +190,8 @@ function* individualProjectWatcher() {
   yield takeLatest(Types.GET_PROJECT_LAYER_DATA_REQUEST, withLoader(getProjectLayerDataRequest));
   yield takeLatest(Types.GET_LAYER_TEMPLATE_LIST_REQUEST, withLoader(getLayerTemplateListRequest));
   yield takeLatest(Types.GET_TASK_RESPONSE_REQUEST, withLoader(getTaskResponseRequest));
+  yield takeLatest(Types.GET_GROUP_LIST_REQUEST, withLoader(getGroupListRequest));
+  yield takeLatest(Types.POST_GROUP_DATA_REQUEST, withLoader(postGroupDataRequest));
   yield takeLatest(Types.POST_UPLOAD_DATA_REQUEST, withLoader(postUploadDataRequest));
   yield takeLatest(Types.POST_THEME_DATA_REQUEST, withLoader(postThemeDataRequest));
   yield takeLatest(Types.DELETE_LAYER_DATA_REQUEST, withLoader(deleteLayerDataRequest));

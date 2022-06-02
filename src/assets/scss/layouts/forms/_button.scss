@@ -3,7 +3,7 @@
   font-size: var(--fs-btn);
   text-decoration: none;
   text-transform: capitalize;
-  padding: 0.8rem 1.2rem;
+  padding: 0.6rem 1.2rem;
   position: relative;
   border: none;
   outline: none;
@@ -83,6 +83,7 @@
   }
   &_sm {
     padding: 0.35rem 0.6125rem;
+    min-height: 35px;
   }
   &_radius {
     @include radius(24px);
@@ -97,6 +98,8 @@
     &:hover {
       background-color: var(--clr-body-200);
     }
+    
+    
     &__disable,
     &:disable {
       background-color: var(--clr-body-400);
@@ -106,6 +109,12 @@
       box-shadow: none;
     }
   }
+  &_hover__white{
+    &:hover{
+      background-color: var(--clr-white-900);
+    }
+  }
+  
 
   &_auto {
     min-width: initial;
@@ -127,7 +136,11 @@
     &_active{
       border-color:var(--clr-body-600);
       background-color: var(--clr-body-100);
+      &--white{
+        background-color: var(--clr-white-900);
+      }
     }
+    
   }
 }
 

@@ -10,7 +10,7 @@ import { getStyles, defaultStyles } from '../helpers/styleUtils';
 const VectorTileLayer = ({
   map,
   url,
-  style = { ...defaultStyles },
+  style,
   zIndex = 1,
   visibleOnMap = true,
   authToken,

@@ -7,4 +7,49 @@
     }
   }
   border-bottom: 1px solid var(--clr-body-500);
+  &_home{
+    padding:18px 0;
+    border:0;
+    position: fixed;
+    top:2rem;
+    z-index: 999;
+    left:0;
+    right:0;
+    width: 100%;
+    .is-btn{
+      &_secondary{
+        border-color:var(--clr-white-900);
+        color:var(--clr-white-900);
+        background:transparent;
+        &:hover{
+          span{
+            text-decoration: underline;
+          }
+        }
+      }
+      &_primary{
+        background-color: var(--clr-white-900);
+        color:var(--clr-primary-500);
+        &:hover{
+          background-color: var(--clr-primary-50);
+        }
+      }
+    }
+    &.is-fixed{
+      background-color: var(--clr-white-900);
+      @include box-shadow(0 10px 15px rgba(0,0,0,.2));
+      top:0;
+      .is-btn{
+        &_secondary{
+          border-color:var(--clr-body-500);
+          color:var(--clr-body-600);
+          background:transparent;
+        }
+        &_primary{
+          background-color: var(--clr-primary-500);
+          color:var(--clr-white-900);
+        }
+      }
+    }
+  }
 }

@@ -45,7 +45,7 @@ const MapSidebar = ({ isLoading }) => {
     dispatch(setActive('filter'));
   };
   const onButtonClick = () => {
-    dispatch(openDatasetPopup(true));
+    dispatch(openDatasetPopup({ value: true, name: 'theme' }));
   };
   const handleButtonClick = (e, id, name) => {
     e.stopPropagation();
@@ -84,6 +84,8 @@ const MapSidebar = ({ isLoading }) => {
                             icon={element?.icon}
                             onListChange={(event) => handleListCheckbox(event, element.id, name, element.name)}
                             options={element?.options}
+                            themeId={id}
+                            type={element?.type}
                           />
                         ))
                       ) : (

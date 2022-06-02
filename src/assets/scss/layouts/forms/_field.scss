@@ -189,9 +189,8 @@ textarea {
 
   span {
     &.is-error {
-      color: var(--clr-red);
+      color: var(--clr-primary-600);
       margin-top: 0.5rem;
-      // display: none;
     }
   }
   &.sm-input{
@@ -232,7 +231,7 @@ textarea {
       @include align-items(center);
       @include flex-direction(column);
       cursor: pointer;
-      color:var(--clr-body-500);
+      color:var(--clr-body-600);
 
       i {
         font-size: 1.1rem;
@@ -296,6 +295,7 @@ textarea {
   }
   &:focus-within {
     border-color: var(--clr-body-600);
+    background-color: var(--clr-body-100);
   }
 }
 

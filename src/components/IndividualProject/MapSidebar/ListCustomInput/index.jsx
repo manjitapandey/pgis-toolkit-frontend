@@ -7,11 +7,12 @@ import Dropdown from '@Components/IndividualOrganizations/Dropdown/index';
 import { Creators } from '@Actions/individualProject';
 import popupAction from '@Actions/popup';
 
-const { setLayerFilterActive, setLayerDeleteData } = Creators;
+const { setLayerFilterActive, setLayerDeleteData, setEditLayerData } = Creators;
 
-const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onListChange, options }) => {
+const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onListChange, options, themeId, type }) => {
   const dispatch = useDispatch();
-  const handleEdit = () => {
+  const handleEdit = (layId, layName, theId) => {
+    dispatch(setEditLayerData({ id: layId, name: layName, theId }));
     dispatch(setLayerFilterActive('layerFilter'));
   };
   const handleDeleteClick = (layId, layName) => {
@@ -36,11 +37,13 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
             {/* <button type="button" className="is-btn is-btn_link is-btn_sm">
             <span>Explore</span>
   </button> */}
-            <div className="pm-dropdown pm-dropdown_option">
-              <a href="#" className="is-circle is-circle_xs" onClick={handleEdit}>
-                <i className="material-icons">edit</i>
-              </a>
-            </div>
+            {type !== 'group' && (
+              <div className="pm-dropdown pm-dropdown_option">
+                <a href="#" className="is-circle is-circle_xs" onClick={() => handleEdit(uniqueId, catName, themeId)}>
+                  <i className="material-icons">edit</i>
+                </a>
+              </div>
+            )}
             <Dropdown handleDeleteClick={() => handleDeleteClick(uniqueId, catName)} />
           </div>
         </div>
@@ -61,11 +64,17 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                   {/* <button type="button" className="is-btn is-btn_link is-btn_sm" onClick={handleEdit}>
                   <span>Explore</span>
           </button> */}
-                  <div className="pm-dropdown pm-dropdown_option">
-                    <a href="#" className="is-circle is-circle_xs">
-                      <i className="material-icons">edit</i>
-                    </a>
-                  </div>
+                  {type === 'group' && (
+                    <div className="pm-dropdown pm-dropdown_option">
+                      <a
+                        href="#"
+                        className="is-circle is-circle_xs"
+                        onClick={() => handleEdit(item.id, item?.name, themeId)}
+                      >
+                        <i className="material-icons">edit</i>
+                      </a>
+                    </div>
+                  )}
                   <Dropdown />
                 </div>
               </li>
@@ -82,11 +91,13 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
 ListCustomInput.propTypes = {
   uniqueId: PropTypes.string,
   catName: PropTypes.string,
+  type: PropTypes.string,
   isSelected: PropTypes.bool,
   onChange: PropTypes.func,
   icon: PropTypes.string,
   onListChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.object),
+  themeId: PropTypes.number.isRequired,
 };
 
 ListCustomInput.defaultProps = {
@@ -97,6 +108,7 @@ ListCustomInput.defaultProps = {
   icon: '',
   onListChange: () => {},
   options: [],
+  type: '',
 };
 
 export default ListCustomInput;

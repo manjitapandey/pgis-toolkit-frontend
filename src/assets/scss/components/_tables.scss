@@ -11,6 +11,10 @@ table th {
     var(--clr-body-400),
     var(--clr-primary-700)
   );
+  overflow: hidden;
+    &:hover{
+      overflow: auto;
+    }
   &_border {
     table {
       tbody {
@@ -88,6 +92,57 @@ table th {
       margin: 0;
     }
 
+    tbody{
+      tr{
+        position: relative;
+        td{
+          
+          &.is-sticky-td{
+            position: fixed;
+            right:10px;
+            padding-top:0;
+            z-index: 1;
+            .pm-dropdown{
+              ul.pm-dropdown_menu{
+                z-index: 9999999;
+                overflow: hidden;
+              }
+            }
+          }
+        }
+        &:hover {
+          background-color: var(--clr-body-100);
+        }
+        &.theader{
+          p{
+            position: relative;
+            &::before{
+              font-size: 1.4rem;
+              font-family: 'Material Icons';
+              content: "expand_more";
+              color: var(--clr-body-color);
+              z-index: 99;
+              line-height: 1;
+              @include flexbox();
+              @include justify-content(center);
+              @include align-items(center);
+              @include flex-direction(column);
+              @include radius(100%);
+              position: absolute;
+              left: 0;
+              top:0;
+            }
+          }
+          &_active{
+            p{
+              &::before{
+                content: "expand_less";
+              }
+            }
+          }
+        }
+      }
+    }
     
     .photos {
       .photo {
@@ -128,12 +183,6 @@ table th {
         &:hover{
           background-color: var(--clr-white-900);
         }
-      }
-    }
-
-    tr {
-      &:hover {
-        background-color: var(--clr-body-100);
       }
     }
   }

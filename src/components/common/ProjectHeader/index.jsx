@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { Creators } from '@Actions/projectHeader';
 
-const ProjectHeader = ({ title, handleClick }) => (
-  <header className="dbd-header pd-10">
-    <div className="container-fluid">
-      <div className="is-flex is-between is-align-center is-wrap is-gap-15">
-        <div className="is-flex is-start is-align-center">
-          <a className="is-back is-circle is-circle_xs mr-10" onClick={handleClick}>
-            <i className="material-icons">arrow_back</i>
-          </a>
-          <h5>{title}</h5>
-        </div>
-        {/* <nav className="nav is-grow">
+const { setHeaderHeight } = Creators;
+
+const ProjectHeader = ({ title, handleClick }) => {
+  const headerRef = useRef(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setHeaderHeight(headerRef?.current?.clientHeight));
+  });
+  return (
+    <header className="dbd-header pd-10" ref={headerRef}>
+      <div className="container-fluid">
+        <div className="is-flex is-between is-align-center is-wrap is-gap-15">
+          <div className="is-flex is-start is-align-center">
+            <a className="is-back is-circle is-circle_xs mr-10" onClick={handleClick}>
+              <i className="material-icons">arrow_back</i>
+            </a>
+            <h5>{title}</h5>
+          </div>
+          {/* <nav className="nav is-grow">
           <ul className="is-end is-flex is-align-center is-gap-30 is-grow">
             <li className="is-active">
               <a href="#">map</a>
@@ -89,10 +100,11 @@ const ProjectHeader = ({ title, handleClick }) => (
             </ul>
           </div>
 </div> */}
+        </div>
       </div>
-    </div>
-  </header>
-);
+    </header>
+  );
+};
 
 ProjectHeader.propTypes = {
   title: PropTypes.string,

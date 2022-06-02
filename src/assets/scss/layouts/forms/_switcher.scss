@@ -41,13 +41,8 @@
   }
 
   input:checked + .switch-slider:before {
-    -webkit-transform: translateX(18px);
-    -ms-transform: translateX(18px);
-    transform: translateX(18px);
-    @include prefix(
-      transform,
-      (translateX(18px), ('webkit', 'moz', 'ms', 'o'))
-    );
+   
+    @include prefix(transform, (translateX(18px)), ('web,ms,moz,o'));
   }
 }
 

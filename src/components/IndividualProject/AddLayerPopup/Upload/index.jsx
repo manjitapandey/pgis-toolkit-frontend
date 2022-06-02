@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators } from '@Actions/individualProject';
-import Text from '@Components/common/Text/index';
+import Input from '@Components/common/Input/index';
 import UploadFile from '@Components/common/UploadFile/index';
 import UploadContent from '@Components/common/UploadContent/index';
 import Select from '@Components/common/Select/index';
@@ -76,7 +76,7 @@ const Upload = () => {
             <h6 className="mb-15">Upload Vector</h6>
             <UploadFile spanDescription="TIFF, JPG or PNG" onChange={onChangeHandler} value="" name="file" />
             {file && <UploadContent fileName={file.name} fileSize={file.size} handleDelete={handleDelete} />}
-            <Text
+            <Input
               label="Layer Name"
               name="layerName"
               value={addUploadData?.layerName}
@@ -91,7 +91,7 @@ const Upload = () => {
               }
             />
             <div className="is-flex is-start is-align-start is-gap-15 is-wrap">
-              <Text
+              <Input
                 label="Theme"
                 name="theme"
                 value={addUploadData?.theme}

@@ -43,10 +43,6 @@
   }
 }
 
-
-
-
-
 .pm-list_search {
   margin-bottom: 1rem;
 }
@@ -63,5 +59,242 @@
       display: inline-flex;
       margin:0 .5rem;
     }
+  }
+}
+
+
+.home-banner{
+  
+  padding-top:2rem;
+  .container-fluid{
+    padding:0 1rem;
+    @include breakpoint-up('md-tab'){
+      padding:0  2rem ;
+    }
+  }
+  &_content{
+    height: 100%;
+  }
+  &_wrap{
+    background: linear-gradient(180deg, #FF5A5F 0%, #A41D55 100%) 0% 0% ;
+    padding-bottom:48px;
+    color:var(--clr-white-900);
+    border-radius: 12px;
+    .is-btn {
+      &_primary{
+        background-color: var(--clr-white-900);
+        color:var(--clr-primary-500);
+        &:hover{
+          background-color: var(--clr-primary-50);
+        }
+      }
+    }
+  }
+  &_figure{
+    max-width: 560px;
+    margin:0 auto;
+    position: relative;
+    border-radius: 20px;
+    min-height: 600px;
+    img{
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      border-radius: 20px;
+    }
+  }
+  .scroll-down{
+   &.is-circle_hover{
+     color:var(--clr-white-900);
+     &:hover{
+       background-color: var(--clr-primary-500);
+     }
+   }
+  }
+  &_case{
+    .home-banner_wrap{
+      min-height: unset !important;
+    }
+    .home-banner_figure{
+      max-width: 100%;
+      min-height: 350px;
+    }
+  }
+}
+.about-usafir{
+  &_content{
+    max-width: 680px;
+    margin:0 auto;
+  }
+}
+.usafir-works{
+  .tab-list{
+    li{
+      border-radius: 12px;
+      background-color: var(--clr-white-900);
+      cursor: pointer;
+
+      .tab-body{
+        display: none;
+      }
+      &.is-active{
+        border-color:var(--clr-body-600);
+        .tab-body{
+          display: block;
+        }
+      }
+      &:hover{
+        border-color:var(--clr-body-500);
+        border-color:var(--clr-body-600);
+      }
+      &:not(:last-child){
+        margin-bottom: .5rem;
+      }
+    }
+  }
+  &_figure{
+    box-shadow: -30px 5px 40px #0000001F;
+    position: relative;
+    border-radius: 20px;
+    min-height: 400px;
+    img{
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      border-radius: 20px;
+    }
+  }
+}
+
+.featuresBox{
+  .featuresBox-icon{
+    img{
+      max-width: 80px;
+      max-height: 80px;
+    }
+  }
+}
+.case-slider{
+  
+  .casebox-wrapper{
+    padding:.5rem;
+  }
+}
+.cases-tab{
+  ul{
+    li{
+      opacity: .5;
+      a{
+        padding:1rem;
+        border-radius: 8px;
+        color:var(--clr-body-600);
+      }
+      &.is-active{
+        opacity: 1;
+        a{
+          background-color: var(--clr-white-900);
+          color:var(--clr-body-900);
+        }
+      }
+      &:hover{
+        opacity: 1;
+        a{
+          
+          color:var(--clr-body-900);
+        }
+      }
+    }
+    &.is-grey-tab{
+      li{
+        &.is-active{
+          a{
+            background-color: var(--clr-body-200);
+          }
+        }
+      }
+    }
+  }
+  .casebox-item{
+    &_image{
+      position: relative;
+      border-radius: 8px;
+      min-height: 150px;
+      img{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        border-radius: 8px;
+      }
+    }
+  }
+}
+
+.usafiri-faqs{
+  .acc{
+    &-border{
+      .acc-list{
+        &_header{
+          padding:1rem;
+          &::after{
+            top:15px;
+          }
+        }
+        &_body{
+          padding:0 1rem 1.25rem 1rem;
+        }
+      }
+    }
+  }
+}
+
+.usafiri-request{
+  .usafiri-request-wrap{
+    position: relative;
+    &::after{
+      content:'';
+      position: absolute;
+      top:0;
+      right:0;
+      left:0;
+      bottom:0;
+      z-index: 1;
+      background-color: var(--clr-body-100);
+      border-radius: 20px;
+    }
+    .usafiri-request-content{
+      position: relative;
+      z-index: 2;
+      .pm-group{
+        input{
+          &.pm-control{
+            background-color: var(--clr-white-900);
+          }
+        }
+      }
+    }
+    .request-image{
+      border-radius: 20px 0 0 20px;
+      img{
+        border-radius: 20px 0 0 20px;
+      }
+    }
+  }
+}
+
+.partnerBox-logos{
+  img{
+    max-height: 50px;
   }
 }

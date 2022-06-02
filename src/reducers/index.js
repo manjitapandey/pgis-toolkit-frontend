@@ -8,6 +8,7 @@ import individualOrganizations from './individualOrganization';
 import individualProject from './individualProject';
 import popup from './popup';
 import organizations from './organizations';
+import projectHeader from './projectHeader';
 
 export default combineReducers({
   router: connectRouter(history),
@@ -18,4 +19,5 @@ export default combineReducers({
   individualProject,
   popup,
   organizations,
+  projectHeader,
 });

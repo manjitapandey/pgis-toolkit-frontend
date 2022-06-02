@@ -1,10 +1,14 @@
 .multistep{
     margin-bottom: 1rem;
+    color:var(--clr-body-300);
+    max-width: 600px;
+    width: 100%;
+    margin:1rem auto;
     &-number{
-        width: 34px;
-        height: 34px;
+        width: 30px;
+        height: 30px;
         border:2px solid var(--clr-body-300);
-        color:var(--var-body-300);
+        
         @include radius(100%);
     }
     li{
@@ -15,7 +19,7 @@
                 content:'';
                 width:calc(100% - 68px);
                 position: absolute;
-                left:72%;
+                left:78%;
                 top:30%;
                 transform: translateY(-50%);
                 height: 2px;
@@ -35,6 +39,9 @@
            
         }
         &.is-complete{
+            &::after{
+                background-color: var(--clr-primary-300);
+            }
             .multistep-number{
                 color:var(--clr-white-900);
                 background-color: var(--clr-primary-500);

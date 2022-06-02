@@ -7,7 +7,13 @@ export const getLayerTemplateList = (params) => authenticated(api).get('/project
 
 export const getTaskResponse = (params) => authenticated(api).get(`/maps/get_layer_upload_task_response/`, { params });
 
+export const getGroupList = (params) => authenticated(api).get(`/maps/layer_group/`, { params });
+
+export const postGroupData = (payload) => authenticated(api).post(`/maps/layer_group/`, payload);
+
 export const postUploadData = (payload) => authenticated(api).post('/maps/layer/', payload);
+
+export const postLayerData = (id, data) => authenticated(api).patch(`/maps/layer/${id}/`, data);
 
 export const postThemeData = (payload) => authenticated(api).post('/maps/theme/', payload);
 
