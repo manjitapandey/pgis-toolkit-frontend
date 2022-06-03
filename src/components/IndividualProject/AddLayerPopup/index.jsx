@@ -57,7 +57,7 @@ const AddLayerPopup = () => {
 
   const handleButtonClick = () => {
     if (activeTab === 'Upload') {
-      if (sameLayerName || finalUploadData.layerName === '') {
+      if (sameLayerName || finalUploadData.name === '') {
         dispatch(toastAction.error({ message: 'Fields cannot be empty' }));
       } else {
         dispatch(postUploadDataRequest({ finalUploadData }));

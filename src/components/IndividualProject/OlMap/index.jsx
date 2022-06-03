@@ -14,6 +14,7 @@ import { switcherOptions } from '@src/constants/commonData';
 import MeasureControl from '@Components/common/OpenLayersComponent/Control/MeasureControl';
 import { selectedLayerStyleSelector } from '@Selectors/individualProject';
 import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
+import DownloadControl from '@Components/common/OpenLayersComponent/Control/DownloadControl';
 
 const { BASE_URL } = process.env;
 
@@ -45,6 +46,7 @@ const OlMap = () => {
   //   (id) => (id === selectedLayerId ? selectedLayerStyle : geomData.filter((element) => element.id === 2)[0]?.style),
   //   [geomData, selectedLayerId, selectedLayerStyle],
   // );
+  // console.log(selectedLayerId, selectedLayerStyle, 'layerStyle');
   return (
     <div className="dbd-map_cntr is-grow">
       <div className="dbd-map_wrap">
@@ -95,14 +97,18 @@ const OlMap = () => {
           <div className="setting-list" title="Tools">
             {/* <a className="sidebar-collapse">
               <i className="material-icons">straighten</i>
-        </a> 
+        </a> */}
 
-        <a className="is-settings">
+            <a
+              className="is-settings"
+              style={{ cursor: 'pointer' }}
+              onClick={() => dispatch(individualActions.handleMapToggle(!mapToggle))}
+            >
               <i className="material-icons">crop_free</i>
             </a>
-      */}
-            <MeasureControl map={map} buttonText={<i className="material-icons">straighten</i>} measureBoth />
 
+            <MeasureControl map={map} buttonText={<i className="material-icons">straighten</i>} measureBoth />
+            <DownloadControl map={map} />
             {/* <FullScreenControl map={map} />
 
              <a className="">

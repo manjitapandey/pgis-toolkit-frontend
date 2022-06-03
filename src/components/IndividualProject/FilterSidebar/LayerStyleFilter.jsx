@@ -182,8 +182,36 @@ const LayerStyleFilter = ({ active }) => {
           <label className="is-capitalize">Size</label>
           <Select selected="Choose" onClick={handleSelect} options={selectSizeOptions} className="pm-select_100" />
         </div>
+        <Input label="Fill Color" name="fillColor" value={fillColor} onChange={handleChange} type="color" />
+        <Input label="Line Color" name="lineColor" value={lineColor} onChange={handleChange} type="color" />
+        <Input
+          label="Line Opacity"
+          name="lineOpacity"
+          value={lineOpacity}
+          onChange={handleChange}
+          type="number"
+          min="0"
+          max="100"
+        />
+        <Input
+          label="Fill Color"
+          name="fillOpacity"
+          value={fillOpacity}
+          onChange={handleChange}
+          type="number"
+          min="0"
+          max="100"
+        />
+        <Input
+          label="Line Thickness"
+          name="lineThickness"
+          value={lineThickness}
+          onChange={handleChange}
+          type="number"
+          min="0"
+          max="100"
+        />
       </div>
-
       <div className="filter-sidebar_footer is-flex is-start is-gap-30">
         <button className="is-btn is-btn_link" type="button">
           Clear

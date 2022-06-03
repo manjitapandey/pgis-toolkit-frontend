@@ -35,7 +35,7 @@ export const finalUploadDataSelector = createSelector(fileSelector, addUploadDat
   return finalUploadData;
 });
 
-export const selectedLayerStyleSelector = createSelector([mapIconSelector, mapIconSelector], (layerStyles, mapIcon) => {
-  console.log(mapIcon, defaultStyles, 'ssssss');
-  return layerStyles && !isEmpty(layerStyles) ? layerStyles : { ...defaultStyles };
-});
+export const selectedLayerStyleSelector = createSelector(
+  [layerStylesSelector, mapIconSelector],
+  (layerStyles, mapIcon) => (layerStyles && !isEmpty(layerStyles) ? layerStyles : { ...defaultStyles }),
+);

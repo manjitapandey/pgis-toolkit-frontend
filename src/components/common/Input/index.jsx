@@ -19,6 +19,8 @@ const Input = ({
   labelClassName,
   className1,
   errorMessage,
+  min,
+  max,
 }) => (
   <>
     {icon ? (
@@ -40,6 +42,8 @@ const Input = ({
             style={{ color: 'black' }}
             readOnly={readOnly}
             id={id}
+            min={min}
+            max={max}
           />
           {!iconAhead && (
             <span className="span-group pr-10">
@@ -62,6 +66,8 @@ const Input = ({
           style={{ color: 'black' }}
           readOnly={readOnly}
           id={id}
+          min={min}
+          max={max}
         />
         {errorMessage && <span className="is-error">{errorMessage}</span>}
       </div>
@@ -84,6 +90,8 @@ Input.defaultProps = {
   labelClassName: 'fw-bold',
   className1: '',
   errorMessage: '',
+  min: '',
+  max: '',
 };
 
 Input.propTypes = {
@@ -101,6 +109,8 @@ Input.propTypes = {
   labelClassName: PropTypes.string,
   className1: PropTypes.string,
   errorMessage: PropTypes.string,
+  min: PropTypes.string,
+  max: PropTypes.string,
 };
 
 export default Input;

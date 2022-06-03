@@ -28,7 +28,7 @@ export function* getProjectLayerDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getProjectLayerDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.message }));
+    yield put(toastActions.error({ message: error?.response?.data?.Message }));
   }
 }
 
@@ -43,7 +43,7 @@ export function* getLayerTemplateListRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getLayerTemplateListFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.message }));
+    yield put(toastActions.error({ message: error?.response?.data?.Message }));
   }
 }
 
@@ -60,7 +60,7 @@ export function* getTaskResponseRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getTaskResponseFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.message }));
+    yield put(toastActions.error({ message: error?.response?.data?.Message }));
   }
 }
 
@@ -75,7 +75,7 @@ export function* getGroupListRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getGroupListFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.message }));
+    yield put(toastActions.error({ message: error?.response?.data?.Message }));
   }
 }
 
@@ -101,7 +101,7 @@ export function* postGroupDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.postGroupDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.message }));
+    yield put(toastActions.error({ message: error?.response?.data?.Message }));
   }
 }
 
@@ -126,7 +126,7 @@ export function* postUploadDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.postUploadDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.message }));
+    yield put(toastActions.error({ message: error?.response?.data?.Message }));
   }
 }
 
@@ -152,7 +152,7 @@ export function* postThemeDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.postThemeDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.message }));
+    yield put(toastActions.error({ message: error?.response?.data?.Message }));
   }
 }
 
@@ -167,7 +167,7 @@ export function* postLayerDataRequest({ payload }) {
     yield put(projectActions.postLayerDataSuccess(id));
     yield put(toastActions.success({ message: 'Layer style successfully edited.' }));
   } catch (error) {
-    yield put(toastActions.error({ message: 'Something went wrong!' }));
+    yield put(toastActions.error({ message: error?.response?.data?.Message }));
   }
 }
 
@@ -182,7 +182,7 @@ export function* deleteLayerDataRequest({ payload }) {
     yield put(popupAction.openDeletePopup(false));
     yield put(toastActions.success({ message: 'Layer data sucessfully deleted.' }));
   } catch (error) {
-    yield put(toastActions.error({ message: 'Something went wrong!' }));
+    yield put(toastActions.error({ message: error?.response?.data?.Message }));
   }
 }
 

@@ -17,7 +17,7 @@ const AddDatasetPopup = ({ id }) => {
   const themeId = useSelector((state) => state.individualProject.themeId);
 
   const handleButtonClick = () => {
-    if (checkState) {
+    if (checkState || addThemeData.themeName === '' || addThemeData.groupName === '') {
       dispatch(toastAction.error({ message: 'Fields cannot be empty' }));
     }
     if (!checkState && popupName === 'theme') {
