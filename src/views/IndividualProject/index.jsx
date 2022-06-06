@@ -32,7 +32,6 @@ const IndividualProject = () => {
       // IndividualProjectTypes.GET_LAYER_TEMPLATE_LIST_REQUEST,
     ),
   );
-
   const handleClick = () => {
     history.push(`/organizations/${id}`);
   };

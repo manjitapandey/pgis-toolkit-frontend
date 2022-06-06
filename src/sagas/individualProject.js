@@ -52,8 +52,8 @@ export function* getTaskResponseRequest(action) {
   try {
     const response = yield call(getTaskResponse, params);
     yield put(projectActions.getTaskResponseSuccess({ data: response.data }));
-    yield put(projectActions.openLayerPopup(false));
-    yield put(projectActions.clearData());
+    // yield put(projectActions.openLayerPopup(false));
+    // yield put(projectActions.clearData());
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));
     // if (error?.response?.status >= 400) {

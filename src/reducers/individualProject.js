@@ -247,12 +247,13 @@ const getTaskResponseSuccess = (state, action) => {
   const {
     payload: { data },
   } = action;
-  // const taskLoading = data.message === 'Please wait result';
+  const taskLoading = data.message === 'Please wait result' || !data.layer_id;
   return {
     ...state,
     taskResponse: data.message,
-    layerId: data.layer_id,
-    taskLoading: !data.layer_id,
+    layerId: data.layer_id || null,
+    // taskLoading: !data.layer_id,
+    taskLoading,
   };
 };
 
@@ -414,6 +415,7 @@ const clearData = (state, action) =>
     selectedLayerName: '',
     themeId: null,
     mapIcon: null,
+    layerId: null,
   });
 
 const individualProjectReducer = createReducer(initialState, {

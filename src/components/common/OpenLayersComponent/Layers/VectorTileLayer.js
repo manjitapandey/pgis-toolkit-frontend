@@ -61,6 +61,45 @@ const VectorTileLayer = ({
     });
     vectorTileLayer.setSource(vectorTileSource);
   }, [map, url, authToken, vectorTileLayer]);
+  // console.log(style, 'layer tile');
+
+  // useEffect(() => {
+  //   if (!map || !vectorTileLayer) return;
+  //   if (style.icon) {
+  //     async function fetchMyAPI() {
+  //       /* eslint-disable-next-line no-await-in-loop */
+  //       const image = await getSvgImageIcon(style.icon.url, style.icon.color);
+  //       if (image) {
+  //         vectorTileLayer.setStyle(setStyle);
+  //         feat.setStyle(() =>
+  //           getStyles({
+  //             style: {
+  //               icon: {
+  //                 url: image,
+  //               },
+  //             },
+  //             feature: feat,
+  //           }),
+  //         );
+  //       } else {
+  //         feat.setStyle(() =>
+  //           getStyles({
+  //             style: {
+  //               ...defaultStyles,
+  //               fillOpacity: 0,
+  //               lineOpacity: 0,
+  //               circleRadius: 0,
+  //               lineThickness: 0,
+  //             },
+  //             feature: feat,
+  //           }),
+  //         );
+  //       }
+  //     }
+
+  //     fetchMyAPI();
+  //   }
+  // }, []);
 
   // add layer to map
   useEffect(() => {

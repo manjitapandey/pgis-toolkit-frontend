@@ -37,9 +37,8 @@ const AddLayerPopup = () => {
     let timer = null;
     if (taskId) {
       timer = setInterval(() => {
-        console.log(taskId, 'id');
         dispatch(getTaskResponseRequest({ task_id: taskId }));
-      }, 3000);
+      }, 6000);
     }
     if (layerId) {
       clearInterval(timer);
@@ -64,6 +63,14 @@ const AddLayerPopup = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (layerId && !taskLoading) {
+      setActiveTab('Template');
+      dispatch(openLayerPopup(false));
+      dispatch(clearData());
+    }
+  }, [layerId, taskLoading]);
 
   return (
     <Popup
