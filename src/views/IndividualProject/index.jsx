@@ -53,8 +53,6 @@ const IndividualProject = () => {
     dispatch(getProjectLayerDataRequest(uniqueId));
   }, [dispatch, layerId, themeAddSuccess, layerDeleteSuccess]);
 
-  // consolelog(layerDeleteSuccess, 'success');
-
   return (
     <>
       <ProjectHeader title="Transportation mapping Kenya 1" handleClick={handleClick} />
