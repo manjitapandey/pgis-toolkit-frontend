@@ -11,6 +11,7 @@ import {
   getTaskResponse,
   deleteLayerData,
   postLayerData,
+  getIndividualLayerData,
 } from '@Services/individualProject';
 import withLoader from '@Utils/sagaUtils';
 import popupAction from '@Actions/popup';
@@ -28,6 +29,21 @@ export function* getProjectLayerDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getProjectLayerDataFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.Message }));
+  }
+}
+
+export function* getIndividualLayerDataRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getIndividualLayerData, params);
+    yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(projectActions.getIndividualLayerDataFailure());
     yield put(toastActions.error({ message: error?.response?.data?.Message }));
   }
 }
@@ -180,6 +196,7 @@ export function* deleteLayerDataRequest({ payload }) {
     yield call(deleteLayerData, id, data);
     yield put(projectActions.deleteLayerDataSuccess(id));
     yield put(popupAction.openDeletePopup(false));
+    yield put(projectActions.setLayerDeleteSuccess(true));
     yield put(toastActions.success({ message: 'Layer data sucessfully deleted.' }));
   } catch (error) {
     yield put(toastActions.error({ message: error?.response?.data?.Message }));
@@ -188,6 +205,7 @@ export function* deleteLayerDataRequest({ payload }) {
 
 function* individualProjectWatcher() {
   yield takeLatest(Types.GET_PROJECT_LAYER_DATA_REQUEST, withLoader(getProjectLayerDataRequest));
+  yield takeLatest(Types.GET_INDIVIDUAL_LAYER_DATA_REQUEST, withLoader(getIndividualLayerDataRequest));
   yield takeLatest(Types.GET_LAYER_TEMPLATE_LIST_REQUEST, withLoader(getLayerTemplateListRequest));
   yield takeLatest(Types.GET_TASK_RESPONSE_REQUEST, withLoader(getTaskResponseRequest));
   yield takeLatest(Types.GET_GROUP_LIST_REQUEST, withLoader(getGroupListRequest));

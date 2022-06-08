@@ -6,6 +6,10 @@ export const { Types, Creators } = createActions(
     getProjectLayerDataSuccess: ['payload'],
     getProjectLayerDataFailure: null,
 
+    getIndividualLayerDataRequest: ['params'],
+    getIndividualLayerDataSuccess: ['payload'],
+    getIndividualLayerDataFailure: null,
+
     getLayerTemplateListRequest: ['params'],
     getLayerTemplateListSuccess: ['payload'],
     getLayerTemplateListFailure: null,
@@ -55,6 +59,7 @@ export const { Types, Creators } = createActions(
     clearData: ['payload'],
     setLayerDeleteData: ['payload'],
     setThemeAddSuccess: ['payload'],
+    setLayerDeleteSuccess: ['payload'],
     handleStyleInput: ['payload'],
     setMapIcon: ['payload'],
   },

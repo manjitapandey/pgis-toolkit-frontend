@@ -42,11 +42,6 @@ const OlMap = () => {
     return () => clearTimeout(timer);
   }, [map, mapToggle]);
 
-  // const getLayerStyle = useCallback(
-  //   (id) => (id === selectedLayerId ? selectedLayerStyle : geomData.filter((element) => element.id === 2)[0]?.style),
-  //   [geomData, selectedLayerId, selectedLayerStyle],
-  // );
-  // console.log(selectedLayerId, selectedLayerStyle, 'layerStyle');
   return (
     <div className="dbd-map_cntr is-grow">
       <div className="dbd-map_wrap">
@@ -54,7 +49,6 @@ const OlMap = () => {
           ref={mapRef}
           mapInstance={map}
           className="map"
-          // className="map leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-touch-drag leaflet-touch-zoom"
           // style={{ height: '92vh' }}
           style={{ height: `${windowHeight - projectHeaderHeight}px` }}
         >
@@ -63,6 +57,7 @@ const OlMap = () => {
           {geomData &&
             geomData?.map((item) => (
               <VectorTileLayer
+                key={selectedLayerStyle?.bgColor || item?.style?.bgColor}
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
                 style={selectedLayerId ? selectedLayerStyle : item?.style || { ...defaultStyles }}
@@ -71,6 +66,7 @@ const OlMap = () => {
           {geomData &&
             geomData?.map((item) => (
               <VectorTileLayer
+                key={selectedLayerStyle?.bgColor || item?.style?.bgColor}
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
                 style={selectedLayerId ? selectedLayerStyle : item?.style || { ...defaultStyles }}
@@ -98,7 +94,6 @@ const OlMap = () => {
             {/* <a className="sidebar-collapse">
               <i className="material-icons">straighten</i>
         </a> */}
-
             <a
               className="is-settings"
               style={{ cursor: 'pointer' }}
@@ -106,7 +101,6 @@ const OlMap = () => {
             >
               <i className="material-icons">crop_free</i>
             </a>
-
             <MeasureControl map={map} buttonText={<i className="material-icons">straighten</i>} measureBoth />
             <DownloadControl map={map} />
             {/* <FullScreenControl map={map} />

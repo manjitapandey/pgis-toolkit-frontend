@@ -25,6 +25,7 @@ const IndividualProject = () => {
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const deletePopup = useSelector((state) => state.popup.deletePopup);
   const themeAddSuccess = useSelector((state) => state.individualProject.themeAddSuccess);
+  const layerDeleteSuccess = useSelector((state) => state.individualProject.layerDeleteSuccess);
   const isLoading = useSelector((state) =>
     checkIfLoading(
       state,
@@ -50,7 +51,7 @@ const IndividualProject = () => {
 
   useEffect(() => {
     dispatch(getProjectLayerDataRequest(uniqueId));
-  }, [dispatch, layerId, themeAddSuccess]);
+  }, [dispatch, layerId, themeAddSuccess, layerDeleteSuccess]);
 
   return (
     <>

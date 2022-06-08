@@ -1,9 +1,11 @@
 /* eslint-disable no-console */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo } from 'react';
 // import * as olExtent from 'ol/extent';
 import VectorTile from 'ol/layer/VectorTile';
 import MVT from 'ol/format/MVT';
 import VectorTileSource from 'ol/source/VectorTile';
+import getSvgImageIcon from '@Utils/map/getSvgImageIcon';
 import { getStyles, defaultStyles } from '../helpers/styleUtils';
 // import { isExtentValid } from '../helpers/layerUtils';
 
@@ -15,6 +17,7 @@ const VectorTileLayer = ({
   visibleOnMap = true,
   authToken,
   setStyle,
+  isSvgIcon = true,
   // properties,
 }) => {
   const vectorTileLayer = useMemo(
@@ -61,45 +64,6 @@ const VectorTileLayer = ({
     });
     vectorTileLayer.setSource(vectorTileSource);
   }, [map, url, authToken, vectorTileLayer]);
-  // console.log(style, 'layer tile');
-
-  // useEffect(() => {
-  //   if (!map || !vectorTileLayer) return;
-  //   if (style.icon) {
-  //     async function fetchMyAPI() {
-  //       /* eslint-disable-next-line no-await-in-loop */
-  //       const image = await getSvgImageIcon(style.icon.url, style.icon.color);
-  //       if (image) {
-  //         vectorTileLayer.setStyle(setStyle);
-  //         feat.setStyle(() =>
-  //           getStyles({
-  //             style: {
-  //               icon: {
-  //                 url: image,
-  //               },
-  //             },
-  //             feature: feat,
-  //           }),
-  //         );
-  //       } else {
-  //         feat.setStyle(() =>
-  //           getStyles({
-  //             style: {
-  //               ...defaultStyles,
-  //               fillOpacity: 0,
-  //               lineOpacity: 0,
-  //               circleRadius: 0,
-  //               lineThickness: 0,
-  //             },
-  //             feature: feat,
-  //           }),
-  //         );
-  //       }
-  //     }
-
-  //     fetchMyAPI();
-  //   }
-  // }, []);
 
   // add layer to map
   useEffect(() => {
@@ -122,6 +86,51 @@ const VectorTileLayer = ({
     if (!map || !visibleOnMap) return;
     vectorTileLayer.setStyle((feature, resolution) => getStyles({ style, feature, resolution }));
   }, [map, style, vectorTileLayer, visibleOnMap]);
+
+  useEffect(() => {
+    if (!vectorTileLayer || !map) return;
+
+    if (style?.icon?.url) {
+      /* eslint-disable-next-line no-inner-declarations */
+      async function fetchMyAPI() {
+        /* eslint-disable-next-line no-await-in-loop */
+        const image = await getSvgImageIcon(style?.icon?.url, style?.bgColor);
+        if (image) {
+          vectorTileLayer.setStyle((feature, resolution) =>
+            getStyles({
+              style: {
+                icon: {
+                  url: image,
+                },
+              },
+              feature,
+              resolution,
+            }),
+          );
+        }
+        //  else {
+        //   vectorTileLayer.setStyle((feature, resolution) =>
+        //     getStyles({
+        //       style: {
+        //         ...defaultStyles,
+        //         fillOpacity: 0,
+        //         lineOpacity: 0,
+        //         circleRadius: 0,
+        //         lineThickness: 0,
+        //       },
+        //       feature,
+        //       resolution,
+        //     }),
+        //   );
+        // }
+      }
+      fetchMyAPI();
+    } else if (setStyle) {
+      vectorTileLayer.setStyle(setStyle);
+    } else {
+      vectorTileLayer.setStyle((feature, resolution) => getStyles({ style, feature, resolution }));
+    }
+  }, [map, vectorTileLayer, style, setStyle]);
 
   // set z-index
   useEffect(() => {

@@ -1,5 +1,10 @@
+/* eslint-disable no-promise-executor-return */
 import SVGInjector from 'svg-injector';
 import memoize from 'memoize-one';
+
+function timeout(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 const getSvgImageIcon = async (src, fillColor) => {
   const onImageLoad = memoize(async () => {
@@ -8,6 +13,7 @@ const getSvgImageIcon = async (src, fillColor) => {
     const dummySvg = document.createElement('svg');
     const container = document.createElement('div');
     dummySvg.setAttribute('data-src', src);
+    // dummySvg.setAttribute('key', src + fillColor);
     container.appendChild(dummySvg);
     const options = {};
     let finalTargetImage = null;
@@ -24,10 +30,7 @@ const getSvgImageIcon = async (src, fillColor) => {
       }
       const getString = (() => {
         const DIV = document.createElement('div');
-        if ('outerHTML' in DIV)
-          return (node) => {
-            return node.outerHTML;
-          };
+        if ('outerHTML' in DIV) return (node) => node.outerHTML;
         return (node) => {
           const div = DIV.cloneNode();
           div.appendChild(node.cloneNode(true));
@@ -39,10 +42,12 @@ const getSvgImageIcon = async (src, fillColor) => {
       const ctx = canvas.getContext('2d');
       canvas.width = width;
       canvas.height = height;
+      // canvas.id = svgFinalOutput + fillColor;
       const tempImg = document.createElement('img');
       tempImg.src = `data:image/svg+xml,${encodeURIComponent(svgFinalOutput)}`;
       ctx.drawImage(tempImg, 0, 0);
       const targetImg = canvas.toDataURL();
+      // await timeout(3000);
       finalTargetImage = targetImg;
     });
     return finalTargetImage;
