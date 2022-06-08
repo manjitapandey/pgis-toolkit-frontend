@@ -111,9 +111,9 @@ export const layerPopupTabOptions = [
 export const selectOptions = ['Bagmati', 'Gandaki', 'Lumbini', 'Gandaki'];
 
 export const selectSizeOptions = [
-  { id: '1', name: 'Small', size: '' },
-  { id: '2', name: 'Medium', size: '' },
-  { id: '3', name: 'Large', size: '' },
+  { id: '1', name: 'Small', size: { height: '20', width: '20' } },
+  { id: '2', name: 'Medium', size: { height: '32', width: '32' } },
+  { id: '3', name: 'Large', size: { height: '48', width: '48' } },
 ];
 
 export const vectorTileData = [

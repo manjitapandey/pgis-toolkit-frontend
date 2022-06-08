@@ -39,3 +39,15 @@ export const selectedLayerStyleSelector = createSelector(
   [layerStylesSelector, mapIconSelector],
   (layerStyles, mapIcon) => (layerStyles && !isEmpty(layerStyles) ? layerStyles : { ...defaultStyles }),
 );
+
+export const finalLayerStyleSelector = createSelector([layerStylesSelector], (layerStyles) => {
+  const finalLayerStyle = {
+    style: {
+      ...layerStyles,
+    },
+    icon: layerStyles.icon,
+    icon_size: layerStyles.icon_size,
+  };
+
+  return finalLayerStyle;
+});

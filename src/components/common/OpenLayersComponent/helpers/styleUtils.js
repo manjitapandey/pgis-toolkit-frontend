@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { Fill, Stroke, Style, Icon, Circle, Text } from 'ol/style';
 
 export function hexToRgba(hex, opacity = 100) {
@@ -63,17 +64,20 @@ export const sublayerKeysException = ['showSublayer', 'sublayerColumnName', 'sub
 function createIconMarker(style) {
   const {
     icon: { url, scale },
+    icon_size,
   } = style;
   // fetch(url)
   //   .then(res => res.blob())
   return new Icon({
-    // anchor: [0.5, 46],
-    // anchorXUnits: 'fraction',
-    // anchorYUnits: 'pixels',
-    scale: scale || 0.9,
+    anchor: [0, 0],
+    anchorXUnits: 'fraction',
+    anchorYUnits: 'fraction',
+    // scale: 0.15,
+    scale: icon_size ? +(+icon_size?.height + +icon_size?.width) / 60 : 0.9,
     crossOrigin: 'anonymous',
     // imgSize: [1500, 1500],
     src: url,
+    // src: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png',
   });
 }
 

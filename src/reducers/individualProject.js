@@ -11,6 +11,7 @@ const initialState = {
   opnLayerPopup: false,
   opnDatasetPopup: false,
   layerData: null,
+  individualLayerData: null,
   templateList: null,
   file: null,
   taskId: null,
@@ -37,6 +38,7 @@ const initialState = {
   groupList: null,
   popupName: '',
   mapIcon: null,
+  layerDeleteSuccess: false,
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
@@ -67,6 +69,17 @@ const getLayerTemplateListSuccess = (state, action) => {
   return {
     ...state,
     templateList: data,
+  };
+};
+
+const getIndividualLayerDataSuccess = (state, action) => {
+  const {
+    payload: { data },
+  } = action;
+
+  return {
+    ...state,
+    individualLayerData: data,
   };
 };
 
@@ -146,6 +159,9 @@ const getProjectLayerDataSuccess = (state, action) => {
   return {
     ...state,
     layerData,
+    layerDeleteSuccess: false,
+    themeAddSuccess: false,
+    addThemeData: initialState.addThemeData,
   };
 };
 
@@ -390,6 +406,11 @@ const setThemeAddSuccess = (state, action) => ({
   themeAddSuccess: action.payload,
 });
 
+const setLayerDeleteSuccess = (state, action) => ({
+  ...state,
+  layerDeleteSuccess: action.payload,
+});
+
 const deleteUploadDataFile = (state, action) => ({
   ...state,
   file: null,
@@ -416,10 +437,12 @@ const clearData = (state, action) =>
     themeId: null,
     mapIcon: null,
     layerId: null,
+    individualLayerData: null,
   });
 
 const individualProjectReducer = createReducer(initialState, {
   [Types.GET_PROJECT_LAYER_DATA_SUCCESS]: getProjectLayerDataSuccess,
+  [Types.GET_INDIVIDUAL_LAYER_DATA_SUCCESS]: getIndividualLayerDataSuccess,
   [Types.GET_LAYER_TEMPLATE_LIST_SUCCESS]: getLayerTemplateListSuccess,
   [Types.GET_GROUP_LIST_SUCCESS]: getGroupListSuccess,
   [Types.GET_TASK_RESPONSE_SUCCESS]: getTaskResponseSuccess,
@@ -441,6 +464,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.CLEAR_DATA]: clearData,
   [Types.SET_LAYER_DELETE_DATA]: setLayerDeleteData,
   [Types.SET_THEME_ADD_SUCCESS]: setThemeAddSuccess,
+  [Types.SET_LAYER_DELETE_SUCCESS]: setLayerDeleteSuccess,
   [Types.HANDLE_STYLE_INPUT]: handleStyleInput,
   [Types.SET_MAP_ICON]: setMapIcon,
 });

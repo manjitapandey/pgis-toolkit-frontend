@@ -7,9 +7,9 @@ import { toTitleCase } from '@Utils/commonUtils';
 const Select = ({ options, selected, handleSelect, className, className1 }) => {
   const [state, setState] = useState('');
   const [toggleRef, toggle, handleToggle] = useOutsideClick();
-  const handleClick = (item, id) => {
-    setState(item);
-    handleSelect(item, id);
+  const handleClick = (item) => {
+    handleSelect(item);
+    setState(item.name || item);
   };
   return (
     <div
@@ -28,12 +28,7 @@ const Select = ({ options, selected, handleSelect, className, className1 }) => {
                 {toTitleCase(data)}
               </li>
             ) : (
-              <li
-                role="menuitem"
-                onKeyDown={() => {}}
-                onClick={() => handleClick(data.name, data.id)}
-                key={`${data.name}${data.id}`}
-              >
+              <li role="menuitem" onKeyDown={() => {}} onClick={() => handleClick(data)} key={`${data.name}${data.id}`}>
                 {toTitleCase(data.name)}
               </li>
             ),
