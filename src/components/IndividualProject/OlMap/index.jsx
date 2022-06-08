@@ -57,7 +57,6 @@ const OlMap = () => {
           {geomData &&
             geomData?.map((item) => (
               <VectorTileLayer
-                key={selectedLayerStyle?.bgColor || item?.style?.bgColor}
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
                 style={selectedLayerId ? selectedLayerStyle : item?.style || { ...defaultStyles }}
@@ -66,7 +65,6 @@ const OlMap = () => {
           {geomData &&
             geomData?.map((item) => (
               <VectorTileLayer
-                key={selectedLayerStyle?.bgColor || item?.style?.bgColor}
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
                 style={selectedLayerId ? selectedLayerStyle : item?.style || { ...defaultStyles }}
