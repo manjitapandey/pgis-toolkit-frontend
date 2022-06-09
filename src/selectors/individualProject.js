@@ -7,6 +7,7 @@ const searchKey = (state) => state.individualProject.searchData;
 const fileSelector = (state) => state.individualProject.file;
 const addUploadDataSelector = (state) => state.individualProject.addUploadData;
 const layerStylesSelector = (state) => state.individualProject.selectedLayerStyle;
+const selectedLayerNameSelector = (state) => state.individualProject.selectedLayerName;
 const mapIconSelector = (state) => state.individualProject.mapIcon;
 
 // eslint-disable-next-line
@@ -40,14 +41,25 @@ export const selectedLayerStyleSelector = createSelector(
   (layerStyles, mapIcon) => (layerStyles && !isEmpty(layerStyles) ? layerStyles : { ...defaultStyles }),
 );
 
-export const finalLayerStyleSelector = createSelector([layerStylesSelector], (layerStyles) => {
-  const finalLayerStyle = {
-    style: {
+export const finalLayerStyleSelector = createSelector(
+  [layerStylesSelector, selectedLayerNameSelector],
+  (layerStyles, layerName) => {
+    const newLayerStyle = {
       ...layerStyles,
-    },
-    icon: layerStyles.icon,
-    icon_size: layerStyles.icon_size,
-  };
-
-  return finalLayerStyle;
-});
+    };
+    delete newLayerStyle.layerName;
+    delete newLayerStyle.icon;
+    delete newLayerStyle.icon_size;
+    delete newLayerStyle.icon_url;
+    const finalLayerStyle = {
+      style: {
+        ...newLayerStyle,
+      },
+      name: layerStyles?.layerName || layerName,
+      icon: layerStyles?.icon,
+      icon_size: layerStyles?.icon_size || null,
+      icon_url: layerStyles?.icon,
+    };
+    return finalLayerStyle;
+  },
+);

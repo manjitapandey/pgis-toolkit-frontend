@@ -15,6 +15,7 @@ import MeasureControl from '@Components/common/OpenLayersComponent/Control/Measu
 import { selectedLayerStyleSelector } from '@Selectors/individualProject';
 import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
 import DownloadControl from '@Components/common/OpenLayersComponent/Control/DownloadControl';
+import GetSVGIcon from '@Components/common/GetSVGIcon/index';
 
 const { BASE_URL } = process.env;
 

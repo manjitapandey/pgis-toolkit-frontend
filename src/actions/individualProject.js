@@ -34,9 +34,9 @@ export const { Types, Creators } = createActions(
     postThemeDataSuccess: ['payload'],
     postThemeDataFailure: null,
 
-    postLayerStyleRequest: ['payload'],
-    postLayerStyleSuccess: ['payload'],
-    postLayerStyleFailure: null,
+    postLayerDataRequest: ['payload'],
+    postLayerDataSuccess: ['payload'],
+    postLayerDataFailure: null,
 
     deleteLayerDataRequest: ['payload'],
     deleteLayerDataSuccess: ['payload'],

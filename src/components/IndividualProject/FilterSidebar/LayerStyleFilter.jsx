@@ -24,13 +24,14 @@ const {
   setAddUploadDataFile,
   setMapIcon,
   getIndividualLayerDataRequest,
+  postLayerDataRequest,
 } = Creators;
 
 const LayerStyleFilter = ({ active }) => {
   const dispatch = useDispatch();
   const [activeTypeTab, setActiveTypeTab] = useState('Individual');
   const [activeStyleTab, setActiveStyleTab] = useState('Standard');
-  const layerName = useSelector((state) => state.individualProject.selectedLayerName);
+  const selectedLayerName = useSelector((state) => state.individualProject.selectedLayerName);
   const themeId = useSelector((state) => state.individualProject.themeId);
   const groupList = useSelector((state) => state.individualProject.groupList);
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
@@ -46,7 +47,8 @@ const LayerStyleFilter = ({ active }) => {
       dispatch(handleStyleInput({ name, value }));
     },
   });
-  const { lineColor, fillColor, lineOpacity, fillOpacity, lineThickness, dashline, circleRadius, bgColor } = layerStyle;
+  const { lineColor, fillColor, lineOpacity, fillOpacity, lineThickness, dashline, circleRadius, bgColor, layerName } =
+    layerStyle;
 
   const handleSelect = (value) => {
     dispatch(handleStyleInput({ name: 'icon_size', value: value.size }));
@@ -71,9 +73,8 @@ const LayerStyleFilter = ({ active }) => {
     dispatch(openDatasetPopup({ value: true, name: 'group' }));
   };
 
-  const onTextChangeHandler = (event) => {
-    const { value } = event.target;
-    dispatch(setEditLayerData({ name: value }));
+  const onSubmitClick = () => {
+    dispatch(postLayerDataRequest({ id: selectedLayerId, finalData }));
   };
 
   useEffect(() => {
@@ -101,8 +102,8 @@ const LayerStyleFilter = ({ active }) => {
         <Input
           label="Layer Name"
           name="layerName"
-          value={layerName}
-          onChange={onTextChangeHandler}
+          value={layerName || selectedLayerName}
+          onChange={handleChange}
           placeholder="Layer Name"
         />
         <OptionsButton
@@ -229,7 +230,7 @@ const LayerStyleFilter = ({ active }) => {
         <button className="is-btn is-btn_link" type="button">
           Clear
         </button>
-        <button className="is-btn is-btn_primary" type="button">
+        <button className="is-btn is-btn_primary" type="button" onClick={onSubmitClick}>
           Done
         </button>
       </div>
