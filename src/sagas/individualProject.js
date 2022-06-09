@@ -142,7 +142,7 @@ export function* postUploadDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.postUploadDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.Message }));
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
   }
 }
 
@@ -168,22 +168,24 @@ export function* postThemeDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.postThemeDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.Message }));
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
   }
 }
 
 export function* postLayerDataRequest({ payload }) {
   try {
-    const { id, finalLayerStyle } = payload;
+    const { id, finalData } = payload;
     const data = new FormData();
-    Object.entries(finalLayerStyle).forEach(([key, value]) => {
+    Object.entries(finalData).forEach(([key, value]) => {
       data.append(key, value);
     });
     yield call(postLayerData, id, data);
     yield put(projectActions.postLayerDataSuccess(id));
     yield put(toastActions.success({ message: 'Layer style successfully edited.' }));
+    yield put(projectActions.setLayerFilterActive('map'));
   } catch (error) {
-    yield put(toastActions.error({ message: error?.response?.data?.Message }));
+    yield put(projectActions.postLayerDataFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
   }
 }
 
@@ -211,6 +213,7 @@ function* individualProjectWatcher() {
   yield takeLatest(Types.GET_GROUP_LIST_REQUEST, withLoader(getGroupListRequest));
   yield takeLatest(Types.POST_GROUP_DATA_REQUEST, withLoader(postGroupDataRequest));
   yield takeLatest(Types.POST_UPLOAD_DATA_REQUEST, withLoader(postUploadDataRequest));
+  yield takeLatest(Types.POST_LAYER_DATA_REQUEST, withLoader(postLayerDataRequest));
   yield takeLatest(Types.POST_THEME_DATA_REQUEST, withLoader(postThemeDataRequest));
   yield takeLatest(Types.DELETE_LAYER_DATA_REQUEST, withLoader(deleteLayerDataRequest));
 }

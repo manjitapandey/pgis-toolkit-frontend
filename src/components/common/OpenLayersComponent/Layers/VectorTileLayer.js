@@ -6,6 +6,7 @@ import VectorTile from 'ol/layer/VectorTile';
 import MVT from 'ol/format/MVT';
 import VectorTileSource from 'ol/source/VectorTile';
 import getSvgImageIcon from '@Utils/map/getSvgImageIcon';
+import SVGMapIcon from '@Utils/map/svgIcon';
 import { getStyles, defaultStyles } from '../helpers/styleUtils';
 // import { isExtentValid } from '../helpers/layerUtils';
 
@@ -17,7 +18,6 @@ const VectorTileLayer = ({
   visibleOnMap = true,
   authToken,
   setStyle,
-  isSvgIcon = true,
   // properties,
 }) => {
   const vectorTileLayer = useMemo(

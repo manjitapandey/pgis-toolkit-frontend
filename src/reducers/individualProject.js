@@ -438,6 +438,7 @@ const clearData = (state, action) =>
     mapIcon: null,
     layerId: null,
     individualLayerData: null,
+    selectedLayerStyle: {},
   });
 
 const individualProjectReducer = createReducer(initialState, {

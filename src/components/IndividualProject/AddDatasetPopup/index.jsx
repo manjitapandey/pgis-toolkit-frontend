@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -15,7 +16,12 @@ const AddDatasetPopup = ({ id }) => {
   const addThemeData = useSelector((state) => state.individualProject.addThemeData);
   const popupName = useSelector((state) => state.individualProject.popupName);
   const themeId = useSelector((state) => state.individualProject.themeId);
-
+  const layerData = useSelector((state) => state.individualProject.layerData);
+  const sameThemeName =
+    layerData?.find(
+      (item) =>
+        item?.name?.toLowerCase()?.replace(/\s/g, '') === addThemeData?.themeName?.toLowerCase().replace(/\s/g, ''),
+    )?.name || null;
   const handleButtonClick = () => {
     if (checkState || addThemeData.themeName === '' || addThemeData.groupName === '') {
       dispatch(toastAction.error({ message: 'Fields cannot be empty' }));
@@ -43,12 +49,15 @@ const AddDatasetPopup = ({ id }) => {
   };
   const handleCloseClick = () => {
     dispatch(openDatasetPopup({ value: false, name: '' }));
+    setCheckState(false);
   };
   const onTextChangeHandler = (event) => {
     setCheckState(true);
     const { name, value } = event.target;
     dispatch(setAddThemeData({ name, value }));
-    setCheckState(false);
+    if (value.length > 1) {
+      setCheckState(false);
+    }
   };
   return (
     <Popup
@@ -67,7 +76,13 @@ const AddDatasetPopup = ({ id }) => {
               value={addThemeData?.themeName}
               onChange={onTextChangeHandler}
               placeholder="Theme Name"
-              errorMessage={checkState && addThemeData?.themeName === '' ? '*Theme name cannot be empty.' : null}
+              errorMessage={
+                sameThemeName
+                  ? '*Same Theme name'
+                  : checkState && addThemeData?.themeName === ''
+                  ? '*Theme name cannot be empty.'
+                  : null
+              }
             />
           )}
           {popupName === 'group' && (
