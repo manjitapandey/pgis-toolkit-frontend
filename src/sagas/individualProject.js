@@ -12,6 +12,7 @@ import {
   deleteLayerData,
   postLayerData,
   getIndividualLayerData,
+  getStandardIcons,
 } from '@Services/individualProject';
 import withLoader from '@Utils/sagaUtils';
 import popupAction from '@Actions/popup';
@@ -29,7 +30,7 @@ export function* getProjectLayerDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getProjectLayerDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.Message }));
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
   }
 }
 
@@ -44,7 +45,7 @@ export function* getIndividualLayerDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getIndividualLayerDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.Message }));
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
   }
 }
 
@@ -59,7 +60,7 @@ export function* getLayerTemplateListRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getLayerTemplateListFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.Message }));
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
   }
 }
 
@@ -76,7 +77,7 @@ export function* getTaskResponseRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getTaskResponseFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.Message }));
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
   }
 }
 
@@ -91,7 +92,22 @@ export function* getGroupListRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getGroupListFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.Message }));
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
+export function* getStandardIconsRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getStandardIcons);
+    yield put(projectActions.getStandardIconsSuccess({ data: response.data }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(projectActions.getStandardIconsFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
   }
 }
 
@@ -211,6 +227,7 @@ function* individualProjectWatcher() {
   yield takeLatest(Types.GET_LAYER_TEMPLATE_LIST_REQUEST, withLoader(getLayerTemplateListRequest));
   yield takeLatest(Types.GET_TASK_RESPONSE_REQUEST, withLoader(getTaskResponseRequest));
   yield takeLatest(Types.GET_GROUP_LIST_REQUEST, withLoader(getGroupListRequest));
+  yield takeLatest(Types.GET_STANDARD_ICONS_REQUEST, withLoader(getStandardIconsRequest));
   yield takeLatest(Types.POST_GROUP_DATA_REQUEST, withLoader(postGroupDataRequest));
   yield takeLatest(Types.POST_UPLOAD_DATA_REQUEST, withLoader(postUploadDataRequest));
   yield takeLatest(Types.POST_LAYER_DATA_REQUEST, withLoader(postLayerDataRequest));

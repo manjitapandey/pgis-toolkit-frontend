@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSelector } from 'reselect';
 import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
 import { isEmpty } from '@Utils/commonUtils';
@@ -9,6 +10,8 @@ const addUploadDataSelector = (state) => state.individualProject.addUploadData;
 const layerStylesSelector = (state) => state.individualProject.selectedLayerStyle;
 const selectedLayerNameSelector = (state) => state.individualProject.selectedLayerName;
 const mapIconSelector = (state) => state.individualProject.mapIcon;
+const iconSelector = (state) => state.individualProject.file;
+const individualLayerDataSelector = (state) => state.individualProject.individualLayerData;
 
 // eslint-disable-next-line
 export const searchedLayerSelector = createSelector(layerData, searchKey, (layData, keyword) => {
@@ -42,8 +45,8 @@ export const selectedLayerStyleSelector = createSelector(
 );
 
 export const finalLayerStyleSelector = createSelector(
-  [layerStylesSelector, selectedLayerNameSelector],
-  (layerStyles, layerName) => {
+  [layerStylesSelector, selectedLayerNameSelector, iconSelector],
+  (layerStyles, layerName, icon) => {
     const newLayerStyle = {
       ...layerStyles,
     };
@@ -51,15 +54,19 @@ export const finalLayerStyleSelector = createSelector(
     delete newLayerStyle.icon;
     delete newLayerStyle.icon_size;
     delete newLayerStyle.icon_url;
-    const finalLayerStyle = {
-      style: {
-        ...newLayerStyle,
-      },
-      name: layerStyles?.layerName || layerName,
-      icon: layerStyles?.icon,
-      icon_size: layerStyles?.icon_size || null,
-      icon_url: layerStyles?.icon,
-    };
+    const finalLayerStyle =
+      icon || layerStyles?.icon?.url
+        ? {}
+        : {
+            style: JSON.stringify({
+              ...newLayerStyle,
+            }),
+            name: layerStyles?.layerName || layerName,
+            // icon: icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon : null,
+            icon: icon || '',
+            icon_size: JSON.stringify(layerStyles?.icon_size) || JSON.stringify({}),
+            std_icon: layerStyles?.icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon?.url : '',
+          };
     return finalLayerStyle;
   },
 );

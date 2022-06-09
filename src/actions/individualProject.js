@@ -22,6 +22,10 @@ export const { Types, Creators } = createActions(
     getGroupListSuccess: ['payload'],
     getGroupListFailure: null,
 
+    getStandardIconsRequest: ['params'],
+    getStandardIconsSuccess: ['payload'],
+    getStandardIconsFailure: null,
+
     postGroupDataRequest: ['payload'],
     postGroupDataSuccess: ['payload'],
     postGroupDataFailure: null,

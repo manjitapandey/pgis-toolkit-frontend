@@ -29,8 +29,12 @@ const ZoomControl = ({ map }) => {
   );
 };
 
+ZoomControl.defaultProps = {
+  map: {},
+};
+
 ZoomControl.propTypes = {
-  map: PropTypes.object.isRequired,
+  map: PropTypes.any,
 };
 
 export default ZoomControl;

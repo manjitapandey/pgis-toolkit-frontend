@@ -79,7 +79,7 @@ const CustomLayerSwitcher = ({ layerSource, map, options }) => {
 
 CustomLayerSwitcher.propTypes = {
   layerSource: PropTypes.array,
-  map: PropTypes.object.isRequired,
+  map: PropTypes.any,
   options: PropTypes.arrayOf(PropTypes.object),
 };
 CustomLayerSwitcher.defaultProps = {
@@ -92,6 +92,7 @@ CustomLayerSwitcher.defaultProps = {
     { id: '5', name: 'Monochrome' },
     { id: '6', name: 'Monochrome Midnight' },
   ],
+  map: {},
 };
 
 export default CustomLayerSwitcher;

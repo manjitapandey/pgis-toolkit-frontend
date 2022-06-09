@@ -13,7 +13,8 @@ import popupAction from '@Actions/popup';
 import { Creators, Types as IndividualProjectTypes } from '@Actions/individualProject';
 import { checkIfLoading } from '@Utils/loaderSelector';
 
-const { getProjectLayerDataRequest, getLayerTemplateListRequest, deleteLayerDataRequest } = Creators;
+const { getProjectLayerDataRequest, getLayerTemplateListRequest, deleteLayerDataRequest, getStandardIconsRequest } =
+  Creators;
 
 const IndividualProject = () => {
   const { id, uniqueId } = useParams();
@@ -30,7 +31,7 @@ const IndividualProject = () => {
     checkIfLoading(
       state,
       IndividualProjectTypes.GET_PROJECT_LAYER_DATA_REQUEST,
-      // IndividualProjectTypes.GET_LAYER_TEMPLATE_LIST_REQUEST,
+      IndividualProjectTypes.GET_STANDARD_ICONS_REQUEST,
     ),
   );
   const handleClick = () => {
@@ -47,6 +48,7 @@ const IndividualProject = () => {
 
   useEffect(() => {
     dispatch(getLayerTemplateListRequest());
+    dispatch(getStandardIconsRequest());
   }, [dispatch]);
 
   useEffect(() => {

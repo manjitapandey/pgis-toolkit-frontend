@@ -23,7 +23,7 @@ const Accordion = ({
   };
 
   return (
-    <div className={`acc-list ${collapse ? '' : 'acc-list_active'}`}>
+    <div className={`acc-list ${collapse ? '' : 'acc-list_active'}`} key={`${body}${header}`}>
       <div className="acc-list_header " onClick={handleToggle} onKeyDown={handleToggle} role="button" tabIndex={0}>
         <div className="is-flex is-between is-gap-10">
           {header}
