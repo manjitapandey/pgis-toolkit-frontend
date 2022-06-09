@@ -39,6 +39,7 @@ const initialState = {
   popupName: '',
   mapIcon: null,
   layerDeleteSuccess: false,
+  standardIcons: null,
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
@@ -175,6 +176,17 @@ const getGroupListSuccess = (state, action) => {
   };
 };
 
+const getStandardIconsSuccess = (state, action) => {
+  const {
+    payload: { data },
+  } = action;
+  console.log(data, 'data');
+  return {
+    ...state,
+    standardIcons: data,
+  };
+};
+
 const getSelectedFromLayer = (state, action) => {
   const {
     payload: { id, parentId, name, categoryName },
@@ -206,10 +218,18 @@ const getSelectedFromLayer = (state, action) => {
     }))
     .filter((element) => element.options.length)
     .reduce((arr, items) => [...arr, ...items.options], []);
-
-  // const geomData = data
-  //   ?.reduce((arr, item) => [...arr, item.options.filter((element) => element.isSelected === true)], [])
-  //   ?.filter((element) => element.length)[0];
+  // .map((item) =>
+  //   item.id === individualLayerData?.id
+  //     ? {
+  //         ...item,
+  //         style: {
+  //           ...individualLayerData?.style,
+  //           icon: { url: individualLayerData?.icon },
+  //           icon_size: individualLayerData?.icon_size,
+  //         },
+  //       }
+  //     : { ...item },
+  // );
 
   return {
     ...state,
@@ -288,7 +308,7 @@ const setAddUploadDataFile = (state, action) => {
   const {
     payload: { value },
   } = action;
-  const { layerData, addUploadData } = state;
+  const { layerData, addUploadData, selectedLayerStyle } = state;
 
   const layerNameFromFile = value?.name?.split('.')[0];
   const newAddUploadData = {
@@ -446,6 +466,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.GET_INDIVIDUAL_LAYER_DATA_SUCCESS]: getIndividualLayerDataSuccess,
   [Types.GET_LAYER_TEMPLATE_LIST_SUCCESS]: getLayerTemplateListSuccess,
   [Types.GET_GROUP_LIST_SUCCESS]: getGroupListSuccess,
+  [Types.GET_STANDARD_ICONS_SUCCESS]: getStandardIconsSuccess,
   [Types.GET_TASK_RESPONSE_SUCCESS]: getTaskResponseSuccess,
   [Types.POST_UPLOAD_DATA_SUCCESS]: postUploadDataSuccess,
   [Types.DELETE_LAYER_DATA_SUCCESS]: deleteLayerDataSuccess,

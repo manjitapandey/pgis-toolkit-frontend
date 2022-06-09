@@ -20,6 +20,7 @@ const {
   getSelectedFromSubLayer,
   getSearchData,
   setAddUploadData,
+  getIndividualLayerDataRequest,
 } = Creators;
 
 const MapSidebar = ({ isLoading }) => {
@@ -36,6 +37,7 @@ const MapSidebar = ({ isLoading }) => {
   const handleCheckbox = (e, parId, name, catName) => {
     const { id } = e.target;
     dispatch(getSelectedFromLayer({ id, parentId: parId, name, categoryName: catName }));
+    dispatch(getIndividualLayerDataRequest(id));
   };
   const handleListCheckbox = (e, parId, name, catName) => {
     const { id } = e.target;
@@ -53,6 +55,7 @@ const MapSidebar = ({ isLoading }) => {
     dispatch(setAddUploadData({ name: 'theme', value: name }));
     dispatch(setAddUploadData({ name: 'themeId', value: id }));
   };
+
   return (
     <Sidebar
       handleClick={handleClick}

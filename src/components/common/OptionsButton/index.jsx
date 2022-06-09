@@ -7,6 +7,7 @@ const OptionsButton = ({ options, setActiveTab, selected, label, description }) 
     <div className="options is-flex is-start is-align-center">
       {options?.map((element) => (
         <div
+          key={element}
           className={element === selected ? 'options-btn options-btn_active options-btn_active--white' : 'options-btn'}
           onClick={() => setActiveTab(`${element}`)}
         >

@@ -37,7 +37,6 @@ const LayerStyleFilter = ({ active }) => {
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const individualLayerData = useSelector((state) => state.individualProject.individualLayerData);
   const finalData = useSelector(finalLayerStyleSelector);
-
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
   const [layerStyle, handleChange] = useDebouncedInput({
     ms: 70,
@@ -51,7 +50,7 @@ const LayerStyleFilter = ({ active }) => {
     layerStyle;
 
   const handleSelect = (value) => {
-    dispatch(handleStyleInput({ name: 'icon_size', value: value.size }));
+    dispatch(handleStyleInput({ name: 'icon_size', value: { ...value.size, type: value.name } }));
   };
 
   const handleClick = () => {
@@ -62,11 +61,13 @@ const LayerStyleFilter = ({ active }) => {
   const handleIconClick = (value) => {
     dispatch(setMapIcon(value));
     dispatch(handleStyleInput({ name: 'icon', value: { url: value.icon, color: value.color } }));
+    dispatch(setAddUploadDataFile({ value: null }));
   };
 
   const onChangeHandler = (event) => {
     const { files } = event.target;
     dispatch(setAddUploadDataFile({ value: files[0] }));
+    dispatch(handleStyleInput({ name: 'icon', value: { url: '', color: '' } }));
   };
 
   const handleAddClick = () => {
@@ -159,7 +160,7 @@ const LayerStyleFilter = ({ active }) => {
                   ))}
                 </ul>
                 <div className="mt-15 is-flex is-start is-align-center">
-                  <a href={() => {}} className="is-btn is-btn_link">
+                  <a className="is-btn is-btn_link">
                     <span>see more icons</span>
                   </a>
                   <button className="pmupload-btn is-btn is-btn_link is-btn_icon" type="button">
@@ -207,14 +208,36 @@ const LayerStyleFilter = ({ active }) => {
         )}
         {individualLayerData?.geom_type !== 'Point' && (
           <>
-            <Input label="Fill Color" name="fillColor" value={fillColor} onChange={handleChange} type="color" />
-            <Input label="Line Color" name="lineColor" value={lineColor} onChange={handleChange} type="color" />
-            <RangeSlider label="Line Opacity" name="lineOpacity" value={lineOpacity} onChange={handleChange} />
-            <RangeSlider label="Fill Opacity" name="fillOpacity" value={fillOpacity} onChange={handleChange} />
+            <Input
+              label="Fill Color"
+              name="fillColor"
+              value={individualLayerData?.style?.fillColor || fillColor}
+              onChange={handleChange}
+              type="color"
+            />
+            <Input
+              label="Line Color"
+              name="lineColor"
+              value={individualLayerData?.style?.lineColor || lineColor}
+              onChange={handleChange}
+              type="color"
+            />
+            <RangeSlider
+              label="Line Opacity"
+              name="lineOpacity"
+              value={individualLayerData?.style?.lineOpacity || lineOpacity}
+              onChange={handleChange}
+            />
+            <RangeSlider
+              label="Fill Opacity"
+              name="fillOpacity"
+              value={individualLayerData?.style?.fillOpacity || fillOpacity}
+              onChange={handleChange}
+            />
             <Input
               label="Line Thickness"
               name="lineThickness"
-              value={lineThickness}
+              value={individualLayerData?.style?.lineThickness || lineThickness}
               onChange={handleChange}
               type="number"
               min="0"
@@ -223,7 +246,13 @@ const LayerStyleFilter = ({ active }) => {
           </>
         )}
         {individualLayerData?.geom_type === 'Point' && (
-          <Input type="number" name="circleRadius" label="Radius" value={circleRadius} onChange={handleChange} />
+          <Input
+            type="number"
+            name="circleRadius"
+            label="Radius"
+            value={individualLayerData?.style?.circleRadius || circleRadius}
+            onChange={handleChange}
+          />
         )}
       </div>
       <div className="filter-sidebar_footer is-flex is-start is-gap-30">

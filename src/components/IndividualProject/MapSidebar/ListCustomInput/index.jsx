@@ -89,7 +89,7 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
 };
 
 ListCustomInput.propTypes = {
-  uniqueId: PropTypes.string,
+  uniqueId: PropTypes.number,
   catName: PropTypes.string,
   type: PropTypes.string,
   isSelected: PropTypes.bool,

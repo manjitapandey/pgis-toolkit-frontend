@@ -87,9 +87,11 @@ const DownloadControl = ({ map }) => {
     </>
   );
 };
-
+DownloadControl.defaultProps = {
+  map: {},
+};
 DownloadControl.propTypes = {
-  map: PropTypes.any.isRequired,
+  map: PropTypes.any,
 };
 
 export default DownloadControl;
