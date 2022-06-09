@@ -163,6 +163,7 @@ const getProjectLayerDataSuccess = (state, action) => {
     layerDeleteSuccess: false,
     themeAddSuccess: false,
     addThemeData: initialState.addThemeData,
+    geomData: [],
   };
 };
 
@@ -180,7 +181,6 @@ const getStandardIconsSuccess = (state, action) => {
   const {
     payload: { data },
   } = action;
-  console.log(data, 'data');
   return {
     ...state,
     standardIcons: data,

@@ -54,19 +54,19 @@ export const finalLayerStyleSelector = createSelector(
     delete newLayerStyle.icon;
     delete newLayerStyle.icon_size;
     delete newLayerStyle.icon_url;
-    const finalLayerStyle =
-      icon || layerStyles?.icon?.url
-        ? {}
-        : {
-            style: JSON.stringify({
+    const finalLayerStyle = {
+      style:
+        icon || layerStyles?.icon?.url
+          ? JSON.stringify({})
+          : JSON.stringify({
               ...newLayerStyle,
             }),
-            name: layerStyles?.layerName || layerName,
-            // icon: icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon : null,
-            icon: icon || '',
-            icon_size: JSON.stringify(layerStyles?.icon_size) || JSON.stringify({}),
-            std_icon: layerStyles?.icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon?.url : '',
-          };
+      name: layerStyles?.layerName || layerName,
+      // icon: icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon : null,
+      icon: icon || '',
+      icon_size: JSON.stringify(layerStyles?.icon_size) || JSON.stringify({}),
+      std_icon: layerStyles?.icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon?.url : '',
+    };
     return finalLayerStyle;
   },
 );
