@@ -22,7 +22,6 @@ const AddDatasetPopup = ({ id }) => {
       (item) =>
         item?.name?.toLowerCase()?.replace(/\s/g, '') === addThemeData?.themeName?.toLowerCase().replace(/\s/g, ''),
     )?.name || null;
-
   const handleButtonClick = () => {
     if (checkState || addThemeData.themeName === '' || addThemeData.groupName === '') {
       dispatch(toastAction.error({ message: 'Fields cannot be empty' }));
@@ -36,7 +35,6 @@ const AddDatasetPopup = ({ id }) => {
           },
         }),
       );
-      setCheckState(false);
     }
     if (!checkState && popupName === 'group') {
       dispatch(
@@ -57,6 +55,9 @@ const AddDatasetPopup = ({ id }) => {
     setCheckState(true);
     const { name, value } = event.target;
     dispatch(setAddThemeData({ name, value }));
+    if (value.length > 1) {
+      setCheckState(false);
+    }
   };
   return (
     <Popup
