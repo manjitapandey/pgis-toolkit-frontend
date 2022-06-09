@@ -48,7 +48,7 @@ const LayerStyleFilter = ({ active }) => {
   });
   const { lineColor, fillColor, lineOpacity, fillOpacity, lineThickness, dashline, circleRadius, bgColor, layerName } =
     layerStyle;
-
+  // console.log(finalData, 'data');
   const handleSelect = (value) => {
     dispatch(handleStyleInput({ name: 'icon_size', value: { ...value.size, type: value.name } }));
   };
