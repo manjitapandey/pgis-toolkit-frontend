@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Sidebar from '@Components/common/Sidebar/index';
@@ -16,7 +16,7 @@ const {
   setActive,
   openDatasetPopup,
   openLayerPopup,
-  getSelectedFromLayer,
+  // getSelectedFromLayer,
   getSelectedFromSubLayer,
   getSearchData,
   setAddUploadData,
@@ -25,10 +25,14 @@ const {
 
 const MapSidebar = ({ isLoading }) => {
   const dispatch = useDispatch();
+  const [headerHeight, setHeaderHeight] = useState(null);
+  const windowHeight = window.innerHeight;
   const active = useSelector((state) => state.individualProject.active);
   const layerFilterActive = useSelector((state) => state.individualProject.layerFilterActive);
   const layerData = useSelector((state) => state.individualProject.layerData);
   const searchData = useSelector((state) => state.individualProject.searchData);
+  const geomData = useSelector((state) => state.individualProject.geomData);
+  const projectHeaderHeight = useSelector((state) => state.projectHeader.projectHeaderHeight);
   const searchedLayerData = useSelector(searchedLayerSelector);
 
   const handleSearch = (event) => {
@@ -36,8 +40,8 @@ const MapSidebar = ({ isLoading }) => {
   };
   const handleCheckbox = (e, parId, name, catName) => {
     const { id } = e.target;
-    dispatch(getSelectedFromLayer({ id, parentId: parId, name, categoryName: catName }));
-    dispatch(getIndividualLayerDataRequest(id));
+    // dispatch(getSelectedFromLayer({ id, parentId: parId, name, categoryName: catName }));
+    dispatch(getIndividualLayerDataRequest({ id, name, categoryName: catName, layerData }));
   };
   const handleListCheckbox = (e, parId, name, catName) => {
     const { id } = e.target;
@@ -63,8 +67,12 @@ const MapSidebar = ({ isLoading }) => {
       handleSearch={handleSearch}
       buttonTitle="Add"
       onButtonClick={onButtonClick}
+      setHeaderHeight={setHeaderHeight}
     >
-      <div className="dvd-sidebar-body is-overflow" style={{ height: '75vh' }}>
+      <div
+        className="dvd-sidebar-body is-overflow"
+        style={{ height: `${windowHeight - projectHeaderHeight - headerHeight - 50}px` }}
+      >
         <div className="acc acc-after">
           {isLoading ? (
             <CustomInputLoader />

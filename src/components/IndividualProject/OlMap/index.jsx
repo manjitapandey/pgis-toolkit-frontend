@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
-import React, { useEffect, useCallback } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromLonLat } from 'ol/proj';
 import MapContainer from '@Components/common/OpenLayersComponent/MapContainer';
@@ -9,15 +10,15 @@ import CustomLayerSwitcher from '@Components/common/OpenLayersComponent/LayerSwi
 import ZoomControl from '@Components/common/OpenLayersComponent/Control/ZoomControl';
 import useOLMap from '@Components/common/OpenLayersComponent/useOLMap';
 import Scalebar from '@Components/common/OpenLayersComponent/Scalebar';
-import individualActions from '@Actions/individualProject';
+import individualActions, { Creators } from '@Actions/individualProject';
 import { switcherOptions } from '@src/constants/commonData';
 import MeasureControl from '@Components/common/OpenLayersComponent/Control/MeasureControl';
 import { selectedLayerStyleSelector } from '@Selectors/individualProject';
 import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
 import DownloadControl from '@Components/common/OpenLayersComponent/Control/DownloadControl';
-import GetSVGIcon from '@Components/common/GetSVGIcon/index';
 
 const { BASE_URL } = process.env;
+const { setZoomToLayerId } = Creators;
 
 const OlMap = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const OlMap = () => {
   const geomData = useSelector((state) => state.individualProject.geomData);
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const projectHeaderHeight = useSelector((state) => state.projectHeader.projectHeaderHeight);
+  const zoomToLayerId = useSelector((state) => state.individualProject.zoomToLayerId);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
   const authToken = '0d133cd783c0bd4288ef0b8dca02de3889845612';
   const { mapRef, map, renderComplete } = useOLMap({
@@ -42,6 +44,15 @@ const OlMap = () => {
 
     return () => clearTimeout(timer);
   }, [map, mapToggle]);
+
+  // reset zoom to layer for second press
+  useEffect(() => {
+    if (!map || !zoomToLayerId) return;
+    const timeout = setTimeout(() => {
+      dispatch(setZoomToLayerId(null));
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [dispatch, map, zoomToLayerId, map]);
 
   return (
     <div className="dbd-map_cntr is-grow">
@@ -60,7 +71,9 @@ const OlMap = () => {
               <VectorTileLayer
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
-                style={selectedLayerId ? selectedLayerStyle : item?.style || { ...defaultStyles }}
+                style={selectedLayerId ? selectedLayerStyle : item?.style}
+                // style={item?.style || selectedLayerStyle}
+                zoomToLayer={item?.id === zoomToLayerId}
               />
             ))}
           {geomData &&
@@ -68,7 +81,9 @@ const OlMap = () => {
               <VectorTileLayer
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
-                style={selectedLayerId ? selectedLayerStyle : item?.style || { ...defaultStyles }}
+                style={selectedLayerId ? selectedLayerStyle : item?.style}
+                // style={item?.style || selectedLayerStyle}
+                zoomToLayer={item?.id === zoomToLayerId}
               />
             ))}
         </MapContainer>

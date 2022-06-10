@@ -7,7 +7,7 @@ import Dropdown from '@Components/IndividualOrganizations/Dropdown/index';
 import { Creators } from '@Actions/individualProject';
 import popupAction from '@Actions/popup';
 
-const { setLayerFilterActive, setLayerDeleteData, setEditLayerData } = Creators;
+const { setLayerFilterActive, setLayerDeleteData, setEditLayerData, setZoomToLayerId } = Creators;
 
 const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onListChange, options, themeId, type }) => {
   const dispatch = useDispatch();
@@ -18,6 +18,9 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
   const handleDeleteClick = (layId, layName) => {
     dispatch(setLayerDeleteData({ id: layId, name: layName }));
     dispatch(popupAction.openDeletePopup(true));
+  };
+  const handleZoomClick = (layId) => {
+    dispatch(setZoomToLayerId(layId));
   };
 
   return (
@@ -37,14 +40,17 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
             {/* <button type="button" className="is-btn is-btn_link is-btn_sm">
             <span>Explore</span>
   </button> */}
-            {type !== 'group' && (
+            {type !== 'group' && isSelected && (
               <div className="pm-dropdown pm-dropdown_option">
                 <a href="#" className="is-circle is-circle_xs" onClick={() => handleEdit(uniqueId, catName, themeId)}>
                   <i className="material-icons">edit</i>
                 </a>
               </div>
             )}
-            <Dropdown handleDeleteClick={() => handleDeleteClick(uniqueId, catName)} />
+            <Dropdown
+              handleDeleteClick={() => handleDeleteClick(uniqueId, catName)}
+              handleZoomClick={() => handleZoomClick(uniqueId)}
+            />
           </div>
         </div>
         <ul className="is-list">
@@ -64,7 +70,7 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                   {/* <button type="button" className="is-btn is-btn_link is-btn_sm" onClick={handleEdit}>
                   <span>Explore</span>
           </button> */}
-                  {type === 'group' && (
+                  {type === 'group' && item.isSelected && (
                     <div className="pm-dropdown pm-dropdown_option">
                       <a
                         href="#"

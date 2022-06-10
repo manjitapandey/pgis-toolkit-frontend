@@ -3,6 +3,7 @@ import { createReducer } from 'reduxsauce';
 import { Types } from '@Actions/individualProject';
 import { isEmpty } from '@Utils/commonUtils';
 import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
+import { getSelectedData, getSelectedDataFromSubLayer } from '@Utils/getSelectedData';
 
 const initialState = {
   active: 'map',
@@ -40,6 +41,7 @@ const initialState = {
   mapIcon: null,
   layerDeleteSuccess: false,
   standardIcons: null,
+  zoomToLayerId: null,
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
@@ -75,12 +77,14 @@ const getLayerTemplateListSuccess = (state, action) => {
 
 const getIndividualLayerDataSuccess = (state, action) => {
   const {
-    payload: { data },
+    payload: { data, layerData, geomData },
   } = action;
 
   return {
     ...state,
     individualLayerData: data,
+    layerData,
+    geomData,
   };
 };
 
@@ -187,62 +191,63 @@ const getStandardIconsSuccess = (state, action) => {
   };
 };
 
-const getSelectedFromLayer = (state, action) => {
-  const {
-    payload: { id, parentId, name, categoryName },
-  } = action;
+// const getSelectedFromLayer = (state, action) => {
+//   const {
+//     payload: { id, parentId, name, categoryName },
+//   } = action;
 
-  const { layerData } = state;
-  const data = layerData.map((item) =>
-    item.name === name
-      ? {
-          ...item,
-          options: item.options.map((element) =>
-            element.name === categoryName
-              ? {
-                  ...element,
-                  options: element.options.map((items) => ({
-                    ...items,
-                    isSelected: !element.isSelected,
-                  })),
-                  isSelected: !element.isSelected,
-                }
-              : { ...element },
-          ),
-        }
-      : { ...item },
-  );
-  const geomData = data
-    .map((lyr) => ({
-      options: lyr.options.filter((item) => item.isSelected === true),
-    }))
-    .filter((element) => element.options.length)
-    .reduce((arr, items) => [...arr, ...items.options], []);
-  // .map((item) =>
-  //   item.id === individualLayerData?.id
-  //     ? {
-  //         ...item,
-  //         style: {
-  //           ...individualLayerData?.style,
-  //           icon: { url: individualLayerData?.icon },
-  //           icon_size: individualLayerData?.icon_size,
-  //         },
-  //       }
-  //     : { ...item },
-  // );
+//   const { layerData } = state;
+//   const data = layerData.map((item) =>
+//     item.name === name
+//       ? {
+//           ...item,
+//           options: item.options.map((element) =>
+//             element.name === categoryName
+//               ? {
+//                   ...element,
+//                   options: element.options.map((items) => ({
+//                     ...items,
+//                     isSelected: !element.isSelected,
+//                   })),
+//                   isSelected: !element.isSelected,
+//                 }
+//               : { ...element },
+//           ),
+//         }
+//       : { ...item },
+//   );
+//   const geomData = data
+//     .map((lyr) => ({
+//       options: lyr.options.filter((item) => item.isSelected === true),
+//     }))
+//     .filter((element) => element.options.length)
+//     .reduce((arr, items) => [...arr, ...items.options], []);
+//   // .map((item) =>
+//   //   item.id === individualLayerData?.id
+//   //     ? {
+//   //         ...item,
+//   //         style: {
+//   //           ...individualLayerData?.style,
+//   //           icon: { url: individualLayerData?.icon },
+//   //           icon_size: individualLayerData?.icon_size,
+//   //         },
+//   //       }
+//   //     : { ...item },
+//   // );
 
-  return {
-    ...state,
-    layerData: data,
-    geomData,
-  };
-};
+//   return {
+//     ...state,
+//     layerData: data,
+//     geomData,
+//   };
+// };
 
 const getSelectedFromSubLayer = (state, action) => {
   const {
     payload: { id, parentId, name, categoryName },
   } = action;
   const { layerData } = state;
+  const newData = getSelectedDataFromSubLayer(layerData, name, categoryName, id);
   const data = layerData.map((item) =>
     item.name === name
       ? {
@@ -273,6 +278,8 @@ const getSelectedFromSubLayer = (state, action) => {
       isSelected: element.options.some((datas) => datas.isSelected === true),
     })),
   }));
+
+  console.log(newData, data, 'uniqueData');
   return {
     ...state,
     layerData: finalData,
@@ -308,7 +315,7 @@ const setAddUploadDataFile = (state, action) => {
   const {
     payload: { value },
   } = action;
-  const { layerData, addUploadData, selectedLayerStyle } = state;
+  const { layerData, addUploadData } = state;
 
   const layerNameFromFile = value?.name?.split('.')[0];
   const newAddUploadData = {
@@ -373,17 +380,6 @@ const handleStyleInput = (state, action) => {
     [name]: value,
   };
 
-  // const newData = state.layerData.map((item) =>
-  //   item.id === state.themeId
-  //     ? {
-  //         ...item,
-  //         options: item.options.map((element) =>
-  //           element.id === state.selectedLayerId ? { ...element, style: selectedLayerStyle } : { ...element },
-  //         ),
-  //       }
-  //     : { ...item },
-  // );
-
   return {
     ...state,
     selectedLayerStyle,
@@ -405,11 +401,13 @@ const setEditLayerData = (state, action) => {
   const {
     payload: { id, name, theId },
   } = action;
+  const selectedLayerStyle = state.geomData.filter((element) => element.id === id)[0]?.style;
   return {
     ...state,
     selectedLayerName: name,
     selectedLayerId: id,
     themeId: theId,
+    selectedLayerStyle,
   };
 };
 
@@ -441,6 +439,10 @@ const setMapIcon = (state, action) => ({
   mapIcon: action.payload,
 });
 
+const setZoomToLayerId = (state, action) => ({
+  ...state,
+  zoomToLayerId: action?.payload,
+});
 const clearData = (state, action) =>
   // const { addUploadData, addThemeData } = state;
   ({
@@ -475,7 +477,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.HANDLE_MAP_TOGGLE]: handleMapToggle,
   [Types.OPEN_LAYER_POPUP]: openLayerPopup,
   [Types.OPEN_DATASET_POPUP]: openDatasetPopup,
-  [Types.GET_SELECTED_FROM_LAYER]: getSelectedFromLayer,
+  // [Types.GET_SELECTED_FROM_LAYER]: getSelectedFromLayer,
   [Types.GET_SELECTED_FROM_SUB_LAYER]: getSelectedFromSubLayer,
   [Types.SET_ADD_UPLOAD_DATA_FILE]: setAddUploadDataFile,
   [Types.DELETE_UPLOAD_DATA_FILE]: deleteUploadDataFile,
@@ -489,6 +491,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.SET_LAYER_DELETE_SUCCESS]: setLayerDeleteSuccess,
   [Types.HANDLE_STYLE_INPUT]: handleStyleInput,
   [Types.SET_MAP_ICON]: setMapIcon,
+  [Types.SET_ZOOM_TO_LAYER_ID]: setZoomToLayerId,
 });
 
 export default individualProjectReducer;

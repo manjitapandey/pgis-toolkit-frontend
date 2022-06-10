@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import SVGImageIcon from '@Components/common/SVGImageIcon/index';
 
 const Checkbox = ({ className, id, type, name, checked, label, onChange, icon }) => {
   const [toggle, setToggle] = useState(false);
@@ -12,7 +13,9 @@ const Checkbox = ({ className, id, type, name, checked, label, onChange, icon })
     <div className={`pm-checkbox ${className}`} key={`${id}${name}`}>
       <input type={type} id={id} name={name} checked={checked} onChange={onChange} />
       <label htmlFor={id} className="is-grow is-flex is-start is-align-start" onClick={handleToggle}>
-        {icon && <i className="material-icons mr-10">{icon}</i>}
+        {/* icon && <i className="material-icons mr-10">{icon}</i>
+         */}
+        {icon && <img src={icon} alt="default" />}
         <span className="is-grow is-trim-1">{label}</span>
       </label>
     </div>
