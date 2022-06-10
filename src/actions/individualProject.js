@@ -46,6 +46,7 @@ export const { Types, Creators } = createActions(
     deleteLayerDataSuccess: ['payload'],
     deleteLayerDataFailure: null,
 
+    setZoomToLayerId: ['payload'],
     setAddUploadDataFile: ['payload'],
     setAddUploadData: ['payload'],
     setAddThemeData: ['payload'],

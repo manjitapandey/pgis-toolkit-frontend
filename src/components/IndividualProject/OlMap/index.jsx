@@ -10,7 +10,7 @@ import CustomLayerSwitcher from '@Components/common/OpenLayersComponent/LayerSwi
 import ZoomControl from '@Components/common/OpenLayersComponent/Control/ZoomControl';
 import useOLMap from '@Components/common/OpenLayersComponent/useOLMap';
 import Scalebar from '@Components/common/OpenLayersComponent/Scalebar';
-import individualActions from '@Actions/individualProject';
+import individualActions, { Creators } from '@Actions/individualProject';
 import { switcherOptions } from '@src/constants/commonData';
 import MeasureControl from '@Components/common/OpenLayersComponent/Control/MeasureControl';
 import { selectedLayerStyleSelector } from '@Selectors/individualProject';
@@ -19,6 +19,7 @@ import DownloadControl from '@Components/common/OpenLayersComponent/Control/Down
 import GetSVGIcon from '@Components/common/GetSVGIcon/index';
 
 const { BASE_URL } = process.env;
+const { setZoomToLayerId } = Creators;
 
 const OlMap = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const OlMap = () => {
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const projectHeaderHeight = useSelector((state) => state.projectHeader.projectHeaderHeight);
   const individualLayerData = useSelector((state) => state.individualProject.individualLayerData);
+  const zoomToLayerId = useSelector((state) => state.individualProject.zoomToLayerId);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
   const authToken = '0d133cd783c0bd4288ef0b8dca02de3889845612';
   const { mapRef, map, renderComplete } = useOLMap({
@@ -45,22 +47,14 @@ const OlMap = () => {
     return () => clearTimeout(timer);
   }, [map, mapToggle]);
 
-  // useEffect(() => {
-  //   const newData = geomData.map((item) =>
-  //     item.id === individualLayerData?.id
-  //       ? {
-  //           ...item,
-  //           style: {
-  //             ...individualLayerData?.style,
-  //             icon: { url: individualLayerData?.icon },
-  //             icon_size: individualLayerData?.icon_size,
-  //           },
-  //         }
-  //       : { ...item },
-  //   );
-  //   console.log(newData, individualLayerData, 'datas');
-  // }, individualLayerData);
-  // console.log(individualLayerData, 'new datas');
+  // reset zoom to layer for second press
+  useEffect(() => {
+    if (!map || !zoomToLayerId) return;
+    const timeout = setTimeout(() => {
+      dispatch(setZoomToLayerId(null));
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [dispatch, map, zoomToLayerId, map]);
 
   return (
     <div className="dbd-map_cntr is-grow">
@@ -79,7 +73,9 @@ const OlMap = () => {
               <VectorTileLayer
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
-                style={selectedLayerId ? selectedLayerStyle : item?.style || { ...defaultStyles }}
+                style={selectedLayerId ? selectedLayerStyle : item?.style}
+                // style={item?.style || selectedLayerStyle}
+                zoomToLayer={item?.id === zoomToLayerId}
               />
             ))}
           {geomData &&
@@ -87,7 +83,9 @@ const OlMap = () => {
               <VectorTileLayer
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
-                style={selectedLayerId ? selectedLayerStyle : item?.style || { ...defaultStyles }}
+                style={selectedLayerId ? selectedLayerStyle : item?.style}
+                // style={item?.style || selectedLayerStyle}
+                zoomToLayer={item?.id === zoomToLayerId}
               />
             ))}
         </MapContainer>

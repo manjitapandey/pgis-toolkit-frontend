@@ -40,6 +40,7 @@ const initialState = {
   mapIcon: null,
   layerDeleteSuccess: false,
   standardIcons: null,
+  zoomToLayerId: null,
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
@@ -77,14 +78,12 @@ const getIndividualLayerDataSuccess = (state, action) => {
   const {
     payload: { data, layerData, geomData },
   } = action;
-  console.log(geomData, 'data');
 
   return {
     ...state,
     individualLayerData: data,
     layerData,
     geomData,
-    selectedLayerStyle: { ...defaultStyles },
   };
 };
 
@@ -312,7 +311,7 @@ const setAddUploadDataFile = (state, action) => {
   const {
     payload: { value },
   } = action;
-  const { layerData, addUploadData, selectedLayerStyle } = state;
+  const { layerData, addUploadData } = state;
 
   const layerNameFromFile = value?.name?.split('.')[0];
   const newAddUploadData = {
@@ -398,11 +397,13 @@ const setEditLayerData = (state, action) => {
   const {
     payload: { id, name, theId },
   } = action;
+  const selectedLayerStyle = state.geomData.filter((element) => element.id === id)[0]?.style;
   return {
     ...state,
     selectedLayerName: name,
     selectedLayerId: id,
     themeId: theId,
+    selectedLayerStyle,
   };
 };
 
@@ -434,6 +435,10 @@ const setMapIcon = (state, action) => ({
   mapIcon: action.payload,
 });
 
+const setZoomToLayerId = (state, action) => ({
+  ...state,
+  zoomToLayerId: action?.payload,
+});
 const clearData = (state, action) =>
   // const { addUploadData, addThemeData } = state;
   ({
@@ -482,6 +487,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.SET_LAYER_DELETE_SUCCESS]: setLayerDeleteSuccess,
   [Types.HANDLE_STYLE_INPUT]: handleStyleInput,
   [Types.SET_MAP_ICON]: setMapIcon,
+  [Types.SET_ZOOM_TO_LAYER_ID]: setZoomToLayerId,
 });
 
 export default individualProjectReducer;

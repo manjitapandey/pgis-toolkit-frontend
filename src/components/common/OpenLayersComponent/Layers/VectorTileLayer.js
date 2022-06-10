@@ -5,10 +5,11 @@ import { useEffect, useMemo } from 'react';
 import VectorTile from 'ol/layer/VectorTile';
 import MVT from 'ol/format/MVT';
 import VectorTileSource from 'ol/source/VectorTile';
+import { transformExtent } from 'ol/proj';
 import getSvgImageIcon from '@Utils/map/getSvgImageIcon';
 import SVGMapIcon from '@Utils/map/svgIcon';
 import { getStyles, defaultStyles } from '../helpers/styleUtils';
-// import { isExtentValid } from '../helpers/layerUtils';
+import { isExtentValid } from '../helpers/layerUtils';
 
 const VectorTileLayer = ({
   map,
@@ -18,6 +19,8 @@ const VectorTileLayer = ({
   visibleOnMap = true,
   authToken,
   setStyle,
+  zoomToLayer = false,
+  bbox = null,
   // properties,
 }) => {
   const vectorTileLayer = useMemo(
@@ -180,6 +183,17 @@ const VectorTileLayer = ({
   //     });
   //   }
   // }, [map]);
+
+  useEffect(() => {
+    if (!map || !vectorTileLayer || !zoomToLayer || !bbox) return;
+    const transformedExtent = transformExtent(bbox, 'EPSG:4326', 'EPSG:3857');
+    if (!isExtentValid(transformedExtent)) return;
+    map.getView().fit(transformedExtent, {
+      padding: [50, 50, 50, 50],
+      duration: 900,
+      constrainResolution: true,
+    });
+  }, [map, vectorTileLayer, zoomToLayer, bbox]);
 
   // cleanup
   useEffect(() => () => map && map.removeLayer(vectorTileLayer), [map, vectorTileLayer]);
