@@ -36,6 +36,7 @@ const LayerStyleFilter = ({ active }) => {
   const groupList = useSelector((state) => state.individualProject.groupList);
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const individualLayerData = useSelector((state) => state.individualProject.individualLayerData);
+  const standardIcons = useSelector((state) => state.individualProject.standardIcons);
   const finalData = useSelector(finalLayerStyleSelector);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
   const [layerStyle, handleChange] = useDebouncedInput({
@@ -48,7 +49,6 @@ const LayerStyleFilter = ({ active }) => {
   });
   const { lineColor, fillColor, lineOpacity, fillOpacity, lineThickness, dashline, circleRadius, bgColor, layerName } =
     layerStyle;
-  // console.log(finalData, 'data');
   const handleSelect = (value) => {
     dispatch(handleStyleInput({ name: 'icon_size', value: { ...value.size, type: value.name } }));
   };
@@ -82,11 +82,11 @@ const LayerStyleFilter = ({ active }) => {
     if (themeId) dispatch(getGroupListRequest({ theme: themeId }));
   }, [themeId]);
 
-  useEffect(() => {
-    if (selectedLayerId) {
-      dispatch(getIndividualLayerDataRequest(selectedLayerId));
-    }
-  }, [selectedLayerId]);
+  // useEffect(() => {
+  //   if (selectedLayerId) {
+  //     dispatch(getIndividualLayerDataRequest(selectedLayerId));
+  //   }
+  // }, [selectedLayerId]);
 
   return (
     <aside
@@ -149,15 +149,25 @@ const LayerStyleFilter = ({ active }) => {
               <label>Placemark</label>
               <div className="is-bg-white is-border is-radius-4 pd-15 customicon-list">
                 <ul className="is-flex is-start is-align-center is-wrap is-gap-5">
-                  {svgIcons?.map((item) => (
-                    <li
-                      className="is-active is-circle is-circle_sm is-column"
-                      style={{ background: bgColor || `${item.color}`, padding: '5px' }}
-                      onClick={() => handleIconClick(item)}
-                    >
-                      <SVGImageIcon id={item.id} src={item.icon} color={item.color} />
-                    </li>
-                  ))}
+                  {standardIcons?.length
+                    ? standardIcons?.map((item) => (
+                        <li
+                          className="is-active is-circle is-circle_sm is-column"
+                          style={{ background: bgColor || `${item.color}`, padding: '5px' }}
+                          onClick={() => handleIconClick(item)}
+                        >
+                          <SVGImageIcon id={item.id} src={item.icon} color={item.color} />
+                        </li>
+                      ))
+                    : svgIcons?.map((item) => (
+                        <li
+                          className="is-active is-circle is-circle_sm is-column"
+                          style={{ background: bgColor || `${item.color}`, padding: '5px' }}
+                          onClick={() => handleIconClick(item)}
+                        >
+                          <SVGImageIcon id={item.id} src={item.icon} color={item.color} />
+                        </li>
+                      ))}
                 </ul>
                 <div className="mt-15 is-flex is-start is-align-center">
                   <a className="is-btn is-btn_link">
@@ -208,36 +218,14 @@ const LayerStyleFilter = ({ active }) => {
         )}
         {individualLayerData?.geom_type !== 'Point' && (
           <>
-            <Input
-              label="Fill Color"
-              name="fillColor"
-              value={individualLayerData?.style?.fillColor || fillColor}
-              onChange={handleChange}
-              type="color"
-            />
-            <Input
-              label="Line Color"
-              name="lineColor"
-              value={individualLayerData?.style?.lineColor || lineColor}
-              onChange={handleChange}
-              type="color"
-            />
-            <RangeSlider
-              label="Line Opacity"
-              name="lineOpacity"
-              value={individualLayerData?.style?.lineOpacity || lineOpacity}
-              onChange={handleChange}
-            />
-            <RangeSlider
-              label="Fill Opacity"
-              name="fillOpacity"
-              value={individualLayerData?.style?.fillOpacity || fillOpacity}
-              onChange={handleChange}
-            />
+            <Input label="Fill Color" name="fillColor" value={fillColor} onChange={handleChange} type="color" />
+            <Input label="Line Color" name="lineColor" value={lineColor} onChange={handleChange} type="color" />
+            <RangeSlider label="Line Opacity" name="lineOpacity" value={lineOpacity} onChange={handleChange} />
+            <RangeSlider label="Fill Opacity" name="fillOpacity" value={fillOpacity} onChange={handleChange} />
             <Input
               label="Line Thickness"
               name="lineThickness"
-              value={individualLayerData?.style?.lineThickness || lineThickness}
+              value={lineThickness}
               onChange={handleChange}
               type="number"
               min="0"
@@ -246,13 +234,7 @@ const LayerStyleFilter = ({ active }) => {
           </>
         )}
         {individualLayerData?.geom_type === 'Point' && (
-          <Input
-            type="number"
-            name="circleRadius"
-            label="Radius"
-            value={individualLayerData?.style?.circleRadius || circleRadius}
-            onChange={handleChange}
-          />
+          <Input type="number" name="circleRadius" label="Radius" value={circleRadius} onChange={handleChange} />
         )}
       </div>
       <div className="filter-sidebar_footer is-flex is-start is-gap-30">

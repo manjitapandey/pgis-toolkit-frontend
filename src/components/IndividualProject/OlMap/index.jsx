@@ -1,4 +1,5 @@
 /* eslint-disable consistent-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromLonLat } from 'ol/proj';
@@ -26,6 +27,7 @@ const OlMap = () => {
   const geomData = useSelector((state) => state.individualProject.geomData);
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const projectHeaderHeight = useSelector((state) => state.projectHeader.projectHeaderHeight);
+  const individualLayerData = useSelector((state) => state.individualProject.individualLayerData);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
   const authToken = '0d133cd783c0bd4288ef0b8dca02de3889845612';
   const { mapRef, map, renderComplete } = useOLMap({
@@ -42,6 +44,23 @@ const OlMap = () => {
 
     return () => clearTimeout(timer);
   }, [map, mapToggle]);
+
+  // useEffect(() => {
+  //   const newData = geomData.map((item) =>
+  //     item.id === individualLayerData?.id
+  //       ? {
+  //           ...item,
+  //           style: {
+  //             ...individualLayerData?.style,
+  //             icon: { url: individualLayerData?.icon },
+  //             icon_size: individualLayerData?.icon_size,
+  //           },
+  //         }
+  //       : { ...item },
+  //   );
+  //   console.log(newData, individualLayerData, 'datas');
+  // }, individualLayerData);
+  // console.log(individualLayerData, 'new datas');
 
   return (
     <div className="dbd-map_cntr is-grow">

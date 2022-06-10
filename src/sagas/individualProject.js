@@ -36,9 +36,47 @@ export function* getProjectLayerDataRequest(action) {
 
 export function* getIndividualLayerDataRequest(action) {
   const { type, params } = action;
+  const layerData = params?.layerData.map((item) =>
+    item.name === params?.name
+      ? {
+          ...item,
+          options: item.options.map((element) =>
+            element.name === params?.categoryName
+              ? {
+                  ...element,
+                  options: element.options.map((items) => ({
+                    ...items,
+                    isSelected: !element.isSelected,
+                  })),
+                  isSelected: !element.isSelected,
+                }
+              : { ...element },
+          ),
+        }
+      : { ...item },
+  );
   try {
-    const response = yield call(getIndividualLayerData, params);
-    yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data }));
+    const response = yield call(getIndividualLayerData, params.id);
+    const geomData = layerData
+      ?.map((lyr) => ({
+        options: lyr.options.filter((item) => item.isSelected === true),
+      }))
+      ?.filter((element) => element?.options?.length)
+      ?.reduce((arr, items) => [...arr, ...items?.options], [])
+      ?.map((element) =>
+        element?.id === response?.data?.id
+          ? {
+              ...element,
+              style: {
+                ...response?.data?.style,
+                icon: { url: response?.data?.icon },
+                icon_size: response?.data?.icon_size,
+              },
+            }
+          : { ...element },
+      );
+    // console.log(params, response.data, 'params');
+    yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data, layerData, geomData }));
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));
     // if (error?.response?.status >= 400) {
