@@ -37,12 +37,10 @@ const VectorTileLayer = ({
   // add source to layer
   useEffect(() => {
     if (!map) return;
-
     const requestHeader = new Headers();
     if (authToken) {
       requestHeader.append('Authorization', `Token ${authToken}`);
     }
-
     const vectorTileSource = new VectorTileSource({
       format: new MVT(),
       maxZoom: 19,

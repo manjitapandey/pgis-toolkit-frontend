@@ -40,7 +40,7 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
             {/* <button type="button" className="is-btn is-btn_link is-btn_sm">
             <span>Explore</span>
   </button> */}
-            {type !== 'group' && (
+            {type !== 'group' && isSelected && (
               <div className="pm-dropdown pm-dropdown_option">
                 <a href="#" className="is-circle is-circle_xs" onClick={() => handleEdit(uniqueId, catName, themeId)}>
                   <i className="material-icons">edit</i>
@@ -70,7 +70,7 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                   {/* <button type="button" className="is-btn is-btn_link is-btn_sm" onClick={handleEdit}>
                   <span>Explore</span>
           </button> */}
-                  {type === 'group' && (
+                  {type === 'group' && item.isSelected && (
                     <div className="pm-dropdown pm-dropdown_option">
                       <a
                         href="#"

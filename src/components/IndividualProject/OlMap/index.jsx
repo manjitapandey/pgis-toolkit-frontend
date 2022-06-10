@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromLonLat } from 'ol/proj';
 import MapContainer from '@Components/common/OpenLayersComponent/MapContainer';
@@ -16,7 +16,6 @@ import MeasureControl from '@Components/common/OpenLayersComponent/Control/Measu
 import { selectedLayerStyleSelector } from '@Selectors/individualProject';
 import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
 import DownloadControl from '@Components/common/OpenLayersComponent/Control/DownloadControl';
-import GetSVGIcon from '@Components/common/GetSVGIcon/index';
 
 const { BASE_URL } = process.env;
 const { setZoomToLayerId } = Creators;
@@ -28,7 +27,6 @@ const OlMap = () => {
   const geomData = useSelector((state) => state.individualProject.geomData);
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const projectHeaderHeight = useSelector((state) => state.projectHeader.projectHeaderHeight);
-  const individualLayerData = useSelector((state) => state.individualProject.individualLayerData);
   const zoomToLayerId = useSelector((state) => state.individualProject.zoomToLayerId);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
   const authToken = '0d133cd783c0bd4288ef0b8dca02de3889845612';

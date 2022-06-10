@@ -3,6 +3,7 @@ import { createReducer } from 'reduxsauce';
 import { Types } from '@Actions/individualProject';
 import { isEmpty } from '@Utils/commonUtils';
 import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
+import { getSelectedData, getSelectedDataFromSubLayer } from '@Utils/getSelectedData';
 
 const initialState = {
   active: 'map',
@@ -246,6 +247,7 @@ const getSelectedFromSubLayer = (state, action) => {
     payload: { id, parentId, name, categoryName },
   } = action;
   const { layerData } = state;
+  const newData = getSelectedDataFromSubLayer(layerData, name, categoryName, id);
   const data = layerData.map((item) =>
     item.name === name
       ? {
@@ -276,6 +278,8 @@ const getSelectedFromSubLayer = (state, action) => {
       isSelected: element.options.some((datas) => datas.isSelected === true),
     })),
   }));
+
+  console.log(newData, data, 'uniqueData');
   return {
     ...state,
     layerData: finalData,

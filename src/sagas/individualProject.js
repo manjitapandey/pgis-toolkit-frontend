@@ -75,7 +75,6 @@ export function* getIndividualLayerDataRequest(action) {
             }
           : { ...element },
       );
-    // console.log(params, response.data, 'params');
     yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data, layerData, geomData }));
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));

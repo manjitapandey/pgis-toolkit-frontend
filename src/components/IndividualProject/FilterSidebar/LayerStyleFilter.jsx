@@ -175,7 +175,7 @@ const LayerStyleFilter = ({ active }) => {
                   </a>
                   <button className="pmupload-btn is-btn is-btn_link is-btn_icon" type="button">
                     <label>
-                      <input type="file" onChange={onChangeHandler} />
+                      <input type="file" onChange={onChangeHandler} accept="image/svg" />
                       <span>Upload Custom Icon</span>
                     </label>
                   </button>
