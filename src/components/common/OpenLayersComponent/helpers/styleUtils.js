@@ -191,7 +191,7 @@ export function generateLayerStylePolygon(style, feature, resolution) {
   const { lineColor, lineOpacity, fillColor, fillOpacity, lineThickness, dashline } = style;
   return new Style({
     stroke: new Stroke({
-      color: hexToRgba(lineColor, lineOpacity),
+      color: hexToRgba(lineColor && lineColor, lineOpacity),
       width: lineThickness,
       lineDash: [dashline],
     }),
