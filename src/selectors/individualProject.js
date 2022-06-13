@@ -65,7 +65,7 @@ export const finalLayerStyleSelector = createSelector(
       // icon: icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon : null,
       icon: icon || '',
       icon_size: JSON.stringify(layerStyles?.icon_size) || JSON.stringify({}),
-      std_icon: layerStyles?.icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon?.url : '',
+      std_icon: layerStyles?.icon?.url ? layerStyles?.icon?.url : '',
     };
     return finalLayerStyle;
   },

@@ -279,7 +279,6 @@ const getSelectedFromSubLayer = (state, action) => {
     })),
   }));
 
-  console.log(newData, data, 'uniqueData');
   return {
     ...state,
     layerData: finalData,

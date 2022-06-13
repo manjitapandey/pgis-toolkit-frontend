@@ -67,6 +67,7 @@ export function* getIndividualLayerDataRequest(action) {
         element?.id === response?.data?.id
           ? {
               ...element,
+              bbox: response.data.bbox,
               style: {
                 ...response?.data?.style,
                 icon: { url: response?.data?.icon },
