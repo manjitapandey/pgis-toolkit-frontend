@@ -22,7 +22,6 @@ const {
   getGroupListRequest,
   openDatasetPopup,
   setAddUploadDataFile,
-  setMapIcon,
   getIndividualLayerDataRequest,
   postLayerDataRequest,
 } = Creators;
@@ -63,7 +62,6 @@ const LayerStyleFilter = ({ active }) => {
   };
 
   const handleIconClick = (value) => {
-    dispatch(setMapIcon(value));
     dispatch(handleStyleInput({ name: 'icon', value: { url: value.icon, color: value.color, id: value.id } }));
     dispatch(setAddUploadDataFile({ value: null }));
   };

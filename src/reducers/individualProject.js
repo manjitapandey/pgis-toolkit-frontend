@@ -38,7 +38,6 @@ const initialState = {
   themeAddSuccess: false,
   groupList: null,
   popupName: '',
-  mapIcon: null,
   layerDeleteSuccess: false,
   standardIcons: null,
   zoomToLayerId: null,
@@ -431,11 +430,6 @@ const deleteUploadDataFile = (state, action) => ({
   file: null,
 });
 
-const setMapIcon = (state, action) => ({
-  ...state,
-  mapIcon: action.payload,
-});
-
 const setZoomToLayerId = (state, action) => ({
   ...state,
   zoomToLayerId: action?.payload,
@@ -455,7 +449,6 @@ const clearData = (state, action) =>
     selectedLayerId: null,
     selectedLayerName: '',
     themeId: null,
-    mapIcon: null,
     layerId: null,
     // individualLayerData: null,
     selectedLayerStyle: {},
@@ -489,7 +482,6 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.SET_THEME_ADD_SUCCESS]: setThemeAddSuccess,
   [Types.SET_LAYER_DELETE_SUCCESS]: setLayerDeleteSuccess,
   [Types.HANDLE_STYLE_INPUT]: handleStyleInput,
-  [Types.SET_MAP_ICON]: setMapIcon,
   [Types.SET_ZOOM_TO_LAYER_ID]: setZoomToLayerId,
 });
 

@@ -50,6 +50,7 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
             <Dropdown
               handleDeleteClick={() => handleDeleteClick(uniqueId, catName)}
               handleZoomClick={() => handleZoomClick(uniqueId)}
+              layerId={uniqueId}
             />
           </div>
         </div>

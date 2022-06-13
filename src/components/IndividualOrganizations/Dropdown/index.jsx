@@ -2,7 +2,9 @@ import React from 'react';
 import useOutsideClick from '@Hooks/useOutsideClick';
 import PropTypes from 'prop-types';
 
-const Dropdown = ({ handleZoomClick, handleDeleteClick }) => {
+const { BASE_URL } = process.env;
+
+const Dropdown = ({ handleZoomClick, handleDeleteClick, layerId }) => {
   const [toggleRef, toggle, handleToggle] = useOutsideClick();
 
   return (
@@ -22,6 +24,12 @@ const Dropdown = ({ handleZoomClick, handleDeleteClick }) => {
             <a onClick={handleZoomClick}>
               <i className="material-icons">zoom_in</i>
               <span>Zoom to layer</span>
+            </a>
+          </li>
+          <li>
+            <a href={`${BASE_URL}/maps/layer_download/?layer_id=${layerId}&output_format=kml`} download>
+              <i className="material-icons">download</i>
+              <span>download</span>
             </a>
           </li>
           {/* <li>
@@ -45,11 +53,13 @@ const Dropdown = ({ handleZoomClick, handleDeleteClick }) => {
 Dropdown.propTypes = {
   handleDeleteClick: PropTypes.func,
   handleZoomClick: PropTypes.func,
+  layerId: PropTypes.any,
 };
 
 Dropdown.defaultProps = {
   handleDeleteClick: () => {},
   handleZoomClick: () => {},
+  layerId: '',
 };
 
 export default Dropdown;
