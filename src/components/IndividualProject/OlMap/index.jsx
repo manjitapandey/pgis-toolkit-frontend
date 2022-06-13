@@ -74,6 +74,7 @@ const OlMap = () => {
                 style={selectedLayerId ? selectedLayerStyle : item?.style}
                 // style={item?.style || selectedLayerStyle}
                 zoomToLayer={item?.id === zoomToLayerId}
+                bbox={item?.bbox}
               />
             ))}
           {geomData &&
@@ -84,6 +85,7 @@ const OlMap = () => {
                 style={selectedLayerId ? selectedLayerStyle : item?.style}
                 // style={item?.style || selectedLayerStyle}
                 zoomToLayer={item?.id === zoomToLayerId}
+                bbox={item?.bbox}
               />
             ))}
         </MapContainer>
