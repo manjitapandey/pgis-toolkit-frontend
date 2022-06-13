@@ -38,7 +38,7 @@ const AddLayerPopup = () => {
     if (taskId) {
       timer = setInterval(() => {
         dispatch(getTaskResponseRequest({ task_id: taskId }));
-      }, 6000);
+      }, 3000);
     }
     if (layerId) {
       clearInterval(timer);

@@ -50,6 +50,7 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
             <Dropdown
               handleDeleteClick={() => handleDeleteClick(uniqueId, catName)}
               handleZoomClick={() => handleZoomClick(uniqueId)}
+              layerId={uniqueId}
             />
           </div>
         </div>
@@ -62,7 +63,7 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                   name={item.name}
                   checked={item.isSelected}
                   label={item.name}
-                  onChange={onListChange}
+                  onChange={type === 'group' ? onChange : onListChange}
                   icon={item.icon}
                   className="is-flex is-grow"
                 />
@@ -81,7 +82,10 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                       </a>
                     </div>
                   )}
-                  <Dropdown />
+                  <Dropdown
+                    handleDeleteClick={() => handleDeleteClick(uniqueId, catName)}
+                    handleZoomClick={() => handleZoomClick(item.id)}
+                  />
                 </div>
               </li>
             ))

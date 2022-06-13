@@ -15,7 +15,7 @@ const Checkbox = ({ className, id, type, name, checked, label, onChange, icon })
       <label htmlFor={id} className="is-grow is-flex is-start is-align-start" onClick={handleToggle}>
         {/* icon && <i className="material-icons mr-10">{icon}</i>
          */}
-        {icon && <img src={icon} alt="default" />}
+        {icon && <img src={icon} alt="default" style={{ height: '20px', width: '20px', marginRight: '4px' }} />}
         <span className="is-grow is-trim-1">{label}</span>
       </label>
     </div>

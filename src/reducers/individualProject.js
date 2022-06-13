@@ -38,7 +38,6 @@ const initialState = {
   themeAddSuccess: false,
   groupList: null,
   popupName: '',
-  mapIcon: null,
   layerDeleteSuccess: false,
   standardIcons: null,
   zoomToLayerId: null,
@@ -92,44 +91,58 @@ const getProjectLayerDataSuccess = (state, action) => {
   const {
     payload: { data },
   } = action;
-  const layerData = data.map((item) => ({
-    id: item.id,
-    name: item.name,
-    options:
-      item.group.length > 0
-        ? [
-            item.group
-              .map((grp) => ({
-                // ...items,
-                type: 'group',
+  const layerData = data.map((item) => {
+    const newArrs = [...item.group, ...item.layer];
+    return {
+      id: item.id,
+      name: item.name,
+      options:
+        item.group.length > 0
+          ? newArrs.map((grp) => {
+              if (grp.layer) {
+                return {
+                  // ...items,
+                  type: 'group',
+                  name: grp.name,
+                  id: grp.id,
+                  isSelected: false,
+                  options: grp.layer.map((elements) => ({
+                    ...elements,
+                    isSelected: false,
+                  })),
+                };
+              }
+              return {
+                ...grp,
                 name: grp.name,
                 id: grp.id,
-                isSelected: false,
-                options: grp.layer.map((elements) => ({
-                  ...elements,
-                  isSelected: false,
-                })),
-              }))
-              .reduce((arr, items) => ({ ...arr, ...items }), {}),
-            item.layer
-              .map((layers) => ({
-                ...layers,
-                name: layers.name,
-                id: layers.id,
-                icon: layers.icon,
-                iconSize: layers.icon_size,
+                icon: grp.icon,
+                iconSize: grp.icon_size,
                 type: 'layerWithSubLayer',
                 isSelected: false,
-                options: layers.sub_layer.map((elements) => ({
+                options: grp.sub_layer.map((elements) => ({
                   ...elements,
                   isSelected: false,
                 })),
-              }))
-              .reduce((arr, items) => ({ ...arr, ...items }), {}),
-          ].filter((elementss) => !isEmpty(elementss))
-        : item.layer.length
-        ? item.layer.map((layer) => {
-            if (item.sub_layer) {
+              };
+            })
+          : item.layer.length
+          ? item.layer.map((layer) => {
+              if (item.sub_layer) {
+                return {
+                  // ...items,
+                  name: layer.name,
+                  id: layer.id,
+                  icon: layer.icon,
+                  iconSize: layer.icon_size,
+                  type: 'layerWithSubLayer',
+                  isSelected: false,
+                  options: layer.sub_layer.map((elements) => ({
+                    ...elements,
+                    isSelected: false,
+                  })),
+                };
+              }
               return {
                 // ...items,
                 name: layer.name,
@@ -143,23 +156,10 @@ const getProjectLayerDataSuccess = (state, action) => {
                   isSelected: false,
                 })),
               };
-            }
-            return {
-              // ...items,
-              name: layer.name,
-              id: layer.id,
-              icon: layer.icon,
-              iconSize: layer.icon_size,
-              type: 'layerWithSubLayer',
-              isSelected: false,
-              options: layer.sub_layer.map((elements) => ({
-                ...elements,
-                isSelected: false,
-              })),
-            };
-          })
-        : [],
-  }));
+            })
+          : [],
+    };
+  });
 
   return {
     ...state,
@@ -185,9 +185,13 @@ const getStandardIconsSuccess = (state, action) => {
   const {
     payload: { data },
   } = action;
+  const standardIcons = data.map((element) => ({
+    ...element,
+    color: '#D82F38',
+  }));
   return {
     ...state,
-    standardIcons: data,
+    standardIcons,
   };
 };
 
@@ -247,30 +251,8 @@ const getSelectedFromSubLayer = (state, action) => {
     payload: { id, parentId, name, categoryName },
   } = action;
   const { layerData } = state;
-  const newData = getSelectedDataFromSubLayer(layerData, name, categoryName, id);
-  const data = layerData.map((item) =>
-    item.name === name
-      ? {
-          ...item,
-          options: item.options.map((element) =>
-            element.name === categoryName
-              ? {
-                  ...element,
-                  // isSelected: element.options.some((datas) => datas.isSelected === true),
-                  options: element.options.map((items) =>
-                    items.id === +id
-                      ? {
-                          ...items,
-                          isSelected: !items.isSelected,
-                        }
-                      : { ...items },
-                  ),
-                }
-              : { ...element },
-          ),
-        }
-      : { ...item },
-  );
+  const data = getSelectedDataFromSubLayer(layerData, name, categoryName, id);
+
   const finalData = data.map((item) => ({
     ...item,
     options: item.options.map((element) => ({
@@ -307,6 +289,21 @@ const postUploadDataSuccess = (state, action) => {
     ...state,
     taskId: data.task_id,
     taskLoading: !!data.task_id,
+  };
+};
+
+const postLayerDataSuccess = (state, action) => {
+  const {
+    payload: { id, style },
+  } = action;
+  // const { geomData } = state;
+  const geomData = state.geomData.map((element) => ({
+    ...element,
+    style,
+  }));
+  return {
+    ...state,
+    geomData,
   };
 };
 
@@ -433,15 +430,11 @@ const deleteUploadDataFile = (state, action) => ({
   file: null,
 });
 
-const setMapIcon = (state, action) => ({
-  ...state,
-  mapIcon: action.payload,
-});
-
 const setZoomToLayerId = (state, action) => ({
   ...state,
   zoomToLayerId: action?.payload,
 });
+
 const clearData = (state, action) =>
   // const { addUploadData, addThemeData } = state;
   ({
@@ -456,9 +449,8 @@ const clearData = (state, action) =>
     selectedLayerId: null,
     selectedLayerName: '',
     themeId: null,
-    mapIcon: null,
     layerId: null,
-    individualLayerData: null,
+    // individualLayerData: null,
     selectedLayerStyle: {},
   });
 
@@ -470,6 +462,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.GET_STANDARD_ICONS_SUCCESS]: getStandardIconsSuccess,
   [Types.GET_TASK_RESPONSE_SUCCESS]: getTaskResponseSuccess,
   [Types.POST_UPLOAD_DATA_SUCCESS]: postUploadDataSuccess,
+  [Types.POST_LAYER_DATA_SUCCESS]: postLayerDataSuccess,
   [Types.DELETE_LAYER_DATA_SUCCESS]: deleteLayerDataSuccess,
   [Types.SET_ACTIVE]: setActive,
   [Types.SET_LAYER_FILTER_ACTIVE]: setLayerFilterActive,
@@ -489,7 +482,6 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.SET_THEME_ADD_SUCCESS]: setThemeAddSuccess,
   [Types.SET_LAYER_DELETE_SUCCESS]: setLayerDeleteSuccess,
   [Types.HANDLE_STYLE_INPUT]: handleStyleInput,
-  [Types.SET_MAP_ICON]: setMapIcon,
   [Types.SET_ZOOM_TO_LAYER_ID]: setZoomToLayerId,
 });
 

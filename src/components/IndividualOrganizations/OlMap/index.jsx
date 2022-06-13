@@ -44,13 +44,6 @@ const OlMap = () => {
         >
           {/*  <LayerSwitcherControl />
           <Scalebar /> */}
-
-          {vectorTileData.map((item) => (
-            <VectorTileLayer url={item.url} />
-          ))}
-          {vectorTileData.map((item) => (
-            <VectorTileLayer url={item.url} />
-          ))}
         </MapContainer>
         <a
           className={

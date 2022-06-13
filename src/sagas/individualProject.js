@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import toastActions from '@Actions/toast';
@@ -17,6 +18,7 @@ import {
 import withLoader from '@Utils/sagaUtils';
 import popupAction from '@Actions/popup';
 import projectActions, { Types } from '@Actions/individualProject';
+import { getSelectedData } from '@Utils/getSelectedData';
 
 export function* getProjectLayerDataRequest(action) {
   const { type, params } = action;
@@ -36,25 +38,16 @@ export function* getProjectLayerDataRequest(action) {
 
 export function* getIndividualLayerDataRequest(action) {
   const { type, params } = action;
-  const layerData = params?.layerData.map((item) =>
-    item.name === params?.name
-      ? {
-          ...item,
-          options: item.options.map((element) =>
-            element.name === params?.categoryName
-              ? {
-                  ...element,
-                  options: element.options.map((items) => ({
-                    ...items,
-                    isSelected: !element.isSelected,
-                  })),
-                  isSelected: !element.isSelected,
-                }
-              : { ...element },
-          ),
-        }
-      : { ...item },
-  );
+  const layerData = getSelectedData(params.layerData, params.name, params.categoryName, params.id);
+  // const layerData = data.map((item) => ({
+  //   ...item,
+  //   options: item.options.map((element) => ({
+  //     ...element,
+  //     isSelected:
+  //       element.type === 'group' ? element.options.some((datas) => datas.isSelected === true) : element.isSelected,
+  //   })),
+  // }));
+
   try {
     const response = yield call(getIndividualLayerData, params.id);
     const geomData = layerData
@@ -64,13 +57,30 @@ export function* getIndividualLayerDataRequest(action) {
       ?.filter((element) => element?.options?.length)
       ?.reduce((arr, items) => [...arr, ...items?.options], [])
       ?.map((element) =>
-        element?.id === response?.data?.id
+        element.type === 'group'
+          ? element.options
+              .map((items) =>
+                items.id === response.data.id
+                  ? {
+                      ...items,
+                      bbox: response.data.bbox,
+                      style: {
+                        ...response?.data?.style,
+                        icon: { url: response?.data?.icon },
+                        icon_size: response?.data?.icon_size,
+                      },
+                    }
+                  : { ...items },
+              )
+              .filter((elements) => elements.isSelected)
+              .reduce((arr, item) => [...arr, ...item])
+          : element?.id === response?.data?.id
           ? {
               ...element,
               bbox: response.data.bbox,
               style: {
                 ...response?.data?.style,
-                icon: { url: response?.data?.icon },
+                icon: { url: response?.data?.icon || response?.data?.std_icon },
                 icon_size: response?.data?.icon_size,
               },
             }
@@ -234,9 +244,10 @@ export function* postLayerDataRequest({ payload }) {
       data.append(key, value);
     });
     yield call(postLayerData, id, data);
-    yield put(projectActions.postLayerDataSuccess(id));
+    yield put(projectActions.postLayerDataSuccess({ id, style: JSON.parse(finalData.style) }));
     yield put(toastActions.success({ message: 'Layer style successfully edited.' }));
     yield put(projectActions.setLayerFilterActive('map'));
+    yield put(projectActions.setLayerDeleteData({ id: null }));
   } catch (error) {
     yield put(projectActions.postLayerDataFailure());
     yield put(toastActions.error({ message: error?.response?.data?.message }));
