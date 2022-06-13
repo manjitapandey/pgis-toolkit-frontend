@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from '@Assets/images/logo.png';
 import ProfileImage from '@Assets/images/admin/profile.jpg';
+import { Creators } from '@Actions/login';
+import { useDispatch } from 'react-redux';
+
+const { logoutRequest } = Creators;
 
 const Header = () => {
   const { pathname } = useLocation();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dispatch = useDispatch();
   return (
     <header className="dbd-header pd-10 pl-30 pr-30">
       <div className="container-fluid">
@@ -62,15 +68,25 @@ const Header = () => {
                 </li>
               </ul>
             </div>
-            <div className="pm-dropdown pm-dropdown_right is-option is-before">
+            <div
+              className={
+                showDropdown
+                  ? 'pm-dropdown pm-dropdown_right is-option is-before pm-dropdown_show'
+                  : 'pm-dropdown pm-dropdown_right is-option is-before'
+              }
+              onClick={() => setShowDropdown(!showDropdown)}
+            >
               <a href="#" className="is-profile">
                 <figure className="is-circle is-circle_xs is-circle_img">
                   <img src={ProfileImage} alt="" />
                 </figure>
               </a>
-              <ul className="pm-dropdown_menu">
+              <ul className="pm-dropdown_menu" style={{ cursor: 'pointer' }}>
                 <li>
-                  <a href=""> edit profile </a>
+                  <a>Edit Profile</a>
+                </li>
+                <li>
+                  <a onClick={() => dispatch(logoutRequest())}>Logout</a>
                 </li>
               </ul>
             </div>

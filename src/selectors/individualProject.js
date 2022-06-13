@@ -9,7 +9,6 @@ const fileSelector = (state) => state.individualProject.file;
 const addUploadDataSelector = (state) => state.individualProject.addUploadData;
 const layerStylesSelector = (state) => state.individualProject.selectedLayerStyle;
 const selectedLayerNameSelector = (state) => state.individualProject.selectedLayerName;
-const mapIconSelector = (state) => state.individualProject.mapIcon;
 const iconSelector = (state) => state.individualProject.file;
 const individualLayerDataSelector = (state) => state.individualProject.individualLayerData;
 
@@ -39,9 +38,8 @@ export const finalUploadDataSelector = createSelector(fileSelector, addUploadDat
   return finalUploadData;
 });
 
-export const selectedLayerStyleSelector = createSelector(
-  [layerStylesSelector, mapIconSelector],
-  (layerStyles, mapIcon) => (layerStyles && !isEmpty(layerStyles) ? layerStyles : { ...defaultStyles }),
+export const selectedLayerStyleSelector = createSelector([layerStylesSelector], (layerStyles) =>
+  layerStyles && !isEmpty(layerStyles) ? layerStyles : { ...defaultStyles },
 );
 
 export const finalLayerStyleSelector = createSelector(
