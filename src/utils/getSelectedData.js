@@ -1,18 +1,32 @@
-export const getSelectedData = (data, name, categoryName) =>
+/* eslint-disable no-nested-ternary */
+export const getSelectedData = (data, name, categoryName, id) =>
   data?.map((item) =>
     item.name === name
       ? {
           ...item,
           options: item.options.map((element) =>
             element.name === categoryName
-              ? {
-                  ...element,
-                  options: element.options.map((items) => ({
-                    ...items,
+              ? element.type === 'group'
+                ? {
+                    ...element,
                     isSelected: !element.isSelected,
-                  })),
-                  isSelected: !element.isSelected,
-                }
+                    options: element.options.map((items) =>
+                      items.id === +id
+                        ? {
+                            ...items,
+                            isSelected: !items.isSelected,
+                          }
+                        : { ...items },
+                    ),
+                  }
+                : {
+                    ...element,
+                    options: element.options.map((items) => ({
+                      ...items,
+                      isSelected: !element.isSelected,
+                    })),
+                    isSelected: !element.isSelected,
+                  }
               : { ...element },
           ),
         }
