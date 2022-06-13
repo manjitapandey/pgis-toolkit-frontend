@@ -92,7 +92,7 @@ const MapSidebar = ({ isLoading }) => {
                             catName={element?.name}
                             isSelected={element?.isSelected}
                             onChange={(event) => handleCheckbox(event, element.id, name, element.name)}
-                            icon={element?.icon}
+                            icon={element?.icon || element?.std_icon}
                             onListChange={(event) => handleListCheckbox(event, element.id, name, element.name)}
                             options={element?.options}
                             themeId={id}

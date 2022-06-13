@@ -53,6 +53,10 @@ const LayerStyleFilter = ({ active }) => {
     dispatch(handleStyleInput({ name: 'icon_size', value: { ...value.size, type: value.name } }));
   };
 
+  const handleSelect1 = (value) => {
+    dispatch(handleStyleInput({ name: 'group', value: value.id }));
+  };
+
   const handleClick = () => {
     dispatch(setLayerFilterActive('map'));
     dispatch(clearData());
@@ -60,7 +64,7 @@ const LayerStyleFilter = ({ active }) => {
 
   const handleIconClick = (value) => {
     dispatch(setMapIcon(value));
-    dispatch(handleStyleInput({ name: 'icon', value: { url: value.icon, color: value.color } }));
+    dispatch(handleStyleInput({ name: 'icon', value: { url: value.icon, color: value.color, id: value.id } }));
     dispatch(setAddUploadDataFile({ value: null }));
   };
 
@@ -81,12 +85,6 @@ const LayerStyleFilter = ({ active }) => {
   useEffect(() => {
     if (themeId) dispatch(getGroupListRequest({ theme: themeId }));
   }, [themeId]);
-
-  // useEffect(() => {
-  //   if (selectedLayerId) {
-  //     dispatch(getIndividualLayerDataRequest(selectedLayerId));
-  //   }
-  // }, [selectedLayerId]);
 
   return (
     <aside
@@ -118,7 +116,7 @@ const LayerStyleFilter = ({ active }) => {
           <div className="pm-group">
             <label className="is-capitalize">Data Group</label>
             <div className="is-flex is-start is-align-center is-gap-10">
-              <Select selected="Choose" handleSelect={handleSelect} options={groupList} className="pm-select_100" />
+              <Select selected="Choose" handleSelect={handleSelect1} options={groupList} className="pm-select_100" />
               <button
                 type="button"
                 className="is-btn is-btn_secondary is-btn_icon"
@@ -149,25 +147,16 @@ const LayerStyleFilter = ({ active }) => {
               <label>Placemark</label>
               <div className="is-bg-white is-border is-radius-4 pd-15 customicon-list">
                 <ul className="is-flex is-start is-align-center is-wrap is-gap-5">
-                  {standardIcons?.length
-                    ? standardIcons?.map((item) => (
-                        <li
-                          className="is-active is-circle is-circle_sm is-column"
-                          style={{ background: bgColor || `${item.color}`, padding: '5px' }}
-                          onClick={() => handleIconClick(item)}
-                        >
-                          <SVGImageIcon id={item.id} src={item.icon} color={item.color} />
-                        </li>
-                      ))
-                    : svgIcons?.map((item) => (
-                        <li
-                          className="is-active is-circle is-circle_sm is-column"
-                          style={{ background: bgColor || `${item.color}`, padding: '5px' }}
-                          onClick={() => handleIconClick(item)}
-                        >
-                          <SVGImageIcon id={item.id} src={item.icon} color={item.color} />
-                        </li>
-                      ))}
+                  {standardIcons?.length &&
+                    standardIcons?.map((item) => (
+                      <li
+                        className="is-active is-circle is-circle_sm is-column"
+                        style={{ background: bgColor || `${item.color}`, padding: '5px' }}
+                        onClick={() => handleIconClick(item)}
+                      >
+                        <SVGImageIcon id={item.id} src={item.icon} color={item.color} />
+                      </li>
+                    ))}
                 </ul>
                 <div className="mt-15 is-flex is-start is-align-center">
                   <a className="is-btn is-btn_link">

@@ -54,6 +54,7 @@ export const finalLayerStyleSelector = createSelector(
     delete newLayerStyle.icon;
     delete newLayerStyle.icon_size;
     delete newLayerStyle.icon_url;
+    delete newLayerStyle.group;
     const finalLayerStyle = {
       style:
         icon || layerStyles?.icon?.url
@@ -65,7 +66,8 @@ export const finalLayerStyleSelector = createSelector(
       // icon: icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon : null,
       icon: icon || '',
       icon_size: JSON.stringify(layerStyles?.icon_size) || JSON.stringify({}),
-      std_icon: layerStyles?.icon?.url ? layerStyles?.icon?.url : '',
+      std_icon: layerStyles?.icon?.id ? layerStyles?.icon?.id : '',
+      group: layerStyles?.group || '',
     };
     return finalLayerStyle;
   },
