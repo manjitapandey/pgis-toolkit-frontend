@@ -11,38 +11,38 @@ const indexRoutes = [
     path: '/organizations/:id/projects/:uniqueId',
     name: 'Individual Project',
     component: IndividualProject,
-    // authenticated: true,
+    authenticated: true,
   },
   {
     path: '/organizations/:id',
     name: 'Individual Organization',
     component: IndividualOrganization,
-    // authenticated: true,
+    authenticated: true,
   },
 
   {
     path: '/new/:id',
     name: 'Individual Organization',
     component: IndividualOrganization,
-    // authenticated: true,
+    authenticated: true,
   },
   {
     path: '/users',
     name: 'OrganizationsUsers',
     component: OrganizationsUsers,
-    // authenticated: true,
+    authenticated: true,
   },
   {
     path: '/organizations',
     name: 'Organizations',
     component: Organizations,
-    // authenticated: true,
+    authenticated: true,
   },
   {
     path: '/',
     name: 'Landing',
     component: Landing,
-    // authenticated: true,
+    authenticated: true,
   },
 ];
 
