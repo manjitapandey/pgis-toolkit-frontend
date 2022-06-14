@@ -37,14 +37,14 @@ const Login = () => {
 
   const onSubmitEnter = (event) => {
     if (event.key === 'Enter') {
-      submitButtonRef.current.click();
+      submitButtonRef?.current?.click();
     }
   };
 
   useEffect(() => {
-    loginbodyRef.current.addEventListener('keypress', onSubmitEnter);
+    loginbodyRef?.current?.addEventListener('keypress', onSubmitEnter);
     return () => {
-      loginbodyRef.current.removeEventListener('keypress', onSubmitEnter);
+      loginbodyRef?.current?.removeEventListener('keypress', onSubmitEnter);
     };
   }, []);
 
