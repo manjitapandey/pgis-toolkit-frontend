@@ -3,13 +3,17 @@
 import { useEffect, useMemo } from 'react';
 // import * as olExtent from 'ol/extent';
 import VectorTile from 'ol/layer/VectorTile';
+import { useDispatch } from 'react-redux';
 import MVT from 'ol/format/MVT';
 import VectorTileSource from 'ol/source/VectorTile';
 import { transformExtent } from 'ol/proj';
 import getSvgImageIcon from '@Utils/map/getSvgImageIcon';
 import SVGMapIcon from '@Utils/map/svgIcon';
+import { Creators } from '@Actions/individualProject';
 import { getStyles, defaultStyles } from '../helpers/styleUtils';
 import { isExtentValid } from '../helpers/layerUtils';
+
+const { setLayerLoading } = Creators;
 
 const VectorTileLayer = ({
   map,
@@ -23,6 +27,7 @@ const VectorTileLayer = ({
   bbox = null,
   // properties,
 }) => {
+  const dispatch = useDispatch();
   const vectorTileLayer = useMemo(
     () =>
       new VectorTile({
@@ -64,6 +69,12 @@ const VectorTileLayer = ({
       },
     });
     vectorTileLayer.setSource(vectorTileSource);
+    vectorTileLayer.getSource().on('tileloadstart', () => {
+      dispatch(setLayerLoading(true));
+    });
+    vectorTileLayer.getSource().on('tileloadend', () => {
+      setTimeout(() => dispatch(setLayerLoading(false)), 4000);
+    });
   }, [map, url, authToken, vectorTileLayer]);
 
   // add layer to map
