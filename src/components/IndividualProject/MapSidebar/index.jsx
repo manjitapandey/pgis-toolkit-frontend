@@ -16,7 +16,7 @@ const {
   setActive,
   openDatasetPopup,
   openLayerPopup,
-  // getSelectedFromLayer,
+  getSelectedFromLayer,
   getSelectedFromSubLayer,
   getSearchData,
   setAddUploadData,
@@ -27,6 +27,7 @@ const MapSidebar = ({ isLoading }) => {
   const dispatch = useDispatch();
   const [headerHeight, setHeaderHeight] = useState(null);
   const windowHeight = window.innerHeight;
+  const [layId, setLayId] = useState(null);
   const active = useSelector((state) => state.individualProject.active);
   const layerFilterActive = useSelector((state) => state.individualProject.layerFilterActive);
   const layerData = useSelector((state) => state.individualProject.layerData);
@@ -40,8 +41,9 @@ const MapSidebar = ({ isLoading }) => {
   };
   const handleCheckbox = (e, parId, name, catName) => {
     const { id } = e.target;
-    // dispatch(getSelectedFromLayer({ id, parentId: parId, name, categoryName: catName }));
-    dispatch(getIndividualLayerDataRequest({ id, name, categoryName: catName, layerData }));
+    setLayId(id);
+    dispatch(getSelectedFromLayer({ id, parentId: parId, name, categoryName: catName }));
+    // dispatch(getIndividualLayerDataRequest({ id, name, categoryName: catName, layerData }));
   };
   const handleListCheckbox = (e, parId, name, catName) => {
     const { id } = e.target;
@@ -59,6 +61,10 @@ const MapSidebar = ({ isLoading }) => {
     dispatch(setAddUploadData({ name: 'theme', value: name }));
     dispatch(setAddUploadData({ name: 'themeId', value: id }));
   };
+
+  useEffect(() => {
+    dispatch(getIndividualLayerDataRequest({ id: layId, layerData }));
+  }, [dispatch, layId, layerData]);
 
   return (
     <Sidebar

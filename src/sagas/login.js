@@ -16,7 +16,7 @@ export function* loginRequest({ payload: data }) {
     localStorage.setItem('userToken', response.data.access);
     yield put(loginActions.loginSuccess({ data: response.data }));
     yield put(toastActions.success({ message: 'Logged In successfully.' }));
-    yield put(push('/'));
+    yield put(push('/organizations'));
   } catch (error) {
     // yield put(toastActions.error({ message: error?.response?.data?.message }));
     yield put(toastActions.error({ message: 'Unable to login with provided credentials.' }));

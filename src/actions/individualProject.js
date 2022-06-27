@@ -66,6 +66,7 @@ export const { Types, Creators } = createActions(
     setThemeAddSuccess: ['payload'],
     setLayerDeleteSuccess: ['payload'],
     handleStyleInput: ['payload'],
+    setLayerLoading: ['payload'],
   },
   { prefix: 'IndividualProject/' },
 );
