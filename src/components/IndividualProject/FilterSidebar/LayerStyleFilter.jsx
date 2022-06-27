@@ -139,7 +139,7 @@ const LayerStyleFilter = ({ active }) => {
           setActiveTab={setActiveStyleTab}
           label="Styling"
         />
-        {individualLayerData?.geom_type === 'Point' && (
+        {/* individualLayerData?.geom_type === 'Point' && activeStyleTab === 'Standard' && (
           <>
             <div className="pm-group">
               <label>Placemark</label>
@@ -202,24 +202,21 @@ const LayerStyleFilter = ({ active }) => {
               />
             </div>
           </>
-        )}
-        {individualLayerData?.geom_type !== 'Point' && (
-          <>
-            <Input label="Fill Color" name="fillColor" value={fillColor} onChange={handleChange} type="color" />
-            <Input label="Line Color" name="lineColor" value={lineColor} onChange={handleChange} type="color" />
-            <RangeSlider label="Line Opacity" name="lineOpacity" value={lineOpacity} onChange={handleChange} />
-            <RangeSlider label="Fill Opacity" name="fillOpacity" value={fillOpacity} onChange={handleChange} />
-            <Input
-              label="Line Thickness"
-              name="lineThickness"
-              value={lineThickness}
-              onChange={handleChange}
-              type="number"
-              min="0"
-              max="100"
-            />
-          </>
-        )}
+                    ) */}
+
+        <Input label="Fill Color" name="fillColor" value={fillColor} onChange={handleChange} type="color" />
+        <Input label="Line Color" name="lineColor" value={lineColor} onChange={handleChange} type="color" />
+        <RangeSlider label="Line Opacity" name="lineOpacity" value={lineOpacity} onChange={handleChange} />
+        <RangeSlider label="Fill Opacity" name="fillOpacity" value={fillOpacity} onChange={handleChange} />
+        <Input
+          label="Line Thickness"
+          name="lineThickness"
+          value={lineThickness}
+          onChange={handleChange}
+          type="number"
+          min="0"
+          max="100"
+        />
         {individualLayerData?.geom_type === 'Point' && (
           <Input type="number" name="circleRadius" label="Radius" value={circleRadius} onChange={handleChange} />
         )}

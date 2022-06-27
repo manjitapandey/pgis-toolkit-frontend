@@ -201,8 +201,7 @@ const getSelectedFromLayer = (state, action) => {
   } = action;
 
   const { layerData } = state;
-
-  const data = getSelectedData(layerData, name, categoryName, id);
+  const data = getSelectedData(layerData, name, categoryName, id, defaultStyles);
   const geomData = data
     .map((lyr) => ({
       options: lyr.options.filter((item) => item.isSelected === true),
