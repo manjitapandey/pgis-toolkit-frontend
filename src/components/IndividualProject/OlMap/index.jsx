@@ -72,7 +72,7 @@ const OlMap = () => {
                 key={item.id}
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
-                style={selectedLayerId ? selectedLayerStyle : item?.style}
+                style={selectedLayerId ? selectedLayerStyle : { ...item?.style, ...selectedLayerStyle }}
                 // style={item?.style || selectedLayerStyle}
                 zoomToLayer={item?.id === zoomToLayerId}
                 bbox={item?.bbox}
@@ -84,7 +84,7 @@ const OlMap = () => {
                 key={item.id}
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
-                style={selectedLayerId ? selectedLayerStyle : item?.style}
+                style={selectedLayerId ? selectedLayerStyle : { ...item?.style, ...selectedLayerStyle }}
                 // style={item?.style || selectedLayerStyle}
                 zoomToLayer={item?.id === zoomToLayerId}
                 bbox={item?.bbox}
