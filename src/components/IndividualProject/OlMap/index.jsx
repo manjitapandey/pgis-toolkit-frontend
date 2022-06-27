@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-nested-ternary */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromLonLat } from 'ol/proj';
@@ -72,7 +73,13 @@ const OlMap = () => {
                 key={item.id}
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
-                style={selectedLayerId ? selectedLayerStyle : { ...item?.style, ...selectedLayerStyle }}
+                style={
+                  selectedLayerId
+                    ? selectedLayerStyle
+                    : item?.style?.fillColor
+                    ? { ...item?.style }
+                    : { ...defaultStyles }
+                }
                 // style={item?.style || selectedLayerStyle}
                 zoomToLayer={item?.id === zoomToLayerId}
                 bbox={item?.bbox}
@@ -84,7 +91,13 @@ const OlMap = () => {
                 key={item.id}
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
-                style={selectedLayerId ? selectedLayerStyle : { ...item?.style, ...selectedLayerStyle }}
+                tyle={
+                  selectedLayerId
+                    ? selectedLayerStyle
+                    : item?.style?.fillColor
+                    ? { ...item?.style }
+                    : { ...defaultStyles }
+                }
                 // style={item?.style || selectedLayerStyle}
                 zoomToLayer={item?.id === zoomToLayerId}
                 bbox={item?.bbox}
