@@ -11,6 +11,7 @@ import LoaderImage from '@Assets/images/login-cover.png';
 import LoginLogo from '@Assets/images/login-logo.png';
 import Profile from '@Assets/images/admin/profile.jpg';
 import useForm from '@Hooks/useForm';
+import Spinner from '@Components/common/Spinner';
 import { loadingSelector } from '@src/selectors/loader';
 
 const initialState = {
@@ -48,9 +49,9 @@ const Login = () => {
     };
   }, []);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
   return (
     <main className="login-page">
       <div className="container-fluid">
@@ -199,7 +200,19 @@ const Login = () => {
                   className="is-btn is-btn_primary is-btn_full is-center"
                   onClick={handleSubmit}
                 >
-                  Sign in
+                  {isLoading ? (
+                    <Spinner
+                      style={{
+                        width: '18px',
+                        height: '18px',
+                        border: '3px solid #ffffff',
+                        borderTop: '3px solid #0055ff',
+                        marginLeft: '6px',
+                      }}
+                    />
+                  ) : (
+                    'Sign in'
+                  )}
                 </button>
               </div>
             </div>
