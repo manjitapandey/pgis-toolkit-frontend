@@ -41,6 +41,7 @@ const initialState = {
   layerDeleteSuccess: false,
   standardIcons: null,
   zoomToLayerId: null,
+  isLayerLoading: false,
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
@@ -76,13 +77,12 @@ const getLayerTemplateListSuccess = (state, action) => {
 
 const getIndividualLayerDataSuccess = (state, action) => {
   const {
-    payload: { data, layerData, geomData },
+    payload: { data, geomData },
   } = action;
 
   return {
     ...state,
     individualLayerData: data,
-    layerData,
     geomData,
   };
 };
@@ -195,56 +195,38 @@ const getStandardIconsSuccess = (state, action) => {
   };
 };
 
-// const getSelectedFromLayer = (state, action) => {
-//   const {
-//     payload: { id, parentId, name, categoryName },
-//   } = action;
+const getSelectedFromLayer = (state, action) => {
+  const {
+    payload: { id, parentId, name, categoryName },
+  } = action;
 
-//   const { layerData } = state;
-//   const data = layerData.map((item) =>
-//     item.name === name
-//       ? {
-//           ...item,
-//           options: item.options.map((element) =>
-//             element.name === categoryName
-//               ? {
-//                   ...element,
-//                   options: element.options.map((items) => ({
-//                     ...items,
-//                     isSelected: !element.isSelected,
-//                   })),
-//                   isSelected: !element.isSelected,
-//                 }
-//               : { ...element },
-//           ),
-//         }
-//       : { ...item },
-//   );
-//   const geomData = data
-//     .map((lyr) => ({
-//       options: lyr.options.filter((item) => item.isSelected === true),
-//     }))
-//     .filter((element) => element.options.length)
-//     .reduce((arr, items) => [...arr, ...items.options], []);
-//   // .map((item) =>
-//   //   item.id === individualLayerData?.id
-//   //     ? {
-//   //         ...item,
-//   //         style: {
-//   //           ...individualLayerData?.style,
-//   //           icon: { url: individualLayerData?.icon },
-//   //           icon_size: individualLayerData?.icon_size,
-//   //         },
-//   //       }
-//   //     : { ...item },
-//   // );
+  const { layerData } = state;
 
-//   return {
-//     ...state,
-//     layerData: data,
-//     geomData,
-//   };
-// };
+  const data = getSelectedData(layerData, name, categoryName, id);
+  const geomData = data
+    .map((lyr) => ({
+      options: lyr.options.filter((item) => item.isSelected === true),
+    }))
+    .filter((element) => element.options.length)
+    .reduce((arr, items) => [...arr, ...items.options], []);
+  // .map((item) =>
+  //   item.id === individualLayerData?.id
+  //     ? {
+  //         ...item,
+  //         style: {
+  //           ...individualLayerData?.style,
+  //           icon: { url: individualLayerData?.icon },
+  //           icon_size: individualLayerData?.icon_size,
+  //         },
+  //       }
+  //     : { ...item },
+  // );
+  return {
+    ...state,
+    layerData: data,
+    geomData,
+  };
+};
 
 const getSelectedFromSubLayer = (state, action) => {
   const {
@@ -435,6 +417,9 @@ const setZoomToLayerId = (state, action) => ({
   zoomToLayerId: action?.payload,
 });
 
+const setLayerLoading = (state, action) =>
+  // console.log(action.payload, 'load read');
+  ({ ...state, isLayerLoading: action.payload });
 const clearData = (state, action) =>
   // const { addUploadData, addThemeData } = state;
   ({
@@ -469,7 +454,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.HANDLE_MAP_TOGGLE]: handleMapToggle,
   [Types.OPEN_LAYER_POPUP]: openLayerPopup,
   [Types.OPEN_DATASET_POPUP]: openDatasetPopup,
-  // [Types.GET_SELECTED_FROM_LAYER]: getSelectedFromLayer,
+  [Types.GET_SELECTED_FROM_LAYER]: getSelectedFromLayer,
   [Types.GET_SELECTED_FROM_SUB_LAYER]: getSelectedFromSubLayer,
   [Types.SET_ADD_UPLOAD_DATA_FILE]: setAddUploadDataFile,
   [Types.DELETE_UPLOAD_DATA_FILE]: deleteUploadDataFile,
@@ -483,6 +468,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.SET_LAYER_DELETE_SUCCESS]: setLayerDeleteSuccess,
   [Types.HANDLE_STYLE_INPUT]: handleStyleInput,
   [Types.SET_ZOOM_TO_LAYER_ID]: setZoomToLayerId,
+  [Types.SET_LAYER_LOADING]: setLayerLoading,
 });
 
 export default individualProjectReducer;

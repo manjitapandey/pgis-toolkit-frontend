@@ -28,6 +28,7 @@ const OlMap = () => {
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const projectHeaderHeight = useSelector((state) => state.projectHeader.projectHeaderHeight);
   const zoomToLayerId = useSelector((state) => state.individualProject.zoomToLayerId);
+  const isLayerLoading = useSelector((state) => state.individualProject.isLayerLoading);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
   const authToken = '0d133cd783c0bd4288ef0b8dca02de3889845612';
   const { mapRef, map, renderComplete } = useOLMap({
@@ -53,7 +54,6 @@ const OlMap = () => {
     }, 1000);
     return () => clearTimeout(timeout);
   }, [dispatch, map, zoomToLayerId, map]);
-
   return (
     <div className="dbd-map_cntr is-grow">
       <div className="dbd-map_wrap">
@@ -69,6 +69,7 @@ const OlMap = () => {
           {geomData &&
             geomData?.map((item) => (
               <VectorTileLayer
+                key={item.id}
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
                 style={selectedLayerId ? selectedLayerStyle : item?.style}
@@ -80,6 +81,7 @@ const OlMap = () => {
           {geomData &&
             geomData?.map((item) => (
               <VectorTileLayer
+                key={item.id}
                 url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
                 authToken={authToken}
                 style={selectedLayerId ? selectedLayerStyle : item?.style}
@@ -105,6 +107,16 @@ const OlMap = () => {
             </div>
           </div>
         </a>
+        <div className="map-buttons">
+          {/* <DownloadControl mapRef={mapRef} /> */}
+          {isLayerLoading && (
+            <div className="map-loader-container">
+              <div className="map-loader-wrapper">
+                <div className="map-loader" />
+              </div>
+            </div>
+          )}
+        </div>
         <div className="map-setting is-bottom is-right">
           <div className="setting-list" title="Tools">
             {/* <a className="sidebar-collapse">

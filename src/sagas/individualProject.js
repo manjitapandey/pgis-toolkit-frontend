@@ -38,7 +38,6 @@ export function* getProjectLayerDataRequest(action) {
 
 export function* getIndividualLayerDataRequest(action) {
   const { type, params } = action;
-  const layerData = getSelectedData(params.layerData, params.name, params.categoryName, params.id);
   // const layerData = data.map((item) => ({
   //   ...item,
   //   options: item.options.map((element) => ({
@@ -47,10 +46,9 @@ export function* getIndividualLayerDataRequest(action) {
   //       element.type === 'group' ? element.options.some((datas) => datas.isSelected === true) : element.isSelected,
   //   })),
   // }));
-
   try {
     const response = yield call(getIndividualLayerData, params.id);
-    const geomData = layerData
+    const geomData = params.layerData
       ?.map((lyr) => ({
         options: lyr.options.filter((item) => item.isSelected === true),
       }))
@@ -86,7 +84,7 @@ export function* getIndividualLayerDataRequest(action) {
             }
           : { ...element },
       );
-    yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data, layerData, geomData }));
+    yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data, geomData }));
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));
     // if (error?.response?.status >= 400) {
