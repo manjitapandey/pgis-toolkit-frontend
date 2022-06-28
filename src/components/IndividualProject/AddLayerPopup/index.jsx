@@ -13,7 +13,7 @@ import Template from './Template/index';
 import Upload from './Upload/index';
 import WmsLayer from './WmsLayer/index';
 
-const { openLayerPopup, clearData, postUploadDataRequest, getTaskResponseRequest } = Creators;
+const { openLayerPopup, clearData, postUploadDataRequest, getTaskResponseRequest, setTaskLoading } = Creators;
 
 const AddLayerPopup = () => {
   const dispatch = useDispatch();
@@ -60,6 +60,7 @@ const AddLayerPopup = () => {
         dispatch(toastAction.error({ message: 'Fields cannot be empty' }));
       } else {
         dispatch(postUploadDataRequest({ finalUploadData }));
+        dispatch(setTaskLoading(true));
       }
     }
   };

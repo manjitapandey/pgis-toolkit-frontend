@@ -67,6 +67,57 @@
     }
   }
 
+  .loader-container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    height: 100vh;
+    width: 100vw;
+    z-index: 99999;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+  
+  .loader-wrapper {
+    border-radius: 3px;
+    font-size: 30px;
+    -webkit-transition: 0.3s color, 0.3s border, 0.3s transform, 0.3s opacity;
+    transition: 0.3s color, 0.3s border, 0.3s transform, 0.3s opacity;
+  }
+  .loader {
+    border: 0.15em solid #2c6dff;
+    border-top-color: #c7c7c7;
+    border-radius: 50%;
+    -webkit-animation: 1s spin linear infinite;
+    animation: 1s spin linear infinite;
+    position: relative;
+  }
+  
+  .loader-wrapper,
+  .loader {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    color: inherit;
+    vertical-align: middle;
+    pointer-events: none;
+  }
+  .loader:before {
+    content: '';
+    display: block;
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    top: -0.15em;
+    left: -0.15em;
+    border: 0.15em solid currentcolor;
+    border-radius: 50%;
+    opacity: 0;
+  }
+
   .map-loader-container {
     position: relative;
     display: flex;

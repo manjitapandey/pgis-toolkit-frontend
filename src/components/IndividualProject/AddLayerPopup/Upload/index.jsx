@@ -74,7 +74,7 @@ const Upload = () => {
         {active === 'vector' ? (
           <>
             <h6 className="mb-15">Upload Vector</h6>
-            <UploadFile spanDescription="TIFF, JPG or PNG" onChange={onChangeHandler} value="" name="file" />
+            <UploadFile spanDescription=".zip" onChange={onChangeHandler} value="" name="file" />
             {file && <UploadContent fileName={file.name} fileSize={file.size} handleDelete={handleDelete} />}
             <Input
               label="Layer Name"
