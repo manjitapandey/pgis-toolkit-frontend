@@ -14,6 +14,7 @@ import {
   postLayerData,
   getIndividualLayerData,
   getStandardIcons,
+  getIndividualProjectData,
 } from '@Services/individualProject';
 import withLoader from '@Utils/sagaUtils';
 import popupAction from '@Actions/popup';
@@ -32,6 +33,21 @@ export function* getProjectLayerDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getProjectLayerDataFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
+export function* getIndividualProjectDataRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getIndividualProjectData, params);
+    yield put(projectActions.getIndividualProjectDataSuccess({ data: response.data }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(projectActions.getIndividualProjectDataFailure());
     yield put(toastActions.error({ message: error?.response?.data?.message }));
   }
 }
@@ -270,6 +286,7 @@ export function* deleteLayerDataRequest({ payload }) {
 
 function* individualProjectWatcher() {
   yield takeLatest(Types.GET_PROJECT_LAYER_DATA_REQUEST, withLoader(getProjectLayerDataRequest));
+  yield takeLatest(Types.GET_INDIVIDUAL_PROJECT_DATA_REQUEST, withLoader(getIndividualProjectDataRequest));
   yield takeLatest(Types.GET_INDIVIDUAL_LAYER_DATA_REQUEST, withLoader(getIndividualLayerDataRequest));
   yield takeLatest(Types.GET_LAYER_TEMPLATE_LIST_REQUEST, withLoader(getLayerTemplateListRequest));
   yield takeLatest(Types.GET_TASK_RESPONSE_REQUEST, withLoader(getTaskResponseRequest));

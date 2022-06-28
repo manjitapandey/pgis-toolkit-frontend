@@ -12,9 +12,15 @@ import FilterSidebar from '@Components/IndividualProject/FilterSidebar/index';
 import popupAction from '@Actions/popup';
 import { Creators, Types as IndividualProjectTypes } from '@Actions/individualProject';
 import { checkIfLoading } from '@Utils/loaderSelector';
+import Loader from '@Components/common/Loader/index';
 
-const { getProjectLayerDataRequest, getLayerTemplateListRequest, deleteLayerDataRequest, getStandardIconsRequest } =
-  Creators;
+const {
+  getProjectLayerDataRequest,
+  getIndividualProjectDataRequest,
+  getLayerTemplateListRequest,
+  deleteLayerDataRequest,
+  getStandardIconsRequest,
+} = Creators;
 
 const IndividualProject = () => {
   const { id, uniqueId } = useParams();
@@ -22,6 +28,7 @@ const IndividualProject = () => {
   const dispatch = useDispatch();
   const mapToggle = useSelector((state) => state.individualProject.mapToggle);
   const layerId = useSelector((state) => state.individualProject.layerId);
+  const individualProjectData = useSelector((state) => state.individualProject.individualProjectData);
   const selectedLayerName = useSelector((state) => state.individualProject.selectedLayerName);
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const deletePopup = useSelector((state) => state.popup.deletePopup);
@@ -33,6 +40,9 @@ const IndividualProject = () => {
       IndividualProjectTypes.GET_PROJECT_LAYER_DATA_REQUEST,
       IndividualProjectTypes.GET_STANDARD_ICONS_REQUEST,
     ),
+  );
+  const isProjectLoading = useSelector((state) =>
+    checkIfLoading(state, IndividualProjectTypes.GET_INDIVIDUAL_PROJECT_DATA_REQUEST),
   );
   const handleClick = () => {
     history.push(`/organizations/${id}`);
@@ -49,15 +59,20 @@ const IndividualProject = () => {
   useEffect(() => {
     dispatch(getLayerTemplateListRequest());
     dispatch(getStandardIconsRequest());
+    dispatch(getIndividualProjectDataRequest(uniqueId));
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(getProjectLayerDataRequest(uniqueId));
   }, [dispatch, layerId, themeAddSuccess, layerDeleteSuccess]);
 
+  if (isProjectLoading) {
+    return <Loader />;
+  }
+
   return (
     <>
-      <ProjectHeader title="Transportation mapping Kenya 1" handleClick={handleClick} />
+      <ProjectHeader title={individualProjectData?.name} handleClick={handleClick} />
       <main className="dbd-main">
         <div className="dbd-body">
           <div className={mapToggle ? 'dbd-map is-flex dbd-map_active' : 'dbd-map is-flex'}>

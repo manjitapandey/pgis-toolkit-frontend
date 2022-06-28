@@ -6,6 +6,10 @@ export const { Types, Creators } = createActions(
     getProjectLayerDataSuccess: ['payload'],
     getProjectLayerDataFailure: null,
 
+    getIndividualProjectDataRequest: ['params'],
+    getIndividualProjectDataSuccess: ['payload'],
+    getIndividualProjectDataFailure: null,
+
     getIndividualLayerDataRequest: ['params'],
     getIndividualLayerDataSuccess: ['payload'],
     getIndividualLayerDataFailure: null,
@@ -67,6 +71,7 @@ export const { Types, Creators } = createActions(
     setLayerDeleteSuccess: ['payload'],
     handleStyleInput: ['payload'],
     setLayerLoading: ['payload'],
+    setTaskLoading: ['payload'],
   },
   { prefix: 'IndividualProject/' },
 );
