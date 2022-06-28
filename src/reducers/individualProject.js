@@ -9,6 +9,7 @@ const initialState = {
   active: 'map',
   layerFilterActive: 'map',
   mapToggle: false,
+  individualProjectData: null,
   opnLayerPopup: false,
   opnDatasetPopup: false,
   layerData: null,
@@ -72,6 +73,16 @@ const getLayerTemplateListSuccess = (state, action) => {
   return {
     ...state,
     templateList: data,
+  };
+};
+
+const getIndividualProjectDataSuccess = (state, action) => {
+  const {
+    payload: { data },
+  } = action;
+  return {
+    ...state,
+    individualProjectData: data,
   };
 };
 
@@ -388,14 +399,6 @@ const setEditLayerData = (state, action) => {
   };
 };
 
-const deleteLayerDataSuccess = (state, action) => {
-  const { layerData } = state;
-  return {
-    ...state,
-    // layerData: state.layerData.filter((item) => item.id !== action.payload),
-  };
-};
-
 const setThemeAddSuccess = (state, action) => ({
   ...state,
   themeAddSuccess: action.payload,
@@ -416,9 +419,10 @@ const setZoomToLayerId = (state, action) => ({
   zoomToLayerId: action?.payload,
 });
 
-const setLayerLoading = (state, action) =>
-  // console.log(action.payload, 'load read');
-  ({ ...state, isLayerLoading: action.payload });
+const setLayerLoading = (state, action) => ({ ...state, isLayerLoading: action.payload });
+
+const setTaskLoading = (state, action) => ({ ...state, taskLoading: action.payload });
+
 const clearData = (state, action) =>
   // const { addUploadData, addThemeData } = state;
   ({
@@ -440,6 +444,7 @@ const clearData = (state, action) =>
 
 const individualProjectReducer = createReducer(initialState, {
   [Types.GET_PROJECT_LAYER_DATA_SUCCESS]: getProjectLayerDataSuccess,
+  [Types.GET_INDIVIDUAL_PROJECT_DATA_SUCCESS]: getIndividualProjectDataSuccess,
   [Types.GET_INDIVIDUAL_LAYER_DATA_SUCCESS]: getIndividualLayerDataSuccess,
   [Types.GET_LAYER_TEMPLATE_LIST_SUCCESS]: getLayerTemplateListSuccess,
   [Types.GET_GROUP_LIST_SUCCESS]: getGroupListSuccess,
@@ -447,7 +452,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.GET_TASK_RESPONSE_SUCCESS]: getTaskResponseSuccess,
   [Types.POST_UPLOAD_DATA_SUCCESS]: postUploadDataSuccess,
   [Types.POST_LAYER_DATA_SUCCESS]: postLayerDataSuccess,
-  [Types.DELETE_LAYER_DATA_SUCCESS]: deleteLayerDataSuccess,
+  // [Types.DELETE_LAYER_DATA_SUCCESS]: deleteLayerDataSuccess,
   [Types.SET_ACTIVE]: setActive,
   [Types.SET_LAYER_FILTER_ACTIVE]: setLayerFilterActive,
   [Types.HANDLE_MAP_TOGGLE]: handleMapToggle,
@@ -468,6 +473,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.HANDLE_STYLE_INPUT]: handleStyleInput,
   [Types.SET_ZOOM_TO_LAYER_ID]: setZoomToLayerId,
   [Types.SET_LAYER_LOADING]: setLayerLoading,
+  [Types.SET_TASK_LOADING]: setTaskLoading,
 });
 
 export default individualProjectReducer;

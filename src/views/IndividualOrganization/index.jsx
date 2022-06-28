@@ -12,6 +12,7 @@ import { sidebarTabOptions } from '@src/constants/commonData';
 import CreateProjectPopup from '@Components/IndividualOrganizations/CreateProjectPopup/index';
 import { Creators, Types as IndividualOrganizationTypes } from '@Actions/individualOrganization';
 import { checkIfLoading } from '@Utils/loaderSelector';
+import Loader from '@Components/common/Loader/index';
 
 const { getIndividualOrganizationDataRequest, getOrganizationDetailDataRequest } = Creators;
 
@@ -33,6 +34,10 @@ const IndividualOrganization = () => {
     dispatch(getIndividualOrganizationDataRequest(id));
     dispatch(getOrganizationDetailDataRequest(id));
   }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <main className="mt-15 pl-30 pr-30">
