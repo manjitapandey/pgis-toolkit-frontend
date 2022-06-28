@@ -205,11 +205,11 @@ export function generateLayerStylePolygon(style, feature, resolution) {
 export function generateLayerStyleLine(style, feature, resolution) {
   return new Style({
     stroke: new Stroke({
-      color: hexToRgba(style.lineColor, style.lineOpacity),
+      color: hexToRgba(style?.lineColor, style?.lineOpacity),
       width: style.lineThickness,
     }),
     fill: new Fill({
-      color: hexToRgba(style.fillColor, style.fillOpacity),
+      color: hexToRgba(style?.fillColor, style?.fillOpacity),
     }),
     text: createTextStyle(style, feature, resolution),
   });

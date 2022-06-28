@@ -33,15 +33,14 @@ function generateRoutes(routes) {
 
 function App() {
   const { pathname } = useLocation();
-  const newData = pathname?.includes('/organizations/');
-  const newData1 = pathname?.includes('/projects/');
+  const newData = pathname?.includes('/organizations/') && pathname?.includes('/projects/');
   const routesWithoutHeader = ['/login', '/'];
-  const hasNoHeader = !(newData && newData1) || routesWithoutHeader.includes(pathname);
+  const hasNoHeader = newData || routesWithoutHeader.includes(pathname);
 
   return (
     <>
       <Toast />
-      {hasNoHeader && <Header />}
+      {!hasNoHeader && <Header />}
       {generateRoutes(indexRoutes)}
     </>
   );
