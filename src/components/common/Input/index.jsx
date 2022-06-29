@@ -25,7 +25,7 @@ const Input = ({
   <>
     {icon ? (
       <div className={`pm-group ${className1}`}>
-        <label className={labelClassName}>{label}</label>
+        {label && <label className={labelClassName}>{label}</label>}
         <div className="custom-input-group">
           {iconAhead && (
             <span className="span-group pl-10">
@@ -55,7 +55,7 @@ const Input = ({
       </div>
     ) : (
       <div className={`pm-group ${className1}`}>
-        <label className={labelClassName}>{label}</label>
+        {label && <label className={labelClassName}>{label}</label>}
         <input
           type={type}
           className={className}

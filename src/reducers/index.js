@@ -10,6 +10,7 @@ import popup from './popup';
 import organizations from './organizations';
 import projectHeader from './projectHeader';
 import layerPopup from './IndividualProject/layerPopup';
+import landing from './landing';
 
 export default combineReducers({
   router: connectRouter(history),
@@ -22,4 +23,5 @@ export default combineReducers({
   organizations,
   projectHeader,
   layerPopup,
+  landing,
 });

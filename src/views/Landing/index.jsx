@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import RequestForDemo from '@Components/Landing/RequestForDemo/index';
 import logoWhite from '@Assets/images/logo-white.svg';
 import homeBanner from '@Assets/images/home-banner.jpg';
 import sc1 from '@Assets/images/sc-1.png';
@@ -14,7 +15,6 @@ import partners2 from '@Assets/images/Partners2.jpg';
 import partners1 from '@Assets/images/Partners1.jpg';
 import partners3 from '@Assets/images/Partners3.jpg';
 import partners4 from '@Assets/images/Partners4.jpg';
-import ctaImage from '@Assets/images/CTA-img.jpg';
 import logo from '@Assets/images/logo.svg';
 import fbLogo from '@Assets/images/fb-logo.svg';
 import linkedinLogo from '@Assets/images/linkedin-logo.svg';
@@ -540,48 +540,7 @@ const Landing = () => {
             </div>
           </div>
         </section>
-        <section className="usafiri-request" id="usafiri-request">
-          <div className="container">
-            <div className="usafiri-request-wrap">
-              <div className="usafiri-request-content">
-                <div className="row">
-                  <div className="grid-lg-7 grid-sm-12">
-                    <figure className="request-image">
-                      <img src={ctaImage} alt="cta" />
-                    </figure>
-                  </div>
-                  <div className="grid-lg-5 grid-sm-12">
-                    <form className="pd-25">
-                      <div className="pm-group">
-                        <input type="text" placeholder="Full name" className="pm-control" />
-                      </div>
-                      <div className="pm-group">
-                        <input type="email" placeholder="Email" className="pm-control" />
-                      </div>
-                      <div className="pm-group">
-                        <input type="number" placeholder="Phone" className="pm-control" />
-                      </div>
-                      <div className="pm-group">
-                        <input type="text" placeholder="Organization Name" className="pm-control" />
-                      </div>
-                      <div className="pm-group">
-                        <div className="pm-checkbox mb-0">
-                          <input type="checkbox" id="signin" />
-                          <label htmlFor="signin" className="fs-md">
-                            Yes, I would like to receive marketing communications regarding USAFIRI.
-                          </label>
-                        </div>
-                      </div>
-                      <button className="is-btn is-btn_primary" type="button">
-                        <span>Request for demo</span>
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <RequestForDemo />
       </main>
 
       {/* FOOTER STARTS HERE */}
