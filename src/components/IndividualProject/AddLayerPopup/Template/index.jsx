@@ -9,7 +9,7 @@ import { authenticated } from '@Services/index';
 const { BASE_URL } = process.env;
 
 const Template = () => {
-  const templateList = useSelector((state) => state.individualProject.templateList);
+  const templateList = useSelector((state) => state.layerPopup.templateList);
   const onTextChangeHandler = () => {};
   return (
     <div className="mt-15">

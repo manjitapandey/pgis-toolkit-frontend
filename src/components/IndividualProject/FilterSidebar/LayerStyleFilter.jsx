@@ -19,6 +19,7 @@ const {
   setEditLayerData,
   handleStyleInput,
   clearData,
+  clearLayerData,
   getGroupListRequest,
   openDatasetPopup,
   setAddUploadDataFile,
@@ -59,6 +60,7 @@ const LayerStyleFilter = ({ active }) => {
   const handleClick = () => {
     dispatch(setLayerFilterActive('map'));
     dispatch(clearData());
+    dispatch(clearLayerData());
   };
 
   const handleIconClick = (value) => {
