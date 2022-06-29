@@ -66,6 +66,7 @@ export const { Types, Creators } = createActions(
     openDatasetPopup: ['payload'],
     getSearchData: ['payload'],
     clearData: ['payload'],
+    clearLayerData: ['payload'],
     setLayerDeleteData: ['payload'],
     setThemeAddSuccess: ['payload'],
     setLayerDeleteSuccess: ['payload'],
