@@ -82,15 +82,14 @@ function createIconMarker(style) {
 }
 
 function createCircleMarker(style) {
-  const { lineColor, lineOpacity, fillColor, fillOpacity, lineThickness, circleRadius } = style;
   return new Circle({
-    radius: circleRadius,
+    radius: style?.circleRadius,
     stroke: new Stroke({
-      color: hexToRgba(lineColor, lineOpacity),
-      width: lineThickness,
+      color: hexToRgba(style?.lineColor, style?.lineOpacity),
+      width: style?.lineThickness,
     }),
     fill: new Fill({
-      color: hexToRgba(fillColor, fillOpacity),
+      color: hexToRgba(style?.fillColor, style?.fillOpacity),
     }),
   });
 }
@@ -180,23 +179,21 @@ function createTextStyle(style, feature, resolution) {
 }
 
 export function generateLayerStylePoint(style, feature, resolution) {
-  const { icon } = style;
   return new Style({
-    image: icon?.url ? createIconMarker(style) : createCircleMarker(style),
+    image: style?.icon?.url ? createIconMarker(style) : createCircleMarker(style),
     text: createTextStyle(style, feature, resolution),
   });
 }
 
 export function generateLayerStylePolygon(style, feature, resolution) {
-  const { lineColor, lineOpacity, fillColor, fillOpacity, lineThickness, dashline } = style;
   return new Style({
     stroke: new Stroke({
-      color: hexToRgba(lineColor && lineColor, lineOpacity),
-      width: lineThickness,
-      lineDash: [dashline],
+      color: hexToRgba(style?.lineColor && style?.lineColor, style?.lineOpacity),
+      width: style?.lineThickness,
+      lineDash: [style?.dashline],
     }),
     fill: new Fill({
-      color: hexToRgba(fillColor, fillOpacity),
+      color: hexToRgba(style?.fillColor, style?.fillOpacity),
     }),
     text: createTextStyle(style, feature, resolution),
   });
