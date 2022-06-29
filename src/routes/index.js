@@ -42,7 +42,7 @@ const indexRoutes = [
     path: '/',
     name: 'Landing',
     component: Landing,
-    authenticated: true,
+    // authenticated: true,
   },
 ];
 
