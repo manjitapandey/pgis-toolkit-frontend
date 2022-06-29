@@ -21,7 +21,7 @@ const Header = () => {
           <nav className="nav is-grow">
             <ul className="is-center is-flex is-align-center is-gap-30 is-grow">
               <li className={pathname === '/organizations' ? 'is-active' : ''}>
-                <Link to="/">Organization</Link>
+                <Link to="/organizations">Organization</Link>
               </li>
               <li className={pathname === '/users' ? 'is-active' : ''}>
                 <Link to="/users">Users</Link>
