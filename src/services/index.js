@@ -35,8 +35,10 @@ api.interceptors.response.use(
           return api(originalRequest);
         })
         .catch((err) => {
-          console.log(err);
-          console.log('err 401');
+          if (err.response.data.detail === 'Token is invalid or expired' && err.response.status === 401) {
+            window.location.href = '/login';
+          }
+          console.log(err, 'error');
         });
     }
 

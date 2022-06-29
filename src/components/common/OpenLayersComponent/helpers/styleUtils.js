@@ -206,7 +206,7 @@ export function generateLayerStyleLine(style, feature, resolution) {
   return new Style({
     stroke: new Stroke({
       color: hexToRgba(style?.lineColor, style?.lineOpacity),
-      width: style.lineThickness,
+      width: style?.lineThickness,
     }),
     fill: new Fill({
       color: hexToRgba(style?.fillColor, style?.fillOpacity),
