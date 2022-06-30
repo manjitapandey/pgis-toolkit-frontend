@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import RequestForDemo from '@Components/Landing/RequestForDemo/index';
+import CardTab from '@Components/common/CardTab/index';
+import { cardData, caseboxDetail, accordionDetails } from '@src/constants/landing';
+import Slider from 'react-slick';
 import logoWhite from '@Assets/images/logo-white.svg';
 import homeBanner from '@Assets/images/home-banner.jpg';
 import sc1 from '@Assets/images/sc-1.png';
@@ -10,7 +13,6 @@ import image11 from '@Assets/images/Image 11.png';
 import image6 from '@Assets/images/Image 6.png';
 import image5 from '@Assets/images/Image 5.png';
 import image7 from '@Assets/images/Image 7.png';
-import case1 from '@Assets/images/case-1.jpg';
 import partners2 from '@Assets/images/Partners2.jpg';
 import partners1 from '@Assets/images/Partners1.jpg';
 import partners3 from '@Assets/images/Partners3.jpg';
@@ -20,9 +22,14 @@ import fbLogo from '@Assets/images/fb-logo.svg';
 import linkedinLogo from '@Assets/images/linkedin-logo.svg';
 import twitterLogo from '@Assets/images/twitter-logo.svg';
 import youtubeLogo from '@Assets/images/youtube-logo.svg';
+import CaseboxWrapper from '@Components/common/CaseboxWrapper/index';
+import Accordion from '@Components/common/Accordion/index';
+
+const settings = { slidesToShow: 1, infinite: true, arrows: true, className: 'modal-slick' };
 
 const Landing = () => {
   const [header, setHeader] = useState(false);
+  const [selectedCard, setSelectedCard] = useState('1');
 
   const changeHeader = () => {
     if (window.scrollY >= 20) {
@@ -41,22 +48,22 @@ const Landing = () => {
               <img src={logoWhite} alt="logo" />
             </a>
             <nav className="nav is-grow">
-              <ul className="is-center is-flex is-align-center is-gap-30 is-grow">
+              {/* <ul className="is-center is-flex is-align-center is-gap-30 is-grow">
                 <li className="is-active">
                   <a href={() => {}}>use cases</a>
                 </li>
                 <li>
                   <a href={() => {}}>about</a>
                 </li>
-              </ul>
+  </ul> */}
             </nav>
             <div className="is-flex is-end is-align-center is-gap-10">
               <Link to="/organizations" className="is-btn is-btn_secondary">
                 <span>Sign in</span>
               </Link>
-              <button className="is-btn is-btn_primary" type="button">
+              <a className="is-btn is-btn_primary scroll-down" href="#usafiri-request">
                 <span>Request for demo</span>
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -124,73 +131,15 @@ const Landing = () => {
             <div className="row is-center">
               <div className="grid-lg-5 grid-sm-12">
                 <ul className="tab-list">
-                  <li className="is-border pd-15 is-active">
-                    <div className="tab-header">
-                      <h4>1. Multi-source data import</h4>
-                    </div>
-                    <div className="tab-body mt-05 fs-lg">
-                      <p>
-                        We offer a range of participatory mapping services to voluntary and community groups, business
-                        organisations and government bodies.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="is-border pd-15">
-                    <div className="tab-header">
-                      <p>2. Conduct data gap analysis</p>
-                    </div>
-                    <div className="tab-body mt-05 fs-lg">
-                      <p>
-                        We offer a range of participatory mapping services to voluntary and community groups, business
-                        organisations and government bodies.
-                      </p>
-                    </div>
-                  </li>
-
-                  <li className="is-border pd-15">
-                    <div className="tab-header">
-                      <p>3. Do data collection planning</p>
-                    </div>
-                    <div className="tab-body mt-05 fs-lg">
-                      <p>
-                        We offer a range of participatory mapping services to voluntary and community groups, business
-                        organisations and government bodies.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="is-border pd-15">
-                    <div className="tab-header">
-                      <p>4. Upload collected data into USAFIRI</p>
-                    </div>
-                    <div className="tab-body mt-05 fs-lg">
-                      <p>
-                        We offer a range of participatory mapping services to voluntary and community groups, business
-                        organisations and government bodies.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="is-border pd-15">
-                    <div className="tab-header">
-                      <p>5. Run participatory data planning</p>
-                    </div>
-                    <div className="tab-body mt-05 fs-lg">
-                      <p>
-                        We offer a range of participatory mapping services to voluntary and community groups, business
-                        organisations and government bodies.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="is-border pd-15">
-                    <div className="tab-header">
-                      <p>6. Conduct spatial analysis & map designs</p>
-                    </div>
-                    <div className="tab-body mt-05 fs-lg">
-                      <p>
-                        We offer a range of participatory mapping services to voluntary and community groups, business
-                        organisations and government bodies.
-                      </p>
-                    </div>
-                  </li>
+                  {cardData.map((item) => (
+                    <CardTab
+                      id={item?.id}
+                      heading={item?.heading}
+                      description={item?.description}
+                      setSelectedCard={setSelectedCard}
+                      selected={item.id === selectedCard}
+                    />
+                  ))}
                 </ul>
               </div>
               <div className="grid-lg-7 grid-sm-12">
@@ -327,107 +276,30 @@ const Landing = () => {
                   </a>
                 </li>
               </ul>
-              <div className="case-slider">
-                <div className="casebox-wrapper">
-                  <div className="casebox-item mt-15">
-                    <figure className="casebox-item_image">
-                      <img src={case1} alt="" />
-                    </figure>
-                    <div className="casebox-item_header mt-15">
-                      <p className="fw-bold is-uppercase fs-md">TRANSPORT ASSESSMENT</p>
-                      <h4 className="mb-12 mt-05">
-                        Report Mapping Kakamega, Kenya for Transportation Needs Assessment
-                      </h4>
-                      <date className="fs-md">Aug 2020 - Jan 2022</date>
-                    </div>
-                    <div className="casebox-item_body mt-15">
-                      <p>
-                        The first pilot of the Usafiri tool was conducted here. The learnings from this assessment drove
-                        the technical feature de…
-                      </p>
-                    </div>
-                  </div>
+              <div className="case-slider slick-initialized slick-slider">
+                <div className="row">
+                  {caseboxDetail.map(({ heading, image, title, description, date }) => (
+                    <CaseboxWrapper
+                      heading={heading}
+                      image={image}
+                      title={title}
+                      description={description}
+                      date={date}
+                    />
+                  ))}
                 </div>
-                <div className="casebox-wrapper">
-                  <div className="casebox-item mt-15">
-                    <figure className="casebox-item_image">
-                      <img src={case1} alt="" />
-                    </figure>
-                    <div className="casebox-item_header mt-15">
-                      <p className="fw-bold is-uppercase fs-md">TRANSPORT ASSESSMENT</p>
-                      <h4 className="mb-12 mt-05">
-                        Report Mapping Kakamega, Kenya for Transportation Needs Assessment
-                      </h4>
-                      <date className="fs-md">Aug 2020 - Jan 2022</date>
-                    </div>
-                    <div className="casebox-item_body mt-15">
-                      <p>
-                        The first pilot of the Usafiri tool was conducted here. The learnings from this assessment drove
-                        the technical feature de…
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="casebox-wrapper">
-                  <div className="casebox-item mt-15">
-                    <figure className="casebox-item_image">
-                      <img src={case1} alt="" />
-                    </figure>
-                    <div className="casebox-item_header mt-15">
-                      <p className="fw-bold is-uppercase fs-md">TRANSPORT ASSESSMENT</p>
-                      <h4 className="mb-12 mt-05">
-                        Report Mapping Kakamega, Kenya for Transportation Needs Assessment
-                      </h4>
-                      <date className="fs-md">Aug 2020 - Jan 2022</date>
-                    </div>
-                    <div className="casebox-item_body mt-15">
-                      <p>
-                        The first pilot of the Usafiri tool was conducted here. The learnings from this assessment drove
-                        the technical feature de…
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="casebox-wrapper">
-                  <div className="casebox-item mt-15">
-                    <figure className="casebox-item_image">
-                      <img src={case1} alt="" />
-                    </figure>
-                    <div className="casebox-item_header mt-15">
-                      <p className="fw-bold is-uppercase fs-md">TRANSPORT ASSESSMENT</p>
-                      <h4 className="mb-12 mt-05">
-                        Report Mapping Kakamega, Kenya for Transportation Needs Assessment
-                      </h4>
-                      <date className="fs-md">Aug 2020 - Jan 2022</date>
-                    </div>
-                    <div className="casebox-item_body mt-15">
-                      <p>
-                        The first pilot of the Usafiri tool was conducted here. The learnings from this assessment drove
-                        the technical feature de…
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="casebox-wrapper">
-                  <div className="casebox-item mt-15">
-                    <figure className="casebox-item_image">
-                      <img src={case1} alt="" />
-                    </figure>
-                    <div className="casebox-item_header mt-15">
-                      <p className="fw-bold is-uppercase fs-md">TRANSPORT ASSESSMENT</p>
-                      <h4 className="mb-12 mt-05">
-                        Report Mapping Kakamega, Kenya for Transportation Needs Assessment
-                      </h4>
-                      <date className="fs-md">Aug 2020 - Jan 2022</date>
-                    </div>
-                    <div className="casebox-item_body mt-15">
-                      <p>
-                        The first pilot of the Usafiri tool was conducted here. The learnings from this assessment drove
-                        the technical feature de…
-                      </p>
-                    </div>
-                  </div>
-                </div>
+
+                {/* <Slider {...settings}>
+                  {caseboxDetail.map(({ heading, image, title, description, date }) => (
+                    <CaseboxWrapper
+                      heading={heading}
+                      image={image}
+                      title={title}
+                      description={description}
+                      date={date}
+                    />
+                  ))}
+                  </Slider> */}
               </div>
             </div>
           </div>
@@ -496,45 +368,9 @@ const Landing = () => {
               </div>
               <div className="grid-xxl-9 grid-xl-8 grid-sm-12">
                 <div className="acc acc-after acc-border">
-                  <div className="acc-list acc-list_active">
-                    <div className="acc-list_header">
-                      <h4 className="is-grow">How is this different than OpenStreetMaps?</h4>
-                    </div>
-                    <div className="acc-list_body ">
-                      <p>
-                        While OpenStreetMaps(OSM) provides solid standardized base attributes, by its design it cannot
-                        contain specific attributes. We allow the addition of extra attributes to OSM points, lines, and
-                        polygons. It is done by linking OSM attributes with Usafiri and adding the extra attributes in
-                        Usafiri.{' '}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="acc-list ">
-                    <div className="acc-list_header">
-                      <h4 className="is-grow">Does Usafiri allow data exports?</h4>
-                    </div>
-                    <div className="acc-list_body">
-                      <p>
-                        While OpenStreetMaps(OSM) provides solid standardized base attributes, by its design it cannot
-                        contain specific attributes. We allow the addition of extra attributes to OSM points, lines, and
-                        polygons. It is done by linking OSM attributes with Usafiri and adding the extra attributes in
-                        Usafiri.{' '}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="acc-list ">
-                    <div className="acc-list_header">
-                      <h4 className="is-grow">Does Usafiri share data among organizations?</h4>
-                    </div>
-                    <div className="acc-list_body">
-                      <p>
-                        While OpenStreetMaps(OSM) provides solid standardized base attributes, by its design it cannot
-                        contain specific attributes. We allow the addition of extra attributes to OSM points, lines, and
-                        polygons. It is done by linking OSM attributes with Usafiri and adding the extra attributes in
-                        Usafiri.{' '}
-                      </p>
-                    </div>
-                  </div>
+                  {accordionDetails.map(({ h4Header, description }) => (
+                    <Accordion h4Header={h4Header} body={<p>{description}</p>} />
+                  ))}
                 </div>
               </div>
             </div>
