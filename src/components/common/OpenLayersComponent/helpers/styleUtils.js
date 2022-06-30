@@ -119,9 +119,9 @@ function truncString(str, n) {
 }
 
 function getText(style, feature, resolution) {
-  const type = style.labelText;
-  const maxResolution = style.labelMaxResolution;
-  let text = style.showLabel ? feature.get(style.labelField)?.toString() || '' : '';
+  const type = style?.labelText;
+  const maxResolution = style?.labelMaxResolution;
+  let text = style?.showLabel ? feature.get(style?.labelField)?.toString() || '' : '';
 
   if (resolution > maxResolution) {
     text = '';
@@ -129,7 +129,7 @@ function getText(style, feature, resolution) {
     text = '';
   } else if (type === 'shorten') {
     text = truncString(text, 12);
-  } else if (type === 'wrap' && (!style.labelPlacement || style.labelPlacement !== 'line')) {
+  } else if (type === 'wrap' && (!style?.labelPlacement || style?.labelPlacement !== 'line')) {
     text = stringDivider(text, 16, '\n');
   }
 

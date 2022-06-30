@@ -7,7 +7,7 @@ import Dropdown from '@Components/IndividualOrganizations/Dropdown/index';
 import { Creators } from '@Actions/individualProject';
 import popupAction from '@Actions/popup';
 
-const { setLayerFilterActive, setLayerDeleteData, setEditLayerData, setZoomToLayerId } = Creators;
+const { setLayerFilterActive, setLayerDeleteData, setEditLayerData, setZoomToLayerId, openDetailPopup } = Creators;
 
 const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onListChange, options, themeId, type }) => {
   const dispatch = useDispatch();
@@ -21,6 +21,9 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
   };
   const handleZoomClick = (layId) => {
     dispatch(setZoomToLayerId(layId));
+  };
+  const handleExploreClick = () => {
+    dispatch(openDetailPopup(true));
   };
 
   return (
@@ -37,9 +40,9 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
             className="is-flex is-grow"
           />
           <div className="is-flex is-end is-icon_list is-align-center">
-            {/* <button type="button" className="is-btn is-btn_link is-btn_sm">
-            <span>Explore</span>
-  </button> */}
+            <button type="button" className="is-btn is-btn_link is-btn_sm" onClick={handleExploreClick}>
+              <span>Explore</span>
+            </button>
             {type !== 'group' && isSelected && (
               <div className="pm-dropdown pm-dropdown_option">
                 <a href="#" className="is-circle is-circle_xs" onClick={() => handleEdit(uniqueId, catName, themeId)}>
