@@ -10,6 +10,7 @@ const Accordion = ({
   onHeaderClick,
   headerClassName,
   handleButtonClick,
+  h4Header,
 }) => {
   const [collapse, setCollapse] = useState(null);
 
@@ -25,18 +26,21 @@ const Accordion = ({
   return (
     <div className={`acc-list ${collapse ? '' : 'acc-list_active'}`} key={`${body}${header}`}>
       <div className="acc-list_header " onClick={handleToggle} onKeyDown={handleToggle} role="button" tabIndex={0}>
-        <div className="is-flex is-between is-gap-10">
-          {header}
-          <button
-            type="button"
-            className="is-btn is-btn_icon is-btn_link is-btn_sm"
-            modal-link="add-layer"
-            onClick={handleButtonClick}
-          >
-            <i className="material-icons">add_circle_outline</i>
-            <span>add</span>
-          </button>
-        </div>
+        {header && (
+          <div className="is-flex is-between is-gap-10">
+            {header}
+            <button
+              type="button"
+              className="is-btn is-btn_icon is-btn_link is-btn_sm"
+              modal-link="add-layer"
+              onClick={handleButtonClick}
+            >
+              <i className="material-icons">add_circle_outline</i>
+              <span>add</span>
+            </button>
+          </div>
+        )}
+        {h4Header && <h4 className="is-grow">{h4Header}</h4>}
         {description && <p className="mt-05">{description}</p>}
       </div>
       {!collapse && <div className="acc-list_body">{body}</div>}
@@ -51,6 +55,7 @@ Accordion.defaultProps = {
   onHeaderClick: () => {},
   handleButtonClick: () => {},
   description: '',
+  h4Header: '',
 };
 
 Accordion.propTypes = {
@@ -62,6 +67,7 @@ Accordion.propTypes = {
   onHeaderClick: PropTypes.func,
   handleButtonClick: PropTypes.func,
   description: PropTypes.string,
+  h4Header: PropTypes.string,
 };
 
 export default Accordion;
