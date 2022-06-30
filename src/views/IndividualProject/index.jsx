@@ -13,6 +13,7 @@ import popupAction from '@Actions/popup';
 import { Creators, Types as IndividualProjectTypes } from '@Actions/individualProject';
 import { checkIfLoading } from '@Utils/loaderSelector';
 import Loader from '@Components/common/Loader/index';
+import DetailDataPopup from '@Components/IndividualProject/DetailDataPopup/index';
 
 const {
   getProjectLayerDataRequest,
@@ -77,6 +78,7 @@ const IndividualProject = () => {
         <div className="dbd-body">
           <div className={mapToggle ? 'dbd-map is-flex dbd-map_active' : 'dbd-map is-flex'}>
             <MapSidebar isLoading={isLoading} />
+            <DetailDataPopup />
             <DeletePopup
               name={selectedLayerName}
               popup={deletePopup}

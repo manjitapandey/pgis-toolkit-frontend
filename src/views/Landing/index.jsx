@@ -1,36 +1,25 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import RequestForDemo from '@Components/Landing/RequestForDemo/index';
-import CardTab from '@Components/common/CardTab/index';
-import { cardData, caseboxDetail, accordionDetails } from '@src/constants/landing';
 import Slider from 'react-slick';
 import logoWhite from '@Assets/images/logo-white.svg';
-import homeBanner from '@Assets/images/home-banner.jpg';
-import sc1 from '@Assets/images/sc-1.png';
-import image9 from '@Assets/images/Image 9.png';
-import image12 from '@Assets/images/Image 12.png';
-import image11 from '@Assets/images/Image 11.png';
-import image6 from '@Assets/images/Image 6.png';
-import image5 from '@Assets/images/Image 5.png';
-import image7 from '@Assets/images/Image 7.png';
-import partners2 from '@Assets/images/Partners2.jpg';
-import partners1 from '@Assets/images/Partners1.jpg';
-import partners3 from '@Assets/images/Partners3.jpg';
-import partners4 from '@Assets/images/Partners4.jpg';
 import logo from '@Assets/images/logo.svg';
 import fbLogo from '@Assets/images/fb-logo.svg';
 import linkedinLogo from '@Assets/images/linkedin-logo.svg';
 import twitterLogo from '@Assets/images/twitter-logo.svg';
 import youtubeLogo from '@Assets/images/youtube-logo.svg';
-import CaseboxWrapper from '@Components/common/CaseboxWrapper/index';
-import Accordion from '@Components/common/Accordion/index';
+import Banner from '@Components/Landing/Banner/index';
+import About from '@Components/Landing/About/index';
+import WorkingUsafiri from '@Components/Landing/WokingUsafiri/index';
+import Features from '@Components/Landing/Features/index';
+import UseCase from '@Components/Landing/UseCase/index';
+import Partners from '@Components/Landing/Partners/index';
+import FAQs from '@Components/Landing/FAQs/index';
 
 const settings = { slidesToShow: 1, infinite: true, arrows: true, className: 'modal-slick' };
 
 const Landing = () => {
   const [header, setHeader] = useState(false);
-  const [selectedCard, setSelectedCard] = useState('1');
-
   const changeHeader = () => {
     if (window.scrollY >= 20) {
       setHeader(true);
@@ -71,311 +60,18 @@ const Landing = () => {
 
       {/* MAIN BODY STARTS HERE */}
       <main className="">
-        <section className="home-banner ">
-          <div className="container-fluid">
-            <div
-              className="home-banner_wrap is-flex is-center is-align-center"
-              style={{ paddingTop: '101.984px', minHeight: '585px' }}
-            >
-              <div className="container">
-                <div className="row is-center">
-                  <div className="grid-lg-6 grid-sm-12 is-column is-flex is-center is-align-center">
-                    <div className="home-banner_content is-text-center pd-15 mb-30">
-                      <div className="">
-                        <h1 className="mb-30">Participatory mapping tool for spatial decision support</h1>
-                        <h4>Piloting the tool for Transport Mobility Assessment</h4>
-                      </div>
-                      <div className="mt-30 pt-15 is-flex is-center">
-                        <a className="is-btn is-btn_primary scroll-down" href="#usafiri-request">
-                          <span>Request for demo</span>
-                        </a>
-                      </div>
-                    </div>
-                    <a href={() => {}} className="is-circle is-circle_sm is-circle_hover scroll-down mt-30">
-                      <i className="material-icons-outlined">expand_more</i>
-                    </a>
-                  </div>
-                  <div className="grid-lg-6 grid-sm-12">
-                    <figure className="home-banner_figure">
-                      <img src={homeBanner} alt="" />
-                    </figure>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="about-usafir pt-pb-100">
-          <div className="container">
-            <div className="section-title is-text-center mb-20">
-              <h6 className="is-uppercase clr-primary-500 fw-bold">ABOUT USAFIR</h6>
-            </div>
-            <div className="about-usafir_content is-text-center">
-              <h3 className="fw-bold mb-20">
-                Usafiri is an Open-source, participatory mapping toolkit aimed at rural communities.
-              </h3>
-              <p>
-                Aims to identify transportation needs and barriers in marginalized areas. The datasets prepared through
-                this toolkit will be synchronized to OpenStreetMap for wider dissemination. This project tackles a
-                significant barrier (tech-literacy) to the implementation of participatory geographic information
-                systems.
-              </p>
-            </div>
-          </div>
-        </section>
-        <section className="usafir-works pt-pb-100 is-bg" id="usafir-works">
-          <div className="container">
-            <div className="section-title mb-40">
-              <h2 className="is-capitalize fw-bold">How USAFIRI Works?</h2>
-            </div>
-            <div className="row is-center">
-              <div className="grid-lg-5 grid-sm-12">
-                <ul className="tab-list">
-                  {cardData.map((item) => (
-                    <CardTab
-                      id={item?.id}
-                      heading={item?.heading}
-                      description={item?.description}
-                      setSelectedCard={setSelectedCard}
-                      selected={item.id === selectedCard}
-                    />
-                  ))}
-                </ul>
-              </div>
-              <div className="grid-lg-7 grid-sm-12">
-                <div className="pl-30">
-                  <figure className="usafir-works_figure">
-                    <img src={sc1} alt="" />
-                  </figure>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="usafir-features pt-pb-100" id="usafir-features">
-          <div className="container">
-            <div className="section-title mb-40">
-              <h2 className="is-capitalize fw-bold">Major Features</h2>
-            </div>
-            <div className="row is-stretch">
-              <div className="grid-lg-4 grid-md-6 grid-sm-12 mb-5">
-                <div className="featuresBox">
-                  <figure className="featuresBox-icon">
-                    <img src={image9} alt="" />
-                  </figure>
-                  <div className="featuresBox-content mt-20">
-                    <h4 className="mb-12">Create Organization & Manage Projects</h4>
-                    <p>
-                      Manage your data collection projects effectively, and easily create your own organization and
-                      projects and start your data collection process.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="grid-lg-4 grid-md-6 grid-sm-12 mb-5">
-                <div className="featuresBox">
-                  <figure className="featuresBox-icon">
-                    <img src={image12} alt="" />
-                  </figure>
-                  <div className="featuresBox-content mt-20">
-                    <h4 className="mb-12">Multisource Data Integration</h4>
-                    <p>
-                      We allow importing data from different sources and formats. OpenStreetMaps, Custom Templates, and
-                      raw .shp files.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="grid-lg-4 grid-md-6 grid-sm-12 mb-5">
-                <div className="featuresBox">
-                  <figure className="featuresBox-icon">
-                    <img src={image11} alt="" />
-                  </figure>
-                  <div className="featuresBox-content mt-20">
-                    <h4 className="mb-12">Data Validation through Participatory Mapping</h4>
-                    <p>
-                      Geo-graphic data and their attributes can be visualized in the map and tabular form and validated.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="grid-lg-4 grid-md-6 grid-sm-12">
-                <div className="featuresBox">
-                  <figure className="featuresBox-icon">
-                    <img src={image6} alt="" />
-                  </figure>
-                  <div className="featuresBox-content mt-20">
-                    <h4 className="mb-12">Simple Interactive Mapping Interface</h4>
-                    <p>
-                      We provide a user-friendly interface for mapping, You can create new geographic data points or
-                      modify the existing data points.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="grid-lg-4 grid-md-6 grid-sm-12">
-                <div className="featuresBox">
-                  <figure className="featuresBox-icon">
-                    <img src={image5} alt="" />
-                  </figure>
-                  <div className="featuresBox-content mt-20">
-                    <h4 className="mb-12">Map Design & Export</h4>
-                    <p>
-                      The data points in the map can be styled with different colors, strokes, and symbology. The styled
-                      map can also be exported as a pdf.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="grid-lg-4 grid-md-6 grid-sm-12">
-                <div className="featuresBox">
-                  <figure className="featuresBox-icon">
-                    <img src={image7} alt="" />
-                  </figure>
-                  <div className="featuresBox-content mt-20">
-                    <h4 className="mb-12">Spatial Analysis for Transport Need Assessment</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="usafiri-cases pt-pb-100 is-bg ">
-          <div className="container">
-            <div className="section-title is-text-center mb-40">
-              <h2 className="is-capitalize fw-bold mb-12">Use Cases</h2>
-              <p>
-                A GIS-based toolkit to assess, in a participatory way, the unmet transportation
-                <br /> needs and mobility barriers of rural communities.
-              </p>
-            </div>
-            <div className="cases-tab">
-              <ul className="is-flex is-center is-align-center is-gap-10 is-wrap">
-                <li className="is-active">
-                  <a href={() => {}} className="is-flex is-column is-center is-align-center">
-                    <div className="tab-icon">
-                      <i className="material-icons-outlined">layers</i>
-                    </div>
-                    <p>Transport Assessment</p>
-                  </a>
-                </li>
-                <li>
-                  <a href={() => {}} className="is-flex is-column is-center is-align-center">
-                    <div className="tab-icon">
-                      <i className="material-icons-outlined">health_and_safety</i>
-                    </div>
-                    <p>Planning Health Facilities</p>
-                  </a>
-                </li>
-                <li>
-                  <a href={() => {}} className="is-flex is-column is-center is-align-center">
-                    <div className="tab-icon">
-                      <i className="material-icons-outlined">warning_amber</i>
-                    </div>
-                    <p>Participator Risk Mapping</p>
-                  </a>
-                </li>
-              </ul>
-              <div className="case-slider slick-initialized slick-slider">
-                <div className="row">
-                  {caseboxDetail.map(({ heading, image, title, description, date }) => (
-                    <CaseboxWrapper
-                      heading={heading}
-                      image={image}
-                      title={title}
-                      description={description}
-                      date={date}
-                    />
-                  ))}
-                </div>
-
-                {/* <Slider {...settings}>
-                  {caseboxDetail.map(({ heading, image, title, description, date }) => (
-                    <CaseboxWrapper
-                      heading={heading}
-                      image={image}
-                      title={title}
-                      description={description}
-                      date={date}
-                    />
-                  ))}
-                  </Slider> */}
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="usafiri-partners pt-pb-100  ">
-          <div className="container">
-            <div className="section-title is-text-center mb-40">
-              <h2 className="is-capitalize fw-bold mb-12">Partners</h2>
-            </div>
-            <div className="row">
-              <div className="grid-xl-3 grid-6">
-                <div className="partnerBox">
-                  <p className="mb-20">Supported by</p>
-                  <div className="partnerBox-logos is-flex is-start is-align-center is-gap-15 is-wrap">
-                    <a href={() => {}}>
-                      <img src={partners2} alt="tech4dev" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="grid-xl-3 grid-6">
-                <div className="partnerBox">
-                  <p className="mb-20">Implementing partner</p>
-                  <div className="partnerBox-logos is-flex is-start is-align-center is-gap-15 is-wrap">
-                    <a href={() => {}}>
-                      <img src={partners1} alt="world bicycle" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="grid-xl-3 grid-6">
-                <div className="partnerBox">
-                  <p className="mb-20">Research partner</p>
-                  <div className="partnerBox-logos is-flex is-start is-align-center is-gap-15 is-wrap">
-                    <a href={() => {}}>
-                      <img src={partners3} alt="ceat " />
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="grid-xl-3 grid-6">
-                <div className="partnerBox">
-                  <p className="mb-20">Technology partners</p>
-                  <div className="partnerBox-logos is-flex is-start is-align-center is-gap-15 is-wrap ">
-                    <a href={() => {}}>
-                      <img src={partners4} alt="naxa " />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Banner />
+        <About />
+        <WorkingUsafiri />
+        <Features />
+        <UseCase />
+        <Partners />
         <div className="border">
           <div className="container">
             <div className="is-border" />
           </div>
         </div>
-        <section className="usafiri-faqs pt-pb-100  ">
-          <div className="container">
-            <div className="row">
-              <div className="grid-xxl-3 grid-xl-4 grid-sm-12">
-                <div className="section-title  mb-40">
-                  <h2 className="is-capitalize fw-bold mb-12">FAQs</h2>
-                </div>
-              </div>
-              <div className="grid-xxl-9 grid-xl-8 grid-sm-12">
-                <div className="acc acc-after acc-border">
-                  {accordionDetails.map(({ h4Header, description }) => (
-                    <Accordion h4Header={h4Header} body={<p>{description}</p>} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <FAQs />
         <RequestForDemo />
       </main>
 

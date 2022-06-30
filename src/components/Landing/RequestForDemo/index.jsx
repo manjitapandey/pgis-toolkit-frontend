@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import ctaImage from '@Assets/images/CTA-img.jpg';
 import useForm from '@Hooks/useForm';
+import { checkIfLoading } from '@Utils/loaderSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '@Components/common/Input';
-import Creators from '@Actions/landing';
+import Creators, { Types as LandingTypes } from '@Actions/landing';
+import Spinner from '@Components/common/Spinner/index';
 
 const { postRequestForDemoRequest, setAddRequestData } = Creators;
 
@@ -12,7 +14,7 @@ const RequestForDemo = () => {
   const dispatch = useDispatch();
   const [checkState, setCheckState] = useState({ name: false, email: false });
   const addRequestData = useSelector((state) => state.landing.addRequestData);
-
+  const isLoading = useSelector((state) => checkIfLoading(state, LandingTypes.POST_REQUEST_FOR_DEMO_REQUEST));
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === 'full_name') {
@@ -92,7 +94,19 @@ const RequestForDemo = () => {
                     </div>
                   </div>
                   <button className="is-btn is-btn_primary" type="button" onClick={handleSubmit}>
-                    <span>Request for demo</span>
+                    {isLoading ? (
+                      <Spinner
+                        style={{
+                          width: '18px',
+                          height: '18px',
+                          border: '3px solid #ffffff',
+                          borderTop: '3px solid #0055ff',
+                          marginLeft: '6px',
+                        }}
+                      />
+                    ) : (
+                      <span>Request for demo</span>
+                    )}
                   </button>
                 </form>
               </div>

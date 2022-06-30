@@ -73,6 +73,7 @@ export const { Types, Creators } = createActions(
     handleStyleInput: ['payload'],
     setLayerLoading: ['payload'],
     setTaskLoading: ['payload'],
+    openDetailPopup: ['payload'],
   },
   { prefix: 'IndividualProject/' },
 );
