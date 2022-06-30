@@ -14,7 +14,7 @@ export function* postRequestForDemoRequest(action) {
     });
     const response = yield call(postRequestForDemo, formData);
     yield put(landingActions.postRequestForDemoSuccess({ data: response.data }));
-    yield put(toastActions.success({ message: 'Your data has been requested successfully' }));
+    yield put(toastActions.success({ message: 'Thank you! We will reach-out to you soon.' }));
     yield put(landingActions.clearData());
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));

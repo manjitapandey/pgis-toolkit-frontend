@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Popup from '@Components/common/Popup/index';
 import { useDispatch, useSelector } from 'react-redux';
-import individualProjectAction, { Creators } from '@Actions/individualProject';
+import { Creators } from '@Actions/individualProject';
 import toastAction from '@Actions/toast';
 import { layerPopupTabOptions } from '@src/constants/commonData';
 import Tab from '@Components/common/Tab/index';
