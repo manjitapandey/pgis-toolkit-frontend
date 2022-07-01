@@ -13,6 +13,8 @@ export const getTaskResponse = (params) => authenticated(api).get(`/maps/get_lay
 
 export const getGroupList = (params) => authenticated(api).get(`/maps/layer_group/`, { params });
 
+export const getFeatureCollection = (params) => authenticated(api).get(`/maps/feature_collection/`, { params });
+
 export const getStandardIcons = () => authenticated(api).get(`/maps/standard_icon/`);
 
 export const postGroupData = (payload) => authenticated(api).post(`/maps/layer_group/`, payload);

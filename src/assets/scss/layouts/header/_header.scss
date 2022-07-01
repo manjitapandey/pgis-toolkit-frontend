@@ -7,6 +7,11 @@
     }
   }
   border-bottom: 1px solid var(--clr-body-500);
+  .dbd-header-in{
+    @include breakpoint-down("lg-tab"){
+      padding:0 1rem;
+    }
+  }
   &_home{
     padding:18px 0;
     border:0;
@@ -26,12 +31,17 @@
             text-decoration: underline;
           }
         }
+        
+        
       }
       &_primary{
         background-color: var(--clr-white-900);
         color:var(--clr-primary-500);
         &:hover{
           background-color: var(--clr-primary-50);
+        }
+        @include breakpoint-down("lg-tab"){
+          display: none;
         }
       }
     }

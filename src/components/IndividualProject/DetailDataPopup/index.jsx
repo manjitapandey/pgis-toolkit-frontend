@@ -1,359 +1,82 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Popup from '@Components/common/Popup/index';
 import { Creators } from '@Actions/individualProject';
 import Search from '@Components/common/Search/index';
+import Table, { TableHeader } from '@Components/common/Table';
+import PropTypes from 'prop-types';
+import useDebouncedInput from '@Hooks/useDebouncedInput';
+import TableLoader from '@Components/common/TableLoader/index';
 
-const { openDetailPopup } = Creators;
+const { openDetailPopup, clearDetailData, getFeatureCollectionRequest } = Creators;
 
-const DetailDataPopup = () => {
+const DetailDataPopup = ({ isLoading }) => {
   const dispatch = useDispatch();
   const popup = useSelector((state) => state.detailPopup.detailPopup);
+  const layerName = useSelector((state) => state.detailPopup.layerName);
+  const layerId = useSelector((state) => state.detailPopup.layerId);
+  const featureCollection = useSelector((state) => state.detailPopup.featureCollection);
+  const headerData = useSelector((state) => state.detailPopup.headerData);
+
+  const [search, handleSearch] = useDebouncedInput({
+    ms: 200,
+    init: '',
+    onChange: (e) => {
+      const { value } = e.target;
+      // dispatch(dataActions.setSearchData(value));
+      dispatch(getFeatureCollectionRequest({ layer_id: layerId, limit: 5, search: value }));
+    },
+  });
+
   const handleCloseClick = () => {
     dispatch(openDetailPopup(false));
+    dispatch(clearDetailData());
   };
   return (
     <Popup
       tagId="explore"
       className="pm-modal_cntr_xxl"
-      header="Road Crash/Accident Data"
+      header={layerName}
       popup={popup}
       handleCloseClick={handleCloseClick}
       body={
         <>
           <div className="is-flex is-start is-align-center is-gap-15 mt-15 mb-15">
-            <Search />
+            <Search handleSearch={handleSearch} value={search} />
           </div>
-          <div className="pm-table">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>
-                    <div className="is-flex is-start is-gap-10">
-                      <span>ID</span>
-                      <div className="pm-table_arrow">
-                        <div className="updown-arrow">
-                          <i className="material-icons">unfold_more</i>
+          {isLoading || !featureCollection ? (
+            <TableLoader />
+          ) : (
+            <Table data={featureCollection?.results}>
+              {headerData &&
+                headerData?.map((elem) => (
+                  <TableHeader
+                    dataField={elem}
+                    dataFormat={(row, _, index) => <p>{row[elem]}</p>}
+                    dataHeader={
+                      <div className="is-flex is-start is-gap-10">
+                        <span>{elem}</span>
+                        <div className="pm-table_arrow">
+                          <div className="updown-arrow">
+                            <i className="material-icons">unfold_more</i>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </th>
-                  <th className="is-active">
-                    <div className="is-flex is-start is-gap-10">
-                      <span>Name</span>
-                      <div className="pm-table_arrow">
-                        <div className="updown-arrow">
-                          <i className="material-icons">expand_more</i>
-                        </div>
-                      </div>
-                    </div>
-                  </th>
-                  <th>
-                    <div className="is-flex is-start is-gap-10">
-                      <span>address</span>
-                      <div className="pm-table_arrow">
-                        <div className="updown-arrow">
-                          <i className="material-icons">unfold_more</i>
-                        </div>
-                      </div>
-                    </div>
-                  </th>
-                  <th>
-                    <div className="is-flex is-start is-gap-10">
-                      <span>Type of road obstracle</span>
-                      <div className="pm-table_arrow">
-                        <div className="updown-arrow">
-                          <i className="material-icons">unfold_more</i>
-                        </div>
-                      </div>
-                    </div>
-                  </th>
-                  <th>
-                    <div className="is-flex is-start is-gap-10">
-                      <span>LAT. (Y COORD.)</span>
-                      <div className="pm-table_arrow">
-                        <div className="updown-arrow">
-                          <i className="material-icons">unfold_more</i>
-                        </div>
-                      </div>
-                    </div>
-                  </th>
-                  <th>
-                    <div className="is-flex is-start is-gap-10">
-                      <span>LONG. (X COORD.)</span>
-                      <div className="pm-table_arrow">
-                        <div className="updown-arrow">
-                          <i className="material-icons">unfold_more</i>
-                        </div>
-                      </div>
-                    </div>
-                  </th>
-                  <th>
-                    <div className="is-flex is-start is-gap-10">
-                      <span>ELEV. (Z COORD.)</span>
-                      <div className="pm-table_arrow">
-                        <div className="updown-arrow">
-                          <i className="material-icons">unfold_more</i>
-                        </div>
-                      </div>
-                    </div>
-                  </th>
-                  <th>
-                    <div className="is-flex is-start is-gap-10">
-                      <span>TOTAL LENGTH</span>
-                      <div className="pm-table_arrow">
-                        <div className="updown-arrow">
-                          <i className="material-icons">unfold_more</i>
-                        </div>
-                      </div>
-                    </div>
-                  </th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <span>ID-2456</span>
-                  </td>
-                  <td>
-                    <span>Road Crash 1</span>
-                  </td>
-                  <td>
-                    <span>32 Street, Kenyatta Avenue</span>
-                  </td>
-                  <td>
-                    <span>Pothole</span>
-                  </td>
-                  <td>
-                    <span>-1.2847917285756245</span>
-                  </td>
-                  <td>
-                    <span>36.82012434916634</span>
-                  </td>
-                  <td>
-                    <span>3.2847917285756245</span>
-                  </td>
-                  <td>
-                    <span>12 meters</span>
-                  </td>
-                  <td>
-                    <span>Yes</span>
-                  </td>
-                  <td className="is-sticky-td">
-                    <div className="is-flex is-end">
-                      <div className="pm-dropdown pm-dropdown_option pm-dropdown_right">
-                        <a href="#" className="is-circle is-circle_xs">
-                          <i className="material-icons-outlined">more_vert</i>
-                        </a>
-                        <ul className="pm-dropdown_menu">
-                          <li>
-                            <a href="#">
-                              <i className="material-icons-outlined">edit</i>
-                              <span>Edit</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i className="material-icons-outlined">manage_accounts</i>
-                              <span>Assign</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#" className="clr-primary-500">
-                              <i className="material-icons-outlined">delete</i>
-                              <span>Delete</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>ID-2456</span>
-                  </td>
-                  <td>
-                    <span>Road Crash 1</span>
-                  </td>
-                  <td>
-                    <span>32 Street, Kenyatta Avenue</span>
-                  </td>
-                  <td>
-                    <span>Pothole</span>
-                  </td>
-                  <td>
-                    <span>-1.2847917285756245</span>
-                  </td>
-                  <td>
-                    <span>36.82012434916634</span>
-                  </td>
-                  <td>
-                    <span>3.2847917285756245</span>
-                  </td>
-                  <td>
-                    <span>12 meters</span>
-                  </td>
-                  <td>
-                    <span>Yes</span>
-                  </td>
-                  <td className="is-sticky-td">
-                    <div className="is-flex is-end">
-                      <div className="pm-dropdown pm-dropdown_option pm-dropdown_right">
-                        <a href="#" className="is-circle is-circle_xs">
-                          <i className="material-icons-outlined">more_vert</i>
-                        </a>
-                        <ul className="pm-dropdown_menu">
-                          <li>
-                            <a href="#">
-                              <i className="material-icons-outlined">edit</i>
-                              <span>Edit</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i className="material-icons-outlined">manage_accounts</i>
-                              <span>Assign</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#" className="clr-primary-500">
-                              <i className="material-icons-outlined">delete</i>
-                              <span>Delete</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>ID-2456</span>
-                  </td>
-                  <td>
-                    <span>Road Crash 1</span>
-                  </td>
-                  <td>
-                    <span>32 Street, Kenyatta Avenue</span>
-                  </td>
-                  <td>
-                    <span>Pothole</span>
-                  </td>
-                  <td>
-                    <span>-1.2847917285756245</span>
-                  </td>
-                  <td>
-                    <span>36.82012434916634</span>
-                  </td>
-                  <td>
-                    <span>3.2847917285756245</span>
-                  </td>
-                  <td>
-                    <span>12 meters</span>
-                  </td>
-                  <td>
-                    <span>Yes</span>
-                  </td>
-                  <td className="is-sticky-td">
-                    <div className="is-flex is-end">
-                      <div className="pm-dropdown pm-dropdown_option pm-dropdown_right">
-                        <a href="#" className="is-circle is-circle_xs">
-                          <i className="material-icons-outlined">more_vert</i>
-                        </a>
-                        <ul className="pm-dropdown_menu">
-                          <li>
-                            <a href="#">
-                              <i className="material-icons-outlined">edit</i>
-                              <span>Edit</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i className="material-icons-outlined">manage_accounts</i>
-                              <span>Assign</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#" className="clr-primary-500">
-                              <i className="material-icons-outlined">delete</i>
-                              <span>Delete</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>ID-2456</span>
-                  </td>
-                  <td>
-                    <span>Road Crash 1</span>
-                  </td>
-                  <td>
-                    <span>32 Street, Kenyatta Avenue</span>
-                  </td>
-                  <td>
-                    <span>Pothole</span>
-                  </td>
-                  <td>
-                    <span>-1.2847917285756245</span>
-                  </td>
-                  <td>
-                    <span>36.82012434916634</span>
-                  </td>
-                  <td>
-                    <span>3.2847917285756245</span>
-                  </td>
-                  <td>
-                    <span>12 meters</span>
-                  </td>
-                  <td>
-                    <span>Yes</span>
-                  </td>
-                  <td className="is-sticky-td">
-                    <div className="is-flex is-end">
-                      <div className="pm-dropdown pm-dropdown_option pm-dropdown_right">
-                        <a href="#" className="is-circle is-circle_xs">
-                          <i className="material-icons-outlined">more_vert</i>
-                        </a>
-                        <ul className="pm-dropdown_menu">
-                          <li>
-                            <a href="#">
-                              <i className="material-icons-outlined">edit</i>
-                              <span>Edit</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i className="material-icons-outlined">manage_accounts</i>
-                              <span>Assign</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#" className="clr-primary-500">
-                              <i className="material-icons-outlined">delete</i>
-                              <span>Delete</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="is-flex is-center is-align-center">
-            <p className="fs-md">You have reached the end of data.</p>
-          </div>
+                    }
+                  />
+                ))}
+              {/* <TableHeader dataFormat={(row, _, index) => <TableDropdown />} /> */}
+            </Table>
+          )}
         </>
       }
     />
   );
+};
+
+DetailDataPopup.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default DetailDataPopup;

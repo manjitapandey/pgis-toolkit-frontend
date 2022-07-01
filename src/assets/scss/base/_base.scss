@@ -24,7 +24,8 @@ body {
   background-color: var(--clr-white-900);
   position: relative;
   color: var(--clr-body-900);
-  font-size: var(--fs-body);
+  font-size: var(--fs-lg);
+  line-height: 1.375;
   &.is-bg {
     background-color: var(--clr-body-50);
   }

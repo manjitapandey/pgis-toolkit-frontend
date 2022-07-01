@@ -12,7 +12,7 @@ const CaseboxWrapper = ({ heading, title, image, date, description }) => (
         <h4 className="mb-12 mt-05">{title}</h4>
         <date className="fs-md">{date}</date>
       </div>
-      <div className="casebox-item_body mt-15">
+      <div className="casebox-item_body mt-15 fs-lg">
         <p>{description}</p>
       </div>
     </div>

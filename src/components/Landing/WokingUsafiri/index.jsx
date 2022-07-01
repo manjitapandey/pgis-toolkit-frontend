@@ -14,7 +14,7 @@ const WorkingUsafiri = () => {
         </div>
         <div className="row is-center">
           <div className="grid-lg-5 grid-sm-12">
-            <ul className="tab-list">
+            <ul className="tab-list fs-lg">
               {cardData.map((item) => (
                 <CardTab
                   id={item?.id}

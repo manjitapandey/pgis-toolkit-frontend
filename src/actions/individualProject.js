@@ -26,6 +26,10 @@ export const { Types, Creators } = createActions(
     getGroupListSuccess: ['payload'],
     getGroupListFailure: null,
 
+    getFeatureCollectionRequest: ['params'],
+    getFeatureCollectionSuccess: ['payload'],
+    getFeatureCollectionFailure: null,
+
     getStandardIconsRequest: ['params'],
     getStandardIconsSuccess: ['payload'],
     getStandardIconsFailure: null,
@@ -74,6 +78,8 @@ export const { Types, Creators } = createActions(
     setLayerLoading: ['payload'],
     setTaskLoading: ['payload'],
     openDetailPopup: ['payload'],
+    selectLayerData: ['payload'],
+    clearDetailData: ['payload'],
   },
   { prefix: 'IndividualProject/' },
 );

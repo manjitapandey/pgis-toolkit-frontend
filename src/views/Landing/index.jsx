@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import RequestForDemo from '@Components/Landing/RequestForDemo/index';
@@ -20,6 +21,14 @@ const settings = { slidesToShow: 1, infinite: true, arrows: true, className: 'mo
 
 const Landing = () => {
   const [header, setHeader] = useState(false);
+  const [menu, setMenu] = useState(false);
+
+  const handleMenu = () => {
+    setMenu(true);
+  };
+  const handleClose = () => {
+    setMenu(false);
+  };
   const changeHeader = () => {
     if (window.scrollY >= 20) {
       setHeader(true);
@@ -30,21 +39,41 @@ const Landing = () => {
   window.addEventListener('scroll', changeHeader);
   return (
     <>
-      <header className={!header ? 'dbd-header dbd-header_home' : 'dbd-header dbd-header_home is-fixed'}>
+      <header
+        // className={
+        //   !header
+        //     ? 'dbd-header dbd-header_home'
+        //     : menu
+        //     ? 'dbd-header dbd-header_home is-fixed dbd-header_active'
+        //     : 'dbd-header dbd-header_home is-fixed'
+        // }
+        className={
+          menu
+            ? 'dbd-header dbd-header_home dbd-header_active'
+            : menu && header
+            ? 'dbd-header dbd-header_home is-fixed dbd-header_active'
+            : header
+            ? 'dbd-header dbd-header_home is-fixed'
+            : 'dbd-header dbd-header_home'
+        }
+      >
         <div className="container">
-          <div className="is-flex is-between is-align-center is-wrap is-gap-15">
+          <div className="is-flex is-between is-align-center is-wrap is-gap-15 dbd-header-in">
             <a href={() => {}} className="logo">
               <img src={logoWhite} alt="logo" />
             </a>
             <nav className="nav is-grow">
-              {/* <ul className="is-center is-flex is-align-center is-gap-30 is-grow">
+              <div className="toggle-btn material-icons-outlined" onClick={handleClose}>
+                close
+              </div>
+              <ul className="is-center is-flex is-align-center is-gap-30 is-grow">
                 <li className="is-active">
                   <a href={() => {}}>use cases</a>
                 </li>
                 <li>
                   <a href={() => {}}>about</a>
                 </li>
-  </ul> */}
+              </ul>
             </nav>
             <div className="is-flex is-end is-align-center is-gap-10">
               <Link to="/organizations" className="is-btn is-btn_secondary">
@@ -53,6 +82,9 @@ const Landing = () => {
               <a className="is-btn is-btn_primary scroll-down" href="#usafiri-request">
                 <span>Request for demo</span>
               </a>
+              <div className="toggle-btn material-icons-outlined" onClick={handleMenu}>
+                menu
+              </div>
             </div>
           </div>
         </div>

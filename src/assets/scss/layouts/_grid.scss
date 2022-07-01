@@ -4088,86 +4088,31 @@
     display: none !important;
   }
 }
+$minColWidth:300px;
+.grid {
+  display: grid;
+  gap: 2rem;
 
-// $grid-gutter-width: 1rem;
-// $grid-sm: 576;
-// $grid-md: 768;
-// $grid-lg: 992;
-// $grid-xl: 1200;
-// $grid-xxl: 1320;
-// $grid-cols: 12;
-// $map-grid-props: ('': 0,
-//     '-sm': $grid-sm,
-//     '-md': $grid-md,
-//     '-lg': $grid-lg,
-//     '-xl': $grid-xl,
-//     '-xxl' : $grid-xxl);
-// @mixin create-mq($breakpoint, $min-or-max) {
-//     @if($breakpoint==0) {
-//         @content;
-//     }
-//     @else {
-//         @media screen and (#{$min-or-max}-width: $breakpoint *1px) {
-//             @content;
-//         }
-//     }
-// }
-// @mixin create-col-classes($modifier, $grid-cols, $breakpoint) {
-//     @include create-mq($breakpoint, 'min') {
-//         &#{$modifier}-offset-0 {
-//             margin-left: 0;
-//         }
-//         @for $i from 1 through $grid-cols {
-//             &#{$modifier}-#{$i} {
-//                 // flex-basis: (100 / ($grid-cols / $i)) * 1%;
-//                 flex: (0 0 (100 / ($grid-cols / $i)) * 1%);
-//                 width: (100 / ($grid-cols / $i)) * 1%;
-//                 padding-left: $grid-gutter-width;
-//                 padding-right: $grid-gutter-width;
-//             }
-//             &#{$modifier}-offset-#{$i} {
-//                 margin-left: (100 / ($grid-cols / $i)) * 1%;
-//             }
-//         }
-//     }
-// }
-// @each $modifier,
-// $breakpoint in $map-grid-props {
-//     @if($modifier=='') {
-//         $modifier: '-xs';
-//     }
-//     @include create-mq($breakpoint - 1, 'max') {
-//         .hidden#{$modifier}-down {
-//             display: none !important;
-//         }
-//     }
-//     @include create-mq($breakpoint, 'min') {
-//         .hidden#{$modifier}-up {
-//             display: none !important;
-//         }
-//     }
-// }
-// .grid-container {
-//     max-width: $grid-md * 1px;
-//     margin: 0 auto;
-//     width: 100%;
-//     padding-left: $grid-gutter-width;
-//     padding-right: $grid-gutter-width;
-//     &--fluid {
-//         margin: 0;
-//         max-width: 100%;
-//     }
-// }
-// .grid-row {
-//     display: flex;
-//     flex-wrap: wrap;
-//     width: 100%;
-//     margin-right: $grid-gutter-width;
-//     margin-left: $grid-gutter-width;
-// }
-// .grid {
-//     @each $modifier,
-//     $breakpoint in $map-grid-props {
-//         @include create-col-classes($modifier, $grid-cols, $breakpoint);
-//     }
-// }
+  &-cols_2 {
+    grid-template-columns: repeat(auto-fit, minmax($minColWidth, 1fr));
+    
+  }
+
+  &-cols_3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &-cols_4 {
+    grid-template-columns: repeat(auto-fit, minmax($minColWidth, 1fr));
+  }
+  &-cols_5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+.grid{
+  &-cols_2{
+    &--1fr{
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
