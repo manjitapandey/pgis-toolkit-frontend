@@ -1,41 +1,6 @@
 // Breakpoints
 
-// calling method
 
-$breakpoints: (
-  'sm-phone': (
-    min-width: 320px,
-  ),
-  'mmd-phone': (
-    min-width: 375px,
-  ),
-  'md-phone': (
-    min-width: 480px,
-  ),
-  'xl-phone': (
-    min-width: 576px,
-  ),
-  'md-tab': (
-    min-width: 767.9px,
-  ),
-  'lg-tab': (
-    min-width: 991.9px,
-  ),
-  'xl-tab': (
-    min-width: 1024px,
-  ),
-  'md-desktop': (
-    min-width: 1280px,
-  ),
-  'xl-desktop': (
-    min-width: 1368px,
-  ),
-);
-@mixin breakpoint-to($size){
-  @media (min-width:map-get($breakpoints,$size)){
-    @content;
-  }
-}
 
 $breakpoints-up :(
   'sm-phone':320px,
@@ -84,7 +49,7 @@ $breakpoints-down :(
 //   }
 
 // calling method
-// @include breakpoint-to('sm-phone') {
+// @include breakpoint-up('sm-phone') {
 //     color: blue;
 //   }
 

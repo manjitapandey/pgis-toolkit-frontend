@@ -23,13 +23,13 @@
   width: 100%;
   &_wrap {
     width: 100%;
-    @include breakpoint-to('md-desktop') {
+    @include breakpoint-up('md-desktop') {
       width: calc(100% - 440px);
     }
   }
   &_sidebar {
     width: 100%;
-    @include breakpoint-to('md-desktop') {
+    @include breakpoint-up('md-desktop') {
       max-width: 460px;
       width: 460px;
     }
@@ -96,17 +96,15 @@
     position: relative;
     border-radius: 20px;
     min-height: 600px;
+    overflow: hidden;
     img{
-      position: absolute;
-      top: 0px;
-      left: 0px;
       width: 100%;
-      height: 100%;
       object-fit: cover;
-      object-position: center center;
       border-radius: 20px;
     }
+    
   }
+  
   .scroll-down{
    &.is-circle_hover{
      color:var(--clr-white-900);
@@ -122,13 +120,20 @@
     .home-banner_figure{
       max-width: 100%;
       min-height: 350px;
+      max-height: 350px;
     }
   }
 }
 .about-usafir{
   &_content{
-    max-width: 680px;
+    max-width: 800px;
     margin:0 auto;
+    p{
+      font-size: var(--fs-lg);
+      &:not(:last-child){
+        margin-bottom: 1rem;
+      }
+    }
   }
 }
 .usafir-works{
@@ -156,24 +161,48 @@
       }
     }
   }
+  .pl-30{
+    padding-left:0;
+    @include breakpoint-up('lg-tab'){
+      &:not(:last-child){
+        padding-left: 3rem;
+      }
+    }
+  }
   &_figure{
     box-shadow: -30px 5px 40px #0000001F;
     position: relative;
     border-radius: 20px;
     min-height: 400px;
+    
     img{
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center center;
       border-radius: 20px;
+      width: 100%;
+      object-fit: cover;
+      
+    }
+    @supports not (aspect-ratio: 1) {
+        position: relative;
+        height: 0;
+        padding-bottom: 100%;
+       img {
+        position: absolute;
+        height: 100%;
+      }
     }
   }
 }
 
+.usafir-features{
+  .grid-sm-12{
+    margin-bottom: 3rem;
+    @include breakpoint-up('md-tab'){
+      &:not(:last-child){
+        margin-bottom: 3rem;
+      }
+    }
+  }
+}
 .featuresBox{
   .featuresBox-icon{
     img{
@@ -293,6 +322,31 @@
   }
 }
 
+.storybox{
+  background-color: var(--clr-white-900);
+  @include radius(8px);
+  padding:1.25rem;
+  border:1px solid var(--clr-white-900);
+  cursor: pointer;
+  &:hover,&-active{
+    border-color: var(--clr-secondary-500);
+  }
+}
+.sm-container{
+  max-width: 992px;
+  margin:0 auto;
+}
+.awardbox{
+  background-color: var(--clr-primary-100);
+  @include radius(8px);
+  padding:1.25rem;
+  .awardbox-content{
+    padding-right: 2rem;
+  }
+  .awardbox-figure{
+    max-width: 100px;
+  }
+}
 .partnerBox-logos{
   img{
     max-height: 50px;

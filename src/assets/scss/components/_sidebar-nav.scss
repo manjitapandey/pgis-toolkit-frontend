@@ -5,7 +5,7 @@
     padding: 5px;
     color: var(--clr-white-900);
   }
-  @include breakpoint-to('md-desktop') {
+  @include breakpoint-up('md-desktop') {
     // display: none;
   }
   &.is-position {

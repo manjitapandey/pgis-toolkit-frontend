@@ -5,13 +5,13 @@
         display: none;
         border-radius: 16px;
 
-        @include breakpoint-to('lg-tab') {
+        @include breakpoint-up('lg-tab') {
             @include flex-value(0 0 360px);
             max-width: 360px;
             display: block
         }
         
-        @include breakpoint-to('md-desktop') {
+        @include breakpoint-up('md-desktop') {
             @include flex-value(0 0 460px);
             max-width: 460px;
         }
@@ -37,14 +37,14 @@
                 max-height: 40px;
             }
         }
-        @include breakpoint-to('lg-tab') {
+        @include breakpoint-up('lg-tab') {
             width:calc(100% - 360px);
             &_logo{
                 display: none;
             }
         }
         
-        @include breakpoint-to('md-desktop') {
+        @include breakpoint-up('md-desktop') {
             width:calc(100% - 460px);
         }
         &_content{

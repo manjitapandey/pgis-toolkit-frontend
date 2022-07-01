@@ -8,10 +8,8 @@ const CardTab = ({ id, heading, description, selected, setSelectedCard }) => {
   };
   return (
     <li className={selected ? 'is-border pd-15 is-active' : 'is-border pd-15'} onClick={handleClick}>
-      <div className="tab-header">
-        <h4>{heading}</h4>
-      </div>
-      <div className="tab-body mt-05 fs-lg">
+      <div className="tab-header">{selected ? <h4>{heading}</h4> : <p className="fs-lg">{heading}</p>}</div>
+      <div className="tab-body mt-10">
         <p>{description}</p>
       </div>
     </li>
