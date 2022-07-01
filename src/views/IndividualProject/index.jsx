@@ -45,6 +45,9 @@ const IndividualProject = () => {
   const isProjectLoading = useSelector((state) =>
     checkIfLoading(state, IndividualProjectTypes.GET_INDIVIDUAL_PROJECT_DATA_REQUEST),
   );
+  const isDetailLoading = useSelector((state) =>
+    checkIfLoading(state, IndividualProjectTypes.GET_FEATURE_COLLECTION_REQUEST),
+  );
   const handleClick = () => {
     history.push(`/organizations/${id}`);
   };
@@ -78,7 +81,7 @@ const IndividualProject = () => {
         <div className="dbd-body">
           <div className={mapToggle ? 'dbd-map is-flex dbd-map_active' : 'dbd-map is-flex'}>
             <MapSidebar isLoading={isLoading} />
-            <DetailDataPopup />
+            <DetailDataPopup isLoading={isDetailLoading} />
             <DeletePopup
               name={selectedLayerName}
               popup={deletePopup}

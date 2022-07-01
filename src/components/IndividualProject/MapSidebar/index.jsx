@@ -63,7 +63,9 @@ const MapSidebar = ({ isLoading }) => {
   };
 
   useEffect(() => {
-    dispatch(getIndividualLayerDataRequest({ id: layId, layerData }));
+    if (layId) {
+      dispatch(getIndividualLayerDataRequest({ id: layId, layerData }));
+    }
   }, [dispatch, layId, layerData]);
 
   return (

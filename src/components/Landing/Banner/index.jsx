@@ -6,7 +6,7 @@ const Banner = () => (
     <div className="container-fluid">
       <div
         className="home-banner_wrap is-flex is-center is-align-center"
-        style={{ paddingTop: '101.984px', minHeight: '585px' }}
+        style={{ paddingTop: '103.188px', minHeight: '585px' }}
       >
         <div className="container">
           <div className="row is-center">

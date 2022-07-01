@@ -15,6 +15,7 @@ import {
   getIndividualLayerData,
   getStandardIcons,
   getIndividualProjectData,
+  getFeatureCollection,
 } from '@Services/individualProject';
 import withLoader from '@Utils/sagaUtils';
 import popupAction from '@Actions/popup';
@@ -173,6 +174,21 @@ export function* getStandardIconsRequest(action) {
   }
 }
 
+export function* getFeatureCollectionRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getFeatureCollection, params);
+    yield put(projectActions.getFeatureCollectionSuccess({ data: response.data }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(projectActions.getFeatureCollectionFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
 export function* postGroupDataRequest(action) {
   const {
     type,
@@ -291,6 +307,7 @@ function* individualProjectWatcher() {
   yield takeLatest(Types.GET_LAYER_TEMPLATE_LIST_REQUEST, withLoader(getLayerTemplateListRequest));
   yield takeLatest(Types.GET_TASK_RESPONSE_REQUEST, withLoader(getTaskResponseRequest));
   yield takeLatest(Types.GET_GROUP_LIST_REQUEST, withLoader(getGroupListRequest));
+  yield takeLatest(Types.GET_FEATURE_COLLECTION_REQUEST, withLoader(getFeatureCollectionRequest));
   yield takeLatest(Types.GET_STANDARD_ICONS_REQUEST, withLoader(getStandardIconsRequest));
   yield takeLatest(Types.POST_GROUP_DATA_REQUEST, withLoader(postGroupDataRequest));
   yield takeLatest(Types.POST_UPLOAD_DATA_REQUEST, withLoader(postUploadDataRequest));

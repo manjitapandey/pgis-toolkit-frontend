@@ -9,7 +9,7 @@ const UseCase = () => {
       <div className="container">
         <div className="section-title is-text-center mb-40">
           <h2 className="is-capitalize fw-bold mb-12">Use Cases</h2>
-          <p>
+          <p className="fs-lg">
             A GIS-based toolkit to assess, in a participatory way, the unmet transportation
             <br /> needs and mobility barriers of rural communities.
           </p>
@@ -25,7 +25,7 @@ const UseCase = () => {
                 <div className="tab-icon">
                   <i className="material-icons-outlined">layers</i>
                 </div>
-                <p>Transport Assessment</p>
+                <p className="fs-body">Transport Assessment</p>
               </a>
             </li>
             <li className={tab === 'Planning Health Facilities' ? 'is-active' : ''} style={{ cursor: 'pointer' }}>
@@ -37,7 +37,7 @@ const UseCase = () => {
                 <div className="tab-icon">
                   <i className="material-icons-outlined">health_and_safety</i>
                 </div>
-                <p>Planning Health Facilities</p>
+                <p className="fs-body">Planning Health Facilities</p>
               </a>
             </li>
             <li className={tab === 'Participator Risk Mapping' ? 'is-active' : ''} style={{ cursor: 'pointer' }}>
@@ -49,7 +49,7 @@ const UseCase = () => {
                 <div className="tab-icon">
                   <i className="material-icons-outlined">warning_amber</i>
                 </div>
-                <p>Participator Risk Mapping</p>
+                <p className="fs-body">Participator Risk Mapping</p>
               </a>
             </li>
           </ul>

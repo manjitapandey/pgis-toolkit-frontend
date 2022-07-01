@@ -7,7 +7,15 @@ import Dropdown from '@Components/IndividualOrganizations/Dropdown/index';
 import { Creators } from '@Actions/individualProject';
 import popupAction from '@Actions/popup';
 
-const { setLayerFilterActive, setLayerDeleteData, setEditLayerData, setZoomToLayerId, openDetailPopup } = Creators;
+const {
+  setLayerFilterActive,
+  setLayerDeleteData,
+  setEditLayerData,
+  setZoomToLayerId,
+  openDetailPopup,
+  getFeatureCollectionRequest,
+  selectLayerData,
+} = Creators;
 
 const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onListChange, options, themeId, type }) => {
   const dispatch = useDispatch();
@@ -22,7 +30,9 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
   const handleZoomClick = (layId) => {
     dispatch(setZoomToLayerId(layId));
   };
-  const handleExploreClick = () => {
+  const handleExploreClick = (id, name) => {
+    dispatch(selectLayerData({ name, id }));
+    dispatch(getFeatureCollectionRequest({ layer_id: id, limit: 5 }));
     dispatch(openDetailPopup(true));
   };
 
@@ -40,7 +50,11 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
             className="is-flex is-grow"
           />
           <div className="is-flex is-end is-icon_list is-align-center">
-            <button type="button" className="is-btn is-btn_link is-btn_sm" onClick={handleExploreClick}>
+            <button
+              type="button"
+              className="is-btn is-btn_link is-btn_sm"
+              onClick={() => handleExploreClick(uniqueId, catName)}
+            >
               <span>Explore</span>
             </button>
             {type !== 'group' && isSelected && (
