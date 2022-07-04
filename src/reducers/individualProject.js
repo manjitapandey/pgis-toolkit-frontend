@@ -88,13 +88,13 @@ const getIndividualProjectDataSuccess = (state, action) => {
 
 const getIndividualLayerDataSuccess = (state, action) => {
   const {
-    payload: { data, geomData },
+    payload: { data, geomData, layerData },
   } = action;
-
   return {
     ...state,
     individualLayerData: data,
     geomData,
+    layerData,
   };
 };
 

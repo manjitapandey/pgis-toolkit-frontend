@@ -16,7 +16,7 @@ const MapContainer = forwardRef(({ children, mapInstance, ...rest }, ref) => {
       {childrenCount < 1 ? (
         <></>
       ) : childrenCount > 1 ? (
-        Children.map(children, (child) => cloneElement(child, { ...props }))
+        Children.map(children, (child) => (child ? cloneElement(child, { ...props }) : <></>))
       ) : (
         cloneElement(children, { ...props })
       )}

@@ -38,7 +38,6 @@ const VectorTileLayer = ({
   );
 
   vectorTileLayer.setProperties({ name: 'site' });
-
   // add source to layer
   useEffect(() => {
     if (!map) return;

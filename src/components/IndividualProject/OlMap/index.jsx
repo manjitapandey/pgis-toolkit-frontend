@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-nested-ternary */
+/* eslint-disable react/jsx-no-useless-fragment */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromLonLat } from 'ol/proj';
@@ -10,6 +11,7 @@ import FullScreenControl from '@Components/common/OpenLayersComponent/Control/Fu
 import CustomLayerSwitcher from '@Components/common/OpenLayersComponent/LayerSwitcher/CustomLayerSwitcher';
 import ZoomControl from '@Components/common/OpenLayersComponent/Control/ZoomControl';
 import useOLMap from '@Components/common/OpenLayersComponent/useOLMap';
+import LayerSwitcherControl from '@Components/common/OpenLayersComponent/LayerSwitcher/index';
 import Scalebar from '@Components/common/OpenLayersComponent/Scalebar';
 import individualActions, { Creators } from '@Actions/individualProject';
 import { switcherOptions } from '@src/constants/commonData';
@@ -55,6 +57,7 @@ const OlMap = () => {
     }, 1000);
     return () => clearTimeout(timeout);
   }, [dispatch, map, zoomToLayerId, map]);
+  console.log(geomData, selectedLayerId, 'idsss');
   return (
     <div className="dbd-map_cntr is-grow">
       <div className="dbd-map_wrap">
@@ -65,44 +68,30 @@ const OlMap = () => {
           // style={{ height: '92vh' }}
           style={{ height: `${windowHeight - projectHeaderHeight}px` }}
         >
-          {/* <LayerSwitcherControl />
-  <Scalebar /> */}
-          {geomData &&
-            geomData?.map((item) => (
+          <LayerSwitcherControl />
+          <Scalebar />
+
+          {geomData ? (
+            geomData?.map((item, index) => (
               <VectorTileLayer
                 key={item.id}
-                url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
+                url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}`}
                 authToken={authToken}
                 style={
-                  selectedLayerId
+                  selectedLayerId === item?.id
                     ? selectedLayerStyle
                     : item?.style?.fillColor
                     ? { ...item?.style }
                     : { ...defaultStyles }
                 }
-                // style={item?.style || selectedLayerStyle}
                 zoomToLayer={item?.id === zoomToLayerId}
                 bbox={item?.bbox}
+                zIndex={geomData.length - index}
               />
-            ))}
-          {geomData &&
-            geomData?.map((item) => (
-              <VectorTileLayer
-                key={item.id}
-                url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=`}
-                authToken={authToken}
-                tyle={
-                  selectedLayerId
-                    ? selectedLayerStyle
-                    : item?.style?.fillColor
-                    ? { ...item?.style }
-                    : { ...defaultStyles }
-                }
-                // style={item?.style || selectedLayerStyle}
-                zoomToLayer={item?.id === zoomToLayerId}
-                bbox={item?.bbox}
-              />
-            ))}
+            ))
+          ) : (
+            <></>
+          )}
         </MapContainer>
         <a
           className={
@@ -121,7 +110,6 @@ const OlMap = () => {
           </div>
         </a>
         <div className="map-buttons">
-          {/* <DownloadControl mapRef={mapRef} /> */}
           {isLayerLoading && (
             <div className="map-loader-container">
               <div className="map-loader-wrapper">
@@ -132,9 +120,6 @@ const OlMap = () => {
         </div>
         <div className="map-setting is-bottom is-right">
           <div className="setting-list" title="Tools">
-            {/* <a className="sidebar-collapse">
-              <i className="material-icons">straighten</i>
-        </a> */}
             <a
               className="is-settings"
               style={{ cursor: 'pointer' }}
@@ -144,11 +129,6 @@ const OlMap = () => {
             </a>
             <MeasureControl map={map} buttonText={<i className="material-icons">straighten</i>} measureBoth />
             <DownloadControl map={map} />
-            {/* <FullScreenControl map={map} />
-
-             <a className="">
-              <i className="material-icons">info</i>
-        </a> */}
           </div>
           <CustomLayerSwitcher map={map} options={switcherOptions} />
           <ZoomControl map={map} />
