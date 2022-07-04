@@ -55,53 +55,53 @@ export function* getIndividualProjectDataRequest(action) {
 
 export function* getIndividualLayerDataRequest(action) {
   const { type, params } = action;
-  // const layerData = data.map((item) => ({
-  //   ...item,
-  //   options: item.options.map((element) => ({
-  //     ...element,
-  //     isSelected:
-  //       element.type === 'group' ? element.options.some((datas) => datas.isSelected === true) : element.isSelected,
-  //   })),
-  // }));
   try {
     const response = yield call(getIndividualLayerData, params.id);
-    const geomData = params.layerData
+    const layerData = params.layerData.map((elem) =>
+      elem.id === response.data.theme
+        ? {
+            ...elem,
+            options: elem.options.map((item) =>
+              item.type === 'group'
+                ? {
+                    ...item,
+                    options: item.options.map((items) =>
+                      items.id === response.data.id
+                        ? {
+                            ...items,
+                            bbox: response.data.bbox,
+                            style: {
+                              ...response?.data?.style,
+                              icon: { url: response?.data?.icon },
+                              icon_size: response?.data?.icon_size,
+                            },
+                          }
+                        : { ...items },
+                    ),
+                  }
+                : item?.id === response?.data?.id
+                ? {
+                    ...item,
+                    bbox: response.data.bbox,
+                    style: {
+                      ...response?.data?.style,
+                      icon: { url: response?.data?.icon || response?.data?.std_icon },
+                      icon_size: response?.data?.icon_size,
+                    },
+                  }
+                : { ...item },
+            ),
+          }
+        : { ...elem },
+    );
+    const geomData = layerData
       ?.map((lyr) => ({
         options: lyr.options.filter((item) => item.isSelected === true),
       }))
       ?.filter((element) => element?.options?.length)
-      ?.reduce((arr, items) => [...arr, ...items?.options], [])
-      ?.map((element) =>
-        element.type === 'group'
-          ? element.options
-              .map((items) =>
-                items.id === response.data.id
-                  ? {
-                      ...items,
-                      bbox: response.data.bbox,
-                      style: {
-                        ...response?.data?.style,
-                        icon: { url: response?.data?.icon },
-                        icon_size: response?.data?.icon_size,
-                      },
-                    }
-                  : { ...items },
-              )
-              .filter((elements) => elements.isSelected)
-              .reduce((arr, item) => [...arr, ...item])
-          : element?.id === response?.data?.id
-          ? {
-              ...element,
-              bbox: response.data.bbox,
-              style: {
-                ...response?.data?.style,
-                icon: { url: response?.data?.icon || response?.data?.std_icon },
-                icon_size: response?.data?.icon_size,
-              },
-            }
-          : { ...element },
-      );
-    yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data, geomData }));
+      ?.reduce((arr, items) => [...arr, ...items?.options], []);
+
+    yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data, geomData, layerData }));
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));
     // if (error?.response?.status >= 400) {

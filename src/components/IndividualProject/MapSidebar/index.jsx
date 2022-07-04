@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -66,7 +67,7 @@ const MapSidebar = ({ isLoading }) => {
     if (layId) {
       dispatch(getIndividualLayerDataRequest({ id: layId, layerData }));
     }
-  }, [dispatch, layId, layerData]);
+  }, [dispatch, layId]);
 
   return (
     <Sidebar
