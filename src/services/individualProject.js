@@ -3,6 +3,8 @@ import { api, authenticated } from './index';
 
 export const getProjectLayerData = (params) => authenticated(api).get(`/maps/project_layers/${params}`);
 
+export const getThemeList = (params) => authenticated(api).get(`/maps/project_layers/${params}`);
+
 export const getIndividualProjectData = (params) => authenticated(api).get(`/projects/project/${params}`);
 
 export const getIndividualLayerData = (params) => authenticated(api).get(`/maps/layer/${params}`);

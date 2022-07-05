@@ -6,6 +6,10 @@ export const { Types, Creators } = createActions(
     getProjectLayerDataSuccess: ['payload'],
     getProjectLayerDataFailure: null,
 
+    getThemeListRequest: ['params'],
+    getThemeListSuccess: ['payload'],
+    getThemeListFailure: null,
+
     getIndividualProjectDataRequest: ['params'],
     getIndividualProjectDataSuccess: ['payload'],
     getIndividualProjectDataFailure: null,
