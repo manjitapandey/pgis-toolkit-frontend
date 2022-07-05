@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Search = ({ handleSearch, children, className, value, insideWrap, color }) => (
+const Search = ({ handleSearch, children, className, value, insideWrap, color, name }) => (
   // console.log(value, 'searchValue');
   <div className={`search ${className}`}>
     <div className="search-wrap">
@@ -15,6 +15,7 @@ const Search = ({ handleSearch, children, className, value, insideWrap, color })
         onChange={(event) => {
           handleSearch(event);
         }}
+        name={name}
         style={{ color }}
       />
       {insideWrap && children}
@@ -29,6 +30,7 @@ Search.propTypes = {
   value: PropTypes.string,
   insideWrap: PropTypes.bool,
   color: PropTypes.string,
+  name: PropTypes.string,
 };
 
 Search.defaultProps = {
@@ -37,6 +39,7 @@ Search.defaultProps = {
   value: '',
   insideWrap: false,
   color: 'black',
+  name: '',
 };
 
 export default Search;

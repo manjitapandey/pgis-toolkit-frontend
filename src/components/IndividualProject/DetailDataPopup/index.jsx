@@ -23,9 +23,9 @@ const DetailDataPopup = ({ isLoading }) => {
     ms: 200,
     init: '',
     onChange: (e) => {
-      const { value } = e.target;
+      const { value, name } = e.target;
       // dispatch(dataActions.setSearchData(value));
-      dispatch(getFeatureCollectionRequest({ layer_id: layerId, limit: 5, search: value }));
+      dispatch(getFeatureCollectionRequest({ layer_id: +name, limit: 5, search: value }));
     },
   });
 
@@ -43,7 +43,7 @@ const DetailDataPopup = ({ isLoading }) => {
       body={
         <>
           <div className="is-flex is-start is-align-center is-gap-15 mt-15 mb-15">
-            <Search handleSearch={handleSearch} value={search} />
+            <Search handleSearch={handleSearch} value={search} name={layerId} />
           </div>
           {isLoading || !featureCollection ? (
             <TableLoader />
