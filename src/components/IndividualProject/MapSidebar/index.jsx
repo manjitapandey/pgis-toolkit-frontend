@@ -87,8 +87,9 @@ const MapSidebar = ({ isLoading, isGroupLoading }) => {
             <CustomInputLoader />
           ) : (
             searchedLayerData &&
-            searchedLayerData?.map(({ id, name, type, options, hasSubLayer }) => (
+            searchedLayerData?.map(({ id, name, type, options, hasSubLayer }, index) => (
               <Accordion
+                collapsed={index !== 0}
                 header={<h4 className="is-grow ">{name}</h4>}
                 handleButtonClick={(event) => handleButtonClick(event, id, name)}
                 body={

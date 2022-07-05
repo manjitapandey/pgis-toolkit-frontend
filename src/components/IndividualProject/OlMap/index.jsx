@@ -19,6 +19,8 @@ import MeasureControl from '@Components/common/OpenLayersComponent/Control/Measu
 import { selectedLayerStyleSelector } from '@Selectors/individualProject';
 import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
 import DownloadControl from '@Components/common/OpenLayersComponent/Control/DownloadControl';
+import Popup from '@Components/common/OpenLayersComponent/Popup/index';
+import MapPopup from '@Components/common/OpenLayersComponent/Popup/MapPopup';
 
 const { BASE_URL } = process.env;
 const { setZoomToLayerId } = Creators;
@@ -111,6 +113,8 @@ const OlMap = () => {
           ) : (
             <></>
           )}
+          {/* <Popup map={map} /> */}
+          <MapPopup map={map} />
         </MapContainer>
         <a
           className={
