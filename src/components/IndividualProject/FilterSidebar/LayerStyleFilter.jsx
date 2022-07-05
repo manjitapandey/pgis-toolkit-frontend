@@ -5,12 +5,13 @@ import Select from '@Components/common/Select/index';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectOptions, selectSizeOptions, optionTypeList, optionStyleList } from '@src/constants/commonData';
-import { Creators } from '@Actions/individualProject';
+import { Creators, Types as IndividualProjectTypes } from '@Actions/individualProject';
 import Input from '@Components/common/Input/index';
 import RangeSlider from '@Components/common/RangeSlider/index';
 import OptionsButton from '@Components/common/OptionsButton/index';
 import { selectedLayerStyleSelector, finalLayerStyleSelector } from '@Selectors/individualProject';
 import useDebouncedInput from '@Hooks/useDebouncedInput';
+import Spinner from '@Components/common/Spinner/index';
 import SVGImageIcon from '@Components/common/SVGImageIcon/index';
 import { svgIcons } from '@src/constants/icons';
 
@@ -27,18 +28,20 @@ const {
   postLayerDataRequest,
 } = Creators;
 
-const LayerStyleFilter = ({ active }) => {
+const LayerStyleFilter = ({ active, isGroupLoading }) => {
   const dispatch = useDispatch();
   const [activeTypeTab, setActiveTypeTab] = useState('Individual');
   const [activeStyleTab, setActiveStyleTab] = useState('Standard');
   const selectedLayerName = useSelector((state) => state.individualProject.selectedLayerName);
   const themeId = useSelector((state) => state.individualProject.themeId);
-  const groupList = useSelector((state) => state.individualProject.groupList);
+  const groupList = useSelector((state) => state.layerStyle.groupList);
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const individualLayerData = useSelector((state) => state.individualProject.individualLayerData);
   const standardIcons = useSelector((state) => state.individualProject.standardIcons);
+  const openPopup = useSelector((state) => state.individualProject.openDatasetPopup);
   const finalData = useSelector(finalLayerStyleSelector);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
+
   const [layerStyle, handleChange] = useDebouncedInput({
     ms: 70,
     init: selectedLayerStyle,
@@ -84,7 +87,7 @@ const LayerStyleFilter = ({ active }) => {
 
   useEffect(() => {
     if (themeId) dispatch(getGroupListRequest({ theme: themeId }));
-  }, [themeId]);
+  }, [themeId, openPopup]);
 
   return (
     <aside
@@ -116,7 +119,19 @@ const LayerStyleFilter = ({ active }) => {
           <div className="pm-group">
             <label className="is-capitalize">Data Group</label>
             <div className="is-flex is-start is-align-center is-gap-10">
-              <Select selected="Choose" handleSelect={handleSelect1} options={groupList} className="pm-select_100" />
+              {isGroupLoading ? (
+                <Spinner
+                  style={{
+                    width: '18px',
+                    height: '18px',
+                    border: '3px solid #ffffff',
+                    borderTop: '3px solid #0055ff',
+                    marginLeft: '6px',
+                  }}
+                />
+              ) : (
+                <Select selected="Choose" handleSelect={handleSelect1} options={groupList} className="pm-select_100" />
+              )}
               <button
                 type="button"
                 className="is-btn is-btn_secondary is-btn_icon"
@@ -237,10 +252,12 @@ const LayerStyleFilter = ({ active }) => {
 
 LayerStyleFilter.defaultProps = {
   active: '',
+  isGroupLoading: false,
 };
 
 LayerStyleFilter.propTypes = {
   active: PropTypes.string,
+  isGroupLoading: PropTypes.bool,
 };
 
 export default LayerStyleFilter;

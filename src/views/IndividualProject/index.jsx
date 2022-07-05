@@ -35,6 +35,7 @@ const IndividualProject = () => {
   const deletePopup = useSelector((state) => state.popup.deletePopup);
   const themeAddSuccess = useSelector((state) => state.individualProject.themeAddSuccess);
   const layerDeleteSuccess = useSelector((state) => state.individualProject.layerDeleteSuccess);
+  const openPopup = useSelector((state) => state.individualProject.openDatasetPopup);
   const isLoading = useSelector((state) =>
     checkIfLoading(
       state,
@@ -48,6 +49,7 @@ const IndividualProject = () => {
   const isDetailLoading = useSelector((state) =>
     checkIfLoading(state, IndividualProjectTypes.GET_FEATURE_COLLECTION_REQUEST),
   );
+  const isGroupLoading = useSelector((state) => checkIfLoading(state, IndividualProjectTypes.GET_GROUP_LIST_REQUEST));
   const handleClick = () => {
     history.push(`/organizations/${id}`);
   };
@@ -68,7 +70,7 @@ const IndividualProject = () => {
 
   useEffect(() => {
     dispatch(getProjectLayerDataRequest(uniqueId));
-  }, [dispatch, layerId, themeAddSuccess, layerDeleteSuccess]);
+  }, [dispatch, layerId, themeAddSuccess, layerDeleteSuccess, openPopup]);
 
   if (isProjectLoading) {
     return <Loader />;
@@ -80,7 +82,7 @@ const IndividualProject = () => {
       <main className="dbd-main">
         <div className="dbd-body">
           <div className={mapToggle ? 'dbd-map is-flex dbd-map_active' : 'dbd-map is-flex'}>
-            <MapSidebar isLoading={isLoading} />
+            <MapSidebar isLoading={isLoading} isGroupLoading={isGroupLoading} />
             <DetailDataPopup isLoading={isDetailLoading} />
             <DeletePopup
               name={selectedLayerName}
@@ -90,7 +92,7 @@ const IndividualProject = () => {
               handleButtonClick={handleButtonClick}
             />
             <AddLayerPopup />
-            <AddProjectPopup id={uniqueId} />
+            <AddProjectPopup id={uniqueId} isLoading={isGroupLoading} />
             <OlMap />
           </div>
         </div>
