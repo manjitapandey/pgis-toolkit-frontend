@@ -3,11 +3,14 @@
 /* eslint-disable func-names */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable camelcase */
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Overlay from 'ol/Overlay';
+import { capitalize } from '@Utils/commonUtils';
 import './popup.scss';
 
-const Popup = ({ map, except }) => {
+const MapPopup = ({ map, except }) => {
+  const [elemName, setElemName] = useState('');
+  const [category, setCategory] = useState('');
   useEffect(() => {
     if (!map) return;
 
@@ -39,26 +42,15 @@ const Popup = ({ map, except }) => {
         return;
       }
       const properties = features[0].getProperties();
-      const { layer_id } = properties;
+      const { layer_id, Name, Category } = properties;
+      setElemName(Name);
+      setCategory(Category);
       if (layer_id === except) {
         overlay.setPosition(undefined);
         closer.blur();
         return;
       }
-      content.innerHTML = `<div class="leaflet-popup-content-wrapper">
-      <div class="leaflet-popup-content" style="width: 301px;">
-        <div class="map-popup-wrapper">
-          <div class="map-popup-header is-flex is-between mb-10 is-gap-15">
-            <div class="is-flex is-start is-align-start is-gap-15">
-              <figure class="is-circle is-circle_img is-circle_sm is-circle_bg"></figure>
-              <div class="flex-content is-grow">
-                <h5 class="primary-300 is-capitalize">data 1</h5>
-                <p>हेमजा हस्पिटल एंड रिसर्च सेन्टर</p>
-              </div>
-              <i class="material-icons">edit</i>
-            </div>
-          </div>
-          <div class="naxa-table is-overflow">
+      content.innerHTML = `        
             <table class="table font-size-md">
               <thead></thead>
               <thead></thead>
@@ -67,18 +59,14 @@ const Popup = ({ map, except }) => {
                 (str, key) =>
                   `${str}
                 <tr>
-                  <td>${key}</td>
-                  <td><b>${properties[key]}</b>
-                  </td>
+                  <td>${capitalize(key)}</td>
+                  <td class="fw-600">${properties[key]}</td>
                 </tr>`,
                 '',
               )}
               </tbody>
             </table>
-          </div>
-        </div>
-      </div>
-    </div>`;
+      `;
 
       overlay.setPosition(coordinate);
       map.addOverlay(overlay);
@@ -86,11 +74,26 @@ const Popup = ({ map, except }) => {
   }, [map, except]);
 
   return (
-    <div id="popup" className="ol-popup">
-      <a href={() => {}} id="popup-closer" className="ol-popup-closer" />
-      <div id="popup-content" className="is-overflow" />
+    <div className="leaflet-popup-content-wrapper" id="popup">
+      <div className="leaflet-popup-content" style={{ width: '301px' }}>
+        <div className="map-popup-wrapper">
+          {' '}
+          <div className="map-popup-header is-flex is-between mb-10 is-gap-15">
+            <div className="is-flex is-start is-align-start is-gap-15">
+              <figure className="is-circle is-circle_img is-circle_sm is-circle_bg" />
+              <div className="flex-content is-grow">
+                <h5 className="primary-300 is-capitalize">{elemName}</h5>
+                <p>{category}</p>
+              </div>
+              {/* <i className="material-icons">edit</i> */}
+              <a href={() => {}} id="popup-closer" className="ol-popup-closer" />
+            </div>
+          </div>
+          <div className="naxa-table is-overflow" id="popup-content" />
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Popup;
+export default MapPopup;
