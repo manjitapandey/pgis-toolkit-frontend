@@ -57,7 +57,6 @@ const OlMap = () => {
     }, 1000);
     return () => clearTimeout(timeout);
   }, [dispatch, map, zoomToLayerId, map]);
-  console.log(geomData, selectedLayerId, 'idsss');
   return (
     <div className="dbd-map_cntr is-grow">
       <div className="dbd-map_wrap">
@@ -72,23 +71,43 @@ const OlMap = () => {
           <Scalebar />
 
           {geomData ? (
-            geomData?.map((item, index) => (
-              <VectorTileLayer
-                key={item.id}
-                url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}`}
-                authToken={authToken}
-                style={
-                  selectedLayerId === item?.id
-                    ? selectedLayerStyle
-                    : item?.style?.fillColor
-                    ? { ...item?.style }
-                    : { ...defaultStyles }
-                }
-                zoomToLayer={item?.id === zoomToLayerId}
-                bbox={item?.bbox}
-                zIndex={geomData.length - index}
-              />
-            ))
+            geomData?.map((item, index) =>
+              item?.type === 'group' ? (
+                item?.options.map((elem, i) => (
+                  <VectorTileLayer
+                    key={item.id}
+                    url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${elem.id}`}
+                    authToken={authToken}
+                    style={
+                      selectedLayerId === elem?.id
+                        ? selectedLayerStyle
+                        : elem?.style?.fillColor
+                        ? { ...elem?.style }
+                        : { ...defaultStyles }
+                    }
+                    zoomToLayer={elem?.id === zoomToLayerId}
+                    bbox={elem?.bbox}
+                    zIndex={item?.options.length - i}
+                  />
+                ))
+              ) : (
+                <VectorTileLayer
+                  key={item.id}
+                  url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}`}
+                  authToken={authToken}
+                  style={
+                    selectedLayerId === item?.id
+                      ? selectedLayerStyle
+                      : item?.style?.fillColor
+                      ? { ...item?.style }
+                      : { ...defaultStyles }
+                  }
+                  zoomToLayer={item?.id === zoomToLayerId}
+                  bbox={item?.bbox}
+                  zIndex={geomData.length - index}
+                />
+              ),
+            )
           ) : (
             <></>
           )}

@@ -50,13 +50,15 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
             className="is-flex is-grow"
           />
           <div className="is-flex is-end is-icon_list is-align-center">
-            <button
-              type="button"
-              className="is-btn is-btn_link is-btn_sm"
-              onClick={() => handleExploreClick(uniqueId, catName)}
-            >
-              <span>Explore</span>
-            </button>
+            {type !== 'group' && (
+              <button
+                type="button"
+                className="is-btn is-btn_link is-btn_sm"
+                onClick={() => handleExploreClick(uniqueId, catName)}
+              >
+                <span>Explore</span>
+              </button>
+            )}
             {type !== 'group' && isSelected && (
               <div className="pm-dropdown pm-dropdown_option">
                 <a href="#" className="is-circle is-circle_xs" onClick={() => handleEdit(uniqueId, catName, themeId)}>
@@ -85,9 +87,15 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                   className="is-flex is-grow"
                 />
                 <div className="is-flex is-end is-icon_list is-align-center">
-                  {/* <button type="button" className="is-btn is-btn_link is-btn_sm" onClick={handleEdit}>
-                  <span>Explore</span>
-          </button> */}
+                  {type === 'group' && (
+                    <button
+                      type="button"
+                      className="is-btn is-btn_link is-btn_sm"
+                      onClick={() => handleExploreClick(item?.id, item?.name)}
+                    >
+                      <span>Explore</span>
+                    </button>
+                  )}
                   {type === 'group' && item.isSelected && (
                     <div className="pm-dropdown pm-dropdown_option">
                       <a

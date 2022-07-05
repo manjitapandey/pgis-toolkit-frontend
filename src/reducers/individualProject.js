@@ -37,7 +37,6 @@ const initialState = {
   selectedLayerStyle: {},
   searchData: '',
   themeAddSuccess: false,
-  groupList: null,
   popupName: '',
   layerDeleteSuccess: false,
   standardIcons: null,
@@ -179,16 +178,6 @@ const getProjectLayerDataSuccess = (state, action) => {
     themeAddSuccess: false,
     addThemeData: initialState.addThemeData,
     geomData: [],
-  };
-};
-
-const getGroupListSuccess = (state, action) => {
-  const {
-    payload: { data },
-  } = action;
-  return {
-    ...state,
-    groupList: data,
   };
 };
 
@@ -389,7 +378,11 @@ const setEditLayerData = (state, action) => {
   const {
     payload: { id, name, theId },
   } = action;
-  const selectedLayerStyle = state.geomData.filter((element) => element.id === id)[0]?.style;
+  // const selectedLayerStyle = state.geomData.filter((element) => (element.type === 'group' ? '' : element.id === id))[0]
+  //   ?.style;
+  const selectedLayerStyle = state.geomData.map((elem) =>
+    elem.type === 'group' ? { style: elem.options.filter((item) => item.id === id)[0].style } : elem.id === id && elem,
+  )[0]?.style;
   return {
     ...state,
     selectedLayerName: name,
@@ -447,7 +440,6 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.GET_INDIVIDUAL_PROJECT_DATA_SUCCESS]: getIndividualProjectDataSuccess,
   [Types.GET_INDIVIDUAL_LAYER_DATA_SUCCESS]: getIndividualLayerDataSuccess,
   [Types.GET_LAYER_TEMPLATE_LIST_SUCCESS]: getLayerTemplateListSuccess,
-  [Types.GET_GROUP_LIST_SUCCESS]: getGroupListSuccess,
   [Types.GET_STANDARD_ICONS_SUCCESS]: getStandardIconsSuccess,
   [Types.GET_TASK_RESPONSE_SUCCESS]: getTaskResponseSuccess,
   [Types.POST_UPLOAD_DATA_SUCCESS]: postUploadDataSuccess,

@@ -1,18 +1,22 @@
 import { createReducer } from 'reduxsauce';
-import { Types } from '@Actions/popup';
+import { Types } from '@Actions/individualProject';
 
 const initialState = {
-  popup: false,
-  deletePopup: false,
+  groupList: null,
 };
 
-const openPopup = (state, action) => ({ ...state, popup: action.payload });
+const getGroupListSuccess = (state, action) => {
+  const {
+    payload: { data },
+  } = action;
+  return {
+    ...state,
+    groupList: data,
+  };
+};
 
-const openDeletePopup = (state, action) => ({ ...state, deletePopup: action.payload });
-
-const popupReducer = createReducer(initialState, {
-  [Types.OPEN_POPUP]: openPopup,
-  [Types.OPEN_DELETE_POPUP]: openDeletePopup,
+const layerStyleReducer = createReducer(initialState, {
+  [Types.GET_GROUP_LIST_SUCCESS]: getGroupListSuccess,
 });
 
-export default popupReducer;
+export default layerStyleReducer;

@@ -24,7 +24,7 @@ const {
   getIndividualLayerDataRequest,
 } = Creators;
 
-const MapSidebar = ({ isLoading }) => {
+const MapSidebar = ({ isLoading, isGroupLoading }) => {
   const dispatch = useDispatch();
   const [headerHeight, setHeaderHeight] = useState(null);
   const windowHeight = window.innerHeight;
@@ -67,7 +67,7 @@ const MapSidebar = ({ isLoading }) => {
     if (layId) {
       dispatch(getIndividualLayerDataRequest({ id: layId, layerData }));
     }
-  }, [dispatch, layId]);
+  }, [dispatch, layId, layerFilterActive]);
 
   return (
     <Sidebar
@@ -130,14 +130,15 @@ const MapSidebar = ({ isLoading }) => {
           )}
         </div>
       </div>
-      <FilterSidebar active={active} />
-      <LayerStyleFilter active={layerFilterActive} />
+      <FilterSidebar active={active} isGroupLoading={isGroupLoading} />
+      <LayerStyleFilter active={layerFilterActive} isGroupLoading={isGroupLoading} />
     </Sidebar>
   );
 };
 
 MapSidebar.propTypes = {
   isLoading: PropTypes.bool.isRequired,
+  isGroupLoading: PropTypes.bool.isRequired,
 };
 
 export default MapSidebar;

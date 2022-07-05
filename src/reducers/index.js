@@ -11,6 +11,8 @@ import organizations from './organizations';
 import projectHeader from './projectHeader';
 import layerPopup from './IndividualProject/layerPopup';
 import detailPopup from './IndividualProject/detailPopup';
+import layerStyle from './IndividualProject/layerStyle';
+import datasetPopup from './IndividualProject/datasetPopup';
 import landing from './landing';
 
 export default combineReducers({
@@ -26,4 +28,6 @@ export default combineReducers({
   layerPopup,
   landing,
   detailPopup,
+  layerStyle,
+  datasetPopup,
 });

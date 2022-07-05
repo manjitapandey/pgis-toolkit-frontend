@@ -100,7 +100,6 @@ export function* getIndividualLayerDataRequest(action) {
       }))
       ?.filter((element) => element?.options?.length)
       ?.reduce((arr, items) => [...arr, ...items?.options], []);
-
     yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data, geomData, layerData }));
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));
@@ -176,6 +175,7 @@ export function* getStandardIconsRequest(action) {
 
 export function* getFeatureCollectionRequest(action) {
   const { type, params } = action;
+  console.log(params, 'params');
   try {
     const response = yield call(getFeatureCollection, params);
     yield put(projectActions.getFeatureCollectionSuccess({ data: response.data }));
