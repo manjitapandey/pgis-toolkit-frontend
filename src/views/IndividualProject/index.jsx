@@ -19,6 +19,7 @@ const {
   getProjectLayerDataRequest,
   getIndividualProjectDataRequest,
   getLayerTemplateListRequest,
+  getThemeListRequest,
   deleteLayerDataRequest,
   getStandardIconsRequest,
 } = Creators;
@@ -64,6 +65,7 @@ const IndividualProject = () => {
 
   useEffect(() => {
     dispatch(getLayerTemplateListRequest());
+    dispatch(getThemeListRequest({ project: uniqueId }));
     dispatch(getStandardIconsRequest());
     dispatch(getIndividualProjectDataRequest(uniqueId));
   }, [dispatch]);

@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import React from 'react';
+/* eslint-disable no-nested-ternary */
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Checkbox from '@Components/common/Checkbox/index';
@@ -19,8 +20,9 @@ const {
 
 const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onListChange, options, themeId, type }) => {
   const dispatch = useDispatch();
-  const handleEdit = (layId, layName, theId) => {
-    dispatch(setEditLayerData({ id: layId, name: layName, theId }));
+  const [showList, setShowList] = useState(false);
+  const handleEdit = (layId, layName, theId, types) => {
+    dispatch(setEditLayerData({ id: layId, name: layName, theId, type: types }));
     dispatch(setLayerFilterActive('layerFilter'));
   };
   const handleDeleteClick = (layId, layName) => {
@@ -34,6 +36,10 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
     dispatch(selectLayerData({ name, id }));
     dispatch(getFeatureCollectionRequest({ layer_id: id, limit: 5 }));
     dispatch(openDetailPopup(true));
+  };
+
+  const handleClick = () => {
+    setShowList(!showList);
   };
 
   return (
@@ -61,7 +67,11 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
             )}
             {type !== 'group' && isSelected && (
               <div className="pm-dropdown pm-dropdown_option">
-                <a href="#" className="is-circle is-circle_xs" onClick={() => handleEdit(uniqueId, catName, themeId)}>
+                <a
+                  href="#"
+                  className="is-circle is-circle_xs"
+                  onClick={() => handleEdit(uniqueId, catName, themeId, type)}
+                >
                   <i className="material-icons">edit</i>
                 </a>
               </div>
@@ -71,11 +81,24 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
               handleZoomClick={() => handleZoomClick(uniqueId)}
               layerId={uniqueId}
             />
+            {type === 'group' || options.length ? (
+              showList ? (
+                <a href={() => {}} className="is-circle is-circle_xs is-circle_hover__white" onClick={handleClick}>
+                  <i className="material-icons-outlined">remove_circle_outline</i>
+                </a>
+              ) : (
+                <a href={() => {}} className="is-circle is-circle_xs is-circle_hover__white" onClick={handleClick}>
+                  <i className="material-icons-outlined">add_circle_outline</i>
+                </a>
+              )
+            ) : (
+              <></>
+            )}
           </div>
         </div>
-        <ul className="is-list">
-          {options.length ? (
-            options.map((item) => (
+        <ul className="is-list" style={!showList ? { display: 'none' } : { display: 'block' }}>
+          {options?.length ? (
+            options?.map((item) => (
               <li className="is-flex is-between is-align-start is-gap-10" key={`${item.name}${item.id}`}>
                 <Checkbox
                   id={item.id}
@@ -96,12 +119,12 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                       <span>Explore</span>
                     </button>
                   )}
-                  {type === 'group' && item.isSelected && (
+                  {item.isSelected && (
                     <div className="pm-dropdown pm-dropdown_option">
                       <a
                         href="#"
                         className="is-circle is-circle_xs"
-                        onClick={() => handleEdit(item.id, item?.name, themeId)}
+                        onClick={() => handleEdit(item.id, item?.name, themeId, type === 'group' ? type : 'subLayer')}
                       >
                         <i className="material-icons">edit</i>
                       </a>

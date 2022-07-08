@@ -6,6 +6,8 @@ import {
   getProjectLayerData,
   getLayerTemplateList,
   getGroupList,
+  getThemeList,
+  getProjectTheme,
   postGroupData,
   postUploadData,
   postThemeData,
@@ -13,14 +15,16 @@ import {
   deleteLayerData,
   postLayerData,
   getIndividualLayerData,
+  getIndividualSubLayerData,
   getStandardIcons,
   getIndividualProjectData,
   getFeatureCollection,
+  postSubLayerData,
 } from '@Services/individualProject';
 import withLoader from '@Utils/sagaUtils';
 import popupAction from '@Actions/popup';
 import projectActions, { Types } from '@Actions/individualProject';
-import { getSelectedData } from '@Utils/getSelectedData';
+import { getSelectedData, getFilteredLayerData } from '@Utils/getSelectedData';
 
 export function* getProjectLayerDataRequest(action) {
   const { type, params } = action;
@@ -94,12 +98,7 @@ export function* getIndividualLayerDataRequest(action) {
           }
         : { ...elem },
     );
-    const geomData = layerData
-      ?.map((lyr) => ({
-        options: lyr.options.filter((item) => item.isSelected === true),
-      }))
-      ?.filter((element) => element?.options?.length)
-      ?.reduce((arr, items) => [...arr, ...items?.options], []);
+    const geomData = getFilteredLayerData(layerData);
     yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data, geomData, layerData }));
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));
@@ -107,6 +106,51 @@ export function* getIndividualLayerDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getIndividualLayerDataFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
+export function* getIndividualSubLayerDataRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getIndividualSubLayerData, params.id);
+    const layerData = params?.layerData?.map((elem) =>
+      elem.id === response?.data?.theme
+        ? {
+            ...elem,
+            options: elem?.options?.map((item) =>
+              item?.id === response.data?.layer
+                ? {
+                    ...item,
+                    options: item?.options?.map((element) =>
+                      +element?.id === response?.data?.id
+                        ? {
+                            ...element,
+                            style: {
+                              ...response?.data?.style,
+                              icon: { url: response?.data?.icon },
+                              icon_size: response?.data?.icon_size,
+                            },
+                          }
+                        : { ...element },
+                    ),
+                  }
+                : { ...item },
+            ),
+          }
+        : { ...elem },
+    );
+    const geomData = getFilteredLayerData(layerData)?.map((elem) => ({
+      ...elem,
+      options: elem.options.filter((items) => items.isSelected === true),
+    }));
+    yield put(projectActions.getIndividualSubLayerDataSuccess({ data: response.data, layerData, geomData }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(projectActions.getIndividualSubLayerDataFailure());
     yield put(toastActions.error({ message: error?.response?.data?.message }));
   }
 }
@@ -158,6 +202,36 @@ export function* getGroupListRequest(action) {
   }
 }
 
+export function* getThemeListRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getThemeList, params);
+    yield put(projectActions.getThemeListSuccess({ data: response.data }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(projectActions.getThemeListFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
+export function* getProjectThemeRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getProjectTheme, params);
+    yield put(projectActions.getProjectThemeSuccess({ data: response.data }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(projectActions.getProjectThemeFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
 export function* getStandardIconsRequest(action) {
   const { type, params } = action;
   try {
@@ -175,7 +249,6 @@ export function* getStandardIconsRequest(action) {
 
 export function* getFeatureCollectionRequest(action) {
   const { type, params } = action;
-  console.log(params, 'params');
   try {
     const response = yield call(getFeatureCollection, params);
     yield put(projectActions.getFeatureCollectionSuccess({ data: response.data }));
@@ -284,6 +357,24 @@ export function* postLayerDataRequest({ payload }) {
   }
 }
 
+export function* postSubLayerDataRequest({ payload }) {
+  try {
+    const { id, finalData } = payload;
+    const data = new FormData();
+    Object.entries(finalData).forEach(([key, value]) => {
+      data.append(key, value);
+    });
+    const response = yield call(postSubLayerData, id, data);
+    yield put(projectActions.postSubLayerDataSuccess({ data: response.data, id, style: JSON.parse(finalData.style) }));
+    yield put(toastActions.success({ message: 'Sub Layer style successfully edited.' }));
+    yield put(projectActions.setLayerFilterActive('map'));
+    // yield put(projectActions.setLayerDeleteData({ id: null }));
+  } catch (error) {
+    yield put(projectActions.postSubLayerDataFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
 export function* deleteLayerDataRequest({ payload }) {
   try {
     const { id, isDelete } = payload;
@@ -304,14 +395,17 @@ function* individualProjectWatcher() {
   yield takeLatest(Types.GET_PROJECT_LAYER_DATA_REQUEST, withLoader(getProjectLayerDataRequest));
   yield takeLatest(Types.GET_INDIVIDUAL_PROJECT_DATA_REQUEST, withLoader(getIndividualProjectDataRequest));
   yield takeLatest(Types.GET_INDIVIDUAL_LAYER_DATA_REQUEST, withLoader(getIndividualLayerDataRequest));
+  yield takeLatest(Types.GET_INDIVIDUAL_SUB_LAYER_DATA_REQUEST, withLoader(getIndividualSubLayerDataRequest));
   yield takeLatest(Types.GET_LAYER_TEMPLATE_LIST_REQUEST, withLoader(getLayerTemplateListRequest));
   yield takeLatest(Types.GET_TASK_RESPONSE_REQUEST, withLoader(getTaskResponseRequest));
   yield takeLatest(Types.GET_GROUP_LIST_REQUEST, withLoader(getGroupListRequest));
+  yield takeLatest(Types.GET_THEME_LIST_REQUEST, withLoader(getThemeListRequest));
   yield takeLatest(Types.GET_FEATURE_COLLECTION_REQUEST, withLoader(getFeatureCollectionRequest));
   yield takeLatest(Types.GET_STANDARD_ICONS_REQUEST, withLoader(getStandardIconsRequest));
   yield takeLatest(Types.POST_GROUP_DATA_REQUEST, withLoader(postGroupDataRequest));
   yield takeLatest(Types.POST_UPLOAD_DATA_REQUEST, withLoader(postUploadDataRequest));
   yield takeLatest(Types.POST_LAYER_DATA_REQUEST, withLoader(postLayerDataRequest));
+  yield takeLatest(Types.POST_SUB_LAYER_DATA_REQUEST, withLoader(postSubLayerDataRequest));
   yield takeLatest(Types.POST_THEME_DATA_REQUEST, withLoader(postThemeDataRequest));
   yield takeLatest(Types.DELETE_LAYER_DATA_REQUEST, withLoader(deleteLayerDataRequest));
 }
