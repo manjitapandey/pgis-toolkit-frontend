@@ -46,6 +46,10 @@ export const { Types, Creators } = createActions(
     getStandardIconsSuccess: ['payload'],
     getStandardIconsFailure: null,
 
+    getAttributeAliasRequest: ['params'],
+    getAttributeAliasSuccess: ['payload'],
+    getAttributeAliasFailure: null,
+
     postGroupDataRequest: ['payload'],
     postGroupDataSuccess: ['payload'],
     postGroupDataFailure: null,

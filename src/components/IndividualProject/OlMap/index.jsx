@@ -59,7 +59,6 @@ const OlMap = () => {
     }, 1000);
     return () => clearTimeout(timeout);
   }, [dispatch, map, zoomToLayerId, map]);
-
   return (
     <div className="dbd-map_cntr is-grow">
       <div className="dbd-map_wrap">
@@ -78,7 +77,7 @@ const OlMap = () => {
               item?.type === 'group' || item?.sub_layer?.length ? (
                 item?.options.map((elem, i) => (
                   <VectorTileLayer
-                    key={item.id}
+                    key={elem?.key}
                     url={
                       item?.sub_layer?.length
                         ? `${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=${elem.id}`
@@ -99,7 +98,7 @@ const OlMap = () => {
                 ))
               ) : (
                 <VectorTileLayer
-                  key={item.id}
+                  key={`${item.key}`}
                   url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}`}
                   authToken={authToken}
                   style={
