@@ -23,6 +23,8 @@ export const getFeatureCollection = (params) => authenticated(api).get(`/maps/fe
 
 export const getStandardIcons = () => authenticated(api).get(`/maps/standard_icon/`);
 
+export const getAttributeAlias = (params) => authenticated(api).get(`/maps/layer_attribute/`, { params });
+
 export const postGroupData = (payload) => authenticated(api).post(`/maps/layer_group/`, payload);
 
 export const postUploadData = (payload) => authenticated(api).post('/maps/layer/', payload);

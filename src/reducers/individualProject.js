@@ -139,12 +139,14 @@ const getProjectLayerDataSuccess = (state, action) => {
                   isSelected: false,
                   options: grp.layer.map((elements) => ({
                     ...elements,
+                    key: `${elements?.id}__${elements.name}__${grp?.id}`,
                     isSelected: false,
                   })),
                 };
               }
               return {
                 ...grp,
+                key: `${item?.id}__${grp?.id}__${grp?.name}`,
                 name: grp.name,
                 id: grp.id,
                 icon: grp.icon,
@@ -153,6 +155,7 @@ const getProjectLayerDataSuccess = (state, action) => {
                 isSelected: false,
                 options: grp.sub_layer.map((elements) => ({
                   ...elements,
+                  key: `${elements?.id}__${elements.name}__${grp?.id}`,
                   isSelected: false,
                 })),
               };
@@ -171,6 +174,7 @@ const getProjectLayerDataSuccess = (state, action) => {
                   options: layer.sub_layer.map((elements) => ({
                     ...elements,
                     isSelected: false,
+                    key: `${elements?.id}__${elements.name}__${layer?.id}`,
                   })),
                 };
               }
@@ -185,6 +189,7 @@ const getProjectLayerDataSuccess = (state, action) => {
                 options: layer.sub_layer.map((elements) => ({
                   ...elements,
                   isSelected: false,
+                  key: `${elements?.id}__${elements.name}__${layer?.id}`,
                 })),
               };
             })
@@ -285,16 +290,26 @@ const postUploadDataSuccess = (state, action) => {
 
 const postLayerDataSuccess = (state, action) => {
   const {
-    payload: { id, style },
+    payload: { data, finalData, style },
   } = action;
   // const { geomData } = state;
   const geomData = state.geomData.map((element) =>
-    element?.id === id
+    element?.id === data.id
       ? {
           ...element,
           style,
         }
       : { ...element },
+  );
+  const layerData = state.layerData.map((item) =>
+    item?.id === data?.theme
+      ? {
+          ...item,
+          options: item.options.map((elem) =>
+            elem.id === data?.id ? { ...elem, name: finalData?.name } : { ...elem },
+          ),
+        }
+      : { ...item },
   );
   return {
     ...state,

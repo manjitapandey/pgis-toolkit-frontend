@@ -40,8 +40,8 @@ const IndividualOrganization = () => {
   }
 
   return (
-    <main className="mt-15 pl-30 pr-30">
-      <div className="container-fluid">
+    <main className="mt-15">
+      <div className="pl-30 pr-30">
         <Banner />
         <Tab activeTab={tab} options={sidebarTabOptions} setTab={setTab} />
         <div className="pm-modal" id="warning-modal">
@@ -108,126 +108,122 @@ const IndividualOrganization = () => {
             </div>
           </div>
         </div>
-
-        {tab === 'Projects' && (
-          <div className="dbd-body">
-            <div className={mapToggle ? 'dbd-map is-flex dbd-map_active' : 'dbd-map is-flex'}>
-              <MapSidebar isLoading={isLoading} />
-              <FilterSidebar active={active} />
-              <CreateProjectPopup />
-              <div className="pm-modal" id="create-project">
-                <div className="pm-modal_cntr pm-modal_cntr_lg pm-modal_cntr_radius">
-                  <div className="pm-modal_header is-gap-15">
-                    <h3 className="is-grow">Create Project</h3>
-                    <div className="is-flex is-end is-align-center">
-                      <a className="pm-modal_close">
-                        <i className="material-icons">close</i>
-                      </a>
-                    </div>
+      </div>
+      {tab === 'Projects' && (
+        <div className="dbd-body">
+          <div className={mapToggle ? 'dbd-map is-flex dbd-map_active' : 'dbd-map is-flex'}>
+            <MapSidebar isLoading={isLoading} />
+            <FilterSidebar active={active} />
+            <CreateProjectPopup />
+            <div className="pm-modal" id="create-project">
+              <div className="pm-modal_cntr pm-modal_cntr_lg pm-modal_cntr_radius">
+                <div className="pm-modal_header is-gap-15">
+                  <h3 className="is-grow">Create Project</h3>
+                  <div className="is-flex is-end is-align-center">
+                    <a className="pm-modal_close">
+                      <i className="material-icons">close</i>
+                    </a>
                   </div>
-                  <div className="pm-modal_body">
-                    <div className="row">
-                      <div className="grid-md-6">
-                        <div className="pm-group">
-                          <label className="fw-bold">Name </label>
-                          <input type="text" className="pm-control" placeholder="ST-34536" />
-                        </div>
-                        <div className="pm-group">
-                          <label className="fw-bold"> Role in Organization</label>
-                          <input type="text" className="pm-control" placeholder="ST-34536" />
-                        </div>
+                </div>
+                <div className="pm-modal_body">
+                  <div className="row">
+                    <div className="grid-md-6">
+                      <div className="pm-group">
+                        <label className="fw-bold">Name </label>
+                        <input type="text" className="pm-control" placeholder="ST-34536" />
                       </div>
-                      <div className="grid-md-6">
-                        <div className="pm-group">
-                          <label className="is-capitalize fw-bold">
-                            Upload Organization Logo<sup>*</sup>
-                          </label>
-                          <div className="is-flex is-start is-align-center">
-                            <figure className="is-circle_md is-circle_img is-circle">
-                              <img src="images/user.png" alt="" />
-                            </figure>
-                            <div className="pmupload-btn is-flex is-start is-align-center">
-                              <label
-                                htmlFor="upload "
-                                className="is-flex is-align-center is-btn is-btn_icon is-btn_link"
-                              >
-                                <i className="material-icons">upload</i>
-                                <span>upload photo</span>
-                                <input type="file" id="upload" />
-                              </label>
-                            </div>
+                      <div className="pm-group">
+                        <label className="fw-bold"> Role in Organization</label>
+                        <input type="text" className="pm-control" placeholder="ST-34536" />
+                      </div>
+                    </div>
+                    <div className="grid-md-6">
+                      <div className="pm-group">
+                        <label className="is-capitalize fw-bold">
+                          Upload Organization Logo<sup>*</sup>
+                        </label>
+                        <div className="is-flex is-start is-align-center">
+                          <figure className="is-circle_md is-circle_img is-circle">
+                            <img src="images/user.png" alt="" />
+                          </figure>
+                          <div className="pmupload-btn is-flex is-start is-align-center">
+                            <label htmlFor="upload " className="is-flex is-align-center is-btn is-btn_icon is-btn_link">
+                              <i className="material-icons">upload</i>
+                              <span>upload photo</span>
+                              <input type="file" id="upload" />
+                            </label>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="pm-group">
-                      <label className="fw-bold"> phone </label>
-                      <input type="text" className="pm-control" placeholder="ST-34536" />
-                    </div>
-                    <div className="is-flex is-wrap is-gap-15">
-                      <div className="pm-group is-grow">
-                        <label className="fw-bold"> password</label>
-                        <div className="custom-input-group">
-                          <input type="password" className="pm-control" placeholder="ST-34536" />
-                          <span className="span-group pr-10">
-                            <i className="material-icons">visibility</i>
-                          </span>
-                        </div>
-                      </div>
-                      <div className="pm-group is-grow">
-                        <label className="fw-bold is-capitalize"> confirm password</label>
-                        <div className="custom-input-group">
-                          <input type="password" className="pm-control" placeholder="Start Date" />
-                          <span className="span-group pr-10">
-                            <i className="material-icons">visibility</i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="is-flex is-wrap is-gap-15">
-                      <div className="pm-group is-grow">
-                        <label className="fw-bold is-capitalize"> Project start Date</label>
-                        <div className="custom-input-group">
-                          <input type="text" className="pm-control" placeholder="start Date" />
-                          <span className="span-group pr-10">
-                            <i className="material-icons">calendar_today</i>
-                          </span>
-                        </div>
-                      </div>
-                      <div className="pm-group is-grow">
-                        <label className="fw-bold is-capitalize">Project end Date</label>
-                        <div className="custom-input-group">
-                          <input type="password" className="pm-control" placeholder="end date" />
-                          <span className="span-group pr-10">
-                            <i className="material-icons">calendar_today</i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="pm-group">
-                      <label className="fw-bold">Email</label>
+                  </div>
+                  <div className="pm-group">
+                    <label className="fw-bold"> phone </label>
+                    <input type="text" className="pm-control" placeholder="ST-34536" />
+                  </div>
+                  <div className="is-flex is-wrap is-gap-15">
+                    <div className="pm-group is-grow">
+                      <label className="fw-bold"> password</label>
                       <div className="custom-input-group">
-                        <span className="span-group pl-10">
-                          <i className="material-icons">email</i>
+                        <input type="password" className="pm-control" placeholder="ST-34536" />
+                        <span className="span-group pr-10">
+                          <i className="material-icons">visibility</i>
                         </span>
-                        <input type="email" className="pm-control" placeholder="ST-34536" />
+                      </div>
+                    </div>
+                    <div className="pm-group is-grow">
+                      <label className="fw-bold is-capitalize"> confirm password</label>
+                      <div className="custom-input-group">
+                        <input type="password" className="pm-control" placeholder="Start Date" />
+                        <span className="span-group pr-10">
+                          <i className="material-icons">visibility</i>
+                        </span>
                       </div>
                     </div>
                   </div>
-                  <div className="pm-modal_footer is-flex is-center is-gap-10">
-                    <button className="is-btn is-btn_primary" type="button">
-                      invaite & save
-                    </button>
+                  <div className="is-flex is-wrap is-gap-15">
+                    <div className="pm-group is-grow">
+                      <label className="fw-bold is-capitalize"> Project start Date</label>
+                      <div className="custom-input-group">
+                        <input type="text" className="pm-control" placeholder="start Date" />
+                        <span className="span-group pr-10">
+                          <i className="material-icons">calendar_today</i>
+                        </span>
+                      </div>
+                    </div>
+                    <div className="pm-group is-grow">
+                      <label className="fw-bold is-capitalize">Project end Date</label>
+                      <div className="custom-input-group">
+                        <input type="password" className="pm-control" placeholder="end date" />
+                        <span className="span-group pr-10">
+                          <i className="material-icons">calendar_today</i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pm-group">
+                    <label className="fw-bold">Email</label>
+                    <div className="custom-input-group">
+                      <span className="span-group pl-10">
+                        <i className="material-icons">email</i>
+                      </span>
+                      <input type="email" className="pm-control" placeholder="ST-34536" />
+                    </div>
                   </div>
                 </div>
+                <div className="pm-modal_footer is-flex is-center is-gap-10">
+                  <button className="is-btn is-btn_primary" type="button">
+                    invaite & save
+                  </button>
+                </div>
               </div>
-              <OlMap />
             </div>
+            <OlMap />
           </div>
-        )}
-        {tab === 'Users' && <UsersData />}
-      </div>
+        </div>
+      )}
+      {tab === 'Users' && <UsersData />}
     </main>
   );
 };

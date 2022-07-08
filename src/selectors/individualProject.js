@@ -54,6 +54,7 @@ export const finalLayerStyleSelector = createSelector(
     delete newLayerStyle.icon_size;
     delete newLayerStyle.icon_url;
     delete newLayerStyle.group;
+    delete newLayerStyle.sub_layers_mapping_field;
     const finalLayerStyle =
       type === 'subLayer'
         ? {
@@ -83,6 +84,7 @@ export const finalLayerStyleSelector = createSelector(
             std_icon: layerStyles?.icon?.id ? layerStyles?.icon?.id : '',
             group: layerStyles?.group || '',
             project_style: 'default',
+            sub_layers_mapping_field: layerStyles?.sub_layers_mapping_field,
           };
     return finalLayerStyle;
   },

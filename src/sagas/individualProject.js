@@ -8,6 +8,7 @@ import {
   getGroupList,
   getThemeList,
   getProjectTheme,
+  getAttributeAlias,
   postGroupData,
   postUploadData,
   postThemeData,
@@ -262,6 +263,21 @@ export function* getFeatureCollectionRequest(action) {
   }
 }
 
+export function* getAttributeAliasRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getAttributeAlias, params);
+    yield put(projectActions.getAttributeAliasSuccess({ data: response.data }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(projectActions.getAttributeAliasFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
 export function* postGroupDataRequest(action) {
   const {
     type,
@@ -346,8 +362,10 @@ export function* postLayerDataRequest({ payload }) {
     Object.entries(finalData).forEach(([key, value]) => {
       data.append(key, value);
     });
-    yield call(postLayerData, id, data);
-    yield put(projectActions.postLayerDataSuccess({ id, style: JSON.parse(finalData.style) }));
+    const response = yield call(postLayerData, id, data);
+    yield put(
+      projectActions.postLayerDataSuccess({ data: response.data, finalData, style: JSON.parse(finalData.style) }),
+    );
     yield put(toastActions.success({ message: 'Layer style successfully edited.' }));
     yield put(projectActions.setLayerFilterActive('map'));
     yield put(projectActions.setLayerDeleteData({ id: null }));
@@ -397,6 +415,7 @@ function* individualProjectWatcher() {
   yield takeLatest(Types.GET_INDIVIDUAL_LAYER_DATA_REQUEST, withLoader(getIndividualLayerDataRequest));
   yield takeLatest(Types.GET_INDIVIDUAL_SUB_LAYER_DATA_REQUEST, withLoader(getIndividualSubLayerDataRequest));
   yield takeLatest(Types.GET_LAYER_TEMPLATE_LIST_REQUEST, withLoader(getLayerTemplateListRequest));
+  yield takeLatest(Types.GET_ATTRIBUTE_ALIAS_REQUEST, withLoader(getAttributeAliasRequest));
   yield takeLatest(Types.GET_TASK_RESPONSE_REQUEST, withLoader(getTaskResponseRequest));
   yield takeLatest(Types.GET_GROUP_LIST_REQUEST, withLoader(getGroupListRequest));
   yield takeLatest(Types.GET_THEME_LIST_REQUEST, withLoader(getThemeListRequest));
