@@ -57,3 +57,11 @@ export const getSelectedDataFromSubLayer = (data, name, categoryName, id) =>
         }
       : { ...item },
   );
+
+export const getFilteredLayerData = (data) =>
+  data
+    ?.map((lyr) => ({
+      options: lyr.options.filter((item) => item.isSelected === true),
+    }))
+    ?.filter((element) => element?.options?.length)
+    ?.reduce((arr, items) => [...arr, ...items?.options], []);

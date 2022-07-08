@@ -11,6 +11,7 @@ const layerStylesSelector = (state) => state.individualProject.selectedLayerStyl
 const selectedLayerNameSelector = (state) => state.individualProject.selectedLayerName;
 const iconSelector = (state) => state.individualProject.file;
 const individualLayerDataSelector = (state) => state.individualProject.individualLayerData;
+const selectedTypeSelector = (state) => state.individualProject.selectedType;
 
 // eslint-disable-next-line
 export const searchedLayerSelector = createSelector(layerData, searchKey, (layData, keyword) => {
@@ -43,8 +44,8 @@ export const selectedLayerStyleSelector = createSelector([layerStylesSelector], 
 );
 
 export const finalLayerStyleSelector = createSelector(
-  [layerStylesSelector, selectedLayerNameSelector, iconSelector],
-  (layerStyles, layerName, icon) => {
+  [layerStylesSelector, selectedLayerNameSelector, iconSelector, selectedTypeSelector],
+  (layerStyles, layerName, icon, type) => {
     const newLayerStyle = {
       ...layerStyles,
     };
@@ -53,20 +54,36 @@ export const finalLayerStyleSelector = createSelector(
     delete newLayerStyle.icon_size;
     delete newLayerStyle.icon_url;
     delete newLayerStyle.group;
-    const finalLayerStyle = {
-      style:
-        icon || layerStyles?.icon?.url
-          ? JSON.stringify({})
-          : JSON.stringify({
-              ...newLayerStyle,
-            }),
-      name: layerStyles?.layerName || layerName,
-      // icon: icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon : null,
-      icon: icon || '',
-      icon_size: JSON.stringify(layerStyles?.icon_size) || JSON.stringify({}),
-      std_icon: layerStyles?.icon?.id ? layerStyles?.icon?.id : '',
-      group: layerStyles?.group || '',
-    };
+    const finalLayerStyle =
+      type === 'subLayer'
+        ? {
+            style:
+              icon || layerStyles?.icon?.url
+                ? JSON.stringify({})
+                : JSON.stringify({
+                    ...newLayerStyle,
+                  }),
+            // icon: icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon : null,
+            icon: icon || '',
+            icon_size: JSON.stringify(layerStyles?.icon_size) || JSON.stringify({}),
+            std_icon: layerStyles?.icon?.id ? layerStyles?.icon?.id : '',
+            project_style: 'default',
+          }
+        : {
+            style:
+              icon || layerStyles?.icon?.url
+                ? JSON.stringify({})
+                : JSON.stringify({
+                    ...newLayerStyle,
+                  }),
+            name: layerStyles?.layerName || layerName,
+            // icon: icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon : null,
+            icon: icon || '',
+            icon_size: JSON.stringify(layerStyles?.icon_size) || JSON.stringify({}),
+            std_icon: layerStyles?.icon?.id ? layerStyles?.icon?.id : '',
+            group: layerStyles?.group || '',
+            project_style: 'default',
+          };
     return finalLayerStyle;
   },
 );

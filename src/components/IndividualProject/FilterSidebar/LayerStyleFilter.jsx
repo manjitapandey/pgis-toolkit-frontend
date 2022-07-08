@@ -26,6 +26,7 @@ const {
   setAddUploadDataFile,
   getIndividualLayerDataRequest,
   postLayerDataRequest,
+  postSubLayerDataRequest,
 } = Creators;
 
 const LayerStyleFilter = ({ active, isGroupLoading }) => {
@@ -36,6 +37,7 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
   const themeId = useSelector((state) => state.individualProject.themeId);
   const groupList = useSelector((state) => state.layerStyle.groupList);
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
+  const selectedType = useSelector((state) => state.individualProject.selectedType);
   const individualLayerData = useSelector((state) => state.individualProject.individualLayerData);
   const standardIcons = useSelector((state) => state.individualProject.standardIcons);
   const openPopup = useSelector((state) => state.individualProject.openDatasetPopup);
@@ -82,7 +84,11 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
   };
 
   const onSubmitClick = () => {
-    dispatch(postLayerDataRequest({ id: selectedLayerId, finalData }));
+    if (selectedType === 'subLayer') {
+      dispatch(postSubLayerDataRequest({ id: selectedLayerId, finalData }));
+    } else {
+      dispatch(postLayerDataRequest({ id: selectedLayerId, finalData }));
+    }
   };
 
   useEffect(() => {
@@ -101,54 +107,68 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
         </a>
       </div>
       <div className="filter-sidebar_body is-overflow" style={{ height: '60vh' }}>
-        <Input
-          label="Layer Name"
-          name="layerName"
-          value={layerName || selectedLayerName}
-          onChange={handleChange}
-          placeholder="Layer Name"
-        />
-        <OptionsButton
-          options={optionTypeList}
-          selected={activeTypeTab}
-          setActiveTab={setActiveTypeTab}
-          label="Type"
-          description="You can assign these layer to an existing data group or you can create a new."
-        />
-        {activeTypeTab === 'Group' && (
-          <div className="pm-group">
-            <label className="is-capitalize">Data Group</label>
-            <div className="is-flex is-start is-align-center is-gap-10">
-              {isGroupLoading ? (
-                <Spinner
-                  style={{
-                    width: '18px',
-                    height: '18px',
-                    border: '3px solid #ffffff',
-                    borderTop: '3px solid #0055ff',
-                    marginLeft: '6px',
-                  }}
+        {selectedType !== 'subLayer' && (
+          <>
+            <Input
+              label="Layer Name"
+              name="layerName"
+              value={layerName || selectedLayerName}
+              onChange={handleChange}
+              placeholder="Layer Name"
+            />
+            <OptionsButton
+              options={optionTypeList}
+              selected={activeTypeTab}
+              setActiveTab={setActiveTypeTab}
+              label="Type"
+              description="You can assign these layer to an existing data group or you can create a new."
+            />
+            {activeTypeTab === 'Group' && (
+              <div className="pm-group">
+                <label className="is-capitalize">Data Group</label>
+                <div className="is-flex is-start is-align-center is-gap-10">
+                  {isGroupLoading ? (
+                    <Spinner
+                      style={{
+                        width: '18px',
+                        height: '18px',
+                        border: '3px solid #ffffff',
+                        borderTop: '3px solid #0055ff',
+                        marginLeft: '6px',
+                      }}
+                    />
+                  ) : (
+                    <Select
+                      selected="Choose"
+                      handleSelect={handleSelect1}
+                      options={groupList}
+                      className="pm-select_100"
+                    />
+                  )}
+                  <button
+                    type="button"
+                    className="is-btn is-btn_secondary is-btn_icon"
+                    modal-link="add-layer"
+                    onClick={handleAddClick}
+                  >
+                    <i className="material-icons-outlined">add_circle_outline</i>
+                    <span>add</span>
+                  </button>
+                </div>
+              </div>
+            )}
+            {activeTypeTab === 'Sub-layer' && (
+              <div className="pm-group">
+                <label className="is-capitalize">Attribute</label>
+                <Select
+                  selected="Choose"
+                  handleSelect={handleSelect}
+                  options={selectOptions}
+                  className="pm-select_100"
                 />
-              ) : (
-                <Select selected="Choose" handleSelect={handleSelect1} options={groupList} className="pm-select_100" />
-              )}
-              <button
-                type="button"
-                className="is-btn is-btn_secondary is-btn_icon"
-                modal-link="add-layer"
-                onClick={handleAddClick}
-              >
-                <i className="material-icons-outlined">add_circle_outline</i>
-                <span>add</span>
-              </button>
-            </div>
-          </div>
-        )}
-        {activeTypeTab === 'Sub-layer' && (
-          <div className="pm-group">
-            <label className="is-capitalize">Attribute</label>
-            <Select selected="Choose" handleSelect={handleSelect} options={selectOptions} className="pm-select_100" />
-          </div>
+              </div>
+            )}
+          </>
         )}
         <OptionsButton
           options={optionStyleList}
@@ -234,9 +254,8 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
           min="0"
           max="100"
         />
-        {individualLayerData?.geom_type === 'Point' && (
-          <Input type="number" name="circleRadius" label="Radius" value={circleRadius} onChange={handleChange} />
-        )}
+
+        <Input type="number" name="circleRadius" label="Radius" value={circleRadius} onChange={handleChange} />
       </div>
       <div className="filter-sidebar_footer is-flex is-start is-gap-30">
         <button className="is-btn is-btn_link" type="button">
