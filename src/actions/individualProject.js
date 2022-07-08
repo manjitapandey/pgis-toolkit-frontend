@@ -10,6 +10,10 @@ export const { Types, Creators } = createActions(
     getThemeListSuccess: ['payload'],
     getThemeListFailure: null,
 
+    getProjectThemeRequest: ['params'],
+    getProjectThemeSuccess: ['payload'],
+    getProjectThemeFailure: null,
+
     getIndividualProjectDataRequest: ['params'],
     getIndividualProjectDataSuccess: ['payload'],
     getIndividualProjectDataFailure: null,
@@ -17,6 +21,10 @@ export const { Types, Creators } = createActions(
     getIndividualLayerDataRequest: ['params'],
     getIndividualLayerDataSuccess: ['payload'],
     getIndividualLayerDataFailure: null,
+
+    getIndividualSubLayerDataRequest: ['params'],
+    getIndividualSubLayerDataSuccess: ['payload'],
+    getIndividualSubLayerDataFailure: null,
 
     getLayerTemplateListRequest: ['params'],
     getLayerTemplateListSuccess: ['payload'],
@@ -53,6 +61,10 @@ export const { Types, Creators } = createActions(
     postLayerDataRequest: ['payload'],
     postLayerDataSuccess: ['payload'],
     postLayerDataFailure: null,
+
+    postSubLayerDataRequest: ['payload'],
+    postSubLayerDataSuccess: ['payload'],
+    postSubLayerDataFailure: null,
 
     deleteLayerDataRequest: ['payload'],
     deleteLayerDataSuccess: ['payload'],

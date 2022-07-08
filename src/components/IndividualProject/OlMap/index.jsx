@@ -59,6 +59,7 @@ const OlMap = () => {
     }, 1000);
     return () => clearTimeout(timeout);
   }, [dispatch, map, zoomToLayerId, map]);
+
   return (
     <div className="dbd-map_cntr is-grow">
       <div className="dbd-map_wrap">
@@ -74,11 +75,15 @@ const OlMap = () => {
 
           {geomData ? (
             geomData?.map((item, index) =>
-              item?.type === 'group' ? (
+              item?.type === 'group' || item?.sub_layer?.length ? (
                 item?.options.map((elem, i) => (
                   <VectorTileLayer
                     key={item.id}
-                    url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${elem.id}`}
+                    url={
+                      item?.sub_layer?.length
+                        ? `${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=${elem.id}`
+                        : `${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${elem.id}`
+                    }
                     authToken={authToken}
                     style={
                       selectedLayerId === elem?.id

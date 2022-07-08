@@ -22,6 +22,8 @@ const {
   getSearchData,
   setAddUploadData,
   getIndividualLayerDataRequest,
+  getIndividualSubLayerDataRequest,
+  getProjectThemeRequest,
 } = Creators;
 
 const MapSidebar = ({ isLoading, isGroupLoading }) => {
@@ -29,6 +31,7 @@ const MapSidebar = ({ isLoading, isGroupLoading }) => {
   const [headerHeight, setHeaderHeight] = useState(null);
   const windowHeight = window.innerHeight;
   const [layId, setLayId] = useState(null);
+  const [subLayerId, setSubLayerId] = useState(null);
   const active = useSelector((state) => state.individualProject.active);
   const layerFilterActive = useSelector((state) => state.individualProject.layerFilterActive);
   const layerData = useSelector((state) => state.individualProject.layerData);
@@ -48,6 +51,7 @@ const MapSidebar = ({ isLoading, isGroupLoading }) => {
   };
   const handleListCheckbox = (e, parId, name, catName) => {
     const { id } = e.target;
+    setSubLayerId(id);
     dispatch(getSelectedFromSubLayer({ id, parentId: parId, name, categoryName: catName }));
   };
   const handleClick = () => {
@@ -68,6 +72,16 @@ const MapSidebar = ({ isLoading, isGroupLoading }) => {
       dispatch(getIndividualLayerDataRequest({ id: layId, layerData }));
     }
   }, [dispatch, layId, layerFilterActive]);
+
+  useEffect(() => {
+    if (subLayerId) {
+      dispatch(getIndividualSubLayerDataRequest({ id: subLayerId, layerData }));
+    }
+  }, [dispatch, subLayerId, layerFilterActive]);
+
+  // useEffect(() => {
+  //   dispatch(getProjectThemeRequest({ theme: 21, project_style: 'default' }));
+  // }, []);
 
   return (
     <Sidebar

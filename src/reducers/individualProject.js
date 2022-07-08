@@ -3,7 +3,7 @@ import { createReducer } from 'reduxsauce';
 import { Types } from '@Actions/individualProject';
 import { isEmpty } from '@Utils/commonUtils';
 import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
-import { getSelectedData, getSelectedDataFromSubLayer } from '@Utils/getSelectedData';
+import { getSelectedData, getSelectedDataFromSubLayer, getFilteredLayerData } from '@Utils/getSelectedData';
 
 const initialState = {
   active: 'map',
@@ -14,7 +14,6 @@ const initialState = {
   opnDatasetPopup: false,
   layerData: null,
   individualLayerData: null,
-  templateList: null,
   file: null,
   taskId: null,
   layerId: null,
@@ -22,6 +21,7 @@ const initialState = {
   taskLoading: false,
   selectedLayerName: '',
   selectedLayerId: null,
+  selectedType: '',
   themeId: null,
   geomData: [],
   addUploadData: {
@@ -42,6 +42,7 @@ const initialState = {
   standardIcons: null,
   zoomToLayerId: null,
   isLayerLoading: false,
+  themeList: null,
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
@@ -65,13 +66,23 @@ const openDatasetPopup = (state, action) => {
   return { ...state, openDatasetPopup: value, popupName: name };
 };
 
-const getLayerTemplateListSuccess = (state, action) => {
+const getThemeListSuccess = (state, action) => {
   const {
     payload: { data },
   } = action;
   return {
     ...state,
-    templateList: data,
+    themeList: data,
+  };
+};
+
+const getProjectThemeSuccess = (state, action) => {
+  const {
+    payload: { data },
+  } = action;
+  return {
+    ...state,
+    projectTheme: data,
   };
 };
 
@@ -94,6 +105,16 @@ const getIndividualLayerDataSuccess = (state, action) => {
     individualLayerData: data,
     geomData,
     layerData,
+  };
+};
+
+const getIndividualSubLayerDataSuccess = (state, action) => {
+  const {
+    payload: { data },
+  } = action;
+  return {
+    ...state,
+    individualSubLayerData: data,
   };
 };
 
@@ -138,7 +159,7 @@ const getProjectLayerDataSuccess = (state, action) => {
             })
           : item.layer.length
           ? item.layer.map((layer) => {
-              if (item.sub_layer) {
+              if (item.sub_layer?.length) {
                 return {
                   // ...items,
                   name: layer.name,
@@ -159,7 +180,7 @@ const getProjectLayerDataSuccess = (state, action) => {
                 id: layer.id,
                 icon: layer.icon,
                 iconSize: layer.icon_size,
-                type: 'layerWithSubLayer',
+                type: 'layerWithoutSubLayer',
                 isSelected: false,
                 options: layer.sub_layer.map((elements) => ({
                   ...elements,
@@ -202,24 +223,7 @@ const getSelectedFromLayer = (state, action) => {
 
   const { layerData } = state;
   const data = getSelectedData(layerData, name, categoryName, id, defaultStyles);
-  const geomData = data
-    .map((lyr) => ({
-      options: lyr.options.filter((item) => item.isSelected === true),
-    }))
-    .filter((element) => element.options.length)
-    .reduce((arr, items) => [...arr, ...items.options], []);
-  // .map((item) =>
-  //   item.id === individualLayerData?.id
-  //     ? {
-  //         ...item,
-  //         style: {
-  //           ...individualLayerData?.style,
-  //           icon: { url: individualLayerData?.icon },
-  //           icon_size: individualLayerData?.icon_size,
-  //         },
-  //       }
-  //     : { ...item },
-  // );
+  const geomData = getFilteredLayerData(data);
   return {
     ...state,
     layerData: data,
@@ -242,9 +246,15 @@ const getSelectedFromSubLayer = (state, action) => {
     })),
   }));
 
+  const geomData = getFilteredLayerData(finalData)?.map((elem) => ({
+    ...elem,
+    options: elem.options.filter((items) => items.isSelected === true),
+  }));
+
   return {
     ...state,
     layerData: finalData,
+    geomData,
   };
 };
 
@@ -278,9 +288,28 @@ const postLayerDataSuccess = (state, action) => {
     payload: { id, style },
   } = action;
   // const { geomData } = state;
+  const geomData = state.geomData.map((element) =>
+    element?.id === id
+      ? {
+          ...element,
+          style,
+        }
+      : { ...element },
+  );
+  return {
+    ...state,
+    geomData,
+  };
+};
+
+const postSubLayerDataSuccess = (state, action) => {
+  const {
+    payload: { id, style },
+  } = action;
+  // const { geomData } = state;
   const geomData = state.geomData.map((element) => ({
     ...element,
-    style,
+    options: element.options.map((item) => (item?.id === id ? { ...item, style } : { ...item })),
   }));
   return {
     ...state,
@@ -376,12 +405,14 @@ const setLayerDeleteData = (state, action) => {
 
 const setEditLayerData = (state, action) => {
   const {
-    payload: { id, name, theId },
+    payload: { id, name, theId, type },
   } = action;
   // const selectedLayerStyle = state.geomData.filter((element) => (element.type === 'group' ? '' : element.id === id))[0]
   //   ?.style;
   const selectedLayerStyle = state.geomData.map((elem) =>
-    elem.type === 'group' ? { style: elem.options.filter((item) => item.id === id)[0].style } : elem.id === id && elem,
+    elem.type === 'group' || elem?.sub_layer?.length
+      ? { style: elem.options.filter((item) => item.id === id)[0].style }
+      : elem.id === id && elem,
   )[0]?.style;
   return {
     ...state,
@@ -389,6 +420,7 @@ const setEditLayerData = (state, action) => {
     selectedLayerId: id,
     themeId: theId,
     selectedLayerStyle,
+    selectedType: type,
   };
 };
 
@@ -433,17 +465,21 @@ const clearData = (state, action) =>
     layerId: null,
     // individualLayerData: null,
     selectedLayerStyle: {},
+    selectedtype: '',
   });
 
 const individualProjectReducer = createReducer(initialState, {
   [Types.GET_PROJECT_LAYER_DATA_SUCCESS]: getProjectLayerDataSuccess,
+  [Types.GET_THEME_LIST_SUCCESS]: getThemeListSuccess,
+  [Types.GET_PROJECT_THEME_SUCCESS]: getProjectThemeSuccess,
   [Types.GET_INDIVIDUAL_PROJECT_DATA_SUCCESS]: getIndividualProjectDataSuccess,
   [Types.GET_INDIVIDUAL_LAYER_DATA_SUCCESS]: getIndividualLayerDataSuccess,
-  [Types.GET_LAYER_TEMPLATE_LIST_SUCCESS]: getLayerTemplateListSuccess,
+  [Types.GET_INDIVIDUAL_SUB_LAYER_DATA_SUCCESS]: getIndividualSubLayerDataSuccess,
   [Types.GET_STANDARD_ICONS_SUCCESS]: getStandardIconsSuccess,
   [Types.GET_TASK_RESPONSE_SUCCESS]: getTaskResponseSuccess,
   [Types.POST_UPLOAD_DATA_SUCCESS]: postUploadDataSuccess,
   [Types.POST_LAYER_DATA_SUCCESS]: postLayerDataSuccess,
+  [Types.POST_SUB_LAYER_DATA_SUCCESS]: postSubLayerDataSuccess,
   // [Types.DELETE_LAYER_DATA_SUCCESS]: deleteLayerDataSuccess,
   [Types.SET_ACTIVE]: setActive,
   [Types.SET_LAYER_FILTER_ACTIVE]: setLayerFilterActive,

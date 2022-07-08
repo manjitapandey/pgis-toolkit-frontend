@@ -3,11 +3,15 @@ import { api, authenticated } from './index';
 
 export const getProjectLayerData = (params) => authenticated(api).get(`/maps/project_layers/${params}`);
 
-export const getThemeList = (params) => authenticated(api).get(`/maps/project_layers/${params}`);
+export const getThemeList = (params) => authenticated(api).get(`/maps/theme/`, { params });
+
+export const getProjectTheme = (params) => authenticated(api).get(`/maps/project_theme_layers/`, { params });
 
 export const getIndividualProjectData = (params) => authenticated(api).get(`/projects/project/${params}`);
 
 export const getIndividualLayerData = (params) => authenticated(api).get(`/maps/layer/${params}`);
+
+export const getIndividualSubLayerData = (params) => authenticated(api).get(`/maps/sub_layer/${params}`);
 
 export const getLayerTemplateList = (params) => authenticated(api).get('/projects/layer_template/', params);
 
@@ -24,6 +28,8 @@ export const postGroupData = (payload) => authenticated(api).post(`/maps/layer_g
 export const postUploadData = (payload) => authenticated(api).post('/maps/layer/', payload);
 
 export const postLayerData = (id, data) => authenticated(api).patch(`/maps/layer/${id}/`, data);
+
+export const postSubLayerData = (id, data) => authenticated(api).patch(`/maps/sub_layer/${id}/`, data);
 
 export const postThemeData = (payload) => authenticated(api).post('/maps/theme/', payload);
 
