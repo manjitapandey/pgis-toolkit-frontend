@@ -16,14 +16,16 @@ const {
   openDetailPopup,
   getFeatureCollectionRequest,
   selectLayerData,
+  setLayerIdHavingSubLayer,
 } = Creators;
 
 const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onListChange, options, themeId, type }) => {
   const dispatch = useDispatch();
   const [showList, setShowList] = useState(false);
-  const handleEdit = (layId, layName, theId, types) => {
-    dispatch(setEditLayerData({ id: layId, name: layName, theId, type: types }));
+  const handleEdit = (layId, layName, theId, types, unId) => {
+    dispatch(setEditLayerData({ id: layId, name: layName, theId, type: types, unId }));
     dispatch(setLayerFilterActive('layerFilter'));
+    if (types === 'subLayer') dispatch(setLayerIdHavingSubLayer(unId));
   };
   const handleDeleteClick = (layId, layName) => {
     dispatch(setLayerDeleteData({ id: layId, name: layName }));
@@ -124,7 +126,15 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                       <a
                         href="#"
                         className="is-circle is-circle_xs"
-                        onClick={() => handleEdit(item.id, item?.name, themeId, type === 'group' ? type : 'subLayer')}
+                        onClick={() =>
+                          handleEdit(
+                            item.id,
+                            item?.name,
+                            themeId,
+                            type === 'group' ? type : 'subLayer',
+                            type === 'group' ? null : uniqueId,
+                          )
+                        }
                       >
                         <i className="material-icons">edit</i>
                       </a>

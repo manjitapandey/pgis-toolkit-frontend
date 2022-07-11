@@ -221,8 +221,10 @@ export function* getThemeListRequest(action) {
 export function* getProjectThemeRequest(action) {
   const { type, params } = action;
   try {
-    const response = yield call(getProjectTheme, params);
-    yield put(projectActions.getProjectThemeSuccess({ data: response.data }));
+    const response = yield call(getProjectTheme, { theme: params.theme, project_style: 'default' });
+    yield put(
+      projectActions.getProjectThemeSuccess({ data: response.data, themeList: params.themeList, id: params.theme }),
+    );
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));
     // if (error?.response?.status >= 400) {
@@ -386,6 +388,7 @@ export function* postSubLayerDataRequest({ payload }) {
     yield put(projectActions.postSubLayerDataSuccess({ data: response.data, id, style: JSON.parse(finalData.style) }));
     yield put(toastActions.success({ message: 'Sub Layer style successfully edited.' }));
     yield put(projectActions.setLayerFilterActive('map'));
+    yield put(projectActions.clearLayerStyleData());
     // yield put(projectActions.setLayerDeleteData({ id: null }));
   } catch (error) {
     yield put(projectActions.postSubLayerDataFailure());
@@ -419,6 +422,7 @@ function* individualProjectWatcher() {
   yield takeLatest(Types.GET_TASK_RESPONSE_REQUEST, withLoader(getTaskResponseRequest));
   yield takeLatest(Types.GET_GROUP_LIST_REQUEST, withLoader(getGroupListRequest));
   yield takeLatest(Types.GET_THEME_LIST_REQUEST, withLoader(getThemeListRequest));
+  yield takeLatest(Types.GET_PROJECT_THEME_REQUEST, withLoader(getProjectThemeRequest));
   yield takeLatest(Types.GET_FEATURE_COLLECTION_REQUEST, withLoader(getFeatureCollectionRequest));
   yield takeLatest(Types.GET_STANDARD_ICONS_REQUEST, withLoader(getStandardIconsRequest));
   yield takeLatest(Types.POST_GROUP_DATA_REQUEST, withLoader(postGroupDataRequest));
