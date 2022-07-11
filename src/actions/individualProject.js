@@ -100,6 +100,10 @@ export const { Types, Creators } = createActions(
     openDetailPopup: ['payload'],
     selectLayerData: ['payload'],
     clearDetailData: ['payload'],
+    setActiveTypeTab: ['payload'],
+    setAddUpdatedData: ['payload'],
+    setLayerIdHavingSubLayer: ['payload'],
+    clearLayerStyleData: ['payload'],
   },
   { prefix: 'IndividualProject/' },
 );

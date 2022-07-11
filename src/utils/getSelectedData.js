@@ -65,3 +65,13 @@ export const getFilteredLayerData = (data) =>
     }))
     ?.filter((element) => element?.options?.length)
     ?.reduce((arr, items) => [...arr, ...items?.options], []);
+
+export const getSelectedGeomData = (data) =>
+  data
+    .map((item) => ({ ...item, options: item?.options.filter((elem) => elem.isSelected) }))[0]
+    ?.options.map((element) => {
+      console.log(element, 'inside func');
+      return {
+        ...element,
+      };
+    });

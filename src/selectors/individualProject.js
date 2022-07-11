@@ -12,6 +12,7 @@ const selectedLayerNameSelector = (state) => state.individualProject.selectedLay
 const iconSelector = (state) => state.individualProject.file;
 const individualLayerDataSelector = (state) => state.individualProject.individualLayerData;
 const selectedTypeSelector = (state) => state.individualProject.selectedType;
+const activeTypeTab = (state) => state.layerStyle.activeTypeTab;
 
 // eslint-disable-next-line
 export const searchedLayerSelector = createSelector(layerData, searchKey, (layData, keyword) => {
@@ -44,8 +45,8 @@ export const selectedLayerStyleSelector = createSelector([layerStylesSelector], 
 );
 
 export const finalLayerStyleSelector = createSelector(
-  [layerStylesSelector, selectedLayerNameSelector, iconSelector, selectedTypeSelector],
-  (layerStyles, layerName, icon, type) => {
+  [layerStylesSelector, selectedLayerNameSelector, iconSelector, selectedTypeSelector, activeTypeTab],
+  (layerStyles, layerName, icon, type, active) => {
     const newLayerStyle = {
       ...layerStyles,
     };
@@ -82,9 +83,9 @@ export const finalLayerStyleSelector = createSelector(
             icon: icon || '',
             icon_size: JSON.stringify(layerStyles?.icon_size) || JSON.stringify({}),
             std_icon: layerStyles?.icon?.id ? layerStyles?.icon?.id : '',
-            group: layerStyles?.group || '',
+            group: active === 'Group' ? layerStyles?.group || '' : '',
             project_style: 'default',
-            sub_layers_mapping_field: layerStyles?.sub_layers_mapping_field,
+            sub_layers_mapping_field: active === 'Sub-layer' ? layerStyles?.sub_layers_mapping_field || '' : '',
           };
     return finalLayerStyle;
   },

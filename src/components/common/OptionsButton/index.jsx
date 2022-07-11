@@ -1,23 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
-const OptionsButton = ({ options, setActiveTab, selected, label, description }) => (
-  <div className="pm-group">
-    <label className="is-capitalize fw-bold">{label}</label>
-    <div className="options is-flex is-start is-align-center">
-      {options?.map((element) => (
-        <div
-          key={element}
-          className={element === selected ? 'options-btn options-btn_active options-btn_active--white' : 'options-btn'}
-          onClick={() => setActiveTab(`${element}`)}
-        >
-          {element}
-        </div>
-      ))}
+const OptionsButton = ({ options, setActiveTab, selected, label, description }) => {
+  const dispatch = useDispatch();
+  return (
+    <div className="pm-group">
+      <label className="is-capitalize fw-bold">{label}</label>
+      <div className="options is-flex is-start is-align-center">
+        {options?.map((element) => (
+          <div
+            key={element}
+            className={
+              element === selected ? 'options-btn options-btn_active options-btn_active--white' : 'options-btn'
+            }
+            onClick={() => dispatch(setActiveTab(`${element}`))}
+          >
+            {element}
+          </div>
+        ))}
+      </div>
+      {description && <p className="fs-md mt-10">{description}</p>}
     </div>
-    {description && <p className="fs-md mt-10">{description}</p>}
-  </div>
-);
+  );
+};
 
 OptionsButton.propTypes = {
   options: PropTypes.array,
