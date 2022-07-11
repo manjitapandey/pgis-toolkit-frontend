@@ -3,7 +3,12 @@ import { createReducer } from 'reduxsauce';
 import { Types } from '@Actions/individualProject';
 import { isEmpty } from '@Utils/commonUtils';
 import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
-import { getSelectedData, getSelectedDataFromSubLayer, getFilteredLayerData } from '@Utils/getSelectedData';
+import {
+  getSelectedData,
+  getSelectedDataFromSubLayer,
+  getFilteredLayerData,
+  getSelectedGeomData,
+} from '@Utils/getSelectedData';
 
 const initialState = {
   active: 'map',
@@ -43,6 +48,8 @@ const initialState = {
   zoomToLayerId: null,
   isLayerLoading: false,
   themeList: null,
+  updatedData: {},
+  postSuccess: false,
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
@@ -76,15 +83,91 @@ const getThemeListSuccess = (state, action) => {
   };
 };
 
-const getProjectThemeSuccess = (state, action) => {
-  const {
-    payload: { data },
-  } = action;
-  return {
-    ...state,
-    projectTheme: data,
-  };
-};
+// const getProjectThemeSuccess = (state, action) => {
+//   const {
+//     payload: { data, themeList, id },
+//   } = action;
+//   const newData = themeList.map((item) => (item.id === id ? { ...item, ...data } : { ...item }));
+//   const layerData = newData?.map((item) => {
+//     const newArrs = [...item?.group, ...item?.layer];
+//     return {
+//       id: item.id,
+//       name: item.name,
+//       options:
+//         item.group.length > 0
+//           ? newArrs.map((grp) => {
+//               if (grp.layer) {
+//                 return {
+//                   // ...items,
+//                   type: 'group',
+//                   name: grp.name,
+//                   id: grp.id,
+//                   isSelected: false,
+//                   options: grp.layer.map((elements) => ({
+//                     ...elements,
+//                     key: `${elements?.id}__${elements.name}__${grp?.id}`,
+//                     isSelected: false,
+//                   })),
+//                 };
+//               }
+//               return {
+//                 ...grp,
+//                 key: `${item?.id}__${grp?.id}__${grp?.name}`,
+//                 name: grp.name,
+//                 id: grp.id,
+//                 icon: grp.icon,
+//                 iconSize: grp.icon_size,
+//                 type: 'layerWithSubLayer',
+//                 isSelected: false,
+//                 options: grp.sub_layer.map((elements) => ({
+//                   ...elements,
+//                   key: `${elements?.id}__${elements.name}__${grp?.id}`,
+//                   isSelected: false,
+//                 })),
+//               };
+//             })
+//           : item.layer.length
+//           ? item.layer.map((layer) => {
+//               if (item.sub_layer?.length) {
+//                 return {
+//                   // ...items,
+//                   name: layer.name,
+//                   id: layer.id,
+//                   icon: layer.icon,
+//                   iconSize: layer.icon_size,
+//                   type: 'layerWithSubLayer',
+//                   isSelected: false,
+//                   options: layer.sub_layer.map((elements) => ({
+//                     ...elements,
+//                     isSelected: false,
+//                     key: `${elements?.id}__${elements.name}__${layer?.id}`,
+//                   })),
+//                 };
+//               }
+//               return {
+//                 // ...items,
+//                 name: layer.name,
+//                 id: layer.id,
+//                 icon: layer.icon,
+//                 iconSize: layer.icon_size,
+//                 type: 'layerWithoutSubLayer',
+//                 isSelected: false,
+//                 options: layer.sub_layer.map((elements) => ({
+//                   ...elements,
+//                   isSelected: false,
+//                   key: `${elements?.id}__${elements.name}__${layer?.id}`,
+//                 })),
+//               };
+//             })
+//           : [],
+//     };
+//   });
+//   console.log(data, newData, layerData, 'project data');
+//   return {
+//     ...state,
+//     projectTheme: data,
+//   };
+// };
 
 const getIndividualProjectDataSuccess = (state, action) => {
   const {
@@ -122,6 +205,7 @@ const getProjectLayerDataSuccess = (state, action) => {
   const {
     payload: { data },
   } = action;
+  const { updatedData } = state;
   const layerData = data.map((item) => {
     const newArrs = [...item.group, ...item.layer];
     return {
@@ -139,12 +223,14 @@ const getProjectLayerDataSuccess = (state, action) => {
                   isSelected: false,
                   options: grp.layer.map((elements) => ({
                     ...elements,
+                    key: `${elements?.id}__${elements.name}__${grp?.id}`,
                     isSelected: false,
                   })),
                 };
               }
               return {
                 ...grp,
+                key: `${item?.id}__${grp?.id}__${grp?.name}`,
                 name: grp.name,
                 id: grp.id,
                 icon: grp.icon,
@@ -153,6 +239,7 @@ const getProjectLayerDataSuccess = (state, action) => {
                 isSelected: false,
                 options: grp.sub_layer.map((elements) => ({
                   ...elements,
+                  key: `${elements?.id}__${elements.name}__${grp?.id}`,
                   isSelected: false,
                 })),
               };
@@ -171,6 +258,7 @@ const getProjectLayerDataSuccess = (state, action) => {
                   options: layer.sub_layer.map((elements) => ({
                     ...elements,
                     isSelected: false,
+                    key: `${elements?.id}__${elements.name}__${layer?.id}`,
                   })),
                 };
               }
@@ -185,6 +273,7 @@ const getProjectLayerDataSuccess = (state, action) => {
                 options: layer.sub_layer.map((elements) => ({
                   ...elements,
                   isSelected: false,
+                  key: `${elements?.id}__${elements.name}__${layer?.id}`,
                 })),
               };
             })
@@ -192,13 +281,50 @@ const getProjectLayerDataSuccess = (state, action) => {
     };
   });
 
+  const newLayerData = isEmpty(updatedData)
+    ? layerData
+    : layerData.map((item) =>
+        item.id === updatedData?.themeId
+          ? {
+              ...item,
+              options: item?.options?.map((elem) =>
+                updatedData?.type === 'Group'
+                  ? elem.id === updatedData?.group
+                    ? {
+                        ...elem,
+                        isSelected: true,
+                        options: elem.options.map((lyr) =>
+                          lyr?.id === updatedData?.layerId ? { ...lyr, isSelected: true } : { ...lyr },
+                        ),
+                      }
+                    : { ...elem }
+                  : updatedData?.subId
+                  ? elem?.id === updatedData?.layerId
+                    ? {
+                        ...elem,
+                        isSelected: true,
+                        options: elem.options.map((lyr) =>
+                          lyr?.id === updatedData?.subId ? { ...lyr, isSelected: true } : { ...lyr },
+                        ),
+                      }
+                    : { ...elem }
+                  : elem?.id === updatedData?.layerId
+                  ? { ...elem, isSelected: true }
+                  : { ...elem },
+              ),
+            }
+          : { ...item },
+      );
+
+  const geomData = getSelectedGeomData(newLayerData.filter((elem) => elem.id === updatedData?.themeId));
   return {
     ...state,
-    layerData,
+    layerData: newLayerData,
     layerDeleteSuccess: false,
     themeAddSuccess: false,
     addThemeData: initialState.addThemeData,
-    geomData: [],
+    postSuccess: false,
+    geomData,
   };
 };
 
@@ -285,20 +411,40 @@ const postUploadDataSuccess = (state, action) => {
 
 const postLayerDataSuccess = (state, action) => {
   const {
-    payload: { id, style },
+    payload: { data, finalData, style },
   } = action;
-  // const { geomData } = state;
   const geomData = state.geomData.map((element) =>
-    element?.id === id
+    element?.id === data.id
       ? {
           ...element,
           style,
         }
       : { ...element },
   );
+  const layerData = state.layerData.map((item) =>
+    item?.id === data?.theme
+      ? {
+          ...item,
+          options: item.options.map((elem) =>
+            finalData?.group === elem?.id
+              ? {
+                  ...elem,
+                  options: elem.options.map((element) =>
+                    element.id === data?.id ? { ...element, name: finalData?.name } : { ...element },
+                  ),
+                }
+              : elem.id === data?.id
+              ? { ...elem, name: finalData?.name }
+              : { ...elem },
+          ),
+        }
+      : { ...item },
+  );
   return {
     ...state,
     geomData,
+    layerData,
+    postSuccess: true,
   };
 };
 
@@ -314,6 +460,7 @@ const postSubLayerDataSuccess = (state, action) => {
   return {
     ...state,
     geomData,
+    postSuccess: true,
   };
 };
 
@@ -407,8 +554,6 @@ const setEditLayerData = (state, action) => {
   const {
     payload: { id, name, theId, type },
   } = action;
-  // const selectedLayerStyle = state.geomData.filter((element) => (element.type === 'group' ? '' : element.id === id))[0]
-  //   ?.style;
   const selectedLayerStyle = state.geomData.map((elem) =>
     elem.type === 'group' || elem?.sub_layer?.length
       ? { style: elem.options.filter((item) => item.id === id)[0].style }
@@ -448,6 +593,11 @@ const setLayerLoading = (state, action) => ({ ...state, isLayerLoading: action.p
 
 const setTaskLoading = (state, action) => ({ ...state, taskLoading: action.payload });
 
+const setAddUpdatedData = (state, action) => ({
+  ...state,
+  updatedData: action.payload,
+});
+
 const clearData = (state, action) =>
   // const { addUploadData, addThemeData } = state;
   ({
@@ -471,7 +621,7 @@ const clearData = (state, action) =>
 const individualProjectReducer = createReducer(initialState, {
   [Types.GET_PROJECT_LAYER_DATA_SUCCESS]: getProjectLayerDataSuccess,
   [Types.GET_THEME_LIST_SUCCESS]: getThemeListSuccess,
-  [Types.GET_PROJECT_THEME_SUCCESS]: getProjectThemeSuccess,
+  // [Types.GET_PROJECT_THEME_SUCCESS]: getProjectThemeSuccess,
   [Types.GET_INDIVIDUAL_PROJECT_DATA_SUCCESS]: getIndividualProjectDataSuccess,
   [Types.GET_INDIVIDUAL_LAYER_DATA_SUCCESS]: getIndividualLayerDataSuccess,
   [Types.GET_INDIVIDUAL_SUB_LAYER_DATA_SUCCESS]: getIndividualSubLayerDataSuccess,
@@ -502,6 +652,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.SET_ZOOM_TO_LAYER_ID]: setZoomToLayerId,
   [Types.SET_LAYER_LOADING]: setLayerLoading,
   [Types.SET_TASK_LOADING]: setTaskLoading,
+  [Types.SET_ADD_UPDATED_DATA]: setAddUpdatedData,
 });
 
 export default individualProjectReducer;

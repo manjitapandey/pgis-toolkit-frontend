@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -37,6 +38,7 @@ const MapSidebar = ({ isLoading, isGroupLoading }) => {
   const layerData = useSelector((state) => state.individualProject.layerData);
   const searchData = useSelector((state) => state.individualProject.searchData);
   const geomData = useSelector((state) => state.individualProject.geomData);
+  const themeList = useSelector((state) => state.individualProject.themeList);
   const projectHeaderHeight = useSelector((state) => state.projectHeader.projectHeaderHeight);
   const searchedLayerData = useSelector(searchedLayerSelector);
 
@@ -79,9 +81,9 @@ const MapSidebar = ({ isLoading, isGroupLoading }) => {
     }
   }, [dispatch, subLayerId, layerFilterActive]);
 
-  // useEffect(() => {
-  //   dispatch(getProjectThemeRequest({ theme: 21, project_style: 'default' }));
-  // }, []);
+  // const handleHeaderClick = (themeId) => {
+  //   dispatch(getProjectThemeRequest({ theme: themeId, project_style: 'default', themeList }));
+  // };
 
   return (
     <Sidebar
@@ -106,6 +108,7 @@ const MapSidebar = ({ isLoading, isGroupLoading }) => {
                 collapsed={index !== 0}
                 header={<h4 className="is-grow ">{name}</h4>}
                 handleButtonClick={(event) => handleButtonClick(event, id, name)}
+                // onHeaderClick={() => handleHeaderClick(id)}
                 body={
                   <ul className="is-list">
                     {

@@ -46,6 +46,10 @@ export const { Types, Creators } = createActions(
     getStandardIconsSuccess: ['payload'],
     getStandardIconsFailure: null,
 
+    getAttributeAliasRequest: ['params'],
+    getAttributeAliasSuccess: ['payload'],
+    getAttributeAliasFailure: null,
+
     postGroupDataRequest: ['payload'],
     postGroupDataSuccess: ['payload'],
     postGroupDataFailure: null,
@@ -96,6 +100,10 @@ export const { Types, Creators } = createActions(
     openDetailPopup: ['payload'],
     selectLayerData: ['payload'],
     clearDetailData: ['payload'],
+    setActiveTypeTab: ['payload'],
+    setAddUpdatedData: ['payload'],
+    setLayerIdHavingSubLayer: ['payload'],
+    clearLayerStyleData: ['payload'],
   },
   { prefix: 'IndividualProject/' },
 );

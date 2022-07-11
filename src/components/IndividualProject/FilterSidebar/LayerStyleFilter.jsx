@@ -25,17 +25,22 @@ const {
   openDatasetPopup,
   setAddUploadDataFile,
   getIndividualLayerDataRequest,
+  getAttributeAliasRequest,
   postLayerDataRequest,
   postSubLayerDataRequest,
+  setActiveTypeTab,
+  setAddUpdatedData,
 } = Creators;
 
 const LayerStyleFilter = ({ active, isGroupLoading }) => {
   const dispatch = useDispatch();
-  const [activeTypeTab, setActiveTypeTab] = useState('Individual');
   const [activeStyleTab, setActiveStyleTab] = useState('Standard');
   const selectedLayerName = useSelector((state) => state.individualProject.selectedLayerName);
   const themeId = useSelector((state) => state.individualProject.themeId);
   const groupList = useSelector((state) => state.layerStyle.groupList);
+  const attributeAlias = useSelector((state) => state.layerStyle.attributeAlias);
+  const activeTypeTab = useSelector((state) => state.layerStyle.activeTypeTab);
+  const layerIdHavingSubLayer = useSelector((state) => state.layerStyle.layerIdHavingSubLayer);
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const selectedType = useSelector((state) => state.individualProject.selectedType);
   const individualLayerData = useSelector((state) => state.individualProject.individualLayerData);
@@ -43,7 +48,6 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
   const openPopup = useSelector((state) => state.individualProject.openDatasetPopup);
   const finalData = useSelector(finalLayerStyleSelector);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
-
   const [layerStyle, handleChange] = useDebouncedInput({
     ms: 70,
     init: selectedLayerStyle,
@@ -60,6 +64,10 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
 
   const handleSelect1 = (value) => {
     dispatch(handleStyleInput({ name: 'group', value: value.id }));
+  };
+
+  const handleSubLayerSelect = (value) => {
+    dispatch(handleStyleInput({ name: 'sub_layers_mapping_field', value: value.name }));
   };
 
   const handleClick = () => {
@@ -86,10 +94,26 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
   const onSubmitClick = () => {
     if (selectedType === 'subLayer') {
       dispatch(postSubLayerDataRequest({ id: selectedLayerId, finalData }));
+      dispatch(
+        setAddUpdatedData({
+          layerId: layerIdHavingSubLayer,
+          subId: selectedLayerId,
+          themeId,
+          type: activeTypeTab,
+          group: finalData?.group || '',
+        }),
+      );
     } else {
+      dispatch(
+        setAddUpdatedData({ layerId: selectedLayerId, themeId, type: activeTypeTab, group: finalData?.group || '' }),
+      );
       dispatch(postLayerDataRequest({ id: selectedLayerId, finalData }));
     }
   };
+
+  useEffect(() => {
+    if (activeTypeTab === 'Sub-layer') dispatch(getAttributeAliasRequest({ layer: selectedLayerId }));
+  }, [activeTypeTab]);
 
   useEffect(() => {
     if (themeId) dispatch(getGroupListRequest({ theme: themeId }));
@@ -162,8 +186,8 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
                 <label className="is-capitalize">Attribute</label>
                 <Select
                   selected="Choose"
-                  handleSelect={handleSelect}
-                  options={selectOptions}
+                  handleSelect={handleSubLayerSelect}
+                  options={attributeAlias}
                   className="pm-select_100"
                 />
               </div>

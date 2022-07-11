@@ -8,6 +8,7 @@ import {
   getGroupList,
   getThemeList,
   getProjectTheme,
+  getAttributeAlias,
   postGroupData,
   postUploadData,
   postThemeData,
@@ -220,8 +221,10 @@ export function* getThemeListRequest(action) {
 export function* getProjectThemeRequest(action) {
   const { type, params } = action;
   try {
-    const response = yield call(getProjectTheme, params);
-    yield put(projectActions.getProjectThemeSuccess({ data: response.data }));
+    const response = yield call(getProjectTheme, { theme: params.theme, project_style: 'default' });
+    yield put(
+      projectActions.getProjectThemeSuccess({ data: response.data, themeList: params.themeList, id: params.theme }),
+    );
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));
     // if (error?.response?.status >= 400) {
@@ -258,6 +261,21 @@ export function* getFeatureCollectionRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getFeatureCollectionFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
+export function* getAttributeAliasRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getAttributeAlias, params);
+    yield put(projectActions.getAttributeAliasSuccess({ data: response.data }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(projectActions.getAttributeAliasFailure());
     yield put(toastActions.error({ message: error?.response?.data?.message }));
   }
 }
@@ -346,8 +364,10 @@ export function* postLayerDataRequest({ payload }) {
     Object.entries(finalData).forEach(([key, value]) => {
       data.append(key, value);
     });
-    yield call(postLayerData, id, data);
-    yield put(projectActions.postLayerDataSuccess({ id, style: JSON.parse(finalData.style) }));
+    const response = yield call(postLayerData, id, data);
+    yield put(
+      projectActions.postLayerDataSuccess({ data: response.data, finalData, style: JSON.parse(finalData.style) }),
+    );
     yield put(toastActions.success({ message: 'Layer style successfully edited.' }));
     yield put(projectActions.setLayerFilterActive('map'));
     yield put(projectActions.setLayerDeleteData({ id: null }));
@@ -368,6 +388,7 @@ export function* postSubLayerDataRequest({ payload }) {
     yield put(projectActions.postSubLayerDataSuccess({ data: response.data, id, style: JSON.parse(finalData.style) }));
     yield put(toastActions.success({ message: 'Sub Layer style successfully edited.' }));
     yield put(projectActions.setLayerFilterActive('map'));
+    yield put(projectActions.clearLayerStyleData());
     // yield put(projectActions.setLayerDeleteData({ id: null }));
   } catch (error) {
     yield put(projectActions.postSubLayerDataFailure());
@@ -397,9 +418,11 @@ function* individualProjectWatcher() {
   yield takeLatest(Types.GET_INDIVIDUAL_LAYER_DATA_REQUEST, withLoader(getIndividualLayerDataRequest));
   yield takeLatest(Types.GET_INDIVIDUAL_SUB_LAYER_DATA_REQUEST, withLoader(getIndividualSubLayerDataRequest));
   yield takeLatest(Types.GET_LAYER_TEMPLATE_LIST_REQUEST, withLoader(getLayerTemplateListRequest));
+  yield takeLatest(Types.GET_ATTRIBUTE_ALIAS_REQUEST, withLoader(getAttributeAliasRequest));
   yield takeLatest(Types.GET_TASK_RESPONSE_REQUEST, withLoader(getTaskResponseRequest));
   yield takeLatest(Types.GET_GROUP_LIST_REQUEST, withLoader(getGroupListRequest));
   yield takeLatest(Types.GET_THEME_LIST_REQUEST, withLoader(getThemeListRequest));
+  yield takeLatest(Types.GET_PROJECT_THEME_REQUEST, withLoader(getProjectThemeRequest));
   yield takeLatest(Types.GET_FEATURE_COLLECTION_REQUEST, withLoader(getFeatureCollectionRequest));
   yield takeLatest(Types.GET_STANDARD_ICONS_REQUEST, withLoader(getStandardIconsRequest));
   yield takeLatest(Types.POST_GROUP_DATA_REQUEST, withLoader(postGroupDataRequest));

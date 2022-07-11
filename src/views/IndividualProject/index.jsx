@@ -36,7 +36,9 @@ const IndividualProject = () => {
   const deletePopup = useSelector((state) => state.popup.deletePopup);
   const themeAddSuccess = useSelector((state) => state.individualProject.themeAddSuccess);
   const layerDeleteSuccess = useSelector((state) => state.individualProject.layerDeleteSuccess);
+  const postSuccess = useSelector((state) => state.individualProject.postSuccess);
   const openPopup = useSelector((state) => state.individualProject.openDatasetPopup);
+
   const isLoading = useSelector((state) =>
     checkIfLoading(
       state,
@@ -72,7 +74,7 @@ const IndividualProject = () => {
 
   useEffect(() => {
     dispatch(getProjectLayerDataRequest(uniqueId));
-  }, [dispatch, layerId, themeAddSuccess, layerDeleteSuccess, openPopup]);
+  }, [dispatch, layerId, themeAddSuccess, layerDeleteSuccess, openPopup, postSuccess]);
 
   if (isProjectLoading) {
     return <Loader />;
