@@ -74,45 +74,59 @@ const OlMap = () => {
 
           {geomData ? (
             geomData?.map((item, index) =>
-              item?.type === 'group' || item?.sub_layer?.length ? (
-                item?.options.map((elem, i) => (
-                  <VectorTileLayer
-                    key={elem?.key}
-                    url={
-                      item?.sub_layer?.length
-                        ? `${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=${elem.id}`
-                        : `${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${elem.id}`
-                    }
-                    authToken={authToken}
-                    style={
-                      selectedLayerId === elem?.id
-                        ? selectedLayerStyle
-                        : elem?.style?.fillColor
-                        ? { ...elem?.style }
-                        : { ...defaultStyles }
-                    }
-                    zoomToLayer={elem?.id === zoomToLayerId}
-                    bbox={elem?.bbox}
-                    zIndex={item?.options.length - i}
-                  />
-                ))
-              ) : (
-                <VectorTileLayer
-                  key={`${item.key}`}
-                  url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}`}
-                  authToken={authToken}
-                  style={
-                    selectedLayerId === item?.id
-                      ? selectedLayerStyle
-                      : item?.style?.fillColor
-                      ? { ...item?.style }
-                      : { ...defaultStyles }
-                  }
-                  zoomToLayer={item?.id === zoomToLayerId}
-                  bbox={item?.bbox}
-                  zIndex={geomData.length - index}
-                />
-              ),
+              item?.type === 'group'
+                ? item?.options.map((elem, i) => (
+                    <VectorTileLayer
+                      key={elem?.key}
+                      url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${elem.id}`}
+                      authToken={authToken}
+                      style={
+                        selectedLayerId === elem?.id
+                          ? selectedLayerStyle
+                          : elem?.style?.fillColor
+                          ? { ...elem?.style }
+                          : { ...defaultStyles }
+                      }
+                      zoomToLayer={elem?.id === zoomToLayerId}
+                      bbox={elem?.bbox}
+                      zIndex={item?.options.length - i}
+                    />
+                  ))
+                : item?.sub_layer?.length
+                ? item?.options.map((elem, i) => (
+                    <VectorTileLayer
+                      key={elem?.key}
+                      url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=${elem.id}`}
+                      authToken={authToken}
+                      style={
+                        selectedLayerId === elem?.id
+                          ? selectedLayerStyle
+                          : elem?.style?.fillColor
+                          ? { ...elem?.style }
+                          : { ...defaultStyles }
+                      }
+                      zoomToLayer={elem?.id === zoomToLayerId}
+                      bbox={elem?.bbox}
+                      zIndex={item?.options.length - i}
+                    />
+                  ))
+                : item.type !== 'group' && (
+                    <VectorTileLayer
+                      key={`${item.key}`}
+                      url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}`}
+                      authToken={authToken}
+                      style={
+                        selectedLayerId === item?.id
+                          ? selectedLayerStyle
+                          : item?.style?.fillColor
+                          ? { ...item?.style }
+                          : { ...defaultStyles }
+                      }
+                      zoomToLayer={item?.id === zoomToLayerId}
+                      bbox={item?.bbox}
+                      zIndex={geomData.length - index}
+                    />
+                  ),
             )
           ) : (
             <></>
