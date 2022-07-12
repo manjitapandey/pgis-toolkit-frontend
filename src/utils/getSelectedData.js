@@ -6,27 +6,28 @@ export const getSelectedData = (data, name, categoryName, id) =>
           ...item,
           options: item.options.map((element) =>
             element.name === categoryName
-              ? element.type === 'group'
-                ? {
-                    ...element,
+              ? // element.type === 'group'
+                //   ? {
+                //       ...element,
+                //       // isSelected: !element.isSelected,
+                //       options: element.options.map((items) =>
+                //         items.id === +id
+                //           ? {
+                //               ...items,
+                //               isSelected: !items.isSelected,
+                //             }
+                //           : { ...items },
+                //       ),
+                //     }
+                //   :
+                {
+                  ...element,
+                  options: element.options.map((items) => ({
+                    ...items,
                     isSelected: !element.isSelected,
-                    options: element.options.map((items) =>
-                      items.id === +id
-                        ? {
-                            ...items,
-                            isSelected: !items.isSelected,
-                          }
-                        : { ...items },
-                    ),
-                  }
-                : {
-                    ...element,
-                    options: element.options.map((items) => ({
-                      ...items,
-                      isSelected: !element.isSelected,
-                    })),
-                    isSelected: !element.isSelected,
-                  }
+                  })),
+                  isSelected: !element.isSelected,
+                }
               : { ...element },
           ),
         }
@@ -69,9 +70,6 @@ export const getFilteredLayerData = (data) =>
 export const getSelectedGeomData = (data) =>
   data
     .map((item) => ({ ...item, options: item?.options.filter((elem) => elem.isSelected) }))[0]
-    ?.options.map((element) => {
-      console.log(element, 'inside func');
-      return {
-        ...element,
-      };
-    });
+    ?.options.map((element) => ({
+      ...element,
+    }));
