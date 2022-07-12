@@ -107,7 +107,7 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                   name={item.name}
                   checked={item.isSelected}
                   label={item.name}
-                  onChange={type === 'group' ? onChange : onListChange}
+                  onChange={onListChange}
                   icon={item.icon}
                   className="is-flex is-grow"
                 />
