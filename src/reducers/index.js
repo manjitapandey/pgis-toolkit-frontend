@@ -14,6 +14,7 @@ import detailPopup from './IndividualProject/detailPopup';
 import layerStyle from './IndividualProject/layerStyle';
 import datasetPopup from './IndividualProject/datasetPopup';
 import landing from './landing';
+import pagination from './pagination';
 
 export default combineReducers({
   router: connectRouter(history),
@@ -30,4 +31,5 @@ export default combineReducers({
   detailPopup,
   layerStyle,
   datasetPopup,
+  pagination,
 });

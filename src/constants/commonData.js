@@ -127,3 +127,12 @@ export const vectorTileData = [
 export const optionTypeList = ['Individual', 'Group', 'Sub-layer'];
 
 export const optionStyleList = ['Standard', 'Advance'];
+
+export const paginationOptions = [
+  { id: 1, value: 5, label: 5 },
+  { id: 2, value: 10, label: 10 },
+  { id: 3, value: 15, label: 15 },
+  { id: 4, value: 20, label: 20 },
+  { id: 5, value: 25, label: 25 },
+  { id: 6, value: 30, label: 30 },
+];
