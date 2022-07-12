@@ -4,9 +4,13 @@ import OrganizationsUsers from '../views/OrganizationUsers';
 import IndividualOrganization from '../views/IndividualOrganization';
 import IndividualProject from '../views/IndividualProject';
 import Landing from '../views/Landing';
+import UseCase from '../views/UseCase';
+import About from '../views/About';
 
 const indexRoutes = [
   { path: '/login', name: 'Login', component: Login },
+  { path: '/useCase', name: 'UseCase', component: UseCase },
+  { path: '/about', name: 'About', component: About },
   {
     path: '/organizations/:id/projects/:uniqueId',
     name: 'Individual Project',

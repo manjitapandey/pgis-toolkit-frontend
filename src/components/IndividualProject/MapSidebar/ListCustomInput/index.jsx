@@ -74,7 +74,7 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                   className="is-circle is-circle_xs"
                   onClick={() => handleEdit(uniqueId, catName, themeId, type)}
                 >
-                  <i className="material-icons">edit</i>
+                  <i className="material-icons-outlined">edit</i>
                 </a>
               </div>
             )}
@@ -136,7 +136,7 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                           )
                         }
                       >
-                        <i className="material-icons">edit</i>
+                        <i className="material-icons-outlined">edit</i>
                       </a>
                     </div>
                   )}

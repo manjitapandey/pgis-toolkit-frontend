@@ -35,7 +35,7 @@ const Accordion = ({
               modal-link="add-layer"
               onClick={handleButtonClick}
             >
-              <i className="material-icons">add_circle_outline</i>
+              <i className="material-icons-outlined">add_circle_outline</i>
               <span>add</span>
             </button>
           </div>
