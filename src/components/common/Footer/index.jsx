@@ -1,0 +1,78 @@
+import React from 'react';
+import logoWhite from '@Assets/images/logo-white.svg';
+import logo from '@Assets/images/logo.svg';
+import fbLogo from '@Assets/images/fb-logo.svg';
+import linkedinLogo from '@Assets/images/linkedin-logo.svg';
+import twitterLogo from '@Assets/images/twitter-logo.svg';
+import youtubeLogo from '@Assets/images/youtube-logo.svg';
+
+const Footer = () => (
+  <footer className="site-footer pt-5 pb-5">
+    <div className="container">
+      <div className="site-footer_up is-flex  is-align-center is-wrap">
+        <a href={() => {}} className="site-footer_logo is-grow is-flex ">
+          <img src={logo} alt="logo" />
+        </a>
+        <ul className="site-footer_nav is-flex is-grow is-align-center is-wrap is-gap-15 fw-bold">
+          <li>
+            <a href={() => {}}>Use cases</a>
+          </li>
+          <li>
+            <a href={() => {}}>About</a>
+          </li>
+        </ul>
+      </div>
+      <div className="site-footer_down pt-15 ">
+        <div className="row">
+          <div className="grid-lg-4 grid-md-6 grid-sm-12">
+            <div className="copyright-term is-flex  is-align-center is-wrap is-gap-15 fs-md mb-10">
+              <p>© 2022 USAFIR.</p>
+              <ul className="is-flex is-start is-align-center is-gap-15 fw-bold">
+                <li>
+                  <a href={() => {}}>Terms of Service</a>
+                </li>
+                <li>
+                  <a href={() => {}}>Privacy Policy</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="grid-lg-4 grid-md-6 grid-sm-12">
+            <ul className="is-flex  is-align-center is-gap-20 social-icons mb-10">
+              <li>
+                <a href={() => {}}>
+                  <img src={fbLogo} alt="facebook" />
+                </a>
+              </li>
+              <li>
+                <a href={() => {}}>
+                  <img src={twitterLogo} alt="twitter" />
+                </a>
+              </li>
+              <li>
+                <a href={() => {}}>
+                  <img src={linkedinLogo} alt="linkedin" />
+                </a>
+              </li>
+              <li>
+                <a href={() => {}}>
+                  <img src={youtubeLogo} alt="youtube" />
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="grid-lg-4  grid-sm-12">
+            <div className="designed-by fs-md is-flex  is-align-center is-gap-05">
+              <span>Designed & Developed by</span>
+              <a href={() => {}} className="fw-bold is-uppercase">
+                Naxa
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+);
+
+export default Footer;
