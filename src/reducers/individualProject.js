@@ -346,9 +346,9 @@ const getSelectedFromLayer = (state, action) => {
   const {
     payload: { id, parentId, name, categoryName },
   } = action;
-
   const { layerData } = state;
   const data = getSelectedData(layerData, name, categoryName, id, defaultStyles);
+
   const geomData = getFilteredLayerData(data);
   return {
     ...state,

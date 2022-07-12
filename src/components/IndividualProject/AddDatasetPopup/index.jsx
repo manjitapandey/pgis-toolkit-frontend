@@ -23,7 +23,10 @@ const AddDatasetPopup = ({ id }) => {
         item?.name?.toLowerCase()?.replace(/\s/g, '') === addThemeData?.themeName?.toLowerCase().replace(/\s/g, ''),
     )?.name || null;
   const handleButtonClick = () => {
-    if (checkState || addThemeData.themeName === '' || addThemeData.groupName === '') {
+    if (checkState || (addThemeData.themeName === '' && popupName === 'theme')) {
+      dispatch(toastAction.error({ message: 'Fields cannot be empty' }));
+    }
+    if (checkState || (addThemeData.groupName === '' && popupName === 'group')) {
       dispatch(toastAction.error({ message: 'Fields cannot be empty' }));
     }
     if (!checkState && popupName === 'theme') {
