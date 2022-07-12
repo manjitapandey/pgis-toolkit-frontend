@@ -399,9 +399,13 @@ export function* postSubLayerDataRequest({ payload }) {
 export function* deleteLayerDataRequest({ payload }) {
   try {
     const { id, isDelete } = payload;
-    const data = {
+    const deleteData = {
       is_deleted: isDelete,
     };
+    const data = new FormData();
+    Object.entries(deleteData).forEach(([key, value]) => {
+      data.append(key, value);
+    });
     yield call(deleteLayerData, id, data);
     yield put(projectActions.deleteLayerDataSuccess(id));
     yield put(popupAction.openDeletePopup(false));
