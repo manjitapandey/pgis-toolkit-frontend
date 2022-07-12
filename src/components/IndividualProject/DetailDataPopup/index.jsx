@@ -26,7 +26,6 @@ const DetailDataPopup = ({ isLoading }) => {
   const headerData = useSelector((state) => state.detailPopup.headerData);
   const currentPage = useSelector((state) => state.pagination.currentPage);
   const totalPage = Math.ceil(+featureCollection?.counts / +selected);
-
   const [search, handleSearch] = useDebouncedInput({
     ms: 200,
     init: '',
@@ -57,7 +56,6 @@ const DetailDataPopup = ({ isLoading }) => {
   useEffect(() => {
     dispatch(getFeatureCollectionRequest({ layer_id: +layerId, limit: selected, page: +currentPage }));
   }, [selected]);
-
   return (
     <Popup
       tagId="explore"

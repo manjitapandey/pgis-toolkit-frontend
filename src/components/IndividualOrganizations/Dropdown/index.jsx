@@ -17,30 +17,30 @@ const Dropdown = ({ handleZoomClick, handleDeleteClick, layerId, display }) => {
         }
       >
         <a className="is-circle is-circle_xs" ref={toggleRef} onClick={handleToggle}>
-          <i className="material-icons">more_vert</i>
+          <i className="material-icons-outlined">more_vert</i>
         </a>
         <ul className="pm-dropdown_menu">
           <li>
             <a onClick={handleZoomClick}>
-              <i className="material-icons">zoom_in</i>
+              <i className="material-icons-outlined">zoom_in</i>
               <span>Zoom to layer</span>
             </a>
           </li>
           <li>
             <a href={`${BASE_URL}/maps/layer_download/?layer_id=${layerId}&output_format=kml`} download>
-              <i className="material-icons">download</i>
+              <i className="material-icons-outlined">download</i>
               <span>download</span>
             </a>
           </li>
           {/* <li>
             <a>
-              <i className="material-icons">star_border</i>
+              <i className="material-icons-outlined">star_border</i>
               <span>add Feature</span>
             </a>
       </li> */}
           <li style={!display ? { display: 'inline' } : { display: 'none' }}>
             <a onClick={handleDeleteClick}>
-              <i className="material-icons">delete</i>
+              <i className="material-icons-outlined">delete</i>
               <span>delete</span>
             </a>
           </li>
