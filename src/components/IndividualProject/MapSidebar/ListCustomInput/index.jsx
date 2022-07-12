@@ -141,8 +141,9 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                     </div>
                   )}
                   <Dropdown
-                    handleDeleteClick={() => handleDeleteClick(uniqueId, catName)}
+                    handleDeleteClick={() => handleDeleteClick(item?.id, item?.name)}
                     handleZoomClick={() => handleZoomClick(item.id)}
+                    display={type !== 'group'}
                   />
                 </div>
               </li>

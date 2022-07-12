@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const { BASE_URL } = process.env;
 
-const Dropdown = ({ handleZoomClick, handleDeleteClick, layerId }) => {
+const Dropdown = ({ handleZoomClick, handleDeleteClick, layerId, display }) => {
   const [toggleRef, toggle, handleToggle] = useOutsideClick();
 
   return (
@@ -38,7 +38,7 @@ const Dropdown = ({ handleZoomClick, handleDeleteClick, layerId }) => {
               <span>add Feature</span>
             </a>
       </li> */}
-          <li>
+          <li style={!display ? { display: 'inline' } : { display: 'none' }}>
             <a onClick={handleDeleteClick}>
               <i className="material-icons">delete</i>
               <span>delete</span>
@@ -54,12 +54,14 @@ Dropdown.propTypes = {
   handleDeleteClick: PropTypes.func,
   handleZoomClick: PropTypes.func,
   layerId: PropTypes.any,
+  display: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
   handleDeleteClick: () => {},
   handleZoomClick: () => {},
   layerId: '',
+  display: false,
 };
 
 export default Dropdown;
