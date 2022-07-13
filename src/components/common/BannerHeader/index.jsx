@@ -1,13 +1,13 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import Slider from 'react-slick';
+import { useLocation, Link } from 'react-router-dom';
 import logoWhite from '@Assets/images/logo-white.svg';
-import { Link } from 'react-router-dom';
 
 const BannerHeader = () => {
+  const { pathname } = useLocation();
   const [header, setHeader] = useState(false);
   const [menu, setMenu] = useState(false);
-
   const handleMenu = () => {
     setMenu(true);
   };
@@ -52,12 +52,12 @@ const BannerHeader = () => {
             </div>
             <ul className="is-center is-flex is-align-center is-gap-30 is-grow">
               <Link to="/usecase">
-                <li className="is-active">
+                <li className={pathname === '/usecase' ? 'is-active' : ''}>
                   <a href={() => {}}>use cases</a>
                 </li>
               </Link>
               <Link to="about">
-                <li>
+                <li className={pathname === '/about' ? 'is-active' : ''}>
                   <a href={() => {}}>about</a>
                 </li>
               </Link>

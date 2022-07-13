@@ -13,8 +13,8 @@ const FAQs = () => (
         </div>
         <div className="grid-xxl-9 grid-xl-8 grid-sm-12">
           <div className="acc acc-after acc-border">
-            {accordionDetails.map(({ h4Header, description }) => (
-              <Accordion h4Header={h4Header} body={<p>{description}</p>} />
+            {accordionDetails.map(({ h4Header, description }, index) => (
+              <Accordion h4Header={h4Header} body={<p>{description}</p>} collapsed={index !== 0} />
             ))}
           </div>
         </div>
