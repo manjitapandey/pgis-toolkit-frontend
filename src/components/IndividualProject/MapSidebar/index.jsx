@@ -45,15 +45,15 @@ const MapSidebar = ({ isLoading, isGroupLoading }) => {
   const handleSearch = (event) => {
     dispatch(getSearchData(event.target.value));
   };
-  const handleCheckbox = (e, parId, name, catName) => {
+  const handleCheckbox = (e, parId, name, catName, type) => {
     const { id } = e.target;
-    setLayId(id);
+    if (type !== 'group') setLayId(id);
     dispatch(getSelectedFromLayer({ id, parentId: parId, name, categoryName: catName }));
     // dispatch(getIndividualLayerDataRequest({ id, name, categoryName: catName, layerData }));
   };
-  const handleListCheckbox = (e, parId, name, catName) => {
+  const handleListCheckbox = (e, parId, name, catName, type) => {
     const { id } = e.target;
-    setSubLayerId(id);
+    if (type !== 'group') setSubLayerId(id);
     dispatch(getSelectedFromSubLayer({ id, parentId: parId, name, categoryName: catName }));
   };
   const handleClick = () => {
@@ -118,9 +118,11 @@ const MapSidebar = ({ isLoading, isGroupLoading }) => {
                             uniqueId={element?.id}
                             catName={element?.name}
                             isSelected={element?.isSelected}
-                            onChange={(event) => handleCheckbox(event, element.id, name, element.name)}
+                            onChange={(event) => handleCheckbox(event, element.id, name, element.name, element.type)}
                             icon={element?.icon || element?.std_icon}
-                            onListChange={(event) => handleListCheckbox(event, element.id, name, element.name)}
+                            onListChange={(event) =>
+                              handleListCheckbox(event, element.id, name, element.name, element.type)
+                            }
                             options={element?.options}
                             themeId={id}
                             type={element?.type}
