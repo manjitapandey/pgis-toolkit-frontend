@@ -39,7 +39,7 @@ export function* getProjectLayerDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getProjectLayerDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.message }));
+    yield put(toastActions.error({ message: error?.response?.data?.error }));
   }
 }
 
@@ -54,7 +54,7 @@ export function* getIndividualProjectDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getIndividualProjectDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.message }));
+    yield put(toastActions.error({ message: error?.response?.data?.error }));
   }
 }
 
@@ -102,12 +102,13 @@ export function* getIndividualLayerDataRequest(action) {
     const geomData = getFilteredLayerData(layerData);
     yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data, geomData, layerData }));
   } catch (error) {
+    console.log(error, 'eeor');
     // yield put(redirectActions.getStatusCode(error?.response?.status));
     // if (error?.response?.status >= 400) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getIndividualLayerDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.message }));
+    yield put(toastActions.error({ message: error?.response?.data?.error }));
   }
 }
 
@@ -152,7 +153,7 @@ export function* getIndividualSubLayerDataRequest(action) {
     //   yield put(push('/redirect'));
     // }
     yield put(projectActions.getIndividualSubLayerDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.message }));
+    yield put(toastActions.error({ message: error?.response?.data?.error }));
   }
 }
 

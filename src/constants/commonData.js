@@ -136,3 +136,21 @@ export const paginationOptions = [
   { id: 5, value: 25, label: 25 },
   { id: 6, value: 30, label: 30 },
 ];
+
+export const tabOptions = [
+  {
+    id: 1,
+    name: 'Transport Assessment',
+    icon: 'layers',
+  },
+  {
+    id: 2,
+    name: 'Planning Health Facilities',
+    icon: 'health_and_safety',
+  },
+  {
+    id: 2,
+    name: 'Participator Risk Mapping',
+    icon: 'warning_amber',
+  },
+];

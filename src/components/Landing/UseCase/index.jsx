@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import CaseboxWrapper from '@Components/common/CaseboxWrapper/index';
+import CaseTab from '@Components/common/CaseTab/index';
 import { caseboxDetail } from '@src/constants/landing';
+import { tabOptions } from '@src/constants/commonData';
 
 const UseCase = () => {
   const [tab, setTab] = useState('Transport Assessment');
@@ -14,73 +15,7 @@ const UseCase = () => {
             <br /> needs and mobility barriers of rural communities.
           </p>
         </div>
-        <div className="cases-tab">
-          <ul className="is-flex is-center is-align-center is-gap-10 is-wrap">
-            <li className={tab === 'Transport Assessment' ? 'is-active' : ''} style={{ cursor: 'pointer' }}>
-              <a
-                href={() => {}}
-                className="is-flex is-column is-center is-align-center"
-                onClick={() => setTab('Transport Assessment')}
-              >
-                <div className="tab-icon">
-                  <i className="material-icons-outlined">layers</i>
-                </div>
-                <p className="fs-body">Transport Assessment</p>
-              </a>
-            </li>
-            <li className={tab === 'Planning Health Facilities' ? 'is-active' : ''} style={{ cursor: 'pointer' }}>
-              <a
-                href={() => {}}
-                className="is-flex is-column is-center is-align-center"
-                onClick={() => setTab('Planning Health Facilities')}
-              >
-                <div className="tab-icon">
-                  <i className="material-icons-outlined">health_and_safety</i>
-                </div>
-                <p className="fs-body">Planning Health Facilities</p>
-              </a>
-            </li>
-            <li className={tab === 'Participator Risk Mapping' ? 'is-active' : ''} style={{ cursor: 'pointer' }}>
-              <a
-                href={() => {}}
-                className="is-flex is-column is-center is-align-center"
-                onClick={() => setTab('Participator Risk Mapping')}
-              >
-                <div className="tab-icon">
-                  <i className="material-icons-outlined">warning_amber</i>
-                </div>
-                <p className="fs-body">Participator Risk Mapping</p>
-              </a>
-            </li>
-          </ul>
-          {tab === 'Transport Assessment' && (
-            <div className="case-slider slick-initialized slick-slider">
-              <div className="row">
-                {caseboxDetail.map(({ heading, image, title, description, date }) => (
-                  <CaseboxWrapper heading={heading} image={image} title={title} description={description} date={date} />
-                ))}
-              </div>
-
-              {/* <Slider {...settings}>
-                  {caseboxDetail.map(({ heading, image, title, description, date }) => (
-                    <CaseboxWrapper
-                      heading={heading}
-                      image={image}
-                      title={title}
-                      description={description}
-                      date={date}
-                    />
-                  ))}
-                  </Slider> */}
-            </div>
-          )}
-          {(tab === 'Planning Health Facilities' || tab === 'Participator Risk Mapping') && (
-            <h4 className="mb-12 mt-30" style={{ textAlign: 'center' }}>
-              {' '}
-              We hope to have a use case for this title soon, so please check back later!
-            </h4>
-          )}
-        </div>
+        <CaseTab selected={tab} setSelected={setTab} caseboxDetail={caseboxDetail} tabOptions={tabOptions} />
       </div>
     </section>
   );
