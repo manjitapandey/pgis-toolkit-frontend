@@ -6,7 +6,7 @@ import './toast.scss';
 
 function Toast({ type, message, clearToast }) {
   useEffect(() => {
-    if (type && message) setTimeout(clearToast, 12000);
+    if (type && message) setTimeout(clearToast, 5000);
   }, [type, message, clearToast]);
 
   if (type && typeof message === 'string') {

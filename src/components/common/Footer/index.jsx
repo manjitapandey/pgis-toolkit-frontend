@@ -1,5 +1,6 @@
 import React from 'react';
 import logoWhite from '@Assets/images/logo-white.svg';
+import { Link } from 'react-router-dom';
 import logo from '@Assets/images/logo.svg';
 import fbLogo from '@Assets/images/fb-logo.svg';
 import linkedinLogo from '@Assets/images/linkedin-logo.svg';
@@ -14,12 +15,16 @@ const Footer = () => (
           <img src={logo} alt="logo" />
         </a>
         <ul className="site-footer_nav is-flex is-grow is-align-center is-wrap is-gap-15 fw-bold">
-          <li>
-            <a href={() => {}}>Use cases</a>
-          </li>
-          <li>
-            <a href={() => {}}>About</a>
-          </li>
+          <Link to="/usecase">
+            <li>
+              <a href={() => {}}>Use cases</a>
+            </li>
+          </Link>
+          <Link to="/about">
+            <li>
+              <a href={() => {}}>About</a>
+            </li>
+          </Link>
         </ul>
       </div>
       <div className="site-footer_down pt-15 ">

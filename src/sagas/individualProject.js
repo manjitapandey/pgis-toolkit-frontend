@@ -327,8 +327,18 @@ export function* postUploadDataRequest(action) {
     // if (error?.response?.status >= 400) {
     //   yield put(push('/redirect'));
     // }
+
     yield put(projectActions.postUploadDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.message }));
+    const err = error?.response?.data?.message || error?.response?.data?.error;
+    const errorMessage =
+      err === 'server error: celery is not working'
+        ? 'Server cannot process the request due to a system overload; please try again later.'
+        : err;
+    yield put(toastActions.error({ message: errorMessage }));
+    if (err === 'server error: celery is not working') {
+      yield put(projectActions.openLayerPopup(false));
+      yield put(projectActions.clearData());
+    }
   }
 }
 
