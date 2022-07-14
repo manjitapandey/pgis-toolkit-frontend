@@ -18,7 +18,7 @@ const Select = ({ options, selected, handleSelect, className, className1 }) => {
       onClick={handleToggle}
     >
       <div className={`pm-select_item ${className1}`}>
-        <span>{state || selected}</span>
+        <span>{selected || state}</span>
       </div>
       <ul className="pm-select_list left-dropdown">
         {options &&
