@@ -104,6 +104,7 @@ export const { Types, Creators } = createActions(
     setAddUpdatedData: ['payload'],
     setLayerIdHavingSubLayer: ['payload'],
     clearLayerStyleData: ['payload'],
+    setSelectedData: ['payload'],
   },
   { prefix: 'IndividualProject/' },
 );

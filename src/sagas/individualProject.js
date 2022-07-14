@@ -101,6 +101,14 @@ export function* getIndividualLayerDataRequest(action) {
     );
     const geomData = getFilteredLayerData(layerData);
     yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data, geomData, layerData }));
+    if (response?.data?.group) {
+      yield put(projectActions.setActiveTypeTab('Group'));
+      yield put(projectActions.setSelectedData(response?.data?.group));
+    }
+    if (response?.data?.sub_layers_mapping_field) {
+      yield put(projectActions.setActiveTypeTab('Sub-layer'));
+      yield put(projectActions.setSelectedData(response?.data?.sub_layers_mapping_field));
+    }
   } catch (error) {
     console.log(error, 'eeor');
     // yield put(redirectActions.getStatusCode(error?.response?.status));
@@ -321,7 +329,6 @@ export function* postUploadDataRequest(action) {
 
     const response = yield call(postUploadData, formData);
     yield put(projectActions.postUploadDataSuccess({ data: response.data }));
-    // yield put(toastActions.success({ message: 'Layer added successfully' }));
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));
     // if (error?.response?.status >= 400) {
@@ -332,7 +339,7 @@ export function* postUploadDataRequest(action) {
     const err = error?.response?.data?.message || error?.response?.data?.error;
     const errorMessage =
       err === 'server error: celery is not working'
-        ? 'Server cannot process the request due to a system overload; please try again later.'
+        ? 'Server cannot process the request. Please try again later.'
         : err;
     yield put(toastActions.error({ message: errorMessage }));
     if (err === 'server error: celery is not working') {
@@ -382,6 +389,7 @@ export function* postLayerDataRequest({ payload }) {
     yield put(toastActions.success({ message: 'Layer style successfully edited.' }));
     yield put(projectActions.setLayerFilterActive('map'));
     yield put(projectActions.setLayerDeleteData({ id: null }));
+    yield put(projectActions.clearLayerStyleData());
   } catch (error) {
     yield put(projectActions.postLayerDataFailure());
     yield put(toastActions.error({ message: error?.response?.data?.message }));
