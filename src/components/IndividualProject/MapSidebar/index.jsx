@@ -13,6 +13,7 @@ import CustomInput from './CustomInput/index';
 import ListCustomInput from './ListCustomInput/index';
 import LayerStyleFilter from '../FilterSidebar/LayerStyleFilter';
 import CustomInputLoader from './CustomInputLoader/index';
+import SidebarFilterLoader from '../SidebarFilterLoader/index';
 
 const {
   setActive,
@@ -27,7 +28,7 @@ const {
   getProjectThemeRequest,
 } = Creators;
 
-const MapSidebar = ({ isLoading, isGroupLoading }) => {
+const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
   const dispatch = useDispatch();
   const [headerHeight, setHeaderHeight] = useState(null);
   const windowHeight = window.innerHeight;
@@ -49,7 +50,6 @@ const MapSidebar = ({ isLoading, isGroupLoading }) => {
     const { id } = e.target;
     if (type !== 'group') setLayId(id);
     dispatch(getSelectedFromLayer({ id, parentId: parId, name, categoryName: catName }));
-    // dispatch(getIndividualLayerDataRequest({ id, name, categoryName: catName, layerData }));
   };
   const handleListCheckbox = (e, parId, name, catName, type) => {
     const { id } = e.target;
@@ -151,7 +151,11 @@ const MapSidebar = ({ isLoading, isGroupLoading }) => {
         </div>
       </div>
       <FilterSidebar active={active} isGroupLoading={isGroupLoading} />
-      <LayerStyleFilter active={layerFilterActive} isGroupLoading={isGroupLoading} />
+      {isLayerLoading && layerFilterActive === 'layerFilter' ? (
+        <SidebarFilterLoader />
+      ) : (
+        <LayerStyleFilter active={layerFilterActive} isGroupLoading={isGroupLoading} />
+      )}
     </Sidebar>
   );
 };
@@ -159,6 +163,7 @@ const MapSidebar = ({ isLoading, isGroupLoading }) => {
 MapSidebar.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   isGroupLoading: PropTypes.bool.isRequired,
+  isLayerLoading: PropTypes.bool.isRequired,
 };
 
 export default MapSidebar;

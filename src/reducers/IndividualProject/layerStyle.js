@@ -6,6 +6,7 @@ const initialState = {
   attributeAlias: null,
   activeTypeTab: 'Individual',
   layerIdHavingSubLayer: null,
+  selectedData: '',
 };
 
 const getGroupListSuccess = (state, action) => {
@@ -38,9 +39,18 @@ const setLayerIdHavingSubLayer = (state, action) => ({
   layerIdHavingSubLayer: action.payload,
 });
 
+const setSelectedData = (state, action) => ({
+  ...state,
+  selectedData: action.payload,
+});
+
 const clearLayerStyleData = (state, action) => ({
   ...state,
   layerIdHavingSubLayer: null,
+  setSelectedData: initialState.setSelectedData,
+  activeTypeTab: initialState.activeTypeTab,
+  groupList: initialState.groupList,
+  attributeAlias: initialState.attributeAlias,
 });
 
 const layerStyleReducer = createReducer(initialState, {
@@ -48,6 +58,7 @@ const layerStyleReducer = createReducer(initialState, {
   [Types.GET_ATTRIBUTE_ALIAS_SUCCESS]: getAttributeAliasSuccess,
   [Types.SET_ACTIVE_TYPE_TAB]: setAciveTypeTab,
   [Types.SET_LAYER_ID_HAVING_SUB_LAYER]: setLayerIdHavingSubLayer,
+  [Types.SET_SELECTED_DATA]: setSelectedData,
   [Types.CLEAR_LAYER_STYLE_DATA]: clearLayerStyleData,
 });
 

@@ -556,7 +556,7 @@ const setEditLayerData = (state, action) => {
   } = action;
   const selectedLayerStyle = state.geomData.map((elem) =>
     elem.type === 'group' || elem?.sub_layer?.length
-      ? { style: elem.options.filter((item) => item.id === id)[0].style }
+      ? { style: elem?.options?.filter((item) => item.id === id)[0]?.style }
       : elem.id === id && elem,
   )[0]?.style;
   return {
@@ -615,7 +615,7 @@ const clearData = (state, action) =>
     layerId: null,
     // individualLayerData: null,
     selectedLayerStyle: {},
-    selectedtype: '',
+    selectedType: '',
   });
 
 const individualProjectReducer = createReducer(initialState, {

@@ -30,6 +30,8 @@ const {
   postSubLayerDataRequest,
   setActiveTypeTab,
   setAddUpdatedData,
+  clearLayerStyleData,
+  setSelectedData,
 } = Creators;
 
 const LayerStyleFilter = ({ active, isGroupLoading }) => {
@@ -41,6 +43,7 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
   const attributeAlias = useSelector((state) => state.layerStyle.attributeAlias);
   const activeTypeTab = useSelector((state) => state.layerStyle.activeTypeTab);
   const layerIdHavingSubLayer = useSelector((state) => state.layerStyle.layerIdHavingSubLayer);
+  const selectedData = useSelector((state) => state.layerStyle.selectedData);
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const selectedType = useSelector((state) => state.individualProject.selectedType);
   const individualLayerData = useSelector((state) => state.individualProject.individualLayerData);
@@ -63,10 +66,12 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
   };
 
   const handleSelect1 = (value) => {
+    dispatch(setSelectedData(value.name));
     dispatch(handleStyleInput({ name: 'group', value: value.id }));
   };
 
   const handleSubLayerSelect = (value) => {
+    dispatch(setSelectedData(value.name));
     dispatch(handleStyleInput({ name: 'sub_layers_mapping_field', value: value.name }));
   };
 
@@ -74,6 +79,7 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
     dispatch(setLayerFilterActive('map'));
     dispatch(clearData());
     dispatch(clearLayerData());
+    dispatch(clearLayerStyleData());
   };
 
   const handleIconClick = (value) => {
@@ -163,7 +169,7 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
                     />
                   ) : (
                     <Select
-                      selected="Choose"
+                      selected={selectedData || 'Choose'}
                       handleSelect={handleSelect1}
                       options={groupList}
                       className="pm-select_100"
@@ -185,7 +191,7 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
               <div className="pm-group">
                 <label className="is-capitalize">Attribute</label>
                 <Select
-                  selected="Choose"
+                  selected={selectedData || 'Choose'}
                   handleSelect={handleSubLayerSelect}
                   options={attributeAlias}
                   className="pm-select_100"
