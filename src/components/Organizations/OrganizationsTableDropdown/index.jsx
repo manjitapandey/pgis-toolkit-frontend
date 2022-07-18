@@ -1,7 +1,8 @@
 import React from 'react';
 import useOutsideClick from '@Hooks/useOutsideClick';
+import PropTypes from 'prop-types';
 
-const TableDropdown = () => {
+const TableDropdown = ({ data, handleDelete }) => {
   const [toggleRef, toggle, handleToggle] = useOutsideClick();
   return (
     <div
@@ -15,20 +16,20 @@ const TableDropdown = () => {
         <i className="material-icons">more_vert</i>
       </a>
       <ul className="pm-dropdown_menu">
-        <li>
+        {/* <li>
           <a>
             <i className="material-icons-outlined">edit</i>
             <span className="is-capitalize">edit</span>
           </a>
-        </li>
+    </li> 
         <li>
           <a>
             <i className="material-icons-outlined">manage_accounts</i>
             <span className="is-capitalize">Asign</span>
           </a>
-        </li>
+        </li> */}
         <li>
-          <a className="clr-primary-500">
+          <a className="clr-primary-500" onClick={() => handleDelete(data?.id, data?.name)}>
             <i className="material-icons-outlined">delete</i>
             <span className="is-capitalize">delete</span>
           </a>
@@ -36,6 +37,15 @@ const TableDropdown = () => {
       </ul>
     </div>
   );
+};
+
+TableDropdown.propTypes = {
+  handleDelete: PropTypes.func,
+  data: PropTypes.object.isRequired,
+};
+
+TableDropdown.defaultProps = {
+  handleDelete: () => {},
 };
 
 export default TableDropdown;

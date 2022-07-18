@@ -95,7 +95,6 @@ export const finalLayerStyleSelector = createSelector(
             project_style: 'default',
             sub_layers_mapping_field: active === 'Sub-layer' ? layerStyles?.sub_layers_mapping_field || selData : '',
           };
-    console.log(finalLayerStyle, 'ssss');
     return finalLayerStyle;
   },
 );

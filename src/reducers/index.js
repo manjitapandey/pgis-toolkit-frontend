@@ -15,6 +15,7 @@ import layerStyle from './IndividualProject/layerStyle';
 import datasetPopup from './IndividualProject/datasetPopup';
 import landing from './landing';
 import pagination from './pagination';
+import permission from './permission';
 
 export default combineReducers({
   router: connectRouter(history),
@@ -32,4 +33,5 @@ export default combineReducers({
   layerStyle,
   datasetPopup,
   pagination,
+  permission,
 });
