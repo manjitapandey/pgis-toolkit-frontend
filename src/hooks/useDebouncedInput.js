@@ -44,7 +44,7 @@ const useDebouncedInput = ({ ms = 200, init, onChange = () => {} }) => {
     [debounceEvent, init],
   );
 
-  return [input, handleChange];
+  return [input, handleChange, setInput];
 };
 
 export default useDebouncedInput;

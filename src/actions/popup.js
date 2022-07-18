@@ -4,6 +4,7 @@ export const { Types, Creators } = createActions(
   {
     openPopup: ['payload'],
     openDeletePopup: ['payload'],
+    setPopupType: ['payload'],
   },
   { prefix: 'Popup/' },
 );

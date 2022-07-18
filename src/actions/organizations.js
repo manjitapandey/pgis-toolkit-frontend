@@ -5,6 +5,20 @@ export const { Types, Creators } = createActions(
     getOrganizationDataRequest: ['params'],
     getOrganizationDataSuccess: ['payload'],
     getOrganizationDataFailure: null,
+
+    postOrganizationDataRequest: ['payload'],
+    postOrganizationDataSuccess: ['payload'],
+    postOrganizationDataFailure: null,
+
+    deleteOrganizationRequest: ['payload'],
+    deleteOrganizationSuccess: ['payload'],
+    deleteOrganizationFailure: null,
+
+    setAddOrganizationData: ['payload'],
+    clearOrganizationData: ['payload'],
+    setOrgData: ['payload'],
+    getEmailList: ['payload'],
+    setLoading: ['payload'],
   },
   { prefix: 'Organization/' },
 );
