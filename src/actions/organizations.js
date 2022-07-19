@@ -18,6 +18,7 @@ export const { Types, Creators } = createActions(
     clearOrganizationData: ['payload'],
     setOrgData: ['payload'],
     getEmailList: ['payload'],
+    filterEmailList: ['payload'],
     setLoading: ['payload'],
   },
   { prefix: 'Organization/' },
