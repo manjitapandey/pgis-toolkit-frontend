@@ -23,6 +23,7 @@ export function* postOrganizationDataRequest(action) {
     params,
     payload: { finalData },
   } = action;
+  console.log(finalData, 'data saga');
   try {
     const formData = new FormData();
     Object.entries(finalData).forEach(([key, value]) => {
