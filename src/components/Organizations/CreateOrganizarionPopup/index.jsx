@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable prefer-regex-literals */
+/* eslint-disable no-control-regex */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Popup from '@Components/common/Popup/index';
 import Input from '@Components/common/Input/index';
-import useDebouncedInput from '@Hooks/useDebouncedInput';
 import { Creators } from '@Actions/organizations';
 import ListData from '../ListData/index';
 
@@ -15,35 +16,41 @@ const {
   deleteOrganizationRequest,
   clearOrganizationData,
   getEmailList,
+  filterEmailList,
   setLoading,
 } = Creators;
 
 const CreateOrganizationPopup = ({ openPopup, setOpenPopup, popupType }) => {
   const dispatch = useDispatch();
+  const [validMail, setValidMail] = useState(false);
   const addOrganizationData = useSelector((state) => state.organizations.addOrganizationData);
   const organizationId = useSelector((state) => state.organizations.organizationId);
   const organizationname = useSelector((state) => state.organizations.organizationName);
   const emailList = useSelector((state) => state.organizations.emailList);
   const loading = useSelector((state) => state.organizations.loading);
-  const [organizationData, handleChange, setOrganzationData] = useDebouncedInput({
-    ms: 70,
-    init: addOrganizationData,
-    onChange: (debouncedEvent) => {
-      const { name, value } = debouncedEvent.target;
-      dispatch(setAddOrganizationData({ name, value }));
-    },
-  });
-  const { organizationName, organizationEmail } = organizationData;
+  const regex = new RegExp(
+    "([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])",
+  );
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (name === 'organizationEmail') {
+      setValidMail(regex.test(value));
+    }
+    dispatch(setAddOrganizationData({ name, value }));
+  };
+  const { organizationName, organizationEmail } = addOrganizationData;
   const handleClose = () => {
     dispatch(setOpenPopup(false));
     dispatch(clearOrganizationData());
+    dispatch(getEmailList([]));
   };
   const handleButtonClick = () => {
     dispatch(setLoading(true));
-    if (popupType === 'Add') {
+    if (popupType === 'Add' && validMail) {
       dispatch(
         postOrganizationDataRequest({
-          finalData: { organization_name: organizationName, email: JSON.stringify([organizationEmail]) },
+          finalData: { organization_name: organizationName, email: JSON.stringify(emailList) },
         }),
       );
     }
@@ -51,11 +58,18 @@ const CreateOrganizationPopup = ({ openPopup, setOpenPopup, popupType }) => {
   };
 
   const handleAddClick = () => {
-    dispatch(getEmailList());
-    setOrganzationData({ name: 'email', value: '' });
+    if (validMail) {
+      dispatch(getEmailList([...emailList, organizationEmail]));
+      dispatch(setAddOrganizationData({ ...addOrganizationData, name: 'organizationEmail', value: '' }));
+    }
   };
+
   useEffect(() => {
-    if (!openPopup) setOrganzationData({});
+    if (!openPopup) {
+      dispatch(getEmailList([]));
+      setValidMail(false);
+      dispatch(clearOrganizationData());
+    }
   }, [openPopup]);
 
   return (
@@ -99,7 +113,7 @@ const CreateOrganizationPopup = ({ openPopup, setOpenPopup, popupType }) => {
                   <i className="material-icons-outlined">add_circle_outline</i>
                 </div>
               </div>
-              {emailList.length ? <ListData options={emailList} /> : <></>}
+              {emailList?.length ? <ListData options={emailList} onClick={filterEmailList} /> : <></>}
             </div>
           </>
         ) : (

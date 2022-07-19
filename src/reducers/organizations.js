@@ -3,7 +3,10 @@ import { Types } from '@Actions/organizations';
 
 const initialState = {
   organizationData: null,
-  addOrganizationData: {},
+  addOrganizationData: {
+    organizationName: '',
+    organizationEmail: '',
+  },
   organizationId: null,
   organizationName: '',
   emailList: [],
@@ -31,10 +34,37 @@ const deleteOrganizationSuccess = (state, action) => ({
   orgId: action.payload,
 });
 
+const setAddOrganizationData = (state, action) => {
+  const { addOrganizationData } = state;
+  const {
+    payload: { name, value },
+  } = action;
+
+  const newAddOrganiaztionData = {
+    ...addOrganizationData,
+    [name]: value,
+  };
+  return {
+    ...state,
+    addOrganizationData: newAddOrganiaztionData,
+  };
+};
+
 const getEmailList = (state, action) => ({
   ...state,
   emailList: action.payload,
 });
+
+const filterEmailList = (state, action) => {
+  const { emailList } = state;
+  const index = action.payload;
+  const valueToRemove = [emailList[index]];
+  const newEmailList = emailList.filter((element) => !valueToRemove.includes(element));
+  return {
+    ...state,
+    emailList: newEmailList,
+  };
+};
 
 const setOrgData = (state, action) => {
   const {
@@ -61,7 +91,9 @@ const organizationsReducer = createReducer(initialState, {
   [Types.GET_ORGANIZATION_DATA_SUCCESS]: getOrganizationDataSuccess,
   [Types.POST_ORGANIZATION_DATA_SUCCESS]: postOrganizationDataSuccess,
   [Types.DELETE_ORGANIZATION_SUCCESS]: deleteOrganizationSuccess,
+  [Types.SET_ADD_ORGANIZATION_DATA]: setAddOrganizationData,
   [Types.GET_EMAIL_LIST]: getEmailList,
+  [Types.FILTER_EMAIL_LIST]: filterEmailList,
   [Types.SET_ORG_DATA]: setOrgData,
   [Types.SET_LOADING]: setLoading,
   [Types.CLEAR_ORGANIZATION_DATA]: clearOrganizationData,
