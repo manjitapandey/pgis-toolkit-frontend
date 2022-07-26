@@ -93,7 +93,7 @@ const OlMap = () => {
                       zIndex={item?.options.length - i}
                     />
                   ))
-                : item?.sub_layer?.length
+                : item?.type === 'layerWithSubLayer'
                 ? item?.options.map((elem, i) => (
                     <VectorTileLayer
                       key={elem?.key}

@@ -42,6 +42,7 @@ const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
   const themeList = useSelector((state) => state.individualProject.themeList);
   const projectHeaderHeight = useSelector((state) => state.projectHeader.projectHeaderHeight);
   const searchedLayerData = useSelector(searchedLayerSelector);
+  // console.log(geomData, 'data geom');
 
   const handleSearch = (event) => {
     dispatch(getSearchData(event.target.value));
@@ -50,11 +51,19 @@ const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
     const { id } = e.target;
     if (type !== 'group') setLayId(id);
     dispatch(getSelectedFromLayer({ id, parentId: parId, name, categoryName: catName }));
+    setTimeout(() => {
+      setLayId(null);
+    }, 3000);
   };
   const handleListCheckbox = (e, parId, name, catName, type) => {
     const { id } = e.target;
-    if (type !== 'group') setSubLayerId(id);
+    if (type === 'layerWithSubLayer') setSubLayerId(id);
+    if (type === 'group') setLayId(id);
     dispatch(getSelectedFromSubLayer({ id, parentId: parId, name, categoryName: catName }));
+    setTimeout(() => {
+      setLayId(null);
+      setSubLayerId(null);
+    }, 3000);
   };
   const handleClick = () => {
     dispatch(setActive('filter'));
@@ -68,7 +77,6 @@ const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
     dispatch(setAddUploadData({ name: 'theme', value: name }));
     dispatch(setAddUploadData({ name: 'themeId', value: id }));
   };
-
   useEffect(() => {
     if (layId) {
       dispatch(getIndividualLayerDataRequest({ id: layId, layerData }));
