@@ -129,13 +129,14 @@ export function* getIndividualSubLayerDataRequest(action) {
         ? {
             ...elem,
             options: elem?.options?.map((item) =>
-              item?.id === response.data?.layer
+              item?.type === 'layerWithSubLayer' && item?.id === response.data?.layer
                 ? {
                     ...item,
                     options: item?.options?.map((element) =>
                       +element?.id === response?.data?.id
                         ? {
                             ...element,
+                            bbox: response.data.bbox,
                             style: {
                               ...response?.data?.style,
                               icon: { url: response?.data?.icon },

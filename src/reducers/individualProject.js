@@ -193,11 +193,12 @@ const getIndividualLayerDataSuccess = (state, action) => {
 
 const getIndividualSubLayerDataSuccess = (state, action) => {
   const {
-    payload: { data },
+    payload: { data, geomData, layerData },
   } = action;
   return {
     ...state,
     individualSubLayerData: data,
+    geomData,
   };
 };
 
