@@ -32,7 +32,7 @@ const DetailDataPopup = ({ isLoading }) => {
     onChange: (e) => {
       const { value, name } = e.target;
       // dispatch(dataActions.setSearchData(value));
-      dispatch(getFeatureCollectionRequest({ layer_id: +name, limit: selected, search: value }));
+      dispatch(getFeatureCollectionRequest({ layer: +name, limit: selected, search: value }));
     },
   });
 
@@ -43,18 +43,18 @@ const DetailDataPopup = ({ isLoading }) => {
 
   const prevPage = () => {
     if (currentPage > 1) dispatch(getCurrentPage(+currentPage - 1));
-    dispatch(getFeatureCollectionRequest({ layer_id: +layerId, limit: selected, page: +currentPage - 1 }));
+    dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected, page: +currentPage - 1 }));
   };
 
   const nextPage = () => {
     if (currentPage < totalPage) dispatch(getCurrentPage(+currentPage + 1));
-    dispatch(getFeatureCollectionRequest({ layer_id: +layerId, limit: selected, page: +currentPage + 1 }));
+    dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected, page: +currentPage + 1 }));
   };
 
   const jumpTo = (val) => {};
 
   useEffect(() => {
-    dispatch(getFeatureCollectionRequest({ layer_id: +layerId, limit: selected, page: +currentPage }));
+    dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected, page: +currentPage }));
   }, [selected]);
   return (
     <Popup

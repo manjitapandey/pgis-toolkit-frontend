@@ -107,18 +107,26 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
           themeId,
           type: activeTypeTab,
           group: finalData?.group || '',
+          layerName: selectedLayerName,
         }),
       );
     } else {
       dispatch(
-        setAddUpdatedData({ layerId: selectedLayerId, themeId, type: activeTypeTab, group: finalData?.group || '' }),
+        setAddUpdatedData({
+          layerId: selectedLayerId,
+          themeId,
+          type: activeTypeTab,
+          group: finalData?.group || '',
+          layerName: selectedLayerName,
+        }),
       );
       dispatch(postLayerDataRequest({ id: selectedLayerId, finalData }));
     }
   };
 
   useEffect(() => {
-    if (activeTypeTab === 'Sub-layer') dispatch(getAttributeAliasRequest({ layer: selectedLayerId }));
+    if (activeTypeTab === 'Sub-layer' && selectedLayerId)
+      dispatch(getAttributeAliasRequest({ layer: selectedLayerId }));
   }, [activeTypeTab]);
 
   useEffect(() => {

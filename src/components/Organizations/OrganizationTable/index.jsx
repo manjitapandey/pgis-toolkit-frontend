@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -53,9 +54,9 @@ const OrganizationTable = ({ permissionList, isLoading }) => {
   return (
     <div className="dbd-body">
       <div className="container-fluid">
-        {isLoading || !organizationData ? (
+        {isLoading ? (
           <TableLoader />
-        ) : (
+        ) : organizationData ? (
           <>
             <Table data={organizationData?.results} onRowClick={handleRowClick}>
               <TableHeader
@@ -148,6 +149,8 @@ const OrganizationTable = ({ permissionList, isLoading }) => {
               totalPage={totalPage}
             />
           </>
+        ) : (
+          <p>No data</p>
         )}
       </div>
     </div>

@@ -19,11 +19,18 @@ api.interceptors.response.use(
     if (
       localStorage.getItem('refreshToken') &&
       // error.response.status === 401
-      error.response.status === 403
-      // error.response.statusText === 'Unauthorized'
+      error.response.status === 403 &&
+      error.response.data.detail === 'Given token not valid for any token type'
     ) {
       const refreshToken = localStorage.getItem('refreshToken');
       if (error.response.data.detail === 'Token is invalid or expired' && error.response.status === 401) {
+        window.location.href = '/login';
+      }
+      if (
+        (error.response.data.detail === 'Authentication credentials were not provided.' ||
+          error.response.data.detail === 'Invalid token.') &&
+        error.response.status === 403
+      ) {
         window.location.href = '/login';
       }
       return api
@@ -38,7 +45,6 @@ api.interceptors.response.use(
           if (err.response.data.detail === 'Token is invalid or expired' && err.response.status === 401) {
             window.location.href = '/login';
           }
-          console.log(err, 'error');
         });
     }
 
@@ -57,14 +63,6 @@ api.interceptors.response.use(
     return Promise.reject({ ...error });
   },
 );
-
-// export const authenticated = (apiInstance) => {
-//   // const token = localStorage.getItem('token');
-//   const token = '0d133cd783c0bd4288ef0b8dca02de3889845612';
-//   apiInstance.defaults.headers.common.Authorization = `Token ${token}`;
-
-//   return apiInstance;
-// };
 
 export const authenticated = (apiInstance) => {
   const token = localStorage.getItem('userToken');

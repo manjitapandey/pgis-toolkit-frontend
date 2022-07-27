@@ -35,7 +35,7 @@ const OlMap = () => {
   const zoomToLayerId = useSelector((state) => state.individualProject.zoomToLayerId);
   const isLayerLoading = useSelector((state) => state.individualProject.isLayerLoading);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
-  const authToken = '0d133cd783c0bd4288ef0b8dca02de3889845612';
+  const authToken = '2a739503c612aa5862cd481974e2dcad3e5d288c';
   const { mapRef, map, renderComplete } = useOLMap({
     center: fromLonLat([85.3, 27.7]),
     zoom: 2,
@@ -93,7 +93,7 @@ const OlMap = () => {
                       zIndex={item?.options.length - i}
                     />
                   ))
-                : item?.sub_layer?.length
+                : item?.type === 'layerWithSubLayer'
                 ? item?.options.map((elem, i) => (
                     <VectorTileLayer
                       key={elem?.key}

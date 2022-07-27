@@ -391,6 +391,7 @@ export function* postLayerDataRequest({ payload }) {
     yield put(projectActions.setLayerDeleteData({ id: null }));
     yield put(projectActions.clearLayerStyleData());
   } catch (error) {
+    console.log(error, 'error saga');
     yield put(projectActions.postLayerDataFailure());
     yield put(toastActions.error({ message: error?.response?.data?.message }));
   }

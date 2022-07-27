@@ -228,6 +228,22 @@ const getProjectLayerDataSuccess = (state, action) => {
                   })),
                 };
               }
+              if (grp.sub_layer?.length) {
+                return {
+                  // ...items,
+                  name: grp.name,
+                  id: grp.id,
+                  icon: grp.icon,
+                  iconSize: grp.icon_size,
+                  type: 'layerWithSubLayer',
+                  isSelected: false,
+                  options: grp.sub_layer.map((elements) => ({
+                    ...elements,
+                    isSelected: false,
+                    key: `${elements?.id}__${elements.name}__${grp?.id}`,
+                  })),
+                };
+              }
               return {
                 ...grp,
                 key: `${item?.id}__${grp?.id}__${grp?.name}`,
@@ -235,7 +251,7 @@ const getProjectLayerDataSuccess = (state, action) => {
                 id: grp.id,
                 icon: grp.icon,
                 iconSize: grp.icon_size,
-                type: 'layerWithSubLayer',
+                type: 'layerWithoutSubLayer',
                 isSelected: false,
                 options: grp.sub_layer.map((elements) => ({
                   ...elements,
@@ -280,7 +296,6 @@ const getProjectLayerDataSuccess = (state, action) => {
           : [],
     };
   });
-
   const newLayerData = isEmpty(updatedData)
     ? layerData
     : layerData.map((item) =>
@@ -288,7 +303,7 @@ const getProjectLayerDataSuccess = (state, action) => {
           ? {
               ...item,
               options: item?.options?.map((elem) =>
-                updatedData?.type === 'Group'
+                updatedData?.type.toLowerCase() === elem?.type.toLowerCase()
                   ? elem.id === updatedData?.group
                     ? {
                         ...elem,
@@ -298,7 +313,7 @@ const getProjectLayerDataSuccess = (state, action) => {
                         ),
                       }
                     : { ...elem }
-                  : updatedData?.subId
+                  : updatedData?.subId && elem?.type === 'layerWithSubLayer'
                   ? elem?.id === updatedData?.layerId
                     ? {
                         ...elem,
@@ -316,7 +331,6 @@ const getProjectLayerDataSuccess = (state, action) => {
           : { ...item },
       );
 
-  const geomData = getSelectedGeomData(newLayerData.filter((elem) => elem.id === updatedData?.themeId));
   return {
     ...state,
     layerData: newLayerData,
@@ -324,7 +338,7 @@ const getProjectLayerDataSuccess = (state, action) => {
     themeAddSuccess: false,
     addThemeData: initialState.addThemeData,
     postSuccess: false,
-    geomData,
+    // geomData,
   };
 };
 
@@ -350,10 +364,11 @@ const getSelectedFromLayer = (state, action) => {
   const data = getSelectedData(layerData, name, categoryName, id, defaultStyles);
 
   const geomData = getFilteredLayerData(data);
+  const newGeomData = geomData?.map((elem) => ({ ...elem, options: elem?.options?.filter((item) => item.isSelected) }));
   return {
     ...state,
     layerData: data,
-    geomData,
+    geomData: newGeomData,
   };
 };
 
@@ -414,11 +429,10 @@ const postLayerDataSuccess = (state, action) => {
     payload: { data, finalData, style },
   } = action;
   const geomData = state.geomData.map((element) =>
-    element?.id === data.id
-      ? {
-          ...element,
-          style,
-        }
+    element.type === 'group'
+      ? { ...element, options: element.options.map((elem) => (elem.id === data.id ? { ...elem, style } : { ...elem })) }
+      : element.id === data?.id
+      ? { ...element, style }
       : { ...element },
   );
   const layerData = state.layerData.map((item) =>
@@ -555,7 +569,7 @@ const setEditLayerData = (state, action) => {
     payload: { id, name, theId, type },
   } = action;
   const selectedLayerStyle = state.geomData.map((elem) =>
-    elem.type === 'group' || elem?.sub_layer?.length
+    elem.type === 'group' || elem?.type === 'layerWithSubLayer'
       ? { style: elem?.options?.filter((item) => item.id === id)[0]?.style }
       : elem.id === id && elem,
   )[0]?.style;
