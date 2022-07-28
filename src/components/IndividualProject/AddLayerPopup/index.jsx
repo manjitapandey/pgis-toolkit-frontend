@@ -25,13 +25,14 @@ const AddLayerPopup = () => {
   const taskLoading = useSelector((state) => state.individualProject.taskLoading);
   const layerPopup = useSelector((state) => state.individualProject.openLayerPopup);
   const layerData = useSelector((state) => state.individualProject.layerData);
-  const sameLayerName = layerData
-    ?.map((data) => data?.options?.map((element) => element?.name))
-    ?.reduce((arr, item) => [...arr, ...item], [])
-    ?.find(
-      (item) =>
-        item?.toLowerCase()?.replace(/\s/g, '') === finalUploadData?.layerName?.toLowerCase().replace(/\s/g, ''),
-    );
+  // const sameLayerName = layerData
+  //   ?.map((data) => data?.options?.map((element) => element?.name))
+  //   ?.reduce((arr, item) => [...arr, ...item], [])
+  //   ?.find(
+  //     (item) =>
+  //       item?.toLowerCase()?.replace(/\s/g, '') === finalUploadData?.layerName?.toLowerCase().replace(/\s/g, ''),
+  //   );
+  const sameLayerName = '';
 
   useEffect(() => {
     let timer = null;

@@ -27,21 +27,21 @@ import popupAction from '@Actions/popup';
 import projectActions, { Types } from '@Actions/individualProject';
 import { getSelectedData, getFilteredLayerData } from '@Utils/getSelectedData';
 
-export function* getProjectLayerDataRequest(action) {
-  const { type, params } = action;
-  try {
-    const response = yield call(getProjectLayerData, params);
-    yield put(projectActions.getProjectLayerDataSuccess({ data: response.data }));
-    yield put(projectActions.openLayerPopup(false));
-  } catch (error) {
-    // yield put(redirectActions.getStatusCode(error?.response?.status));
-    // if (error?.response?.status >= 400) {
-    //   yield put(push('/redirect'));
-    // }
-    yield put(projectActions.getProjectLayerDataFailure());
-    yield put(toastActions.error({ message: error?.response?.data?.error }));
-  }
-}
+// export function* getProjectLayerDataRequest(action) {
+//   const { type, params } = action;
+//   try {
+//     const response = yield call(getProjectLayerData, params);
+//     yield put(projectActions.getProjectLayerDataSuccess({ data: response.data }));
+//     yield put(projectActions.openLayerPopup(false));
+//   } catch (error) {
+//     // yield put(redirectActions.getStatusCode(error?.response?.status));
+//     // if (error?.response?.status >= 400) {
+//     //   yield put(push('/redirect'));
+//     // }
+//     yield put(projectActions.getProjectLayerDataFailure());
+//     yield put(toastActions.error({ message: error?.response?.data?.error }));
+//   }
+// }
 
 export function* getIndividualProjectDataRequest(action) {
   const { type, params } = action;
@@ -70,7 +70,7 @@ export function* getIndividualLayerDataRequest(action) {
               item.type === 'group'
                 ? {
                     ...item,
-                    options: item.options.map((items) =>
+                    options: item?.options?.map((items) =>
                       items.id === response.data.id
                         ? {
                             ...items,
@@ -100,7 +100,7 @@ export function* getIndividualLayerDataRequest(action) {
         : { ...elem },
     );
     const geom = getFilteredLayerData(layerData);
-    const geomData = geom?.map((elem) => ({ ...elem, options: elem.options.filter((item) => item.isSelected) }));
+    const geomData = geom?.map((elem) => ({ ...elem, options: elem?.options?.filter((item) => item.isSelected) }));
     yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data, geomData, layerData }));
     if (response?.data?.group) {
       yield put(projectActions.setActiveTypeTab('Group'));
@@ -234,7 +234,7 @@ export function* getProjectThemeRequest(action) {
   try {
     const response = yield call(getProjectTheme, { theme: params.theme, project_style: 'default' });
     yield put(
-      projectActions.getProjectThemeSuccess({ data: response.data, themeList: params.themeList, id: params.theme }),
+      projectActions.getProjectThemeSuccess({ data: response.data, layerData: params.layerData, id: params.theme }),
     );
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));
@@ -363,8 +363,7 @@ export function* postThemeDataRequest(action) {
       formData.append(key, value);
     });
     const response = yield call(postThemeData, formData);
-    yield put(projectActions.postThemeDataSuccess({ data: response.data }));
-    yield put(projectActions.setThemeAddSuccess(true));
+    yield put(projectActions.postThemeDataSuccess({ data: response.data.data }));
     yield put(projectActions.openDatasetPopup({ value: false, name: '' }));
     // yield put(toastActions.success({ message: 'Layer added successfully' }));
   } catch (error) {
@@ -439,7 +438,7 @@ export function* deleteLayerDataRequest({ payload }) {
 }
 
 function* individualProjectWatcher() {
-  yield takeLatest(Types.GET_PROJECT_LAYER_DATA_REQUEST, withLoader(getProjectLayerDataRequest));
+  // yield takeLatest(Types.GET_PROJECT_LAYER_DATA_REQUEST, withLoader(getProjectLayerDataRequest));
   yield takeLatest(Types.GET_INDIVIDUAL_PROJECT_DATA_REQUEST, withLoader(getIndividualProjectDataRequest));
   yield takeLatest(Types.GET_INDIVIDUAL_LAYER_DATA_REQUEST, withLoader(getIndividualLayerDataRequest));
   yield takeLatest(Types.GET_INDIVIDUAL_SUB_LAYER_DATA_REQUEST, withLoader(getIndividualSubLayerDataRequest));
