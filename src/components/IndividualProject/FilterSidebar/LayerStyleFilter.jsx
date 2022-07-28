@@ -279,21 +279,25 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
           </>
                     ) */}
 
-        <Input label="Fill Color" name="fillColor" value={fillColor} onChange={handleChange} type="color" />
-        <Input label="Line Color" name="lineColor" value={lineColor} onChange={handleChange} type="color" />
-        <RangeSlider label="Line Opacity" name="lineOpacity" value={lineOpacity} onChange={handleChange} />
-        <RangeSlider label="Fill Opacity" name="fillOpacity" value={fillOpacity} onChange={handleChange} />
-        <Input
-          label="Line Thickness"
-          name="lineThickness"
-          value={lineThickness}
-          onChange={handleChange}
-          type="number"
-          min="0"
-          max="100"
-        />
+        {selectedType !== 'layerWithSubLayer' && (
+          <>
+            <Input label="Fill Color" name="fillColor" value={fillColor} onChange={handleChange} type="color" />
+            <Input label="Line Color" name="lineColor" value={lineColor} onChange={handleChange} type="color" />
+            <RangeSlider label="Line Opacity" name="lineOpacity" value={lineOpacity} onChange={handleChange} />
+            <RangeSlider label="Fill Opacity" name="fillOpacity" value={fillOpacity} onChange={handleChange} />
+            <Input
+              label="Line Thickness"
+              name="lineThickness"
+              value={lineThickness}
+              onChange={handleChange}
+              type="number"
+              min="0"
+              max="100"
+            />
 
-        <Input type="number" name="circleRadius" label="Radius" value={circleRadius} onChange={handleChange} />
+            <Input type="number" name="circleRadius" label="Radius" value={circleRadius} onChange={handleChange} />
+          </>
+        )}
       </div>
       <div className="filter-sidebar_footer is-flex is-start is-gap-30">
         <button className="is-btn is-btn_link" type="button">
