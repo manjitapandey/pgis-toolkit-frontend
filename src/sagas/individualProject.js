@@ -99,7 +99,8 @@ export function* getIndividualLayerDataRequest(action) {
           }
         : { ...elem },
     );
-    const geomData = getFilteredLayerData(layerData);
+    const geom = getFilteredLayerData(layerData);
+    const geomData = geom?.map((elem) => ({ ...elem, options: elem.options.filter((item) => item.isSelected) }));
     yield put(projectActions.getIndividualLayerDataSuccess({ data: response.data, geomData, layerData }));
     if (response?.data?.group) {
       yield put(projectActions.setActiveTypeTab('Group'));
