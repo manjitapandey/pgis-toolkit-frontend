@@ -72,21 +72,26 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
               </button>
             )}
             {type !== 'group' && isSelected && (
-              <div className="pm-dropdown pm-dropdown_option">
-                <a
-                  href="#"
-                  className="is-circle is-circle_xs"
-                  onClick={() => handleEdit(uniqueId, catName, themeId, type)}
-                >
-                  <i className="material-icons-outlined">edit</i>
-                </a>
-              </div>
+              <>
+                <div className="pm-dropdown pm-dropdown_option">
+                  <a
+                    href="#"
+                    className="is-circle is-circle_xs"
+                    onClick={() => handleEdit(uniqueId, catName, themeId, type)}
+                  >
+                    <i className="material-icons-outlined">edit</i>
+                  </a>
+                </div>
+                <Dropdown
+                  handleDeleteClick={() => handleDeleteClick(uniqueId, catName)}
+                  handleZoomClick={() => handleZoomClick(uniqueId)}
+                  layerId={uniqueId}
+                  type={type}
+                  displayZoom={type === 'layerWithSubLayer'}
+                />
+              </>
             )}
-            <Dropdown
-              handleDeleteClick={() => handleDeleteClick(uniqueId, catName)}
-              handleZoomClick={() => handleZoomClick(uniqueId)}
-              layerId={uniqueId}
-            />
+
             {type === 'group' || options.length ? (
               showList ? (
                 <a href={() => {}} className="is-circle is-circle_xs is-circle_hover__white" onClick={handleClick}>
@@ -126,29 +131,32 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
                     </button>
                   )}
                   {item.isSelected && (
-                    <div className="pm-dropdown pm-dropdown_option">
-                      <a
-                        href="#"
-                        className="is-circle is-circle_xs"
-                        onClick={() =>
-                          handleEdit(
-                            item.id,
-                            item?.name,
-                            themeId,
-                            type === 'group' ? type : 'subLayer',
-                            type === 'group' ? null : uniqueId,
-                          )
-                        }
-                      >
-                        <i className="material-icons-outlined">edit</i>
-                      </a>
-                    </div>
+                    <>
+                      <div className="pm-dropdown pm-dropdown_option">
+                        <a
+                          href="#"
+                          className="is-circle is-circle_xs"
+                          onClick={() =>
+                            handleEdit(
+                              item.id,
+                              item?.name,
+                              themeId,
+                              type === 'group' ? type : 'subLayer',
+                              type === 'group' ? null : uniqueId,
+                            )
+                          }
+                        >
+                          <i className="material-icons-outlined">edit</i>
+                        </a>
+                      </div>
+                      <Dropdown
+                        handleDeleteClick={() => handleDeleteClick(item?.id, item?.name)}
+                        handleZoomClick={() => handleZoomClick(item.id)}
+                        display={type !== 'group'}
+                        type={type}
+                      />
+                    </>
                   )}
-                  <Dropdown
-                    handleDeleteClick={() => handleDeleteClick(item?.id, item?.name)}
-                    handleZoomClick={() => handleZoomClick(item.id)}
-                    display={type !== 'group'}
-                  />
                 </div>
               </li>
             ))
