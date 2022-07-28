@@ -2,9 +2,9 @@ import { createActions } from 'reduxsauce';
 
 export const { Types, Creators } = createActions(
   {
-    getProjectLayerDataRequest: ['params'],
-    getProjectLayerDataSuccess: ['payload'],
-    getProjectLayerDataFailure: null,
+    // getProjectLayerDataRequest: ['params'],
+    // getProjectLayerDataSuccess: ['payload'],
+    // getProjectLayerDataFailure: null,
 
     getThemeListRequest: ['params'],
     getThemeListSuccess: ['payload'],
@@ -92,7 +92,6 @@ export const { Types, Creators } = createActions(
     clearData: ['payload'],
     clearLayerData: ['payload'],
     setLayerDeleteData: ['payload'],
-    setThemeAddSuccess: ['payload'],
     setLayerDeleteSuccess: ['payload'],
     handleStyleInput: ['payload'],
     setLayerLoading: ['payload'],

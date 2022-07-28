@@ -17,6 +17,7 @@ import DetailDataPopup from '@Components/IndividualProject/DetailDataPopup/index
 
 const {
   getProjectLayerDataRequest,
+  getProjectThemeRequest,
   getIndividualProjectDataRequest,
   getLayerTemplateListRequest,
   getThemeListRequest,
@@ -34,7 +35,6 @@ const IndividualProject = () => {
   const selectedLayerName = useSelector((state) => state.individualProject.selectedLayerName);
   const selectedLayerId = useSelector((state) => state.individualProject.selectedLayerId);
   const deletePopup = useSelector((state) => state.popup.deletePopup);
-  const themeAddSuccess = useSelector((state) => state.individualProject.themeAddSuccess);
   const layerDeleteSuccess = useSelector((state) => state.individualProject.layerDeleteSuccess);
   const postSuccess = useSelector((state) => state.individualProject.postSuccess);
   const openPopup = useSelector((state) => state.individualProject.openDatasetPopup);
@@ -76,9 +76,9 @@ const IndividualProject = () => {
     dispatch(getIndividualProjectDataRequest(uniqueId));
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getProjectLayerDataRequest(uniqueId));
-  }, [dispatch, layerId, themeAddSuccess, layerDeleteSuccess, openPopup, postSuccess]);
+  // useEffect(() => {
+  //   dispatch(getProjectLayerDataRequest(uniqueId));
+  // }, [dispatch, layerId,  layerDeleteSuccess, openPopup, postSuccess]);
 
   if (isProjectLoading) {
     return <Loader />;

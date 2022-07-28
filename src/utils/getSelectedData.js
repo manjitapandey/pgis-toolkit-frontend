@@ -4,7 +4,7 @@ export const getSelectedData = (data, name, categoryName, id) =>
     item.name === name
       ? {
           ...item,
-          options: item.options.map((element) =>
+          options: item?.options?.map((element) =>
             element.name === categoryName
               ? // element.type === 'group'
                 //   ? {
@@ -22,7 +22,7 @@ export const getSelectedData = (data, name, categoryName, id) =>
                 //   :
                 {
                   ...element,
-                  options: element.options.map((items) => ({
+                  options: element?.options?.map((items) => ({
                     ...items,
                     isSelected: !element.isSelected,
                   })),
