@@ -42,7 +42,6 @@ const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
   const themeList = useSelector((state) => state.individualProject.themeList);
   const projectHeaderHeight = useSelector((state) => state.projectHeader.projectHeaderHeight);
   const searchedLayerData = useSelector(searchedLayerSelector);
-  // console.log(geomData, 'data geom');
 
   const handleSearch = (event) => {
     dispatch(getSearchData(event.target.value));

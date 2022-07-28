@@ -10,6 +10,8 @@ import {
   getSelectedGeomData,
 } from '@Utils/getSelectedData';
 
+import { selectedItem } from '@src/constants/data';
+
 const initialState = {
   active: 'map',
   layerFilterActive: 'map',
@@ -183,6 +185,7 @@ const getIndividualLayerDataSuccess = (state, action) => {
   const {
     payload: { data, geomData, layerData },
   } = action;
+
   return {
     ...state,
     individualLayerData: data,
@@ -297,40 +300,8 @@ const getProjectLayerDataSuccess = (state, action) => {
           : [],
     };
   });
-  const newLayerData = isEmpty(updatedData)
-    ? layerData
-    : layerData.map((item) =>
-        item.id === updatedData?.themeId
-          ? {
-              ...item,
-              options: item?.options?.map((elem) =>
-                updatedData?.type.toLowerCase() === elem?.type.toLowerCase()
-                  ? elem.id === updatedData?.group
-                    ? {
-                        ...elem,
-                        isSelected: true,
-                        options: elem.options.map((lyr) =>
-                          lyr?.id === updatedData?.layerId ? { ...lyr, isSelected: true } : { ...lyr },
-                        ),
-                      }
-                    : { ...elem }
-                  : updatedData?.subId && elem?.type === 'layerWithSubLayer'
-                  ? elem?.id === updatedData?.layerId
-                    ? {
-                        ...elem,
-                        isSelected: true,
-                        options: elem.options.map((lyr) =>
-                          lyr?.id === updatedData?.subId ? { ...lyr, isSelected: true } : { ...lyr },
-                        ),
-                      }
-                    : { ...elem }
-                  : elem?.id === updatedData?.layerId
-                  ? { ...elem, isSelected: true }
-                  : { ...elem },
-              ),
-            }
-          : { ...item },
-      );
+
+  const newLayerData = isEmpty(updatedData) ? layerData : selectedItem(layerData, updatedData?.detailData);
 
   return {
     ...state,
@@ -608,10 +579,26 @@ const setLayerLoading = (state, action) => ({ ...state, isLayerLoading: action.p
 
 const setTaskLoading = (state, action) => ({ ...state, taskLoading: action.payload });
 
-const setAddUpdatedData = (state, action) => ({
-  ...state,
-  updatedData: action.payload,
-});
+const setAddUpdatedData = (state, action) => {
+  const { layerData } = state;
+  const newData = layerData
+    .map((elem) => ({
+      ...elem,
+      options: elem.options
+        .map((item) => ({ ...item, options: item.options.filter((element) => element.isSelected) }))
+        .filter((data) => data.isSelected)
+        .map((datas) => ({
+          id: datas.id,
+          name: datas.name,
+          options: datas.options.map((items) => ({ id: items.id, name: items.name })),
+        })),
+    }))
+    .filter((e) => e.options.length);
+  return {
+    ...state,
+    updatedData: { ...action.payload, detailData: newData },
+  };
+};
 
 const clearData = (state, action) =>
   // const { addUploadData, addThemeData } = state;
