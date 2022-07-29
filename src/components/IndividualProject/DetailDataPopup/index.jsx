@@ -18,7 +18,7 @@ const { getCurrentPage } = PaginationCreators;
 
 const DetailDataPopup = ({ isLoading }) => {
   const dispatch = useDispatch();
-  const [selected, setSelected] = useState(5);
+  const [selected, setSelected] = useState({ value: 5, clicked: false });
   const popup = useSelector((state) => state.detailPopup.detailPopup);
   const layerName = useSelector((state) => state.detailPopup.layerName);
   const layerId = useSelector((state) => state.detailPopup.layerId);
@@ -32,7 +32,7 @@ const DetailDataPopup = ({ isLoading }) => {
     onChange: (e) => {
       const { value, name } = e.target;
       // dispatch(dataActions.setSearchData(value));
-      dispatch(getFeatureCollectionRequest({ layer: +name, limit: selected, search: value }));
+      dispatch(getFeatureCollectionRequest({ layer: +name, limit: selected.value, search: value }));
     },
   });
 
@@ -43,18 +43,19 @@ const DetailDataPopup = ({ isLoading }) => {
 
   const prevPage = () => {
     if (currentPage > 1) dispatch(getCurrentPage(+currentPage - 1));
-    dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected, page: +currentPage - 1 }));
+    dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected.value, page: +currentPage - 1 }));
   };
 
   const nextPage = () => {
     if (currentPage < totalPage) dispatch(getCurrentPage(+currentPage + 1));
-    dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected, page: +currentPage + 1 }));
+    dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected.value, page: +currentPage + 1 }));
   };
 
   const jumpTo = (val) => {};
-
   useEffect(() => {
-    dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected, page: +currentPage }));
+    if (selected.clicked) {
+      dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected.value, page: +currentPage }));
+    }
   }, [selected]);
   return (
     <Popup
@@ -104,7 +105,7 @@ const DetailDataPopup = ({ isLoading }) => {
                     : currentPage * selected
                 }`}
                 paginatedCountsTotal={featureCollection?.counts}
-                selected={selected}
+                selected={selected.value}
                 onClick={setSelected}
                 totalPage={totalPage}
               />

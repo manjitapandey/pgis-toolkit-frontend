@@ -17,7 +17,7 @@ const DropdownSelect = ({ options, selected, onClick }) => {
       <p className="pm-select_item">{selected}</p>
       <ul className="pm-select_list left-dropdown">
         {options.map((elem) => (
-          <li onKeyDown={() => {}} onClick={() => onClick(elem.value, elem)}>
+          <li onKeyDown={() => {}} onClick={() => onClick({ value: elem.value, clicked: true }, elem)}>
             <span>{elem.value}</span>
           </li>
         ))}
