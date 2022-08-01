@@ -37,6 +37,7 @@ const {
 const LayerStyleFilter = ({ active, isGroupLoading }) => {
   const dispatch = useDispatch();
   const [activeStyleTab, setActiveStyleTab] = useState('Standard');
+  const [type, setType] = useState(null);
   const selectedLayerName = useSelector((state) => state.individualProject.selectedLayerName);
   const themeId = useSelector((state) => state.individualProject.themeId);
   const groupList = useSelector((state) => state.layerStyle.groupList);
@@ -48,6 +49,7 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
   const selectedType = useSelector((state) => state.individualProject.selectedType);
   const individualLayerData = useSelector((state) => state.individualProject.individualLayerData);
   const standardIcons = useSelector((state) => state.individualProject.standardIcons);
+  const layerData = useSelector((state) => state.individualProject.layerData);
   const openPopup = useSelector((state) => state.individualProject.openDatasetPopup);
   const finalData = useSelector(finalLayerStyleSelector);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
@@ -99,7 +101,7 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
 
   const onSubmitClick = () => {
     if (selectedType === 'subLayer') {
-      dispatch(postSubLayerDataRequest({ id: selectedLayerId, finalData }));
+      dispatch(postSubLayerDataRequest({ id: selectedLayerId, finalData, type, layerData, themeId }));
       dispatch(
         setAddUpdatedData({
           layerId: layerIdHavingSubLayer,
@@ -120,9 +122,13 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
           layerName: selectedLayerName,
         }),
       );
-      dispatch(postLayerDataRequest({ id: selectedLayerId, finalData }));
+      dispatch(postLayerDataRequest({ id: selectedLayerId, finalData, type, layerData, themeId }));
     }
   };
+
+  useEffect(() => {
+    setType(activeTypeTab);
+  }, []);
 
   useEffect(() => {
     if (activeTypeTab === 'Sub-layer' && selectedLayerId)

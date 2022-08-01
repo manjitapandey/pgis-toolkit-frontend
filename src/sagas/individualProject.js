@@ -47,7 +47,7 @@ export function* getIndividualProjectDataRequest(action) {
   const { type, params } = action;
   try {
     const response = yield call(getIndividualProjectData, params);
-    yield put(projectActions.getIndividualProjectDataSuccess({ data: response.data }));
+    yield put(projectActions.getIndividualProjectDataSuccess({ data: response.data.data }));
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));
     // if (error?.response?.status >= 400) {
@@ -234,7 +234,13 @@ export function* getProjectThemeRequest(action) {
   try {
     const response = yield call(getProjectTheme, { theme: params.theme, project_style: 'default' });
     yield put(
-      projectActions.getProjectThemeSuccess({ data: response.data, layerData: params.layerData, id: params.theme }),
+      projectActions.getProjectThemeSuccess({
+        data: response.data,
+        layerData: params.layerData,
+        id: params.theme,
+        updated: params.updated,
+        type: params?.type,
+      }),
     );
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));
@@ -378,16 +384,25 @@ export function* postThemeDataRequest(action) {
 
 export function* postLayerDataRequest({ payload }) {
   try {
-    const { id, finalData } = payload;
+    const { id, finalData, type, layerData, themeId } = payload;
     const data = new FormData();
     Object.entries(finalData).forEach(([key, value]) => {
       data.append(key, value);
     });
     const response = yield call(postLayerData, id, data);
     yield put(
-      projectActions.postLayerDataSuccess({ data: response.data, finalData, style: JSON.parse(finalData.style) }),
+      projectActions.postLayerDataSuccess({ data: response.data, finalData, type, style: JSON.parse(finalData.style) }),
     );
     yield put(toastActions.success({ message: 'Layer style successfully edited.' }));
+    yield put(
+      projectActions.getProjectThemeRequest({
+        theme: themeId,
+        project_style: 'default',
+        layerData,
+        updated: true,
+        type,
+      }),
+    );
     yield put(projectActions.setLayerFilterActive('map'));
     yield put(projectActions.setLayerDeleteData({ id: null }));
     yield put(projectActions.clearLayerStyleData());
@@ -400,7 +415,7 @@ export function* postLayerDataRequest({ payload }) {
 
 export function* postSubLayerDataRequest({ payload }) {
   try {
-    const { id, finalData } = payload;
+    const { id, finalData, type } = payload;
     const data = new FormData();
     Object.entries(finalData).forEach(([key, value]) => {
       data.append(key, value);
@@ -427,10 +442,10 @@ export function* deleteLayerDataRequest({ payload }) {
     Object.entries(deleteData).forEach(([key, value]) => {
       data.append(key, value);
     });
-    yield call(deleteLayerData, id, data);
-    yield put(projectActions.deleteLayerDataSuccess(id));
+    const response = yield call(deleteLayerData, id, data);
+    yield put(projectActions.deleteLayerDataSuccess({ data: response.data }));
+    // yield put(projectActions.deleteLayerDataSuccess(id));
     yield put(popupAction.openDeletePopup(false));
-    yield put(projectActions.setLayerDeleteSuccess(true));
     yield put(toastActions.success({ message: 'Layer data sucessfully deleted.' }));
   } catch (error) {
     yield put(toastActions.error({ message: error?.response?.data?.Message }));

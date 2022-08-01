@@ -73,7 +73,7 @@ const IndividualProject = () => {
     dispatch(getLayerTemplateListRequest());
     dispatch(getThemeListRequest({ project: uniqueId }));
     dispatch(getStandardIconsRequest());
-    dispatch(getIndividualProjectDataRequest(uniqueId));
+    dispatch(getIndividualProjectDataRequest({ project: uniqueId }));
   }, [dispatch]);
 
   // useEffect(() => {
