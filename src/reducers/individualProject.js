@@ -92,15 +92,22 @@ const getThemeListSuccess = (state, action) => {
 
 const getProjectThemeSuccess = (state, action) => {
   const {
-    payload: { data, layerData, id },
+    payload: { data, layerData, id, updated, type },
   } = action;
   const { updatedData } = state;
-  const newData = layerData
-    .map((item) => (item.id === id ? { ...item, ...data } : { ...item }))
-    .map((elem) => {
-      if (!elem?.options?.length) delete elem?.options;
-      return elem;
-    });
+  const newData = updated
+    ? layerData
+        .map((item) => (item.id === id ? { ...item, options: [], ...data } : { ...item }))
+        .map((elem) => {
+          if (!elem?.options?.length) delete elem?.options;
+          return elem;
+        })
+    : layerData
+        .map((item) => (item.id === id ? { ...item, ...data } : { ...item }))
+        .map((elem) => {
+          if (!elem?.options?.length) delete elem?.options;
+          return elem;
+        });
   const themeData = newData?.map((item) => {
     const newArrs = item?.group || item?.layer ? [...item?.group, ...item?.layer] : [];
     return {
@@ -193,7 +200,7 @@ const getProjectThemeSuccess = (state, action) => {
     };
   });
 
-  const newLayerData = isEmpty(updatedData) ? themeData : selectedItem(themeData, updatedData?.detailData);
+  const newLayerData = isEmpty(updatedData) ? themeData : selectedItem(themeData, updatedData, type);
   return {
     ...state,
     layerData: newLayerData,
@@ -464,7 +471,7 @@ const postUploadDataSuccess = (state, action) => {
 
 const postLayerDataSuccess = (state, action) => {
   const {
-    payload: { data, finalData, style },
+    payload: { data, finalData, type, style },
   } = action;
   const geomData = state.geomData.map((element) =>
     element.type === 'group'
@@ -473,6 +480,11 @@ const postLayerDataSuccess = (state, action) => {
       ? { ...element, style }
       : { ...element },
   );
+  // const filteredData =
+  //   data.group && type === 'Individual'
+  //     ? state.layerData.filter((elem) => elem.id === data.theme)[0].options.filter((item) => item.id === data.id)[0]
+  //     : [];
+  // console.log(filteredData, type, data, state.layerData, 'sss');
   const layerData = state.layerData.map((item) =>
     item?.id === data?.theme
       ? {
@@ -513,6 +525,54 @@ const postSubLayerDataSuccess = (state, action) => {
     ...state,
     geomData,
     postSuccess: true,
+  };
+};
+
+const deleteLayerDataSuccess = (state, action) => {
+  const {
+    payload: { data },
+  } = action;
+  const { layerData, geomData } = state;
+  const filteredData = layerData.map((elem) =>
+    elem.id === data.theme
+      ? {
+          ...elem,
+          options: data?.group
+            ? elem?.options?.map((item) =>
+                data?.group === item?.id
+                  ? { ...item, options: item?.options?.filter((element) => element.id !== data?.id) }
+                  : {
+                      ...item,
+                    },
+              )
+            : elem?.options?.filter((item) => item.id !== data?.id),
+        }
+      : { ...elem },
+  );
+  const newData = filteredData?.map((elem) =>
+    elem?.id === data?.theme
+      ? {
+          ...elem,
+          options: elem?.options?.map((item) => ({
+            ...item,
+            isSelected: item?.options?.some((datas) => datas?.isSelected === true),
+          })),
+        }
+      : { ...elem },
+  );
+  const newGeomData = data?.group
+    ? geomData
+        .map((item) =>
+          item.id === data.group
+            ? { ...item, options: item.options.filter((elem) => elem.id !== data.id) }
+            : { ...item },
+        )
+        .filter((element) => element?.options?.length)
+    : geomData.filter((item) => item.id !== data.id);
+  return {
+    ...state,
+    layerData: newData,
+    geomData: newGeomData,
   };
 };
 
@@ -621,11 +681,6 @@ const setEditLayerData = (state, action) => {
   };
 };
 
-const setLayerDeleteSuccess = (state, action) => ({
-  ...state,
-  layerDeleteSuccess: action.payload,
-});
-
 const deleteUploadDataFile = (state, action) => ({
   ...state,
   file: null,
@@ -694,7 +749,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.POST_LAYER_DATA_SUCCESS]: postLayerDataSuccess,
   [Types.POST_SUB_LAYER_DATA_SUCCESS]: postSubLayerDataSuccess,
   [Types.POST_THEME_DATA_SUCCESS]: postThemeDataSuccess,
-  // [Types.DELETE_LAYER_DATA_SUCCESS]: deleteLayerDataSuccess,
+  [Types.DELETE_LAYER_DATA_SUCCESS]: deleteLayerDataSuccess,
   [Types.SET_ACTIVE]: setActive,
   [Types.SET_LAYER_FILTER_ACTIVE]: setLayerFilterActive,
   [Types.HANDLE_MAP_TOGGLE]: handleMapToggle,
@@ -710,7 +765,6 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.GET_SEARCH_DATA]: getSearchData,
   [Types.CLEAR_DATA]: clearData,
   [Types.SET_LAYER_DELETE_DATA]: setLayerDeleteData,
-  [Types.SET_LAYER_DELETE_SUCCESS]: setLayerDeleteSuccess,
   [Types.HANDLE_STYLE_INPUT]: handleStyleInput,
   [Types.SET_ZOOM_TO_LAYER_ID]: setZoomToLayerId,
   [Types.SET_LAYER_LOADING]: setLayerLoading,

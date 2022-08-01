@@ -1,8 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 
-export const selectedItem = (arr1, arr2) =>
-  arr1.map((category) => {
-    const foundCategory = arr2?.filter((items) => items.id === category.id);
+export const selectedItem = (arr1, arr2, type) => {
+  console.log(arr1, arr2, type, 'type');
+  return arr1.map((category) => {
+    const foundCategory = arr2?.detailData?.filter((items) => items.id === category.id);
+    console.log(foundCategory, 'category');
     return foundCategory && foundCategory[0]
       ? {
           ...category,
@@ -24,3 +26,4 @@ export const selectedItem = (arr1, arr2) =>
           ...category,
         };
   });
+};

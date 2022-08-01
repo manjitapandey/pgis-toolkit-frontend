@@ -7,7 +7,7 @@ export const getThemeList = (params) => authenticated(api).get(`/maps/theme/`, {
 
 export const getProjectTheme = (params) => authenticated(api).get(`/maps/project_theme_layers/`, { params });
 
-export const getIndividualProjectData = (params) => authenticated(api).get(`/projects/project/${params}`);
+export const getIndividualProjectData = (params) => authenticated(api).get(`/projects/project_detail/`, { params });
 
 export const getIndividualLayerData = (params) => authenticated(api).get(`/maps/layer/${params}`);
 

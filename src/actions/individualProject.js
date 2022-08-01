@@ -92,7 +92,6 @@ export const { Types, Creators } = createActions(
     clearData: ['payload'],
     clearLayerData: ['payload'],
     setLayerDeleteData: ['payload'],
-    setLayerDeleteSuccess: ['payload'],
     handleStyleInput: ['payload'],
     setLayerLoading: ['payload'],
     setTaskLoading: ['payload'],
