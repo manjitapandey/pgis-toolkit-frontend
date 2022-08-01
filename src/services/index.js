@@ -65,29 +65,29 @@ api.interceptors.response.use(
   },
 );
 
-// export const authenticated = (apiInstance) => {
-//   const token = localStorage.getItem('userToken');
-//   // eslint-disable-next-line no-param-reassign
-//   apiInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
-//   return apiInstance;
-// };
-
 export const authenticated = (apiInstance) => {
   const token = localStorage.getItem('userToken');
-  // const token = localStorage.getItem('token');
-  // const isPublicPage = localStorage.getItem('isPublicPage');
-  if (process.env.NODE_ENV === 'development') {
-    apiInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
-  } else {
-    // apiInstance.defaults.headers.common.Authorization = `Token ${token}`;
-    // This has been done to fix the CSRF Issue on same domain.
-    apiInstance.defaults.headers.post['X-CSRFToken'] = getCookie('csrftoken');
-    apiInstance.defaults.headers.patch['X-CSRFToken'] = getCookie('csrftoken');
-    apiInstance.defaults.headers.delete['X-CSRFToken'] = getCookie('csrftoken');
-    apiInstance.defaults.withCredentials = true;
-  }
+  // eslint-disable-next-line no-param-reassign
+  apiInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
   return apiInstance;
 };
+
+// export const authenticated = (apiInstance) => {
+//   const token = localStorage.getItem('userToken');
+//   // const token = localStorage.getItem('token');
+//   // const isPublicPage = localStorage.getItem('isPublicPage');
+//   if (process.env.NODE_ENV === 'development') {
+//     apiInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+//   } else {
+//     // apiInstance.defaults.headers.common.Authorization = `Token ${token}`;
+//     // This has been done to fix the CSRF Issue on same domain.
+//     apiInstance.defaults.headers.post['X-CSRFToken'] = getCookie('csrftoken');
+//     apiInstance.defaults.headers.patch['X-CSRFToken'] = getCookie('csrftoken');
+//     apiInstance.defaults.headers.delete['X-CSRFToken'] = getCookie('csrftoken');
+//     apiInstance.defaults.withCredentials = true;
+//   }
+//   return apiInstance;
+// };
 
 export const loginHeaderAPI = (apiInstance) => {
   if (process.env.NODE_ENV === 'development') {
