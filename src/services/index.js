@@ -79,11 +79,12 @@ export const authenticated = (apiInstance) => {
   if (process.env.NODE_ENV === 'development') {
     apiInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {
+    apiInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
     // apiInstance.defaults.headers.common.Authorization = `Token ${token}`;
     // This has been done to fix the CSRF Issue on same domain.
-    apiInstance.defaults.headers.post['X-CSRFToken'] = getCookie('csrftoken');
-    apiInstance.defaults.headers.patch['X-CSRFToken'] = getCookie('csrftoken');
-    apiInstance.defaults.headers.delete['X-CSRFToken'] = getCookie('csrftoken');
+    // apiInstance.defaults.headers.post['X-CSRFToken'] = getCookie('csrftoken');
+    // apiInstance.defaults.headers.patch['X-CSRFToken'] = getCookie('csrftoken');
+    // apiInstance.defaults.headers.delete['X-CSRFToken'] = getCookie('csrftoken');
     apiInstance.defaults.withCredentials = true;
   }
   return apiInstance;
