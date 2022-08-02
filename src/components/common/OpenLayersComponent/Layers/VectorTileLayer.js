@@ -31,7 +31,8 @@ const VectorTileLayer = ({
   const vectorTileLayer = useMemo(
     () =>
       new VectorTile({
-        renderMode: 'hybrid',
+        // renderMode: 'hybrid',
+        renderMode: 'vector',
         // declutter: true,
       }),
     [],

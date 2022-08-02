@@ -49,7 +49,6 @@ const initialState = {
   standardIcons: null,
   zoomToLayerId: null,
   isLayerLoading: false,
-  themeList: null,
   updatedData: {},
   postSuccess: false,
 };
@@ -81,8 +80,7 @@ const getThemeListSuccess = (state, action) => {
   } = action;
   const themeList = data.map((elem) => ({
     ...elem,
-    group: elem.group || [],
-    layer: elem.layer || [],
+    options: [],
   }));
   return {
     ...state,
@@ -92,119 +90,50 @@ const getThemeListSuccess = (state, action) => {
 
 const getProjectThemeSuccess = (state, action) => {
   const {
-    payload: { data, layerData, id, updated, type },
+    payload: { data, id, type },
   } = action;
-  const { updatedData } = state;
-  const newData = updated
-    ? layerData
-        .map((item) => (item.id === id ? { ...item, options: [], ...data } : { ...item }))
-        .map((elem) => {
-          if (!elem?.options?.length) delete elem?.options;
-          return elem;
-        })
-    : layerData
-        .map((item) => (item.id === id ? { ...item, ...data } : { ...item }))
-        .map((elem) => {
-          if (!elem?.options?.length) delete elem?.options;
-          return elem;
-        });
-  const themeData = newData?.map((item) => {
-    const newArrs = item?.group || item?.layer ? [...item?.group, ...item?.layer] : [];
-    return {
-      id: item.id,
-      name: item.name,
-      options:
-        item.options ||
-        (item?.group?.length > 0
-          ? newArrs?.map((grp) => {
-              if (grp?.layer) {
-                return {
-                  // ...items,
+  const { updatedData, layerData } = state;
+  const newData = layerData.map((ele) =>
+    ele.id === id
+      ? {
+          ...ele,
+          options: data.map((elem) =>
+            elem.type === 'group'
+              ? {
+                  id: elem.id,
+                  name: elem.name,
                   type: 'group',
-                  name: grp?.name,
-                  id: grp?.id,
                   isSelected: false,
-                  options: grp?.layer?.map((elements) => ({
-                    ...elements,
-                    key: `${elements?.id}__${elements?.name}__${grp?.id}`,
+                  options: elem.layer.map((item) => ({
+                    ...item,
                     isSelected: false,
+                    key: `${elem?.id}__${item?.name}__${item?.id}`,
                   })),
-                };
-              }
-              if (grp?.sub_layer?.length) {
-                return {
+                }
+              : elem?.sub_layer?.length
+              ? {
                   // ...items,
-                  name: grp?.name,
-                  id: grp?.id,
-                  icon: grp?.icon,
-                  iconSize: grp?.icon_size,
+                  name: elem?.name,
+                  id: elem?.id,
+                  icon: elem?.icon,
+                  iconSize: elem?.icon_size,
                   type: 'layerWithSubLayer',
                   isSelected: false,
-                  options: grp?.sub_layer?.map((elements) => ({
+                  options: elem?.sub_layer?.map((elements) => ({
                     ...elements,
                     isSelected: false,
-                    key: `${elements?.id}__${elements?.name}__${grp?.id}`,
+                    key: `${elements?.id}__${elements?.name}__${elem?.id}`,
                   })),
-                };
-              }
-              return {
-                ...grp,
-                key: `${item?.id}__${grp?.id}__${grp?.name}`,
-                name: grp?.name,
-                id: grp?.id,
-                icon: grp?.icon,
-                iconSize: grp?.icon_size,
-                type: 'layerWithoutSubLayer',
-                isSelected: false,
-                options: grp?.sub_layer?.map((elements) => ({
-                  ...elements,
-                  key: `${elements?.id}__${elements?.name}__${grp?.id}`,
-                  isSelected: false,
-                })),
-              };
-            })
-          : item?.layer?.length
-          ? item?.layer?.map((layer) => {
-              if (item?.sub_layer?.length) {
-                return {
-                  // ...items,
-                  name: layer?.name,
-                  id: layer?.id,
-                  icon: layer?.icon,
-                  iconSize: layer?.icon_size,
-                  type: 'layerWithSubLayer',
-                  isSelected: false,
-                  options: layer?.sub_layer?.map((elements) => ({
-                    ...elements,
-                    isSelected: false,
-                    key: `${elements?.id}__${elements?.name}__${layer?.id}`,
-                  })),
-                };
-              }
-              return {
-                // ...items,
-                name: layer?.name,
-                id: layer?.id,
-                icon: layer?.icon,
-                iconSize: layer?.icon_size,
-                type: 'layerWithoutSubLayer',
-                isSelected: false,
-                options: layer?.sub_layer?.map((elements) => ({
-                  ...elements,
-                  isSelected: false,
-                  key: `${elements?.id}__${elements?.name}__${layer?.id}`,
-                })),
-              };
-            })
-          : []),
-    };
-  });
-
-  const newLayerData = isEmpty(updatedData) ? themeData : selectedItem(themeData, updatedData, type);
+                }
+              : { ...elem, isSelected: false, key: `${elem?.id}__${elem?.name}`, type: 'layerWithoutSubLayer' },
+          ),
+        }
+      : { ...ele },
+  );
+  const newLayerData = isEmpty(updatedData) ? newData : selectedItem(newData, updatedData, type);
   return {
     ...state,
     layerData: newLayerData,
-    // projectTheme: data,
   };
 };
 
@@ -222,7 +151,6 @@ const getIndividualLayerDataSuccess = (state, action) => {
   const {
     payload: { data, geomData, layerData },
   } = action;
-
   return {
     ...state,
     individualLayerData: data,
@@ -241,114 +169,6 @@ const getIndividualSubLayerDataSuccess = (state, action) => {
     geomData,
   };
 };
-
-// const getProjectLayerDataSuccess = (state, action) => {
-//   const {
-//     payload: { data },
-//   } = action;
-//   const { updatedData } = state;
-//   const layerData = data.map((item) => {
-//     const newArrs = [...item.group, ...item.layer];
-//     return {
-//       id: item.id,
-//       name: item.name,
-//       options:
-//         item.group.length > 0
-//           ? newArrs.map((grp) => {
-//               if (grp.layer) {
-//                 return {
-//                   // ...items,
-//                   type: 'group',
-//                   name: grp.name,
-//                   id: grp.id,
-//                   isSelected: false,
-//                   options: grp.layer.map((elements) => ({
-//                     ...elements,
-//                     key: `${elements?.id}__${elements.name}__${grp?.id}`,
-//                     isSelected: false,
-//                   })),
-//                 };
-//               }
-//               if (grp.sub_layer?.length) {
-//                 return {
-//                   // ...items,
-//                   name: grp.name,
-//                   id: grp.id,
-//                   icon: grp.icon,
-//                   iconSize: grp.icon_size,
-//                   type: 'layerWithSubLayer',
-//                   isSelected: false,
-//                   options: grp.sub_layer.map((elements) => ({
-//                     ...elements,
-//                     isSelected: false,
-//                     key: `${elements?.id}__${elements.name}__${grp?.id}`,
-//                   })),
-//                 };
-//               }
-//               return {
-//                 ...grp,
-//                 key: `${item?.id}__${grp?.id}__${grp?.name}`,
-//                 name: grp.name,
-//                 id: grp.id,
-//                 icon: grp.icon,
-//                 iconSize: grp.icon_size,
-//                 type: 'layerWithoutSubLayer',
-//                 isSelected: false,
-//                 options: grp.sub_layer.map((elements) => ({
-//                   ...elements,
-//                   key: `${elements?.id}__${elements.name}__${grp?.id}`,
-//                   isSelected: false,
-//                 })),
-//               };
-//             })
-//           : item.layer.length
-//           ? item.layer.map((layer) => {
-//               if (item.sub_layer?.length) {
-//                 return {
-//                   // ...items,
-//                   name: layer.name,
-//                   id: layer.id,
-//                   icon: layer.icon,
-//                   iconSize: layer.icon_size,
-//                   type: 'layerWithSubLayer',
-//                   isSelected: false,
-//                   options: layer.sub_layer.map((elements) => ({
-//                     ...elements,
-//                     isSelected: false,
-//                     key: `${elements?.id}__${elements.name}__${layer?.id}`,
-//                   })),
-//                 };
-//               }
-//               return {
-//                 // ...items,
-//                 name: layer.name,
-//                 id: layer.id,
-//                 icon: layer.icon,
-//                 iconSize: layer.icon_size,
-//                 type: 'layerWithoutSubLayer',
-//                 isSelected: false,
-//                 options: layer.sub_layer.map((elements) => ({
-//                   ...elements,
-//                   isSelected: false,
-//                   key: `${elements?.id}__${elements.name}__${layer?.id}`,
-//                 })),
-//               };
-//             })
-//           : [],
-//     };
-//   });
-
-//   const newLayerData = isEmpty(updatedData) ? layerData : selectedItem(layerData, updatedData?.detailData);
-
-//   return {
-//     ...state,
-//     layerData: newLayerData,
-//     layerDeleteSuccess: false,
-//     addThemeData: initialState.addThemeData,
-//     postSuccess: false,
-//     // geomData,
-//   };
-// };
 
 const getStandardIconsSuccess = (state, action) => {
   const {
@@ -389,15 +209,15 @@ const getSelectedFromSubLayer = (state, action) => {
 
   const finalData = data.map((item) => ({
     ...item,
-    options: item.options.map((element) => ({
+    options: item?.options?.map((element) => ({
       ...element,
-      isSelected: element.options.some((datas) => datas.isSelected === true),
+      isSelected: element?.options?.some((datas) => datas.isSelected === true),
     })),
   }));
 
   const geomData = getFilteredLayerData(finalData)?.map((elem) => ({
     ...elem,
-    options: elem.options.filter((items) => items.isSelected === true),
+    options: elem?.options?.filter((items) => items.isSelected === true),
   }));
 
   return {
@@ -449,7 +269,7 @@ const postThemeDataSuccess = (state, action) => {
     payload: { data },
   } = action;
   const { layerData } = state;
-  const newData = [{ id: data.id, name: data.name, description: null, group: [], layer: [] }, ...layerData];
+  const newData = [{ id: data.id, name: data.name, description: null, options: [] }, ...layerData];
   return {
     ...state,
     layerData: newData,
@@ -480,11 +300,7 @@ const postLayerDataSuccess = (state, action) => {
       ? { ...element, style }
       : { ...element },
   );
-  // const filteredData =
-  //   data.group && type === 'Individual'
-  //     ? state.layerData.filter((elem) => elem.id === data.theme)[0].options.filter((item) => item.id === data.id)[0]
-  //     : [];
-  // console.log(filteredData, type, data, state.layerData, 'sss');
+
   const layerData = state.layerData.map((item) =>
     item?.id === data?.theme
       ? {
@@ -709,7 +525,17 @@ const setAddUpdatedData = (state, action) => {
           options: datas?.options?.map((items) => ({ id: items.id, name: items.name })),
         })),
     }))
-    .filter((e) => e.options.length);
+    .filter((e) => e?.options?.length);
+
+  // const latestData =
+  //   action.payload.type === 'Individual' && action.payload.changedType === 'Group'
+  //     ? newData.map((elem) => ({
+  //         ...elem,
+  //         options: elem?.options?.map((item) => ({ id: data?.group, options: [{ id: item?.id, name: item?.name }] })),
+  //       }))
+  //     : {};
+  // console.log(action.payload, newData, latestData, 'payload');
+
   return {
     ...state,
     updatedData: { ...action.payload, detailData: newData },
@@ -737,7 +563,6 @@ const clearData = (state, action) =>
   });
 
 const individualProjectReducer = createReducer(initialState, {
-  // [Types.GET_PROJECT_LAYER_DATA_SUCCESS]: getProjectLayerDataSuccess,
   [Types.GET_THEME_LIST_SUCCESS]: getThemeListSuccess,
   [Types.GET_PROJECT_THEME_SUCCESS]: getProjectThemeSuccess,
   [Types.GET_INDIVIDUAL_PROJECT_DATA_SUCCESS]: getIndividualProjectDataSuccess,

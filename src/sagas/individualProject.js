@@ -238,7 +238,6 @@ export function* getProjectThemeRequest(action) {
         data: response.data,
         layerData: params.layerData,
         id: params.theme,
-        updated: params.updated,
         type: params?.type,
       }),
     );
@@ -399,7 +398,6 @@ export function* postLayerDataRequest({ payload }) {
         theme: themeId,
         project_style: 'default',
         layerData,
-        updated: true,
         type,
       }),
     );
