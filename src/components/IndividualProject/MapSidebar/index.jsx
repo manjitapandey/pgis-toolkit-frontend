@@ -90,7 +90,7 @@ const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
 
   const handleHeaderClick = (themeId, options) => {
     if (options?.length > 0) return;
-    dispatch(getProjectThemeRequest({ theme: themeId, project_style: 'default', layerData, updated: false, type: '' }));
+    dispatch(getProjectThemeRequest({ theme: themeId, project_style: 'default', layerData, type: '' }));
   };
 
   return (
