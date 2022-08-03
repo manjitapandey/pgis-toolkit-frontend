@@ -293,11 +293,18 @@ const postLayerDataSuccess = (state, action) => {
   const {
     payload: { data, finalData, type, style },
   } = action;
+  const { standardIcons } = state;
+  const icon = standardIcons.filter((elem) => elem.id === finalData.std_icon)[0]?.icon;
   const geomData = state.geomData.map((element) =>
     element.type === 'group'
-      ? { ...element, options: element.options.map((elem) => (elem.id === data.id ? { ...elem, style } : { ...elem })) }
+      ? {
+          ...element,
+          options: element.options.map((elem) =>
+            elem.id === data.id ? { ...elem, style: { ...style, ...defaultStyles, icon: { url: icon } } } : { ...elem },
+          ),
+        }
       : element.id === data?.id
-      ? { ...element, style }
+      ? { ...element, style: { ...style, ...defaultStyles, icon: { url: icon } } }
       : { ...element },
   );
 
@@ -527,18 +534,30 @@ const setAddUpdatedData = (state, action) => {
     }))
     .filter((e) => e?.options?.length);
 
-  // const latestData =
-  //   action.payload.type === 'Individual' && action.payload.changedType === 'Group'
-  //     ? newData.map((elem) => ({
-  //         ...elem,
-  //         options: elem?.options?.map((item) => ({ id: data?.group, options: [{ id: item?.id, name: item?.name }] })),
-  //       }))
-  //     : {};
-  // console.log(action.payload, newData, latestData, 'payload');
+  const latestData =
+    action.payload.type === 'Individual' && action.payload.changedType === 'Group'
+      ? newData.map((elem) => ({
+          ...elem,
+          options: elem?.options?.map((item) => ({
+            id: action.payload?.group,
+            options: [{ id: item?.id, name: item?.name }],
+          })),
+        }))
+      : action.payload.type === 'Group' && action.payload.changedType === 'Individual'
+      ? newData.map((elem) => ({
+          ...elem,
+          options: [
+            {
+              id: action.payload?.layerId,
+              name: action.payload?.layerName,
+            },
+          ],
+        }))
+      : newData;
 
   return {
     ...state,
-    updatedData: { ...action.payload, detailData: newData },
+    updatedData: { ...action.payload, detailData: latestData },
   };
 };
 

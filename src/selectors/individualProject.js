@@ -64,6 +64,8 @@ export const finalLayerStyleSelector = createSelector(
     delete newLayerStyle.icon_url;
     delete newLayerStyle.group;
     delete newLayerStyle.sub_layers_mapping_field;
+    console.log(newLayerStyle, 'sle');
+
     const finalLayerStyle =
       type === 'subLayer'
         ? {
