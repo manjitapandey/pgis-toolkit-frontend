@@ -222,7 +222,7 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
           setActiveTab={setActiveStyleTab}
           label="Styling"
         />
-        {/* individualLayerData?.geom_type === 'Point' && activeStyleTab === 'Standard' && (
+        {individualLayerData?.geom_type === 'Point' && activeStyleTab === 'Standard' && (
           <>
             <div className="pm-group">
               <label>Placemark</label>
@@ -285,7 +285,7 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
               />
             </div>
           </>
-                    ) */}
+        )}
 
         {selectedType !== 'layerWithSubLayer' && (
           <>

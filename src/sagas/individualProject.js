@@ -22,6 +22,7 @@ import {
   getFeatureCollection,
   postSubLayerData,
 } from '@Services/individualProject';
+import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
 import withLoader from '@Utils/sagaUtils';
 import popupAction from '@Actions/popup';
 import projectActions, { Types } from '@Actions/individualProject';
@@ -77,6 +78,7 @@ export function* getIndividualLayerDataRequest(action) {
                             bbox: response.data.bbox,
                             style: {
                               ...response?.data?.style,
+                              ...defaultStyles,
                               icon: { url: response?.data?.icon },
                               icon_size: response?.data?.icon_size,
                             },
@@ -90,6 +92,7 @@ export function* getIndividualLayerDataRequest(action) {
                     bbox: response.data.bbox,
                     style: {
                       ...response?.data?.style,
+                      ...defaultStyles,
                       icon: { url: response?.data?.icon || response?.data?.std_icon },
                       icon_size: response?.data?.icon_size,
                     },
