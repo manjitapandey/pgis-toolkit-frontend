@@ -8,6 +8,7 @@ const searchKey = (state) => state.individualProject.searchData;
 const fileSelector = (state) => state.individualProject.file;
 const addUploadDataSelector = (state) => state.individualProject.addUploadData;
 const layerStylesSelector = (state) => state.individualProject.selectedLayerStyle;
+const standardIconsSelector = (state) => state.individualProject.standardIcons;
 const selectedLayerNameSelector = (state) => state.individualProject.selectedLayerName;
 const iconSelector = (state) => state.individualProject.file;
 const individualLayerDataSelector = (state) => state.individualProject.individualLayerData;
@@ -53,50 +54,54 @@ export const finalLayerStyleSelector = createSelector(
     selectedTypeSelector,
     activeTypeTab,
     selectedDataSelector,
+    standardIconsSelector,
   ],
-  (layerStyles, layerName, icon, type, active, selData) => {
+  (layerStyles, layerName, icon, type, active, selData, stdIcons) => {
     const newLayerStyle = {
       ...layerStyles,
     };
     delete newLayerStyle.layerName;
     delete newLayerStyle.icon;
-    delete newLayerStyle.icon_size;
     delete newLayerStyle.icon_url;
     delete newLayerStyle.group;
     delete newLayerStyle.sub_layers_mapping_field;
-    console.log(newLayerStyle, 'sle');
+    const selectedIcon = layerStyles?.icon?.url
+      ? stdIcons?.filter((elem) => elem?.icon === layerStyles?.icon?.url)[0]?.id
+      : null;
 
     const finalLayerStyle =
       type === 'subLayer'
         ? {
             style:
-              icon || layerStyles?.icon?.url
-                ? JSON.stringify({})
-                : JSON.stringify({
-                    ...newLayerStyle,
-                  }),
+              // icon || layerStyles?.icon?.url
+              //   ? JSON.stringify({})
+              JSON.stringify({
+                ...newLayerStyle,
+              }),
             // icon: icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon : null,
             icon: icon || '',
-            icon_size: JSON.stringify(layerStyles?.icon_size) || JSON.stringify({}),
-            std_icon: layerStyles?.icon?.id ? layerStyles?.icon?.id : '',
+            std_icon: selectedIcon || (layerStyles?.icon?.id ? layerStyles?.icon?.id : ''),
             project_style: 'default',
           }
         : {
             style:
-              icon || layerStyles?.icon?.url
-                ? JSON.stringify({})
-                : JSON.stringify({
-                    ...newLayerStyle,
-                  }),
+              // icon || layerStyles?.icon?.url
+              //   ? JSON.stringify({})
+              JSON.stringify({
+                ...newLayerStyle,
+              }),
             name: layerStyles?.layerName || layerName,
             // icon: icon && !isEmpty(layerStyles?.icon) ? layerStyles?.icon : null,
             icon: icon || '',
-            icon_size: JSON.stringify(layerStyles?.icon_size) || JSON.stringify({}),
-            std_icon: layerStyles?.icon?.id ? layerStyles?.icon?.id : '',
+            // icon_size:
+            //   JSON.stringify({ ...layerStyles?.icon_size, iconColor: layerStyles?.iconColor || '' }) ||
+            //   JSON.stringify({}),
+            std_icon: selectedIcon || (layerStyles?.icon?.id ? layerStyles?.icon?.id : ''),
             group: active === 'Group' ? layerStyles?.group || selData : '',
             project_style: 'default',
             sub_layers_mapping_field: active === 'Sub-layer' ? layerStyles?.sub_layers_mapping_field || selData : '',
           };
+
     return finalLayerStyle;
   },
 );

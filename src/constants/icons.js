@@ -34,6 +34,20 @@ export const svgIcons = [
   { id: '15', icon: vertical_shades, color: '#FFFFFF' },
 ];
 
+export const defaultColors = [
+  { id: 1, color: '#71269C' },
+  { id: 2, color: '#333F99' },
+  { id: 3, color: '#1876D3' },
+  { id: 4, color: '#05786A' },
+  { id: 5, color: '#388E3C' },
+  { id: 6, color: '#F7CE8B' },
+  { id: 7, color: '#FAC02B' },
+  { id: 8, color: '#F47D06' },
+  { id: 9, color: '#8B0000' },
+  { id: 10, color: '#00BFFF' },
+  // { id: 11, color: '#696969' },
+];
+
 // arr = [{}, {}];
 // arr1 = [{}, {}];
 
