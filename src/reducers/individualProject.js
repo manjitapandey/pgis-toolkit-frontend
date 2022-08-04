@@ -294,17 +294,19 @@ const postLayerDataSuccess = (state, action) => {
     payload: { data, finalData, type, style },
   } = action;
   const { standardIcons } = state;
-  const icon = standardIcons.filter((elem) => elem.id === finalData.std_icon)[0]?.icon;
+  const icon = standardIcons?.filter((elem) => elem.id === finalData?.std_icon)[0]?.icon;
   const geomData = state.geomData.map((element) =>
     element.type === 'group'
       ? {
           ...element,
           options: element.options.map((elem) =>
-            elem.id === data.id ? { ...elem, style: { ...style, ...defaultStyles, icon: { url: icon } } } : { ...elem },
+            elem.id === data.id
+              ? { ...elem, style: { ...style, ...defaultStyles, icon: { url: icon, id: finalData?.std_icon } } }
+              : { ...elem },
           ),
         }
       : element.id === data?.id
-      ? { ...element, style: { ...style, ...defaultStyles, icon: { url: icon } } }
+      ? { ...element, style: { ...style, ...defaultStyles, icon: { url: icon, id: finalData?.std_icon } } }
       : { ...element },
   );
 
@@ -494,6 +496,7 @@ const setEditLayerData = (state, action) => {
       ? { style: elem?.options?.filter((item) => item.id === id)[0]?.style }
       : elem.id === id && elem,
   )[0]?.style;
+  // console.log(selectedLayerStyle, 'style');
   return {
     ...state,
     selectedLayerName: name,

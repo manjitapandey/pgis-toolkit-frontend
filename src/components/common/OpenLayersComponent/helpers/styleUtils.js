@@ -64,7 +64,6 @@ export const sublayerKeysException = ['showSublayer', 'sublayerColumnName', 'sub
 function createIconMarker(style) {
   const {
     icon: { url, scale },
-    icon_size,
   } = style;
   // fetch(url)
   //   .then(res => res.blob())
@@ -73,7 +72,9 @@ function createIconMarker(style) {
     anchorXUnits: 'fraction',
     anchorYUnits: 'fraction',
     // scale: 0.15,
-    scale: icon_size ? +(+icon_size?.height + +icon_size?.width) / 60 : 0.9,
+    scale: style?.icon?.icon_size?.height
+      ? +(+style?.icon?.icon_size?.height + +style?.icon?.icon_size?.width) / 60
+      : 0.9,
     crossOrigin: 'anonymous',
     // imgSize: [1500, 1500],
     src: url,

@@ -393,7 +393,12 @@ export function* postLayerDataRequest({ payload }) {
     });
     const response = yield call(postLayerData, id, data);
     yield put(
-      projectActions.postLayerDataSuccess({ data: response.data, finalData, type, style: JSON.parse(finalData.style) }),
+      projectActions.postLayerDataSuccess({
+        data: response.data,
+        finalData,
+        type,
+        style: { ...JSON.parse(finalData.style) },
+      }),
     );
     yield put(toastActions.success({ message: 'Layer style successfully edited.' }));
     yield put(

@@ -59,6 +59,7 @@ const OlMap = () => {
     }, 1000);
     return () => clearTimeout(timeout);
   }, [dispatch, map, zoomToLayerId, map]);
+  // console.log(geomData, 'geomData');
   return (
     <div className="dbd-map_cntr is-grow">
       <div className="dbd-map_wrap">
