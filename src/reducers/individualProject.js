@@ -51,6 +51,8 @@ const initialState = {
   isLayerLoading: false,
   updatedData: {},
   postSuccess: false,
+  featureGeojson: null,
+  refreshFeatureLayer: null,
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
@@ -263,6 +265,33 @@ const getTaskResponseSuccess = (state, action) => {
     layerData: newData,
   };
 };
+
+const getFeatureByIdSuccess = (state, action) => {
+  const {
+    payload: { data },
+  } = action;
+  const selectedFeatureIdForEdit = +data?.features[0]?.properties?.pk;
+  return {
+    ...state,
+    featureGeojson: data,
+    selectedFeatureIdForEdit,
+  };
+};
+
+const updateFeatureByIdSuccess = (state) => {
+  const { selectedFeatureIdForEdit, featureGeojson } = initialState;
+  return {
+    ...state,
+    featureGeojson,
+    selectedFeatureIdForEdit,
+    refreshFeatureLayer: true,
+  };
+};
+
+const setRefreshFeatureLayer = (state, action) => ({
+  ...state,
+  refreshFeatureLayer: action.payload,
+});
 
 const postThemeDataSuccess = (state, action) => {
   const {
@@ -564,6 +593,15 @@ const setAddUpdatedData = (state, action) => {
   };
 };
 
+const cancelFeaturePolygonEdit = (state) => {
+  const { selectedSiteIdForEdit, featureGeojson } = initialState;
+  return {
+    ...state,
+    selectedSiteIdForEdit,
+    featureGeojson,
+  };
+};
+
 const clearData = (state, action) =>
   // const { addUploadData, addThemeData } = state;
   ({
@@ -592,6 +630,8 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.GET_INDIVIDUAL_SUB_LAYER_DATA_SUCCESS]: getIndividualSubLayerDataSuccess,
   [Types.GET_STANDARD_ICONS_SUCCESS]: getStandardIconsSuccess,
   [Types.GET_TASK_RESPONSE_SUCCESS]: getTaskResponseSuccess,
+  [Types.GET_FEATURE_BY_ID_SUCCESS]: getFeatureByIdSuccess,
+  [Types.UPDATE_FEATURE_BY_ID_SUCCESS]: updateFeatureByIdSuccess,
   [Types.POST_UPLOAD_DATA_SUCCESS]: postUploadDataSuccess,
   [Types.POST_LAYER_DATA_SUCCESS]: postLayerDataSuccess,
   [Types.POST_SUB_LAYER_DATA_SUCCESS]: postSubLayerDataSuccess,
@@ -604,6 +644,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.OPEN_DATASET_POPUP]: openDatasetPopup,
   [Types.GET_SELECTED_FROM_LAYER]: getSelectedFromLayer,
   [Types.GET_SELECTED_FROM_SUB_LAYER]: getSelectedFromSubLayer,
+  [Types.SET_REFRESH_FEATURE_LAYER]: setRefreshFeatureLayer,
   [Types.SET_ADD_UPLOAD_DATA_FILE]: setAddUploadDataFile,
   [Types.DELETE_UPLOAD_DATA_FILE]: deleteUploadDataFile,
   [Types.SET_ADD_UPLOAD_DATA]: setAddUploadData,
@@ -617,6 +658,7 @@ const individualProjectReducer = createReducer(initialState, {
   [Types.SET_LAYER_LOADING]: setLayerLoading,
   [Types.SET_TASK_LOADING]: setTaskLoading,
   [Types.SET_ADD_UPDATED_DATA]: setAddUpdatedData,
+  [Types.CANCEL_FEATURE_POLYGON_EDIT]: cancelFeaturePolygonEdit,
 });
 
 export default individualProjectReducer;
