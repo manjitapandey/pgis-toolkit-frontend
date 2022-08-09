@@ -21,6 +21,8 @@ import {
   getIndividualProjectData,
   getFeatureCollection,
   postSubLayerData,
+  getFeatureById,
+  updateFeatureById,
 } from '@Services/individualProject';
 import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
 import withLoader from '@Utils/sagaUtils';
@@ -284,6 +286,36 @@ export function* getFeatureCollectionRequest(action) {
   }
 }
 
+export function* getFeatureByIdRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getFeatureById, params);
+    yield put(projectActions.getFeatureByIdSuccess({ data: response.data }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(projectActions.getFeatureByIdFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
+export function* updateFeatureByIdRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(updateFeatureById, params);
+    yield put(projectActions.updateFeatureByIdSuccess({ data: response.data }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(projectActions.updateFeatureByIdFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
 export function* getAttributeAliasRequest(action) {
   const { type, params } = action;
   try {
@@ -470,7 +502,9 @@ function* individualProjectWatcher() {
   yield takeLatest(Types.GET_THEME_LIST_REQUEST, withLoader(getThemeListRequest));
   yield takeLatest(Types.GET_PROJECT_THEME_REQUEST, withLoader(getProjectThemeRequest));
   yield takeLatest(Types.GET_FEATURE_COLLECTION_REQUEST, withLoader(getFeatureCollectionRequest));
+  yield takeLatest(Types.GET_FEATURE_BY_ID_REQUEST, withLoader(getFeatureByIdRequest));
   yield takeLatest(Types.GET_STANDARD_ICONS_REQUEST, withLoader(getStandardIconsRequest));
+  yield takeLatest(Types.UPDATE_FEATURE_BY_ID_REQUEST, withLoader(updateFeatureByIdRequest));
   yield takeLatest(Types.POST_GROUP_DATA_REQUEST, withLoader(postGroupDataRequest));
   yield takeLatest(Types.POST_UPLOAD_DATA_REQUEST, withLoader(postUploadDataRequest));
   yield takeLatest(Types.POST_LAYER_DATA_REQUEST, withLoader(postLayerDataRequest));

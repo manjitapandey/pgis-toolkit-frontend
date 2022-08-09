@@ -21,6 +21,10 @@ export const getGroupList = (params) => authenticated(api).get(`/maps/layer_grou
 
 export const getFeatureCollection = (params) => authenticated(api).get(`/maps/feature_collection/`, { params });
 
+export const getFeatureById = (params) => authenticated(api).get(`/maps/feature/${params}/`);
+
+export const updateFeatureById = (params) => authenticated(api).get(`/maps/feature_collection/${params}/`);
+
 export const getStandardIcons = () => authenticated(api).get(`/maps/standard_icon/`);
 
 export const getAttributeAlias = (params) => authenticated(api).get(`/maps/layer_attribute/`, { params });

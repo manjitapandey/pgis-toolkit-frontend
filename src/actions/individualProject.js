@@ -42,6 +42,10 @@ export const { Types, Creators } = createActions(
     getFeatureCollectionSuccess: ['payload'],
     getFeatureCollectionFailure: null,
 
+    getFeatureByIdRequest: ['params'],
+    getFeatureByIdSuccess: ['payload'],
+    getFeatureByIdFailure: null,
+
     getStandardIconsRequest: ['params'],
     getStandardIconsSuccess: ['payload'],
     getStandardIconsFailure: null,
@@ -49,6 +53,10 @@ export const { Types, Creators } = createActions(
     getAttributeAliasRequest: ['params'],
     getAttributeAliasSuccess: ['payload'],
     getAttributeAliasFailure: null,
+
+    updateFeatureByIdRequest: ['payload'],
+    updateFeatureByIdSuccess: null,
+    updateFeatureByIdFailure: null,
 
     postGroupDataRequest: ['payload'],
     postGroupDataSuccess: ['payload'],
@@ -80,6 +88,7 @@ export const { Types, Creators } = createActions(
     setAddThemeData: ['payload'],
     setEditLayerData: ['payload'],
     deleteUploadDataFile: ['payload'],
+    setRefreshFeatureLayer: ['payload'],
 
     getSelectedFromLayer: ['payload'],
     getSelectedFromSubLayer: ['payload'],
@@ -103,6 +112,7 @@ export const { Types, Creators } = createActions(
     setLayerIdHavingSubLayer: ['payload'],
     clearLayerStyleData: ['payload'],
     setSelectedData: ['payload'],
+    cancelFeaturePolygonEdit: null,
   },
   { prefix: 'IndividualProject/' },
 );
