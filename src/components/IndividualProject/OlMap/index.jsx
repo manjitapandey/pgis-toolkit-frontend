@@ -25,7 +25,7 @@ import DownloadControl from '@Components/common/OpenLayersComponent/Control/Down
 import Popup from '@Components/common/OpenLayersComponent/Popup/index';
 import MapPopup from '@Components/common/OpenLayersComponent/Popup/MapPopup';
 
-const { BASE_URL } = process.env;
+const { BASE_URL, TOKEN } = process.env;
 const {
   setZoomToLayerId,
   getFeatureByIdRequest,
@@ -46,7 +46,7 @@ const OlMap = () => {
   const featureGeojson = useSelector((state) => state.individualProject.featureGeojson);
   const refreshFeatureLayer = useSelector((state) => state.individualProject.refreshFeatureLayer);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
-  const authToken = '0d133cd783c0bd4288ef0b8dca02de3889845612';
+  // const authToken = '0d133cd783c0bd4288ef0b8dca02de3889845612';
   const { mapRef, map, renderComplete } = useOLMap({
     center: fromLonLat([85.3, 27.7]),
     zoom: 2,
@@ -105,7 +105,7 @@ const OlMap = () => {
                     <VectorTileLayer
                       key={elem?.key}
                       url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${elem.id}`}
-                      authToken={authToken}
+                      authToken={TOKEN}
                       style={
                         selectedLayerId === elem?.id
                           ? selectedLayerStyle
@@ -123,7 +123,7 @@ const OlMap = () => {
                     <VectorTileLayer
                       key={elem?.key}
                       url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=${elem.id}`}
-                      authToken={authToken}
+                      authToken={TOKEN}
                       style={
                         selectedLayerId === elem?.id
                           ? selectedLayerStyle
@@ -140,7 +140,7 @@ const OlMap = () => {
                     <VectorTileLayer
                       key={`${item.key}`}
                       url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}`}
-                      authToken={authToken}
+                      authToken={TOKEN}
                       style={
                         selectedLayerId === item?.id
                           ? selectedLayerStyle
