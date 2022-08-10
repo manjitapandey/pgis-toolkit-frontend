@@ -23,7 +23,7 @@ export const getFeatureCollection = (params) => authenticated(api).get(`/maps/fe
 
 export const getFeatureById = (params) => authenticated(api).get(`/maps/feature/${params}/`);
 
-export const updateFeatureById = (params) => authenticated(api).get(`/maps/feature_collection/${params}/`);
+export const updateFeatureById = (id, data) => authenticated(api).patch(`/maps/feature_collection/${id}/`, data);
 
 export const getStandardIcons = () => authenticated(api).get(`/maps/standard_icon/`);
 

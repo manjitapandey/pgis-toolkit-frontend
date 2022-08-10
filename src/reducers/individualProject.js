@@ -330,12 +330,12 @@ const postLayerDataSuccess = (state, action) => {
           ...element,
           options: element.options.map((elem) =>
             elem.id === data.id
-              ? { ...elem, style: { ...style, ...defaultStyles, icon: { url: icon, id: finalData?.std_icon } } }
+              ? { ...elem, style: { ...style, icon: { url: icon, id: finalData?.std_icon } } }
               : { ...elem },
           ),
         }
       : element.id === data?.id
-      ? { ...element, style: { ...style, ...defaultStyles, icon: { url: icon, id: finalData?.std_icon } } }
+      ? { ...element, style: { ...style, icon: { url: icon, id: finalData?.std_icon } } }
       : { ...element },
   );
 
