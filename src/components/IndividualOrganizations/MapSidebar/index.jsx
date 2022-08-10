@@ -50,7 +50,7 @@ const MapSidebar = ({ active, isLoading }) => {
                 >
                   <h4>{item.name}</h4>
                   {item?.country.length || item?.state.length ? (
-                    <p className="mt-05">{`${item?.state},${item?.country}`}</p>
+                    <p className="mt-05">{`${item?.state}, ${item?.country}`}</p>
                   ) : (
                     <></>
                   )}
