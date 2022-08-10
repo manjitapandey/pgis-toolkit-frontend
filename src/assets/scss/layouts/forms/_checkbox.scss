@@ -62,7 +62,9 @@
       content: '';
       position: absolute;
       left: 4px;
-      top: 44%;
+      // top: 44%;
+      // changed scss
+      top: 26%;
       background:var(--clr-white-900);
       width: 2px;
       height: 2px;

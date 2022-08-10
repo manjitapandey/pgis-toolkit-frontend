@@ -7,10 +7,10 @@ const About = () => (
         <h6 className="is-uppercase clr-primary-500 fw-bold">ABOUT USAFIR</h6>
       </div>
       <div className="about-usafir_content is-text-center">
-        <h3 className="fw-bold mb-20">
+        <h2 className="fw-bold mb-20">
           Usafiri is an Open-source, participatory mapping toolkit aimed at rural communities.
-        </h3>
-        <p className="fs-lg">
+        </h2>
+        <p className="fs-xlg">
           It is built on a partnership between the Ecole Polytechnique Fédérale de Lausanne (EPFL, Switzerland), World
           Bicycle Relief (WBR), and Nepal Flying Labs (NFL), funded by the Swiss Agency for Development and Cooperation
           (SDC). Usafiri is an Open-source, participatory mapping toolkit aimed at rural communities. Aims to identify

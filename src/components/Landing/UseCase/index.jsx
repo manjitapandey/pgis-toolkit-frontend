@@ -10,7 +10,7 @@ const UseCase = () => {
       <div className="container">
         <div className="section-title is-text-center mb-40">
           <h2 className="is-capitalize fw-bold mb-12">Use Cases</h2>
-          <p className="fs-lg">
+          <p className="fs-xlg">
             A GIS-based toolkit to assess, in a participatory way, the unmet transportation
             <br /> needs and mobility barriers of rural communities.
           </p>
