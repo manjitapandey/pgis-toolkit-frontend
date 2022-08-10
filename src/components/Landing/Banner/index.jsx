@@ -10,7 +10,7 @@ const Banner = () => (
         style={{ paddingTop: '103.188px', minHeight: '585px' }}
       >
         <div className="container">
-          <div className="row is-center">
+          <div className="row is-center" style={{ marginTop: '3rem' }}>
             <div className="grid-lg-6 grid-sm-12 is-column is-flex is-center is-align-center">
               <div className="home-banner_content is-text-center pd-15 mb-30">
                 <div className="">
