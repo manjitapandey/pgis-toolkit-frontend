@@ -16,7 +16,7 @@ const Award = () => (
               <div className="awardbox-content">
                 <p className="fs-sm clr-primary-500 is-uppercase fw-bold mb-10">July 2020</p>
                 <h3>Tech4Dev Grant</h3>
-                <p className="mt-10">
+                <p className="mt-10 fs-xlg">
                   Funded by the
                   <a href="#" className="fw-bold">
                     Swiss Agency for Development and Cooperation
