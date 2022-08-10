@@ -46,7 +46,7 @@ const OlMap = () => {
   const featureGeojson = useSelector((state) => state.individualProject.featureGeojson);
   const refreshFeatureLayer = useSelector((state) => state.individualProject.refreshFeatureLayer);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
-  const authToken = '2a739503c612aa5862cd481974e2dcad3e5d288c';
+  const authToken = '0d133cd783c0bd4288ef0b8dca02de3889845612';
   const { mapRef, map, renderComplete } = useOLMap({
     center: fromLonLat([85.3, 27.7]),
     zoom: 2,
