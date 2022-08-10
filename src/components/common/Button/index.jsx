@@ -10,7 +10,8 @@ const Button = ({ type, onClick, label, iconName, isLoading, btnClassName, btnSt
     onClick={onClick}
     className={`is-btn is-btn_primary is-btn_icon btnClassName ${isLoading && 'is-disable'} ${btnClassName}`}
     modal-link="create-project"
-    style={btnStyle}
+    // style={btnStyle}
+    style={{ padding: '0.3rem 1rem' }}
   >
     {iconName && <i className="material-icons">{iconName}</i>}
     {isLoading ? (

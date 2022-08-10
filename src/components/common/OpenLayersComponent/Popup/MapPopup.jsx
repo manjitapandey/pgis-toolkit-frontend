@@ -98,12 +98,18 @@ const MapPopup = ({ map, except, onButtonClick, buttonText }) => {
           <div className="naxa-table is-overflow" id="popup-content" />
           <div
             style={{
-              position: 'absolute',
+              // position: 'absolute',
+              marginTop: '2px',
               bottom: '1rem',
               right: '1rem',
+              padding: '0.3rem 1rem',
             }}
           >
-            <Button label={buttonText} onClick={() => onButtonClick(propertiesId)} />
+            <Button
+              label={buttonText}
+              onClick={() => onButtonClick(propertiesId)}
+              // bthStyle={{ padding: '0.3rem 1rem' }}
+            />
           </div>
         </div>
       </div>
