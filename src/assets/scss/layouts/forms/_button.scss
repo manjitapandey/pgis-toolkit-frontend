@@ -130,7 +130,9 @@
   &-btn{
     @include radius(30px);
     border:1px solid var(--clr-body-300);
-    padding:.5rem 1rem;
+    // padding:.2rem 1rem;
+// changed scss
+    padding:.2rem 1rem;
     cursor: pointer;
     
     &_active{

@@ -18,7 +18,7 @@ const { getCurrentPage } = PaginationCreators;
 
 const DetailDataPopup = ({ isLoading }) => {
   const dispatch = useDispatch();
-  const [selected, setSelected] = useState({ value: 5, clicked: false });
+  const [selected, setSelected] = useState({ value: 10, clicked: false });
   const popup = useSelector((state) => state.detailPopup.detailPopup);
   const layerName = useSelector((state) => state.detailPopup.layerName);
   const layerId = useSelector((state) => state.detailPopup.layerId);
@@ -66,8 +66,8 @@ const DetailDataPopup = ({ isLoading }) => {
       handleCloseClick={handleCloseClick}
       body={
         <>
-          <div className="is-flex is-start is-align-center is-gap-15 mt-15 mb-15">
-            <Search handleSearch={handleSearch} value={search} name={layerId} />
+          <div className="is-flex is-start is-align-center is-gap-15 mb-15">
+            <Search handleSearch={handleSearch} value={search} name={layerId} className="search_sm" />
           </div>
           {isLoading || !featureCollection ? (
             <TableLoader />
@@ -78,7 +78,7 @@ const DetailDataPopup = ({ isLoading }) => {
                   headerData?.map((elem) => (
                     <TableHeader
                       dataField={elem}
-                      dataFormat={(row, _, index) => <p>{row[elem]}</p>}
+                      dataFormat={(row, _, index) => <p className="fs-md">{row[elem]}</p>}
                       dataHeader={
                         <div className="is-flex is-start is-gap-10">
                           <span>{elem}</span>

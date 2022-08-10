@@ -24,6 +24,7 @@ import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/st
 import DownloadControl from '@Components/common/OpenLayersComponent/Control/DownloadControl';
 import Popup from '@Components/common/OpenLayersComponent/Popup/index';
 import MapPopup from '@Components/common/OpenLayersComponent/Popup/MapPopup';
+import HoverEffects from '@Components/common/OpenLayersComponent/Effects/HoverEffects';
 
 const { BASE_URL, TOKEN } = process.env;
 const {
@@ -216,7 +217,7 @@ const OlMap = () => {
             <MeasureControl map={map} buttonText={<i className="material-icons">straighten</i>} measureBoth />
             <DownloadControl map={map} />
           </div>
-          <CustomLayerSwitcher map={map} options={switcherOptions} />
+          {/* <CustomLayerSwitcher map={map} options={switcherOptions} /> */}
           <ZoomControl map={map} />
         </div>
       </div>

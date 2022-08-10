@@ -1,15 +1,20 @@
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-underscore-dangle */
 import { useEffect, useMemo } from 'react';
 // import * as olExtent from 'ol/extent';
 import VectorTile from 'ol/layer/VectorTile';
 import { useDispatch } from 'react-redux';
+import Feature from 'ol/Feature';
 import MVT from 'ol/format/MVT';
+import { fromExtent } from 'ol/geom/Polygon';
 import VectorTileSource from 'ol/source/VectorTile';
 import { transformExtent } from 'ol/proj';
 import getSvgImageIcon from '@Utils/map/getSvgImageIcon';
 import SVGMapIcon from '@Utils/map/svgIcon';
 import { Creators } from '@Actions/individualProject';
+import { Fill, Icon, Stroke, Style, Text } from 'ol/style';
+import { LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from 'ol/geom';
 import { getStyles, defaultStyles } from '../helpers/styleUtils';
 import { isExtentValid } from '../helpers/layerUtils';
 
@@ -204,6 +209,36 @@ const VectorTileLayer = ({
       constrainResolution: true,
     });
   }, [map, vectorTileLayer, zoomToLayer, bbox]);
+
+  // useEffect(() => {
+  //   if (!map || !vectorTileLayer) return;
+  //   map.on('pointermove', (event) => {
+  //     // vectorTileLayer.clear();
+  //     map.forEachFeatureAtPixel(event.pixel, (feature) => {
+  //       const geometry = feature.getGeometry();
+  //       // if (geometry.type_ === 'Point' || geometry.type_ === 'MultiPoint') {
+  //       // } else
+  //       if (geometry.type_ === 'Linestring' || geometry.type_ === 'Polygon') {
+  //         const previousStyle = vectorTileLayer.getStyle();
+  //         console.log(previousStyle, 'sty;e');
+  //         // vectorTileLayer.setStyle(
+  //         //   new Style({
+  //         //     stroke: new Stroke({
+  //         //       // color: previousStyle.stroke_.color_,
+  //         //       color: style.lineColor,
+  //         //       width: style.lineThickness + 2,
+  //         //       // lineDash: previousStyle.stroke_.lineDash_,
+  //         //     }),
+  //         //     fill: new Fill({
+  //         //       color: style.fillColor,
+  //         //     }),
+  //         //     // text: getTextStyles(previousStyle),
+  //         //   }),
+  //         // );
+  //       }
+  //     });
+  //   });
+  // });
 
   // cleanup
   useEffect(() => () => map && map.removeLayer(vectorTileLayer), [map, vectorTileLayer]);
