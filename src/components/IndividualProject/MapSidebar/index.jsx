@@ -98,7 +98,7 @@ const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
       handleClick={handleClick}
       searchValue={searchData}
       handleSearch={handleSearch}
-      buttonTitle="Add"
+      buttonTitle="Category"
       onButtonClick={onButtonClick}
       setHeaderHeight={setHeaderHeight}
     >
@@ -116,6 +116,7 @@ const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
                 collapsed={index !== null}
                 header={<h4 className="is-grow ">{name}</h4>}
                 handleButtonClick={(event) => handleButtonClick(event, id, name)}
+                buttonText="Layer"
                 onHeaderClick={() => handleHeaderClick(id, options)}
                 body={
                   <ul className="is-list">
