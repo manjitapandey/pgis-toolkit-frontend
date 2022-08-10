@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -28,7 +29,7 @@ const {
   getProjectThemeRequest,
 } = Creators;
 
-const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
+const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading, isProjectThemeLoading }) => {
   const dispatch = useDispatch();
   const [headerHeight, setHeaderHeight] = useState(null);
   const windowHeight = window.innerHeight;
@@ -137,6 +138,8 @@ const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
                             type={element?.type}
                           />
                         ))
+                      ) : !isProjectThemeLoading && !options.length ? (
+                        <p className="fs-sm">No layers uploaded.</p>
                       ) : (
                         <></>
                       )
@@ -173,6 +176,7 @@ MapSidebar.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   isGroupLoading: PropTypes.bool.isRequired,
   isLayerLoading: PropTypes.bool.isRequired,
+  isProjectThemeLoading: PropTypes.bool.isRequired,
 };
 
 export default MapSidebar;
