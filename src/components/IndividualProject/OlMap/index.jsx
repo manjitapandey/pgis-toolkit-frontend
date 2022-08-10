@@ -5,15 +5,18 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromLonLat } from 'ol/proj';
+import VectorTile from 'ol/layer/VectorTile';
 import MapContainer from '@Components/common/OpenLayersComponent/MapContainer';
 import VectorTileLayer from '@Components/common/OpenLayersComponent/Layers/VectorTileLayer';
 import FullScreenControl from '@Components/common/OpenLayersComponent/Control/FullScreenControl';
 import CustomLayerSwitcher from '@Components/common/OpenLayersComponent/LayerSwitcher/CustomLayerSwitcher';
 import ZoomControl from '@Components/common/OpenLayersComponent/Control/ZoomControl';
+import EditableLayer from '@Components/common/OpenLayersComponent/CustomLayer/EditableLayer';
 import useOLMap from '@Components/common/OpenLayersComponent/useOLMap';
 import LayerSwitcherControl from '@Components/common/OpenLayersComponent/LayerSwitcher/index';
 import Scalebar from '@Components/common/OpenLayersComponent/Scalebar';
 import individualActions, { Creators } from '@Actions/individualProject';
+import toastActions from '@Actions/toast';
 import { switcherOptions } from '@src/constants/commonData';
 import MeasureControl from '@Components/common/OpenLayersComponent/Control/MeasureControl';
 import { selectedLayerStyleSelector } from '@Selectors/individualProject';
@@ -23,7 +26,13 @@ import Popup from '@Components/common/OpenLayersComponent/Popup/index';
 import MapPopup from '@Components/common/OpenLayersComponent/Popup/MapPopup';
 
 const { BASE_URL } = process.env;
-const { setZoomToLayerId } = Creators;
+const {
+  setZoomToLayerId,
+  getFeatureByIdRequest,
+  cancelFeaturePolygonEdit,
+  updateFeatureByIdRequest,
+  setRefreshFeatureLayer,
+} = Creators;
 
 const OlMap = () => {
   const dispatch = useDispatch();
@@ -34,8 +43,10 @@ const OlMap = () => {
   const projectHeaderHeight = useSelector((state) => state.projectHeader.projectHeaderHeight);
   const zoomToLayerId = useSelector((state) => state.individualProject.zoomToLayerId);
   const isLayerLoading = useSelector((state) => state.individualProject.isLayerLoading);
+  const featureGeojson = useSelector((state) => state.individualProject.featureGeojson);
+  const refreshFeatureLayer = useSelector((state) => state.individualProject.refreshFeatureLayer);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
-  const authToken = '0d133cd783c0bd4288ef0b8dca02de3889845612';
+  const authToken = '2a739503c612aa5862cd481974e2dcad3e5d288c';
   const { mapRef, map, renderComplete } = useOLMap({
     center: fromLonLat([85.3, 27.7]),
     zoom: 2,
@@ -59,6 +70,20 @@ const OlMap = () => {
     }, 1000);
     return () => clearTimeout(timeout);
   }, [dispatch, map, zoomToLayerId, map]);
+
+  useEffect(() => {
+    if (!map || !refreshFeatureLayer) return;
+    const layers = map.getLayers();
+    layers.forEach((layer) => {
+      if (layer instanceof VectorTile) {
+        const properties = layer.getProperties();
+        if (properties.name === 'site') {
+          layer.getSource().refresh();
+          dispatch(setRefreshFeatureLayer(false));
+        }
+      }
+    });
+  }, [dispatch, map, refreshFeatureLayer]);
 
   return (
     <div className="dbd-map_cntr is-grow">
@@ -93,7 +118,7 @@ const OlMap = () => {
                       zIndex={item?.options.length - i}
                     />
                   ))
-                : item?.sub_layer?.length
+                : item?.type === 'layerWithSubLayer'
                 ? item?.options.map((elem, i) => (
                     <VectorTileLayer
                       key={elem?.key}
@@ -133,7 +158,26 @@ const OlMap = () => {
             <></>
           )}
           {/* <Popup map={map} /> */}
-          <MapPopup map={map} />
+          <MapPopup
+            map={map}
+            buttonText="Edit Feature"
+            onButtonClick={(properties) => {
+              dispatch(getFeatureByIdRequest(properties));
+            }}
+          />
+          <EditableLayer
+            geojson={featureGeojson}
+            zIndex={100}
+            onSave={(modifiedGeojson) => {
+              dispatch(updateFeatureByIdRequest({ modifiedGeojson }));
+            }}
+            onCancel={() => {
+              dispatch(cancelFeaturePolygonEdit());
+            }}
+            onError={(message) => {
+              dispatch(toastActions.error({ message }));
+            }}
+          />
         </MapContainer>
         <a
           className={

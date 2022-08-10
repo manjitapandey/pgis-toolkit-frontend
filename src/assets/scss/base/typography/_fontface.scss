@@ -25,14 +25,25 @@
   --fs-sm: clamp(0.75rem, calc(0.8rem + 0.00vw), 0.775rem);
   --fs-md: clamp(0.795rem, calc(0.775rem + 0.00vw), 0.8rem);
   --fs-body: clamp(0.87rem, calc(0.8rem + 0.00vw), 0.875rem);
-  --fs-lg: clamp(0.88rem, calc(0.84rem + 0.19vw), 1rem);
-  --fs-h6: clamp(1rem, .975rem + 0.07vw, 1.1rem);
-  --fs-h5: clamp(1.1rem, 1rem + 0.16vw, 1.2rem);
-  --fs-h4: clamp(1.31rem, 1.2rem + 0.3vw, 1.5rem);
-  --fs-h3: clamp(1.7rem, 1.5rem + 0.49vw, 2rem);
-  --fs-h2: clamp(2.18rem, 2.03rem + 0.75vw, 2.75rem);
+  // --fs-lg: clamp(0.88rem, calc(0.84rem + 0.19vw), 1rem);
+  // --fs-h6: clamp(1rem, .975rem + 0.07vw, 1.1rem);
+  // --fs-h5: clamp(1.1rem, 1rem + 0.16vw, 1.2rem);
+  // --fs-h4: clamp(1.31rem, 1.2rem + 0.3vw, 1.5rem);
+  // --fs-h3: clamp(1.7rem, 1.5rem + 0.49vw, 2rem);
+  // --fs-h2: clamp(2.18rem, 2.03rem + 0.75vw, 2.75rem);
   // --fs-h2: clamp(u.rem(34.88), calc(u.rem(28) + 0.19vw), u.rem(44));
-  --fs-h1: clamp(2.61rem, 2.39rem + 1.11vw, 3.875rem);
+  // --fs-h1: clamp(2.61rem, 2.39rem + 1.11vw, 3.875rem);
+
+  // changed scss
+  --fs-btn: clamp(0.80rem, calc(0.8rem + 0.00vw), 0.775rem);
+  --fs-lg: clamp(0.65rem, calc(0.84rem + 0.19vw), 1rem);
+  --fs-xlg: clamp(1rem, calc(0.84rem + 0.19vw), 1rem);
+  --fs-h6: clamp(0.87rem, calc(0.8rem + 0.00vw), 0.875rem);
+  --fs-h5: clamp(1rem, .975rem + 0.07vw, 1.1rem);
+  --fs-h4: clamp(1.1rem, 1rem + 0.16vw, 1.2rem);
+  --fs-h3: clamp(1.31rem, 1.2rem + 0.3vw, 1.5rem);
+  --fs-h2: clamp(1.7rem, 1.5rem + 0.49vw, 2rem);
+  --fs-h1: clamp(2.18rem, 2.03rem + 0.75vw, 2.75rem);
 }
 
 

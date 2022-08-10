@@ -31,7 +31,8 @@ const VectorTileLayer = ({
   const vectorTileLayer = useMemo(
     () =>
       new VectorTile({
-        renderMode: 'hybrid',
+        // renderMode: 'hybrid',
+        renderMode: 'vector',
         // declutter: true,
       }),
     [],
@@ -105,13 +106,14 @@ const VectorTileLayer = ({
       /* eslint-disable-next-line no-inner-declarations */
       async function fetchMyAPI() {
         /* eslint-disable-next-line no-await-in-loop */
-        const image = await getSvgImageIcon(style?.icon?.url, style?.bgColor);
+        const image = await getSvgImageIcon(style?.icon?.url, style?.iconColor);
         if (image) {
           vectorTileLayer.setStyle((feature, resolution) =>
             getStyles({
               style: {
                 icon: {
                   url: image,
+                  icon_size: style?.icon_size,
                 },
               },
               feature,

@@ -13,7 +13,7 @@ import { selectedLayerStyleSelector, finalLayerStyleSelector } from '@Selectors/
 import useDebouncedInput from '@Hooks/useDebouncedInput';
 import Spinner from '@Components/common/Spinner/index';
 import SVGImageIcon from '@Components/common/SVGImageIcon/index';
-import { svgIcons } from '@src/constants/icons';
+import { svgIcons, defaultColors } from '@src/constants/icons';
 
 const {
   setLayerFilterActive,
@@ -37,6 +37,8 @@ const {
 const LayerStyleFilter = ({ active, isGroupLoading }) => {
   const dispatch = useDispatch();
   const [activeStyleTab, setActiveStyleTab] = useState('Standard');
+  const [size, setSize] = useState('Choose');
+  const [type, setType] = useState(null);
   const selectedLayerName = useSelector((state) => state.individualProject.selectedLayerName);
   const themeId = useSelector((state) => state.individualProject.themeId);
   const groupList = useSelector((state) => state.layerStyle.groupList);
@@ -48,6 +50,7 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
   const selectedType = useSelector((state) => state.individualProject.selectedType);
   const individualLayerData = useSelector((state) => state.individualProject.individualLayerData);
   const standardIcons = useSelector((state) => state.individualProject.standardIcons);
+  const layerData = useSelector((state) => state.individualProject.layerData);
   const openPopup = useSelector((state) => state.individualProject.openDatasetPopup);
   const finalData = useSelector(finalLayerStyleSelector);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
@@ -59,9 +62,19 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
       dispatch(handleStyleInput({ name, value }));
     },
   });
-  const { lineColor, fillColor, lineOpacity, fillOpacity, lineThickness, dashline, circleRadius, bgColor, layerName } =
-    layerStyle;
+  const {
+    lineColor,
+    fillColor,
+    lineOpacity,
+    fillOpacity,
+    lineThickness,
+    dashline,
+    circleRadius,
+    iconColor,
+    layerName,
+  } = layerStyle;
   const handleSelect = (value) => {
+    setSize(value.name);
     dispatch(handleStyleInput({ name: 'icon_size', value: { ...value.size, type: value.name } }));
   };
 
@@ -99,26 +112,40 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
 
   const onSubmitClick = () => {
     if (selectedType === 'subLayer') {
-      dispatch(postSubLayerDataRequest({ id: selectedLayerId, finalData }));
+      dispatch(postSubLayerDataRequest({ id: selectedLayerId, finalData, type, layerData, themeId }));
       dispatch(
         setAddUpdatedData({
           layerId: layerIdHavingSubLayer,
           subId: selectedLayerId,
           themeId,
-          type: activeTypeTab,
+          type,
+          changedType: activeTypeTab,
           group: finalData?.group || '',
+          layerName: selectedLayerName,
         }),
       );
     } else {
       dispatch(
-        setAddUpdatedData({ layerId: selectedLayerId, themeId, type: activeTypeTab, group: finalData?.group || '' }),
+        setAddUpdatedData({
+          layerId: selectedLayerId,
+          themeId,
+          type,
+          changedType: activeTypeTab,
+          group: finalData?.group || '',
+          layerName: selectedLayerName,
+        }),
       );
-      dispatch(postLayerDataRequest({ id: selectedLayerId, finalData }));
+      dispatch(postLayerDataRequest({ id: selectedLayerId, finalData, type, layerData, themeId }));
     }
   };
 
   useEffect(() => {
-    if (activeTypeTab === 'Sub-layer') dispatch(getAttributeAliasRequest({ layer: selectedLayerId }));
+    setType(activeTypeTab);
+  }, []);
+
+  useEffect(() => {
+    if (activeTypeTab === 'Sub-layer' && selectedLayerId)
+      dispatch(getAttributeAliasRequest({ layer: selectedLayerId }));
   }, [activeTypeTab]);
 
   useEffect(() => {
@@ -206,7 +233,7 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
           setActiveTab={setActiveStyleTab}
           label="Styling"
         />
-        {/* individualLayerData?.geom_type === 'Point' && activeStyleTab === 'Standard' && (
+        {individualLayerData?.geom_type === 'Point' && activeStyleTab === 'Standard' && (
           <>
             <div className="pm-group">
               <label>Placemark</label>
@@ -216,7 +243,7 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
                     standardIcons?.map((item) => (
                       <li
                         className="is-active is-circle is-circle_sm is-column"
-                        style={{ background: bgColor || `${item.color}`, padding: '5px' }}
+                        style={{ background: iconColor || `${item.color}`, padding: '5px' }}
                         onClick={() => handleIconClick(item)}
                       >
                         <SVGImageIcon id={item.id} src={item.icon} color={item.color} />
@@ -240,19 +267,18 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
               <label>Default Color </label>
               <div className="color-list">
                 <ul className="is-flex is-start is-align-center is-wrap is-gap-10 " style={{ cursor: 'pointer' }}>
-                  <li style={{ backgroundColor: '#71269C' }} className="is-active" />
-                  <li style={{ backgroundColor: '#333F99' }} />
-                  <li style={{ backgroundColor: '#1876D3' }} />
-                  <li style={{ backgroundColor: '#05786A' }} />
-                  <li style={{ backgroundColor: '#388E3C' }} />
-                  <li style={{ backgroundColor: '#F7CE8B' }} />
-                  <li style={{ backgroundColor: '#FAC02B' }} />
-                  <li style={{ backgroundColor: '#F47D06' }} />
+                  {defaultColors.map(({ id, color }) => (
+                    <li
+                      style={{ backgroundColor: `${color}` }}
+                      className={iconColor === color ? 'is-active' : ''}
+                      onClick={() => dispatch(handleStyleInput({ name: 'iconColor', value: color }))}
+                    />
+                  ))}
                 </ul>
                 <div className="mt-15">
                   <button className="pmupload-btn is-btn is-btn_link is-btn_icon" type="button">
                     <label>
-                      <input type="color" name="bgColor" value={bgColor} onChange={handleChange} />
+                      <input type="color" name="iconColor" value={iconColor} onChange={handleChange} />
                       <span>custom color</span>
                     </label>
                   </button>
@@ -262,30 +288,34 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
             <div className="pm-group">
               <label className="is-capitalize">Size</label>
               <Select
-                selected="Choose"
+                selected={size}
                 handleSelect={handleSelect}
                 options={selectSizeOptions}
                 className="pm-select_100"
               />
             </div>
           </>
-                    ) */}
+        )}
 
-        <Input label="Fill Color" name="fillColor" value={fillColor} onChange={handleChange} type="color" />
-        <Input label="Line Color" name="lineColor" value={lineColor} onChange={handleChange} type="color" />
-        <RangeSlider label="Line Opacity" name="lineOpacity" value={lineOpacity} onChange={handleChange} />
-        <RangeSlider label="Fill Opacity" name="fillOpacity" value={fillOpacity} onChange={handleChange} />
-        <Input
-          label="Line Thickness"
-          name="lineThickness"
-          value={lineThickness}
-          onChange={handleChange}
-          type="number"
-          min="0"
-          max="100"
-        />
+        {selectedType !== 'layerWithSubLayer' && (
+          <>
+            <Input label="Fill Color" name="fillColor" value={fillColor} onChange={handleChange} type="color" />
+            <Input label="Line Color" name="lineColor" value={lineColor} onChange={handleChange} type="color" />
+            <RangeSlider label="Line Opacity" name="lineOpacity" value={lineOpacity} onChange={handleChange} />
+            <RangeSlider label="Fill Opacity" name="fillOpacity" value={fillOpacity} onChange={handleChange} />
+            <Input
+              label="Line Thickness"
+              name="lineThickness"
+              value={lineThickness}
+              onChange={handleChange}
+              type="number"
+              min="0"
+              max="100"
+            />
 
-        <Input type="number" name="circleRadius" label="Radius" value={circleRadius} onChange={handleChange} />
+            <Input type="number" name="circleRadius" label="Radius" value={circleRadius} onChange={handleChange} />
+          </>
+        )}
       </div>
       <div className="filter-sidebar_footer is-flex is-start is-gap-30">
         <button className="is-btn is-btn_link" type="button">

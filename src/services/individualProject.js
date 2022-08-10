@@ -7,7 +7,7 @@ export const getThemeList = (params) => authenticated(api).get(`/maps/theme/`, {
 
 export const getProjectTheme = (params) => authenticated(api).get(`/maps/project_theme_layers/`, { params });
 
-export const getIndividualProjectData = (params) => authenticated(api).get(`/projects/project/${params}`);
+export const getIndividualProjectData = (params) => authenticated(api).get(`/projects/project_detail/`, { params });
 
 export const getIndividualLayerData = (params) => authenticated(api).get(`/maps/layer/${params}`);
 
@@ -20,6 +20,10 @@ export const getTaskResponse = (params) => authenticated(api).get(`/maps/get_lay
 export const getGroupList = (params) => authenticated(api).get(`/maps/layer_group/`, { params });
 
 export const getFeatureCollection = (params) => authenticated(api).get(`/maps/feature_collection/`, { params });
+
+export const getFeatureById = (params) => authenticated(api).get(`/maps/feature/${params}/`);
+
+export const updateFeatureById = (id, data) => authenticated(api).patch(`/maps/feature_collection/${id}/`, data);
 
 export const getStandardIcons = () => authenticated(api).get(`/maps/standard_icon/`);
 

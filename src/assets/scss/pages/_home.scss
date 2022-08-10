@@ -129,7 +129,10 @@
     max-width: 800px;
     margin:0 auto;
     p{
-      font-size: var(--fs-lg);
+      // font-size: var(--fs-lg);
+      // changed scss
+      font-size: var(--fs-xlg);
+
       &:not(:last-child){
         margin-bottom: 1rem;
       }

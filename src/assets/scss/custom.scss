@@ -99,8 +99,8 @@
   .loader-wrapper,
   .loader {
     display: inline-block;
-    width: 1.5em;
-    height: 1.5em;
+    width: 1.3em;
+    height: 1.3em;
     color: inherit;
     vertical-align: middle;
     pointer-events: none;
@@ -118,6 +118,14 @@
     opacity: 0;
   }
 
+  .map-buttons{
+    position:absolute;
+    top:4.2rem;
+    left:1.1rem;
+    z-index:1111;
+
+  }
+
   .map-loader-container {
     position: relative;
     display: flex;
@@ -127,8 +135,8 @@
     height: 36px;
     width: 36px;
     border: 0.5px solid #e2e2e2;
-    top: -36.5rem;
-    left : 1.1rem
+    // top: -36.5rem;
+    // left : 1.1rem
   }
   
   .map-loader-wrapper {
@@ -149,8 +157,8 @@
   
   .map-loader-wrapper,
   .map-loader {
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
     color: inherit;
     vertical-align: middle;
     pointer-events: none;

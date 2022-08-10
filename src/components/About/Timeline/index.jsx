@@ -5,7 +5,7 @@ const Timeline = () => (
     <div className="container">
       <div className="section-title mb-40">
         <h2 className="is-capitalize fw-bold mb-15">our story</h2>
-        <p>
+        <p className="fs-xlg">
           USAFIRI is built on a partnership between the
           <a href="#" className="fw-bold">
             Ecole Polytechnique Fédérale de Lausanne
@@ -37,7 +37,7 @@ const Timeline = () => (
             <h3>July 2020</h3>
           </div>
           <div className="storybox-body">
-            <p>
+            <p className="fs-xlg">
               <a href="#" className="fw-bold is-uppercase">
                 NFL{' '}
               </a>{' '}
@@ -58,7 +58,7 @@ const Timeline = () => (
             <h3>July 2020</h3>
           </div>
           <div className="storybox-body">
-            <p>
+            <p className="fs-xlg">
               Submitted proposal for
               <a href="#" className="fw-bold is-uppercase">
                 Tech4Dev{' '}
@@ -71,7 +71,7 @@ const Timeline = () => (
             <h3>June 2021</h3>
           </div>
           <div className="storybox-body">
-            <p>
+            <p className="fs-xlg">
               Received Grant from
               <a href="#" className="fw-bold is-uppercase">
                 Tech4Dev
@@ -85,7 +85,7 @@ const Timeline = () => (
             <h3>May 2022</h3>
           </div>
           <div className="storybox-body">
-            <p>
+            <p className="fs-xlg">
               Kickoff workshop with members from
               <a href="#" className="fw-bold is-uppercase">
                 EPFL{' '}
@@ -107,7 +107,7 @@ const Timeline = () => (
             <h3>June 2022</h3>
           </div>
           <div className="storybox-body">
-            <p>Field Testing Kenya</p>
+            <p className="fs-xlg">Field Testing Kenya</p>
           </div>
         </div>
 
@@ -116,7 +116,7 @@ const Timeline = () => (
             <h3>Future</h3>
           </div>
           <div className="storybox-body">
-            <p>Revision of tool based on field testing done in Kenya</p>
+            <p className="fs-xlg">Revision of tool based on field testing done in Kenya</p>
           </div>
         </div>
         <div className="storybox">
@@ -124,7 +124,7 @@ const Timeline = () => (
             <h3>Future</h3>
           </div>
           <div className="storybox-body">
-            <p>Field Implementation in Nairobi, Kenya</p>
+            <p className="fs-xlg">Field Implementation in Nairobi, Kenya</p>
           </div>
         </div>
       </div>

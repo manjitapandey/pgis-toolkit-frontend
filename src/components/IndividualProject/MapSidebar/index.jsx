@@ -39,7 +39,7 @@ const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
   const layerData = useSelector((state) => state.individualProject.layerData);
   const searchData = useSelector((state) => state.individualProject.searchData);
   const geomData = useSelector((state) => state.individualProject.geomData);
-  const themeList = useSelector((state) => state.individualProject.themeList);
+  // const themeList = useSelector((state) => state.individualProject.themeList);
   const projectHeaderHeight = useSelector((state) => state.projectHeader.projectHeaderHeight);
   const searchedLayerData = useSelector(searchedLayerSelector);
 
@@ -50,11 +50,19 @@ const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
     const { id } = e.target;
     if (type !== 'group') setLayId(id);
     dispatch(getSelectedFromLayer({ id, parentId: parId, name, categoryName: catName }));
+    setTimeout(() => {
+      setLayId(null);
+    }, 3000);
   };
   const handleListCheckbox = (e, parId, name, catName, type) => {
     const { id } = e.target;
-    if (type !== 'group') setSubLayerId(id);
+    if (type === 'layerWithSubLayer') setSubLayerId(id);
+    if (type === 'group') setLayId(id);
     dispatch(getSelectedFromSubLayer({ id, parentId: parId, name, categoryName: catName }));
+    setTimeout(() => {
+      setLayId(null);
+      setSubLayerId(null);
+    }, 3000);
   };
   const handleClick = () => {
     dispatch(setActive('filter'));
@@ -68,7 +76,6 @@ const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
     dispatch(setAddUploadData({ name: 'theme', value: name }));
     dispatch(setAddUploadData({ name: 'themeId', value: id }));
   };
-
   useEffect(() => {
     if (layId) {
       dispatch(getIndividualLayerDataRequest({ id: layId, layerData }));
@@ -81,9 +88,10 @@ const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
     }
   }, [dispatch, subLayerId, layerFilterActive]);
 
-  // const handleHeaderClick = (themeId) => {
-  //   dispatch(getProjectThemeRequest({ theme: themeId, project_style: 'default', themeList }));
-  // };
+  const handleHeaderClick = (themeId, options) => {
+    if (options?.length > 0) return;
+    dispatch(getProjectThemeRequest({ theme: themeId, project_style: 'default', layerData, type: '' }));
+  };
 
   return (
     <Sidebar
@@ -105,14 +113,14 @@ const MapSidebar = ({ isLoading, isGroupLoading, isLayerLoading }) => {
             searchedLayerData &&
             searchedLayerData?.map(({ id, name, type, options, hasSubLayer }, index) => (
               <Accordion
-                collapsed={index !== 0}
+                collapsed={index !== null}
                 header={<h4 className="is-grow ">{name}</h4>}
                 handleButtonClick={(event) => handleButtonClick(event, id, name)}
-                // onHeaderClick={() => handleHeaderClick(id)}
+                onHeaderClick={() => handleHeaderClick(id, options)}
                 body={
                   <ul className="is-list">
                     {
-                      options.length ? (
+                      options?.length ? (
                         options?.map((element) => (
                           <ListCustomInput
                             uniqueId={element?.id}
