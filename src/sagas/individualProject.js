@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
+import { stringify } from 'wkt';
 import toastActions from '@Actions/toast';
 import {
   getProjectLayerData,
@@ -302,9 +303,12 @@ export function* getFeatureByIdRequest(action) {
 }
 
 export function* updateFeatureByIdRequest(action) {
-  const { type, params } = action;
+  const { type, params, payload } = action;
+  const id = +payload?.modifiedGeojson?.properties?.pk;
+  const data = { geometry: stringify(payload?.modifiedGeojson?.geometry) };
+  console.log(data, 'payload');
   try {
-    const response = yield call(updateFeatureById, params);
+    const response = yield call(updateFeatureById, id, data);
     yield put(projectActions.updateFeatureByIdSuccess({ data: response.data }));
   } catch (error) {
     // yield put(redirectActions.getStatusCode(error?.response?.status));

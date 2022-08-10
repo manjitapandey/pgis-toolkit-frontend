@@ -169,7 +169,7 @@ const OlMap = () => {
             geojson={featureGeojson}
             zIndex={100}
             onSave={(modifiedGeojson) => {
-              dispatch(updateFeatureByIdRequest(modifiedGeojson));
+              dispatch(updateFeatureByIdRequest({ modifiedGeojson }));
             }}
             onCancel={() => {
               dispatch(cancelFeaturePolygonEdit());

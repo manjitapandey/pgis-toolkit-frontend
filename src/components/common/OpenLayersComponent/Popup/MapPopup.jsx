@@ -45,10 +45,10 @@ const MapPopup = ({ map, except, onButtonClick, buttonText }) => {
         return;
       }
       const properties = features[0].getProperties();
-      const { layer_id, Name, Category } = properties;
+      const { layer_id, Name, Category, id } = properties;
       setElemName(Name);
       setCategory(Category);
-      setPropertiesId(layer_id);
+      setPropertiesId(id);
       if (layer_id === except) {
         overlay.setPosition(undefined);
         closer.blur();
