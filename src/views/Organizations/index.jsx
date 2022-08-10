@@ -67,7 +67,7 @@ const Organizations = () => {
               </button>
             )}
           </div>
-          <Search className="mt-15" handleSearch={handleSearch} />
+          <Search className="mt-15 search_sm " handleSearch={handleSearch} />
         </div>
         <CreateOrganizationPopup openPopup={popup} setOpenPopup={openPopup} popupType={popupType} />
         <OrganizationTable permissionList={permissionList} isLoading={isTableLoading} />

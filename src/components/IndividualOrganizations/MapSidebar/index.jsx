@@ -1,4 +1,5 @@
 /* eslint-disable react/no-array-index-key */
+/* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -29,6 +30,7 @@ const MapSidebar = ({ active, isLoading }) => {
     e.stopPropagation();
     dispatch(openProjectPopup(true));
   };
+  console.log(individualOrganizationData, 'item');
   return (
     <Sidebar handleClick={handleClick} handleSearch={handleSearch} buttonTitle="Project" onButtonClick={onButtonClick}>
       <div className="dvd-sidebar-body is-overflow" style={{ height: '60vh' }}>
@@ -47,7 +49,11 @@ const MapSidebar = ({ active, isLoading }) => {
                   style={{ cursor: 'pointer' }}
                 >
                   <h4>{item.name}</h4>
-                  <p className="mt-05">{`${item?.state},${item?.country}`}</p>
+                  {item?.country.length || item?.state.length ? (
+                    <p className="mt-05">{`${item?.state},${item?.country}`}</p>
+                  ) : (
+                    <></>
+                  )}
                 </div>
                 <Dropdown />
               </div>

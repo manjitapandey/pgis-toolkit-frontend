@@ -11,6 +11,7 @@ const Accordion = ({
   headerClassName,
   handleButtonClick,
   h4Header,
+  buttonText,
 }) => {
   const [collapse, setCollapse] = useState(null);
 
@@ -36,7 +37,7 @@ const Accordion = ({
               onClick={handleButtonClick}
             >
               <i className="material-icons-outlined">add_circle_outline</i>
-              <span>add</span>
+              <span>{buttonText}</span>
             </button>
           </div>
         )}
@@ -56,6 +57,7 @@ Accordion.defaultProps = {
   handleButtonClick: () => {},
   description: '',
   h4Header: '',
+  buttonText: 'Add',
 };
 
 Accordion.propTypes = {
@@ -68,6 +70,7 @@ Accordion.propTypes = {
   handleButtonClick: PropTypes.func,
   description: PropTypes.string,
   h4Header: PropTypes.string,
+  buttonText: PropTypes.string,
 };
 
 export default Accordion;
