@@ -306,7 +306,6 @@ export function* updateFeatureByIdRequest(action) {
   const { type, params, payload } = action;
   const id = +payload?.modifiedGeojson?.properties?.pk;
   const data = { geometry: stringify(payload?.modifiedGeojson?.geometry) };
-  console.log(data, 'payload');
   try {
     const response = yield call(updateFeatureById, id, data);
     yield put(projectActions.updateFeatureByIdSuccess({ data: response.data }));

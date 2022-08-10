@@ -23,7 +23,7 @@ const Sidebar = ({ handleSearch, handleClick, children, buttonTitle, onButtonCli
             onClick={onButtonClick}
           >
             <i className="material-icons">add_circle_outline</i>
-            {buttonTitle}
+            <p className="font-size-md">{buttonTitle}</p>
           </a>
         </div>
       </div>

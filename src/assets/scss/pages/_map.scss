@@ -490,7 +490,9 @@
         }
       }
       li{
-        padding:.35rem .25rem;
+        // padding:.35rem .25rem;
+        // changed scss
+        padding:.13rem .15rem;
           .pm-checkbox{
             &:hover{
               label{
