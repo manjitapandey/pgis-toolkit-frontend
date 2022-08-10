@@ -30,7 +30,6 @@ const MapSidebar = ({ active, isLoading }) => {
     e.stopPropagation();
     dispatch(openProjectPopup(true));
   };
-  console.log(individualOrganizationData, 'item');
   return (
     <Sidebar handleClick={handleClick} handleSearch={handleSearch} buttonTitle="Project" onButtonClick={onButtonClick}>
       <div className="dvd-sidebar-body is-overflow" style={{ height: '60vh' }}>

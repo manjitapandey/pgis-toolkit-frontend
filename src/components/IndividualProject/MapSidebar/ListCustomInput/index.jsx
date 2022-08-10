@@ -40,7 +40,7 @@ const ListCustomInput = ({ uniqueId, catName, isSelected, onChange, icon, onList
   };
   const handleExploreClick = (id, name) => {
     dispatch(selectLayerData({ name, id }));
-    dispatch(getFeatureCollectionRequest({ layer: id, limit: 5 }));
+    dispatch(getFeatureCollectionRequest({ layer: id, limit: 10 }));
     dispatch(openDetailPopup(true));
   };
 
