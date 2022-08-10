@@ -76,7 +76,7 @@ const OrganizationTable = ({ permissionList, isLoading }) => {
               />
               <TableHeader
                 dataField="Organization Name"
-                dataFormat={(row, _, index) => <p className="fw-bold">{row.name}</p>}
+                dataFormat={(row, _, index) => <p className="fs-xlg">{row.name}</p>}
                 dataHeader={
                   <div className="is-flex is-start is-gap-10">
                     <span>Organization name</span>
