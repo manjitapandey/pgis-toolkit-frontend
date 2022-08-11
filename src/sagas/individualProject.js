@@ -81,7 +81,6 @@ export function* getIndividualLayerDataRequest(action) {
                             bbox: response.data.bbox,
                             style: {
                               ...response?.data?.style,
-                              ...defaultStyles,
                               icon: { url: response?.data?.icon },
                               icon_size: response?.data?.icon_size,
                             },
@@ -95,7 +94,6 @@ export function* getIndividualLayerDataRequest(action) {
                     bbox: response.data.bbox,
                     style: {
                       ...response?.data?.style,
-                      ...defaultStyles,
                       icon: { url: response?.data?.icon || response?.data?.std_icon },
                       icon_size: response?.data?.icon_size,
                     },

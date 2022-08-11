@@ -3,22 +3,25 @@
 /* eslint-disable func-names */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable camelcase */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Overlay from 'ol/Overlay';
 import { capitalize } from '@Utils/commonUtils';
 import Button from '@Components/common/Button';
 import './popup.scss';
 
-const MapPopup = ({ map, except, onButtonClick, buttonText }) => {
+const MapPopup = ({ map, except, onButtonClick, buttonText, closePopup }) => {
   const [elemName, setElemName] = useState('');
   const [category, setCategory] = useState('');
   const [propertiesId, setPropertiesId] = useState(null);
+  const [overlayInstance, setOverlayInstance] = useState(null);
+  const closerRef = useRef(null);
+
   useEffect(() => {
     if (!map) return;
 
     const container = document.getElementById('popup');
     const content = document.getElementById('popup-content');
-    const closer = document.getElementById('popup-closer');
+    // const closer = document.getElementById('popup-closer');
 
     const overlay = new Overlay({
       element: container,
@@ -27,10 +30,11 @@ const MapPopup = ({ map, except, onButtonClick, buttonText }) => {
         duration: 250,
       },
     });
+    setOverlayInstance(overlay);
 
-    closer.onclick = function () {
+    closerRef.current.onclick = function () {
       overlay.setPosition(undefined);
-      closer.blur();
+      closerRef.current.blur();
       setPropertiesId(null);
       return false;
     };
@@ -40,7 +44,7 @@ const MapPopup = ({ map, except, onButtonClick, buttonText }) => {
       const features = map.getFeaturesAtPixel(evt.pixel);
       if (features.length < 1) {
         overlay.setPosition(undefined);
-        closer.blur();
+        closerRef.current.blur();
         content.innerHTML = '';
         return;
       }
@@ -51,7 +55,7 @@ const MapPopup = ({ map, except, onButtonClick, buttonText }) => {
       setPropertiesId(id);
       if (layer_id === except) {
         overlay.setPosition(undefined);
-        closer.blur();
+        closerRef.current.blur();
         return;
       }
       content.innerHTML = `        
@@ -77,6 +81,18 @@ const MapPopup = ({ map, except, onButtonClick, buttonText }) => {
     });
   }, [map, except]);
 
+  const closePopupFn = useCallback(() => {
+    if (!closerRef.current || !overlayInstance) return;
+    overlayInstance.setPosition(undefined);
+    // onPopupClose();
+    closerRef.current.blur();
+  }, [overlayInstance, closerRef]);
+
+  useEffect(() => {
+    if (!map || !closePopup) return;
+    closePopupFn();
+  }, [map, closePopup, closePopupFn]);
+
   return (
     <div className="leaflet-popup-content-wrapper" id="popup">
       <div className="leaflet-popup-content" style={{ width: '301px' }}>
@@ -93,7 +109,7 @@ const MapPopup = ({ map, except, onButtonClick, buttonText }) => {
                 {/* <i className="material-icons">edit</i> */}
               </div>
             )}
-            <a href={() => {}} id="popup-closer" className="ol-popup-closer" />
+            <a href={() => {}} id="popup-closer" className="ol-popup-closer" ref={closerRef} />
           </div>
           <div className="naxa-table is-overflow" id="popup-content" />
           <div
