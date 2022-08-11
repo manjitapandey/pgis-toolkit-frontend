@@ -55,7 +55,6 @@ const IndividualProject = () => {
   const isProjectThemeLoading = useSelector((state) =>
     checkIfLoading(state, IndividualProjectTypes.GET_PROJECT_THEME_REQUEST),
   );
-  console.log(isProjectThemeLoading, 'loading');
   const isGroupLoading = useSelector((state) => checkIfLoading(state, IndividualProjectTypes.GET_GROUP_LIST_REQUEST));
   const handleClick = () => {
     history.push(`/organizations/${id}`);

@@ -165,6 +165,7 @@ const OlMap = () => {
             onButtonClick={(properties) => {
               dispatch(getFeatureByIdRequest(properties));
             }}
+            closePopup={!!featureGeojson}
           />
           <EditableLayer
             geojson={featureGeojson}

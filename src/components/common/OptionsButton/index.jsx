@@ -1,14 +1,21 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 const OptionsButton = ({ options, setActiveTab, selected, label, description }) => {
+  const newOptions =
+    selected === 'Group'
+      ? options.filter((item) => item !== 'Sub-layer')
+      : selected === 'Sub-layer'
+      ? options.filter((item) => item !== 'Group')
+      : options;
   const dispatch = useDispatch();
   return (
     <div className="pm-group">
       <label className="is-capitalize fw-bold">{label}</label>
       <div className="options is-flex is-start is-align-center">
-        {options?.map((element) => (
+        {newOptions?.map((element) => (
           <div
             key={element}
             className={
