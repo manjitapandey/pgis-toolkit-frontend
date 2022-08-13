@@ -25,7 +25,7 @@ const DetailDataPopup = ({ isLoading }) => {
   const featureCollection = useSelector((state) => state.detailPopup.featureCollection);
   const headerData = useSelector((state) => state.detailPopup.headerData);
   const currentPage = useSelector((state) => state.pagination.currentPage);
-  const totalPage = Math.ceil(+featureCollection?.counts / +selected);
+  const totalPage = Math.ceil(+featureCollection?.counts / +selected.value);
   const [search, handleSearch] = useDebouncedInput({
     ms: 200,
     init: '',
@@ -42,13 +42,17 @@ const DetailDataPopup = ({ isLoading }) => {
   };
 
   const prevPage = () => {
-    if (currentPage > 1) dispatch(getCurrentPage(+currentPage - 1));
-    dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected.value, page: +currentPage - 1 }));
+    if (currentPage > 1) {
+      dispatch(getCurrentPage(+currentPage - 1));
+      dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected.value, page: +currentPage - 1 }));
+    }
   };
 
   const nextPage = () => {
-    if (currentPage < totalPage) dispatch(getCurrentPage(+currentPage + 1));
-    dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected.value, page: +currentPage + 1 }));
+    if (currentPage < totalPage) {
+      dispatch(getCurrentPage(+currentPage + 1));
+      dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected.value, page: +currentPage + 1 }));
+    }
   };
 
   const jumpTo = (val) => {};
@@ -57,6 +61,7 @@ const DetailDataPopup = ({ isLoading }) => {
       dispatch(getFeatureCollectionRequest({ layer: +layerId, limit: selected.value, page: +currentPage }));
     }
   }, [selected]);
+
   return (
     <Popup
       tagId="explore"
@@ -78,7 +83,7 @@ const DetailDataPopup = ({ isLoading }) => {
                   headerData?.map((elem) => (
                     <TableHeader
                       dataField={elem}
-                      dataFormat={(row, _, index) => <p className="fs-md">{row[elem]}</p>}
+                      dataFormat={(row, _, index) => <p className="fs-lg is-trim-2">{row[elem]}</p>}
                       dataHeader={
                         <div className="is-flex is-start is-gap-10">
                           <span>{elem}</span>
@@ -99,10 +104,10 @@ const DetailDataPopup = ({ isLoading }) => {
                 currentPage={currentPage}
                 rowPerPage={paginationOptions}
                 jumpTo={jumpTo}
-                paginatedCounts={`${currentPage * selected - (selected - 1)}-${
-                  currentPage * selected > featureCollection?.counts
+                paginatedCounts={`${currentPage * +selected.value - (+selected.value - 1)}-${
+                  currentPage * +selected.value > featureCollection?.counts
                     ? featureCollection?.counts
-                    : currentPage * selected
+                    : currentPage * +selected.value
                 }`}
                 paginatedCountsTotal={featureCollection?.counts}
                 selected={selected.value}

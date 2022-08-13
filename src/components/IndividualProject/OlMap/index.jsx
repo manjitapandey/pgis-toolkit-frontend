@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-no-useless-fragment */
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromLonLat } from 'ol/proj';
 import VectorTile from 'ol/layer/VectorTile';
@@ -20,7 +20,7 @@ import toastActions from '@Actions/toast';
 import { switcherOptions } from '@src/constants/commonData';
 import MeasureControl from '@Components/common/OpenLayersComponent/Control/MeasureControl';
 import { selectedLayerStyleSelector } from '@Selectors/individualProject';
-import { defaultStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
+import { defaultStyles, getStyles } from '@Components/common/OpenLayersComponent/helpers/styleUtils';
 import DownloadControl from '@Components/common/OpenLayersComponent/Control/DownloadControl';
 import Popup from '@Components/common/OpenLayersComponent/Popup/index';
 import MapPopup from '@Components/common/OpenLayersComponent/Popup/MapPopup';
@@ -46,6 +46,7 @@ const OlMap = () => {
   const isLayerLoading = useSelector((state) => state.individualProject.isLayerLoading);
   const featureGeojson = useSelector((state) => state.individualProject.featureGeojson);
   const refreshFeatureLayer = useSelector((state) => state.individualProject.refreshFeatureLayer);
+  const selectedFeatureIdForEdit = useSelector((state) => state.individualProject.selectedFeatureIdForEdit);
   const selectedLayerStyle = useSelector(selectedLayerStyleSelector);
   // const authToken = '0d133cd783c0bd4288ef0b8dca02de3889845612';
   const { mapRef, map, renderComplete } = useOLMap({
@@ -86,6 +87,30 @@ const OlMap = () => {
     });
   }, [dispatch, map, refreshFeatureLayer]);
 
+  const setFeatureLayerStyle = useCallback(
+    (style, feature, resolution) => {
+      const stylex = {
+        ...style,
+        showLabel: true,
+        labelField: 'name',
+        labelMaxResolution: 0.4,
+      };
+      const properties = feature.getProperties();
+      const { id } = properties;
+
+      if (selectedFeatureIdForEdit === id) {
+        stylex.fillOpacity = 0;
+        stylex.lineOpacity = 0;
+      }
+      return getStyles({
+        style: stylex,
+        feature,
+        resolution,
+      });
+    },
+    [selectedFeatureIdForEdit],
+  );
+
   return (
     <div className="dbd-map_cntr is-grow">
       <div className="dbd-map_wrap">
@@ -107,16 +132,28 @@ const OlMap = () => {
                       key={elem?.key}
                       url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${elem.id}`}
                       authToken={TOKEN}
-                      style={
-                        selectedLayerId === elem?.id
-                          ? selectedLayerStyle
-                          : elem?.style?.fillColor
-                          ? { ...elem?.style }
-                          : { ...defaultStyles }
+                      // style={
+                      //   selectedLayerId === elem?.id
+                      //     ? selectedLayerStyle
+                      //     : elem?.style?.fillColor
+                      //     ? { ...elem?.style }
+                      //     : { ...defaultStyles }
+                      // }
+                      setStyle={(feature, resolution) =>
+                        setFeatureLayerStyle(
+                          selectedLayerId === elem?.id
+                            ? selectedLayerStyle
+                            : elem?.style?.fillColor
+                            ? { ...elem?.style }
+                            : { ...defaultStyles },
+                          feature,
+                          resolution,
+                        )
                       }
                       zoomToLayer={elem?.id === zoomToLayerId}
                       bbox={elem?.bbox}
                       zIndex={item?.options.length - i}
+                      selectedId={selectedFeatureIdForEdit}
                     />
                   ))
                 : item?.type === 'layerWithSubLayer'
@@ -125,16 +162,28 @@ const OlMap = () => {
                       key={elem?.key}
                       url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=${elem.id}`}
                       authToken={TOKEN}
-                      style={
-                        selectedLayerId === elem?.id
-                          ? selectedLayerStyle
-                          : elem?.style?.fillColor
-                          ? { ...elem?.style }
-                          : { ...defaultStyles }
+                      // style={
+                      //   selectedLayerId === elem?.id
+                      //     ? selectedLayerStyle
+                      //     : elem?.style?.fillColor
+                      //     ? { ...elem?.style }
+                      //     : { ...defaultStyles }
+                      // }
+                      setStyle={(feature, resolution) =>
+                        setFeatureLayerStyle(
+                          selectedLayerId === elem?.id
+                            ? selectedLayerStyle
+                            : elem?.style?.fillColor
+                            ? { ...elem?.style }
+                            : { ...defaultStyles },
+                          feature,
+                          resolution,
+                        )
                       }
                       zoomToLayer={elem?.id === zoomToLayerId}
                       bbox={elem?.bbox}
                       zIndex={item?.options.length - i}
+                      selectedId={selectedFeatureIdForEdit}
                     />
                   ))
                 : item.type !== 'group' && (
@@ -142,16 +191,28 @@ const OlMap = () => {
                       key={`${item.key}`}
                       url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}`}
                       authToken={TOKEN}
-                      style={
-                        selectedLayerId === item?.id
-                          ? selectedLayerStyle
-                          : item?.style?.fillColor
-                          ? { ...item?.style }
-                          : { ...defaultStyles }
+                      // style={
+                      //   selectedLayerId === item?.id
+                      //     ? selectedLayerStyle
+                      //     : item?.style?.fillColor
+                      //     ? { ...item?.style }
+                      //     : { ...defaultStyles }
+                      // }
+                      setStyle={(feature, resolution) =>
+                        setFeatureLayerStyle(
+                          selectedLayerId === item?.id
+                            ? selectedLayerStyle
+                            : item?.style?.fillColor
+                            ? { ...item?.style }
+                            : { ...defaultStyles },
+                          feature,
+                          resolution,
+                        )
                       }
                       zoomToLayer={item?.id === zoomToLayerId}
                       bbox={item?.bbox}
                       zIndex={geomData.length - index}
+                      selectedId={selectedFeatureIdForEdit}
                     />
                   ),
             )
@@ -218,7 +279,7 @@ const OlMap = () => {
             <MeasureControl map={map} buttonText={<i className="material-icons">straighten</i>} measureBoth />
             <DownloadControl map={map} />
           </div>
-          {/* <CustomLayerSwitcher map={map} options={switcherOptions} /> */}
+          <CustomLayerSwitcher map={map} options={switcherOptions} />
           <ZoomControl map={map} />
         </div>
       </div>

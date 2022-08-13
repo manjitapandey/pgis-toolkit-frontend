@@ -30,6 +30,7 @@ const VectorTileLayer = ({
   setStyle,
   zoomToLayer = false,
   bbox = null,
+  selectedId,
   // properties,
 }) => {
   const dispatch = useDispatch();
