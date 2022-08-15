@@ -13,7 +13,7 @@ const ProjectHeader = ({ title, handleClick }) => {
     dispatch(setHeaderHeight(headerRef?.current?.clientHeight));
   });
   return (
-    <header className="dbd-header pd-10" ref={headerRef}>
+    <header className="dbd-header pt-10 pb-10" ref={headerRef}>
       <div className="container-fluid">
         <div className="is-flex is-between is-align-center is-wrap is-gap-15">
           <div className="is-flex is-start is-align-center">

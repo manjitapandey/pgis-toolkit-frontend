@@ -8,7 +8,7 @@ const Sidebar = ({ handleSearch, handleClick, children, buttonTitle, onButtonCli
     setHeaderHeight(headerRef.current.clientHeight);
   });
   return (
-    <aside className="dbd-map_sidebar pd-15 pl-30">
+    <aside className="dbd-map_sidebar pd-15 pl-15">
       <div className="dbd-sidebar_header" ref={headerRef}>
         <Search className="search search_100 search_sm search_white" handleSearch={handleSearch} value={searchValue} />
         <div className="is-flex is-between is-align-center is-gap-15 mb-15 mt-15">
