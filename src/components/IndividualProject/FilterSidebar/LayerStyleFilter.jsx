@@ -14,6 +14,7 @@ import useDebouncedInput from '@Hooks/useDebouncedInput';
 import Spinner from '@Components/common/Spinner/index';
 import SVGImageIcon from '@Components/common/SVGImageIcon/index';
 import { svgIcons, defaultColors } from '@src/constants/icons';
+import ColorSelect from '@Components/common/ColorSelect/index';
 
 const {
   setLayerFilterActive,
@@ -299,8 +300,18 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
 
         {selectedType !== 'layerWithSubLayer' && (
           <>
-            <Input label="Fill Color" name="fillColor" value={fillColor} onChange={handleChange} type="color" />
-            <Input label="Line Color" name="lineColor" value={lineColor} onChange={handleChange} type="color" />
+            {individualLayerData?.geom_type !== 'Point' && activeStyleTab === 'Advance' && (
+              <>
+                <Input label="Fill Color" name="fillColor" value={fillColor} onChange={handleChange} type="color" />
+                <Input label="Line Color" name="lineColor" value={lineColor} onChange={handleChange} type="color" />
+              </>
+            )}
+            {individualLayerData?.geom_type !== 'Point' && activeStyleTab === 'Standard' && (
+              <>
+                <ColorSelect label="fillColor" options={defaultColors} colorName={fillColor} />
+                <ColorSelect label="lineColor" options={defaultColors} colorName={lineColor} />
+              </>
+            )}
             <RangeSlider label="Line Opacity" name="lineOpacity" value={lineOpacity} onChange={handleChange} />
             <RangeSlider label="Fill Opacity" name="fillOpacity" value={fillOpacity} onChange={handleChange} />
             <Input

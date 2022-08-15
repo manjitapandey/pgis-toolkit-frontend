@@ -594,10 +594,10 @@ const setAddUpdatedData = (state, action) => {
 };
 
 const cancelFeaturePolygonEdit = (state) => {
-  const { selectedSiteIdForEdit, featureGeojson } = initialState;
+  const { selectedFeatureIdForEdit, featureGeojson } = initialState;
   return {
     ...state,
-    selectedSiteIdForEdit,
+    selectedFeatureIdForEdit,
     featureGeojson,
   };
 };
