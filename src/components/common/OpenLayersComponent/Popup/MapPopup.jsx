@@ -68,7 +68,7 @@ const MapPopup = ({ map, except, onButtonClick, buttonText, closePopup }) => {
                   `${str}
                 <tr>
                   <td>${capitalize(key)}</td>
-                  <td class="fw-600">${properties[key]}</td>
+                  <td class="fw-600 is-trim-2">${properties[key]}</td>
                 </tr>`,
                 '',
               )}
