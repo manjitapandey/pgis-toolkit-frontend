@@ -112,7 +112,7 @@ const VectorTileLayer = ({
       /* eslint-disable-next-line no-inner-declarations */
       async function fetchMyAPI() {
         /* eslint-disable-next-line no-await-in-loop */
-        const image = await getSvgImageIcon(style?.icon?.url, style?.iconColor);
+        const image = await getSvgImageIcon(style?.icon?.url, style?.iconColor, style?.backgroundColor);
         if (image) {
           vectorTileLayer.setStyle((feature, resolution) =>
             getStyles({
