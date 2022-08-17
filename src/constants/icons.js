@@ -45,7 +45,14 @@ export const defaultColors = [
   { id: 8, color: '#F47D06' },
   { id: 9, color: '#8B0000' },
   { id: 10, color: '#00BFFF' },
+  { id: 10, color: '#F5F5F5' },
   // { id: 11, color: '#696969' },
+];
+
+export const buttonTabOptions = [
+  { id: 1, name: 'Svg Color' },
+  { id: 2, name: 'Background Color' },
+  { id: 3, name: 'Stroke Color' },
 ];
 
 // arr = [{}, {}];

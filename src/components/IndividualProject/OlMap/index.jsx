@@ -132,24 +132,24 @@ const OlMap = () => {
                       key={elem?.key}
                       url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${elem.id}`}
                       authToken={TOKEN}
-                      // style={
-                      //   selectedLayerId === elem?.id
-                      //     ? selectedLayerStyle
-                      //     : elem?.style?.fillColor
-                      //     ? { ...elem?.style }
-                      //     : { ...defaultStyles }
-                      // }
-                      setStyle={(feature, resolution) =>
-                        setFeatureLayerStyle(
-                          selectedLayerId === elem?.id
-                            ? selectedLayerStyle
-                            : elem?.style?.fillColor
-                            ? { ...elem?.style }
-                            : { ...defaultStyles },
-                          feature,
-                          resolution,
-                        )
+                      style={
+                        selectedLayerId === elem?.id
+                          ? selectedLayerStyle
+                          : elem?.style?.fillColor
+                          ? { ...elem?.style }
+                          : { ...defaultStyles }
                       }
+                      // setStyle={(feature, resolution) =>
+                      //   setFeatureLayerStyle(
+                      //     selectedLayerId === elem?.id
+                      //       ? selectedLayerStyle
+                      //       : elem?.style?.fillColor
+                      //       ? { ...elem?.style }
+                      //       : { ...defaultStyles },
+                      //     feature,
+                      //     resolution,
+                      //   )
+                      // }
                       zoomToLayer={elem?.id === zoomToLayerId}
                       bbox={elem?.bbox}
                       zIndex={item?.options.length - i}
@@ -162,24 +162,24 @@ const OlMap = () => {
                       key={elem?.key}
                       url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}&sub_layer=${elem.id}`}
                       authToken={TOKEN}
-                      // style={
-                      //   selectedLayerId === elem?.id
-                      //     ? selectedLayerStyle
-                      //     : elem?.style?.fillColor
-                      //     ? { ...elem?.style }
-                      //     : { ...defaultStyles }
-                      // }
-                      setStyle={(feature, resolution) =>
-                        setFeatureLayerStyle(
-                          selectedLayerId === elem?.id
-                            ? selectedLayerStyle
-                            : elem?.style?.fillColor
-                            ? { ...elem?.style }
-                            : { ...defaultStyles },
-                          feature,
-                          resolution,
-                        )
+                      style={
+                        selectedLayerId === elem?.id
+                          ? selectedLayerStyle
+                          : elem?.style?.fillColor
+                          ? { ...elem?.style }
+                          : { ...defaultStyles }
                       }
+                      // setStyle={(feature, resolution) =>
+                      //   setFeatureLayerStyle(
+                      //     selectedLayerId === elem?.id
+                      //       ? selectedLayerStyle
+                      //       : elem?.style?.fillColor
+                      //       ? { ...elem?.style }
+                      //       : { ...defaultStyles },
+                      //     feature,
+                      //     resolution,
+                      //   )
+                      // }
                       zoomToLayer={elem?.id === zoomToLayerId}
                       bbox={elem?.bbox}
                       zIndex={item?.options.length - i}
@@ -191,24 +191,24 @@ const OlMap = () => {
                       key={`${item.key}`}
                       url={`${BASE_URL}/maps/layer_vectortile/{z}/{x}/{y}/?layer=${item.id}`}
                       authToken={TOKEN}
-                      // style={
-                      //   selectedLayerId === item?.id
-                      //     ? selectedLayerStyle
-                      //     : item?.style?.fillColor
-                      //     ? { ...item?.style }
-                      //     : { ...defaultStyles }
-                      // }
-                      setStyle={(feature, resolution) =>
-                        setFeatureLayerStyle(
-                          selectedLayerId === item?.id
-                            ? selectedLayerStyle
-                            : item?.style?.fillColor
-                            ? { ...item?.style }
-                            : { ...defaultStyles },
-                          feature,
-                          resolution,
-                        )
+                      style={
+                        selectedLayerId === item?.id
+                          ? selectedLayerStyle
+                          : item?.style?.fillColor
+                          ? { ...item?.style }
+                          : { ...defaultStyles }
                       }
+                      // setStyle={(feature, resolution) =>
+                      //   setFeatureLayerStyle(
+                      //     selectedLayerId === item?.id
+                      //       ? selectedLayerStyle
+                      //       : item?.style?.fillColor
+                      //       ? { ...item?.style }
+                      //       : { ...defaultStyles },
+                      //     feature,
+                      //     resolution,
+                      //   )
+                      // }
                       zoomToLayer={item?.id === zoomToLayerId}
                       bbox={item?.bbox}
                       zIndex={geomData.length - index}
