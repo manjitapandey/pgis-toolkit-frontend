@@ -10,14 +10,13 @@ import Sidebar from '@Components/common/Sidebar/index';
 import Dropdown from '../Dropdown/index';
 import CardLoader from '../CardLoader/index';
 
-const { setActive, openProjectPopup } = Creators;
+const { setActive, openProjectPopup, getIndividualProjectDataRequest } = Creators;
 
-const MapSidebar = ({ active, isLoading }) => {
+const MapSidebar = ({ active, isLoading, setPopup }) => {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   const individualOrganizationData = useSelector((state) => state.individualOrganizations.individualOrganizationData);
-
   const handleSearch = () => {};
 
   const handleClick = () => {
@@ -29,6 +28,10 @@ const MapSidebar = ({ active, isLoading }) => {
   const onButtonClick = (e) => {
     e.stopPropagation();
     dispatch(openProjectPopup(true));
+  };
+  const handleEdit = (name, projectId) => {
+    dispatch(getIndividualProjectDataRequest(projectId));
+    setPopup(true);
   };
   return (
     <Sidebar handleClick={handleClick} handleSearch={handleSearch} buttonTitle="Project" onButtonClick={onButtonClick}>
@@ -54,7 +57,13 @@ const MapSidebar = ({ active, isLoading }) => {
                     <></>
                   )}
                 </div>
-                <Dropdown />
+                <Dropdown
+                  setPopup={setPopup}
+                  handleEdit={() => {
+                    handleEdit(item.name, item.id);
+                  }}
+                  data={item}
+                />
               </div>
             ))
           )}
@@ -67,6 +76,7 @@ const MapSidebar = ({ active, isLoading }) => {
 MapSidebar.propTypes = {
   active: PropTypes.string,
   isLoading: PropTypes.bool,
+  setPopup: PropTypes.func.isRequired,
 };
 
 MapSidebar.defaultProps = {
