@@ -65,20 +65,15 @@ function createIconMarker(style) {
   const {
     icon: { url, scale },
   } = style;
-  // fetch(url)
-  //   .then(res => res.blob())
   return new Icon({
     anchor: [0, 0],
     anchorXUnits: 'fraction',
     anchorYUnits: 'fraction',
-    // scale: 0.15,
     scale: style?.icon?.icon_size?.height
       ? +(+style?.icon?.icon_size?.height + +style?.icon?.icon_size?.width) / 60
       : 0.9,
     crossOrigin: 'anonymous',
-    // imgSize: [1500, 1500],
     src: url,
-    // src: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png',
   });
 }
 

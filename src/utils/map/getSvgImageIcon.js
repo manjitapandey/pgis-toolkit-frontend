@@ -107,6 +107,7 @@ const getSvgImageIcon = async (src, fillColor, backgroundColor) => {
           circle.setAttribute('transform', `translate(${svg.width.animVal.value / 2},${svg.height.animVal.value / 2})`);
           svg.insertBefore(circle, svg.firstChild);
         }
+        console.log(svg, 'svg');
         const getString = (() => {
           const DIV = document.createElement('div');
           if ('outerHTML' in DIV) return (node) => node.outerHTML;

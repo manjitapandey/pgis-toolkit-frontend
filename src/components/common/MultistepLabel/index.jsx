@@ -10,7 +10,7 @@ const MultistepLabel = () => (
       <span className="multistep-number is-flex is-center is-align-center is-column ">2</span>
       <div className="multistep-lebel mt-10">Location</div>
     </li>
-    <li className="is-flex is-center is-align-center is-column flex-1">
+    {/* <li className="is-flex is-center is-align-center is-column flex-1">
       <span className=" multistep-number is-flex is-center is-align-center is-column ">3</span>
       <div className="multistep-lebel mt-10">Document</div>
     </li>
@@ -21,7 +21,7 @@ const MultistepLabel = () => (
     <li className="is-flex is-center is-align-center is-column flex-1">
       <span className="multistep-number is-flex is-center is-align-center is-column  ">5</span>
       <div className="multistep-lebel mt-10">Map</div>
-    </li>
+</li> */}
   </ul>
 );
 
