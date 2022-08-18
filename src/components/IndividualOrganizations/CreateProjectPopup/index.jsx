@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Popup from '@Components/common/Popup/index';
 import { Creators } from '@Actions/individualOrganization';
+import toastAction from '@Actions/toast';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '@Components/common/Input/index';
 import ListData from '@Components/Organizations/ListData/index';
@@ -41,8 +42,14 @@ const CreateProjectPopup = () => {
   const { projectName, projectEmail } = addProjectData;
 
   const handleButtonClick = () => {
-    dispatch(setLoading(true));
+    if (!projectName) {
+      dispatch(toastAction.error({ message: 'Name cannot be empty' }));
+    }
+    if (!validMail) {
+      dispatch(toastAction.error({ message: 'Please enter valid email address.' }));
+    }
     if (validMail) {
+      dispatch(setLoading(true));
       dispatch(
         postProjectDataRequest({
           finalData: { organization: id, project_name: projectName, email: JSON.stringify(emailList) },
@@ -53,6 +60,7 @@ const CreateProjectPopup = () => {
   const handleCloseClick = () => {
     dispatch(openProjectPopup(false));
     dispatch(clearProjectData());
+    dispatch(setLoading(false));
   };
   const handleAddClick = () => {
     if (validMail) {

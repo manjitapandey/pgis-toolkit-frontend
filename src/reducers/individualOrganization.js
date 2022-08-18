@@ -15,6 +15,7 @@ const initialState = {
     projectEmail: '',
   },
   addBasicData: {},
+  selectedProjectId: null,
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
@@ -133,11 +134,9 @@ const postProjectAdditionalDataSuccess = (state, action) => {
   const {
     payload: { data },
   } = action;
-  // const { individualOrganizationData } = state;
   const individualOrganizationData = state.individualOrganizationData.map((elem) =>
     elem.id === data.id ? { ...elem, name: data.name, country: data.country, state: data.state } : { ...elem },
   );
-  console.log(data, individualOrganizationData, 'reducer');
   return {
     ...state,
     individualOrganizationData,
@@ -153,6 +152,8 @@ const clearProjectData = (state, action) => ({
   ...state,
   addProjectData: initialState.addProjectData,
   emailList: [],
+  addBasicData: initialState.addBasicData,
+  selectedProjectId: initialState.selectedProjectId,
 });
 
 const individualOrganizationsReducer = createReducer(initialState, {

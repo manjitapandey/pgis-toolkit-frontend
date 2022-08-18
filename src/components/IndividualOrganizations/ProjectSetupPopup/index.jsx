@@ -8,7 +8,7 @@ import Input from '@Components/common/Input/index';
 import BasicInfo from './BasicInfo';
 import Location from './Location';
 
-const { setAddBasicData, postProjectAdditionalDataRequest } = Creators;
+const { setAddBasicData, postProjectAdditionalDataRequest, clearProjectData } = Creators;
 
 const ProjectSetupPopup = ({ popup, setPopup }) => {
   const dispatch = useDispatch();
@@ -19,6 +19,7 @@ const ProjectSetupPopup = ({ popup, setPopup }) => {
   };
   const handleCloseClick = () => {
     setPopup(false);
+    dispatch(clearProjectData());
   };
   const handleChange = (event) => {
     const { name, value } = event.target;
