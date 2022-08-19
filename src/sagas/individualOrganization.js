@@ -9,6 +9,7 @@ import {
   postProjectData,
   postProjectAdditionalData,
   getIndividualProjectData,
+  deleteProjectData,
 } from '@Services/individualOrganization';
 import individualActions, { Types } from '@Actions/individualOrganization';
 
@@ -108,12 +109,33 @@ export function* postProjectAdditionalDataRequest(action) {
   }
 }
 
+export function* deleteProjectDataRequest({ payload }) {
+  try {
+    const { id } = payload;
+    const deleteData = {
+      is_deleted: true,
+    };
+    const data = new FormData();
+    Object.entries(deleteData).forEach(([key, value]) => {
+      data.append(key, value);
+    });
+    yield call(deleteProjectData, id, data);
+    yield put(individualActions.deleteProjectDataSuccess(id));
+    yield put(toastActions.success({ message: 'Project sucessfully deleted.' }));
+    yield put(popupAction.openPopup(false));
+    yield put(individualActions.setLoading(false));
+  } catch (error) {
+    yield put(toastActions.error({ message: error?.response?.data?.detail }));
+  }
+}
+
 function* individualOrganizatonWatcher() {
   yield takeLatest(Types.GET_INDIVIDUAL_ORGANIZATION_DATA_REQUEST, withLoader(getIndividualOrganizationDataRequest));
   yield takeLatest(Types.GET_INDIVIDUAL_PROJECT_DATA_REQUEST, withLoader(getIndividualProjectDataRequest));
   yield takeLatest(Types.GET_ORGANIZATION_DETAIL_DATA_REQUEST, withLoader(getOrganizationDetailDataRequest));
   yield takeLatest(Types.POST_PROJECT_DATA_REQUEST, withLoader(postProjectDataRequest));
   yield takeLatest(Types.POST_PROJECT_ADDITIONAL_DATA_REQUEST, withLoader(postProjectAdditionalDataRequest));
+  yield takeLatest(Types.DELETE_PROJECT_DATA_REQUEST, withLoader(deleteProjectDataRequest));
 }
 
 export default individualOrganizatonWatcher;

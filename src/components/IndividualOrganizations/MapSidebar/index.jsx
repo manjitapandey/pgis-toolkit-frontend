@@ -5,12 +5,14 @@ import { useHistory, useParams, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators } from '@Actions/individualOrganization';
+import { Creators as PopupCreator } from '@Actions/popup';
 import { mapProjectOptions } from '@src/constants/commonData';
 import Sidebar from '@Components/common/Sidebar/index';
 import Dropdown from '../Dropdown/index';
 import CardLoader from '../CardLoader/index';
 
-const { setActive, openProjectPopup, getIndividualProjectDataRequest } = Creators;
+const { setActive, openProjectPopup, getIndividualProjectDataRequest, handleInput } = Creators;
+const { openPopup, setPopupType } = PopupCreator;
 
 const MapSidebar = ({ active, isLoading, setPopup }) => {
   const { id } = useParams();
@@ -31,7 +33,13 @@ const MapSidebar = ({ active, isLoading, setPopup }) => {
   };
   const handleEdit = (name, projectId) => {
     dispatch(getIndividualProjectDataRequest(projectId));
-    setPopup(true);
+    dispatch(openPopup(true));
+    dispatch(setPopupType('Edit'));
+  };
+  const handleDeleteClick = (projectId, projectName) => {
+    dispatch(handleInput({ id: projectId, name: projectName }));
+    dispatch(openPopup(true));
+    dispatch(setPopupType('Delete'));
   };
   return (
     <Sidebar handleClick={handleClick} handleSearch={handleSearch} buttonTitle="Project" onButtonClick={onButtonClick}>
@@ -61,6 +69,9 @@ const MapSidebar = ({ active, isLoading, setPopup }) => {
                   setPopup={setPopup}
                   handleEdit={() => {
                     handleEdit(item.name, item.id);
+                  }}
+                  handleDeleteClick={() => {
+                    handleDeleteClick(item.id, item.name);
                   }}
                   data={item}
                 />

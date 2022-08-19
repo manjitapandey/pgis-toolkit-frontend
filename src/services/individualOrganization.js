@@ -11,3 +11,5 @@ export const getOrganizationDetailData = (params) => authenticated(api).get(`/pr
 export const postProjectData = (payload) => authenticated(api).post('/users/preliminary_user_create/', payload);
 
 export const postProjectAdditionalData = (id, payload) => authenticated(api).patch(`/projects/project/${id}/`, payload);
+
+export const deleteProjectData = (id, payload) => authenticated(api).delete(`/projects/project/${id}/`, payload);

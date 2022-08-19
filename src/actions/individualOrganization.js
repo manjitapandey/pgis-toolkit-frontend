@@ -18,6 +18,10 @@ export const { Types, Creators } = createActions(
     postProjectDataSuccess: ['payload'],
     postProjectDataFailure: null,
 
+    deleteProjectDataRequest: ['payload'],
+    deleteProjectDataSuccess: ['payload'],
+    deleteProjectDataFailure: null,
+
     postProjectAdditionalDataRequest: ['payload'],
     postProjectAdditionalDataSuccess: ['payload'],
     postProjectAdditionalDataFailure: null,
@@ -31,6 +35,7 @@ export const { Types, Creators } = createActions(
     setAddBasicData: ['payload'],
     clearProjectData: ['payload'],
     setLoading: ['payload'],
+    handleInput: ['payload'],
   },
   { prefix: 'IndividualOrganization/' },
 );

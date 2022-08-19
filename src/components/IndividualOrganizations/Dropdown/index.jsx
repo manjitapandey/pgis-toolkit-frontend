@@ -20,19 +20,19 @@ const Dropdown = ({ handleZoomClick, handleDeleteClick, handleEdit, layerId, dis
           <i className="material-icons-outlined">more_vert</i>
         </a>
         <ul className="pm-dropdown_menu">
-          <li>
+          <li style={{ cursor: 'pointer' }}>
             <a onClick={handleEdit}>
               <i className="material-icons-outlined">edit</i>
               <span>Edit</span>
             </a>
           </li>
-          <li style={!displayZoom ? { display: 'inline' } : { display: 'none' }}>
+          <li style={!displayZoom ? { display: 'inline', cursor: 'pointer' } : { display: 'none' }}>
             <a onClick={handleZoomClick}>
               <i className="material-icons-outlined">zoom_in</i>
               <span>Zoom to layer</span>
             </a>
           </li>
-          <li>
+          <li style={{ cursor: 'pointer' }}>
             <a href={`${BASE_URL}/maps/layer_download/?layer_id=${layerId}&output_format=kml`} download>
               <i className="material-icons-outlined">download</i>
               <span>Download</span>
@@ -44,7 +44,7 @@ const Dropdown = ({ handleZoomClick, handleDeleteClick, handleEdit, layerId, dis
               <span>add Feature</span>
             </a>
       </li> */}
-          <li style={!display ? { display: 'inline' } : { display: 'none' }}>
+          <li style={!display ? { display: 'inline', cursor: 'pointer' } : { display: 'none' }}>
             <a onClick={handleDeleteClick}>
               <i className="material-icons-outlined">delete</i>
               <span>Delete</span>
