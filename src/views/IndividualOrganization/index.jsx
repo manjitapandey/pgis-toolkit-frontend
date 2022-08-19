@@ -21,7 +21,6 @@ const IndividualOrganization = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [tab, setTab] = useState('Projects');
-  const [popup, setPopup] = useState(false);
   const active = useSelector((state) => state.individualOrganizations.active);
   const mapToggle = useSelector((state) => state.individualOrganizations.mapToggle);
   const isLoading = useSelector((state) =>
@@ -114,10 +113,10 @@ const IndividualOrganization = () => {
       {tab === 'Projects' && (
         <div className="dbd-body">
           <div className={mapToggle ? 'dbd-map is-flex dbd-map_active' : 'dbd-map is-flex'}>
-            <MapSidebar isLoading={isLoading} setPopup={setPopup} />
+            <MapSidebar isLoading={isLoading} />
             <FilterSidebar active={active} />
             <CreateProjectPopup />
-            <ProjectSetupPopup popup={popup} setPopup={setPopup} />
+            <ProjectSetupPopup />
             <OlMap />
           </div>
         </div>

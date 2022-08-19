@@ -143,10 +143,32 @@ const postProjectAdditionalDataSuccess = (state, action) => {
   };
 };
 
+const deleteProjectDataSuccess = (state, action) => {
+  const {
+    payload: { id },
+  } = action;
+  const individualOrganizationData = state.individualOrganizationData.filter((elem) => elem.id !== id);
+  return {
+    ...state,
+    individualOrganizationData,
+  };
+};
+
 const setLoading = (state, action) => ({
   ...state,
   loading: action.payload,
 });
+
+const handleInput = (state, action) => {
+  const {
+    payload: { id, name },
+  } = action;
+  return {
+    ...state,
+    selectedProjectId: id,
+    selectedProjectName: name,
+  };
+};
 
 const clearProjectData = (state, action) => ({
   ...state,
@@ -154,6 +176,7 @@ const clearProjectData = (state, action) => ({
   emailList: [],
   addBasicData: initialState.addBasicData,
   selectedProjectId: initialState.selectedProjectId,
+  selectedProjectName: '',
 });
 
 const individualOrganizationsReducer = createReducer(initialState, {
@@ -167,11 +190,13 @@ const individualOrganizationsReducer = createReducer(initialState, {
   [Types.CLEAR_PROJECT_DATA]: clearProjectData,
   [Types.FILTER_EMAIL_LIST]: filterEmailList,
   [Types.SET_LOADING]: setLoading,
+  [Types.HANDLE_INPUT]: handleInput,
   [Types.GET_INDIVIDUAL_ORGANIZATION_DATA_SUCCESS]: getIndividualOrganizationDataSuccess,
   [Types.GET_INDIVIDUAL_PROJECT_DATA_SUCCESS]: getIndividualProjectDataSuccess,
   [Types.GET_ORGANIZATION_DETAIL_DATA_SUCCESS]: getOrganizationDetailDataSuccess,
   [Types.POST_PROJECT_DATA_SUCCESS]: postProjectDataSuccess,
   [Types.POST_PROJECT_ADDITIONAL_DATA_SUCCESS]: postProjectAdditionalDataSuccess,
+  [Types.DELETE_PROJECT_DATA_SUCCESS]: deleteProjectDataSuccess,
 });
 
 export default individualOrganizationsReducer;
