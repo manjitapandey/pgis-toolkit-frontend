@@ -2,7 +2,7 @@ import React from 'react';
 import image from '@Assets/images/map.png';
 
 const Location = () => (
-  <>
+  <div className="mt-15">
     <div className="pm-group">
       <label className="is-capitalize fw-bold">Choose the Geographic Boundary</label>
       <div className="options is-flex is-start is-align-center">
@@ -52,7 +52,7 @@ const Location = () => (
         <p className="fw-bold mt-10">Change layers on Map</p>
       </div>
     </div>
-  </>
+  </div>
 );
 
 export default Location;
