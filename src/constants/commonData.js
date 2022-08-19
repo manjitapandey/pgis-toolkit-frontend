@@ -108,6 +108,11 @@ export const layerPopupTabOptions = [
   // { id: '5', name: 'WMS layer' },
 ];
 
+export const projectPopupTabOptions = [
+  { id: '1', name: 'Basic Info' },
+  { id: '2', name: 'Location' },
+];
+
 export const selectOptions = ['Bagmati', 'Gandaki', 'Lumbini', 'Gandaki'];
 
 export const selectSizeOptions = [

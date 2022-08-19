@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Popup from '@Components/common/Popup/index';
 import { Creators } from '@Actions/individualOrganization';
 import { Creators as PopupCreator } from '@Actions/popup';
 import { useDispatch, useSelector } from 'react-redux';
+import Tab from '@Components/common/Tab/index';
+import { projectPopupTabOptions } from '@src/constants/commonData';
 import MultistepLabel from '@Components/common/MultistepLabel/index';
-import Input from '@Components/common/Input/index';
 import BasicInfo from './BasicInfo';
 import Location from './Location';
 
@@ -14,13 +15,14 @@ const { openPopup } = PopupCreator;
 
 const ProjectSetupPopup = () => {
   const dispatch = useDispatch();
+  const [activeTab, setActiveTab] = useState('Basic Info');
   const addBasicData = useSelector((state) => state.individualOrganizations.addBasicData);
   const popup = useSelector((state) => state.popup.popup);
   const popupType = useSelector((state) => state.popup.popupType);
   const selectedProjectId = useSelector((state) => state.individualOrganizations.selectedProjectId);
   const selectedProjectName = useSelector((state) => state.individualOrganizations.selectedProjectName);
   const handleButtonClick = () => {
-    if (popupType === 'Edit')
+    if (popupType === 'Edit' && activeTab === 'Basic Info')
       dispatch(postProjectAdditionalDataRequest({ id: selectedProjectId, finalData: { ...addBasicData } }));
     if (popupType === 'Delete') dispatch(deleteProjectDataRequest({ id: selectedProjectId }));
   };
@@ -46,12 +48,13 @@ const ProjectSetupPopup = () => {
         <>
           {popupType === 'Edit' && (
             <>
-              <MultistepLabel />
-              <BasicInfo handleChange={handleChange} />
+              {/* <MultistepLabel /> */}
+              <Tab options={projectPopupTabOptions} setTab={setActiveTab} activeTab={activeTab} />
+              {activeTab === 'Basic Info' && <BasicInfo handleChange={handleChange} />}
+              {activeTab === 'Location' && <Location />}
             </>
           )}
           {popupType === 'Delete' && <p>{`Do you want to delete ${selectedProjectName}?`}</p>}
-          {/* <Location /> */}
         </>
       }
     />

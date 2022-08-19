@@ -10,7 +10,7 @@ const BasicInfo = ({ handleChange }) => {
   const { name, start_date, end_date, description } = addBasicData;
 
   return (
-    <>
+    <div className="mt-15">
       <Input label="Name" placeholder="Name" id="phone" name="name" onChange={handleChange} value={name} />
       <div className="is-flex  is-gap-15 is-wrap">
         <Input
@@ -49,7 +49,7 @@ const BasicInfo = ({ handleChange }) => {
           onChange={handleChange}
         />
       </div>
-    </>
+    </div>
   );
 };
 
