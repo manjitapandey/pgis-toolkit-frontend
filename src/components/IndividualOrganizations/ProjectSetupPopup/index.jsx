@@ -21,9 +21,30 @@ const ProjectSetupPopup = () => {
   const popupType = useSelector((state) => state.popup.popupType);
   const selectedProjectId = useSelector((state) => state.individualOrganizations.selectedProjectId);
   const selectedProjectName = useSelector((state) => state.individualOrganizations.selectedProjectName);
+  const selectedCountry = useSelector((state) => state.individualOrganizations.selectedCountry);
+  const selectedState = useSelector((state) => state.individualOrganizations.selectedState);
+  const geomData = useSelector((state) => state.individualOrganizations.geomData);
+  const selectedTab = useSelector((state) => state.individualOrganizations.selectedTab);
+  const file = useSelector((state) => state.individualOrganizations.file);
+
   const handleButtonClick = () => {
     if (popupType === 'Edit' && activeTab === 'Basic Info')
       dispatch(postProjectAdditionalDataRequest({ id: selectedProjectId, finalData: { ...addBasicData } }));
+    if (popupType === 'Edit' && activeTab === 'Location')
+      dispatch(
+        postProjectAdditionalDataRequest({
+          id: selectedProjectId,
+          finalData: {
+            country: JSON.stringify([selectedCountry.id]),
+            state: JSON.stringify([selectedState.id]),
+            location_wkt: JSON.stringify([geomData]),
+            location_type: selectedTab === 'Upload Area' ? 'File Upload' : 'Custom Draw',
+            file: geomData ? null : file,
+            file_type: file ? 'Shapefile' : '',
+          },
+        }),
+      );
+
     if (popupType === 'Delete') dispatch(deleteProjectDataRequest({ id: selectedProjectId }));
   };
   const handleCloseClick = () => {

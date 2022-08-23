@@ -11,7 +11,8 @@ import Sidebar from '@Components/common/Sidebar/index';
 import Dropdown from '../Dropdown/index';
 import CardLoader from '../CardLoader/index';
 
-const { setActive, openProjectPopup, getIndividualProjectDataRequest, handleInput } = Creators;
+const { setActive, openProjectPopup, getIndividualProjectDataRequest, handleInput, getProjectCountryDataRequest } =
+  Creators;
 const { openPopup, setPopupType } = PopupCreator;
 
 const MapSidebar = ({ active, isLoading, setPopup }) => {
@@ -33,6 +34,7 @@ const MapSidebar = ({ active, isLoading, setPopup }) => {
   };
   const handleEdit = (name, projectId) => {
     dispatch(getIndividualProjectDataRequest(projectId));
+    dispatch(getProjectCountryDataRequest());
     dispatch(openPopup(true));
     dispatch(setPopupType('Edit'));
   };

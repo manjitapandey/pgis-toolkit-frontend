@@ -4,8 +4,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const UploadButton = ({ onChange, value, name, accept, title, spanDescription }) => (
+const UploadButton = ({ onChange, value, name, accept, title, spanDescription, label }) => (
   <div className="pm-group">
+    {label && (
+      <label className="is-capitalize fw-bold">
+        {label} <sup>*</sup>
+      </label>
+    )}
     <div className="pmupload-btn is-flex is-start is-align-center">
       <label htmlFor="upload" className="is-flex is-align-center is-btn is-btn_icon is-btn_link">
         <i className="material-icons">upload</i>
@@ -23,6 +28,7 @@ UploadButton.defaultProps = {
   accept: '',
   title: '',
   spanDescription: '',
+  label: '',
 };
 
 UploadButton.propTypes = {
@@ -32,6 +38,7 @@ UploadButton.propTypes = {
   accept: PropTypes.string,
   title: PropTypes.string,
   spanDescription: PropTypes.string,
+  label: PropTypes.string,
 };
 
 export default UploadButton;

@@ -14,6 +14,14 @@ export const { Types, Creators } = createActions(
     getOrganizationDetailDataSuccess: ['payload'],
     getOrganizationDetailDataFailure: null,
 
+    getProjectCountryDataRequest: ['params'],
+    getProjectCountryDataSuccess: ['payload'],
+    getProjectCountryDataFailure: null,
+
+    getProjectStateDataRequest: ['params'],
+    getProjectStateDataSuccess: ['payload'],
+    getProjectStateDataFailure: null,
+
     postProjectDataRequest: ['payload'],
     postProjectDataSuccess: ['payload'],
     postProjectDataFailure: null,
@@ -36,6 +44,10 @@ export const { Types, Creators } = createActions(
     clearProjectData: ['payload'],
     setLoading: ['payload'],
     handleInput: ['payload'],
+    getSelectedLocation: ['payload'],
+    getSelectedTab: ['payload'],
+    setGeometry: ['payload'],
+    setAddUploadFile: ['payload'],
   },
   { prefix: 'IndividualOrganization/' },
 );
