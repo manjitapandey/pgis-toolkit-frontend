@@ -10,6 +10,8 @@ import {
   postProjectAdditionalData,
   getIndividualProjectData,
   deleteProjectData,
+  getProjectCountryData,
+  getProjectStateData,
 } from '@Services/individualOrganization';
 import individualActions, { Types } from '@Actions/individualOrganization';
 
@@ -58,6 +60,36 @@ export function* getOrganizationDetailDataRequest(action) {
   }
 }
 
+export function* getProjectCountryDataRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getProjectCountryData, params);
+    yield put(individualActions.getProjectCountryDataSuccess({ data: response.data }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(individualActions.getProjectCountryDataFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
+export function* getProjectStateDataRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getProjectStateData, params);
+    yield put(individualActions.getProjectStateDataSuccess({ data: response.data }));
+  } catch (error) {
+    // yield put(redirectActions.getStatusCode(error?.response?.status));
+    // if (error?.response?.status >= 400) {
+    //   yield put(push('/redirect'));
+    // }
+    yield put(individualActions.getProjectStateDataFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
 export function* postProjectDataRequest(action) {
   const {
     type,
@@ -91,8 +123,12 @@ export function* postProjectAdditionalDataRequest(action) {
     payload: { id, finalData },
   } = action;
   try {
+    const newFinalData = { ...finalData };
+    Object.entries(newFinalData).forEach(([key, value]) => {
+      if (value === null) delete newFinalData[key];
+    });
     const formData = new FormData();
-    Object.entries(finalData).forEach(([key, value]) => {
+    Object.entries(newFinalData).forEach(([key, value]) => {
       formData.append(key, value);
     });
     const response = yield call(postProjectAdditionalData, id, formData);
@@ -133,6 +169,8 @@ function* individualOrganizatonWatcher() {
   yield takeLatest(Types.GET_INDIVIDUAL_ORGANIZATION_DATA_REQUEST, withLoader(getIndividualOrganizationDataRequest));
   yield takeLatest(Types.GET_INDIVIDUAL_PROJECT_DATA_REQUEST, withLoader(getIndividualProjectDataRequest));
   yield takeLatest(Types.GET_ORGANIZATION_DETAIL_DATA_REQUEST, withLoader(getOrganizationDetailDataRequest));
+  yield takeLatest(Types.GET_PROJECT_COUNTRY_DATA_REQUEST, withLoader(getProjectCountryDataRequest));
+  yield takeLatest(Types.GET_PROJECT_STATE_DATA_REQUEST, withLoader(getProjectStateDataRequest));
   yield takeLatest(Types.POST_PROJECT_DATA_REQUEST, withLoader(postProjectDataRequest));
   yield takeLatest(Types.POST_PROJECT_ADDITIONAL_DATA_REQUEST, withLoader(postProjectAdditionalDataRequest));
   yield takeLatest(Types.DELETE_PROJECT_DATA_REQUEST, withLoader(deleteProjectDataRequest));

@@ -1,58 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Creators } from '@Actions/individualOrganization';
 import image from '@Assets/images/map.png';
+import Select from '@Components/common/Select';
+import OptionsButton from '@Components/common/OptionsButton/index';
+import { optionSelectList } from '@src/constants/commonData';
+import UploadButton from '@Components/common/UploadButton/index';
+import UploadContent from '@Components/common/UploadContent/index';
+import OLMap from './OlMap';
 
-const Location = () => (
-  <div className="mt-15">
-    <div className="pm-group">
-      <label className="is-capitalize fw-bold">Choose the Geographic Boundary</label>
-      <div className="options is-flex is-start is-align-center">
-        <div className="options-btn options-btn_active">Upload Area</div>
-        <div className="options-btn">Draw Area on map</div>
+const { getProjectStateDataRequest, getSelectedLocation, getSelectedTab, setAddUploadFile } = Creators;
+
+const Location = () => {
+  const dispatch = useDispatch();
+  const countryData = useSelector((state) => state.individualOrganizations.countryData);
+  const stateData = useSelector((state) => state.individualOrganizations.stateData);
+  const selectedCountry = useSelector((state) => state.individualOrganizations.selectedCountry);
+  const selectedState = useSelector((state) => state.individualOrganizations.selectedState);
+  const selectedTab = useSelector((state) => state.individualOrganizations.selectedTab);
+  const file = useSelector((state) => state.individualOrganizations.file);
+  console.log(file, 'file');
+  const handleCountrySelect = (data) => {
+    dispatch(getProjectStateDataRequest({ country: [data.id] }));
+    dispatch(getSelectedLocation({ country: data, states: '' }));
+  };
+  const handleStateSelect = (data) => {
+    dispatch(getSelectedLocation({ country: selectedCountry, states: data }));
+  };
+  const onChangeHandler = (event) => {
+    const { files } = event.target;
+    dispatch(setAddUploadFile({ value: files[0] }));
+  };
+  const handleDelete = () => {
+    dispatch(setAddUploadFile({ value: null }));
+  };
+  return (
+    <div className="mt-15">
+      <div className="pmupload-btn is-flex is-start is-align-center mb-15">
+        <Select
+          options={countryData}
+          className="pm-select_100 mr-15"
+          selected={selectedCountry.name || 'Country'}
+          handleSelect={handleCountrySelect}
+        />
+        <Select
+          options={stateData}
+          selected={selectedState.name || 'State'}
+          className="pm-select_100"
+          handleSelect={handleStateSelect}
+        />
       </div>
+      <OptionsButton
+        options={optionSelectList}
+        selected={selectedTab}
+        setActiveTab={getSelectedTab}
+        label="Choose the Geographic Boundary"
+      />
+      {selectedTab === 'Upload Area' && (
+        <>
+          <UploadButton label="Upload" title="Upload file" onChange={onChangeHandler} value="" name="file" />
+          {file && <UploadContent fileName={file.name} fileSize={file.size} handleDelete={handleDelete} />}
+        </>
+      )}
+      {selectedTab === 'Draw Area on Map' && (
+        <>
+          <OLMap />
+          {/* <div className="pm-group">
+            <div className="is-flex is-center is-column is-align-center">
+              <figure>
+                <img src={image} alt="" />
+              </figure>
+              <p className="fw-bold mt-10">Change layers on Map</p>
+            </div>
+      </div> */}
+        </>
+      )}
     </div>
-    <div className="pm-group">
-      <label className="is-capitalize fw-bold">
-        Upload Organization Logo <sup>*</sup>
-      </label>
-      <div className="pmupload-btn is-flex is-start is-align-center">
-        <label htmlFor="upload " className="is-flex is-align-center is-btn is-btn_icon is-btn_link">
-          <i className="material-icons">upload</i>
-          <span>upload</span>
-          <input type="file" id="upload" />
-        </label>
-        <span className="fs-md">SHP, CSV, KML, GPX or GEOJSON</span>
-      </div>
-    </div>
-    <div className="pm-group">
-      <div className="pmupload-file is-gap-15 is-border">
-        <div className="pmupload-file_content is-flex is-start is-align-center">
-          <div className="is-circle is-circle_xs is-bg-white">
-            <i className="material-icons clr-primary-500">description</i>
-          </div>
-          <div className="pmupload-file_name ml-10">
-            <p className="fw-600">Area_doc-file.gson</p>
-            <span className="fs-md">2.4 MB</span>
-          </div>
-        </div>
-        <div className="pmupload-file_icons is-flex is-gap-10">
-          <button className="is-btn is-btn_link pd-0" type="button">
-            <i className="material-icons">download</i>
-          </button>
-          <button className="is-btn is-btn_link pd-0" type="button">
-            <i className="material-icons">delete</i>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div className="pm-group">
-      <div className="is-flex is-center is-column is-align-center">
-        <figure>
-          <img src={image} alt="" />
-        </figure>
-        <p className="fw-bold mt-10">Change layers on Map</p>
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
 export default Location;

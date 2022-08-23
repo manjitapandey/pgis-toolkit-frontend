@@ -14,11 +14,20 @@ const initialState = {
     projectName: '',
     projectEmail: '',
   },
+  countryData: null,
+  stateData: null,
   addBasicData: {},
   selectedProjectId: null,
+  selectedCountry: 'Country',
+  selectedState: 'State',
+  selectedTab: 'Upload Area',
+  geomData: null,
+  file: null,
 };
 
 const setActive = (state, action) => ({ ...state, active: action.payload });
+
+const setGeometry = (state, action) => ({ ...state, geomData: action.payload });
 
 const handleMapToggle = (state, action) => ({
   ...state,
@@ -62,6 +71,16 @@ const setAddProjectData = (state, action) => {
   };
 };
 
+const setAddUploadFile = (state, action) => {
+  const {
+    payload: { value },
+  } = action;
+  return {
+    ...state,
+    file: value,
+  };
+};
+
 const setAddBasicData = (state, action) => {
   const { addBasicData } = state;
   const {
@@ -87,6 +106,42 @@ const getIndividualOrganizationDataSuccess = (state, action) => {
     individualOrganizationData: data.results,
   };
 };
+
+const getProjectCountryDataSuccess = (state, action) => {
+  const {
+    payload: { data },
+  } = action;
+  return {
+    ...state,
+    countryData: data,
+  };
+};
+
+const getProjectStateDataSuccess = (state, action) => {
+  const {
+    payload: { data },
+  } = action;
+  return {
+    ...state,
+    stateData: data,
+  };
+};
+
+const getSelectedLocation = (state, action) => {
+  const {
+    payload: { country, states },
+  } = action;
+  return {
+    ...state,
+    selectedCountry: country,
+    selectedState: states,
+  };
+};
+
+const getSelectedTab = (state, action) => ({
+  ...state,
+  selectedTab: action.payload,
+});
 
 const getIndividualProjectDataSuccess = (state, action) => {
   const {
@@ -177,10 +232,15 @@ const clearProjectData = (state, action) => ({
   addBasicData: initialState.addBasicData,
   selectedProjectId: initialState.selectedProjectId,
   selectedProjectName: '',
+  geomData: initialState.geomData,
+  selectedCountry: initialState.selectedCountry,
+  selectedState: initialState.selectedState,
+  file: null,
 });
 
 const individualOrganizationsReducer = createReducer(initialState, {
   [Types.SET_ACTIVE]: setActive,
+  [Types.SET_GEOMETRY]: setGeometry,
   [Types.HANDLE_MAP_TOGGLE]: handleMapToggle,
   [Types.OPEN_PROJECT_POPUP]: openProjectPopup,
   [Types.GET_EMAIL_LIST]: getEmailList,
@@ -191,9 +251,14 @@ const individualOrganizationsReducer = createReducer(initialState, {
   [Types.FILTER_EMAIL_LIST]: filterEmailList,
   [Types.SET_LOADING]: setLoading,
   [Types.HANDLE_INPUT]: handleInput,
+  [Types.GET_SELECTED_LOCATION]: getSelectedLocation,
+  [Types.GET_SELECTED_TAB]: getSelectedTab,
+  [Types.SET_ADD_UPLOAD_FILE]: setAddUploadFile,
   [Types.GET_INDIVIDUAL_ORGANIZATION_DATA_SUCCESS]: getIndividualOrganizationDataSuccess,
   [Types.GET_INDIVIDUAL_PROJECT_DATA_SUCCESS]: getIndividualProjectDataSuccess,
   [Types.GET_ORGANIZATION_DETAIL_DATA_SUCCESS]: getOrganizationDetailDataSuccess,
+  [Types.GET_PROJECT_COUNTRY_DATA_SUCCESS]: getProjectCountryDataSuccess,
+  [Types.GET_PROJECT_STATE_DATA_SUCCESS]: getProjectStateDataSuccess,
   [Types.POST_PROJECT_DATA_SUCCESS]: postProjectDataSuccess,
   [Types.POST_PROJECT_ADDITIONAL_DATA_SUCCESS]: postProjectAdditionalDataSuccess,
   [Types.DELETE_PROJECT_DATA_SUCCESS]: deleteProjectDataSuccess,

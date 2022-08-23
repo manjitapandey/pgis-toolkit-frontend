@@ -131,6 +131,8 @@ export const vectorTileData = [
 
 export const optionTypeList = ['Individual', 'Group', 'Sub-layer'];
 
+export const optionSelectList = ['Upload Area', 'Draw Area on Map'];
+
 export const optionStyleList = ['Standard', 'Advance'];
 
 export const paginationOptions = [
@@ -159,3 +161,5 @@ export const tabOptions = [
     icon: 'warning_amber',
   },
 ];
+
+export const geomTypes = ['Point', 'Polygon', 'LineString'];
