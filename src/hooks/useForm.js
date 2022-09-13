@@ -1,97 +1,71 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function getMetaState(data, required) {
-  return required.reduce(
-    (obj, item) => ({
-      ...obj,
-      [item]: {
-        touched: !!data[item],
-        error: !data[item],
-        message: '',
-      },
-    }),
-    {},
-  );
-}
-
-const useForm = ({ initialValues = {}, onSubmit = () => {}, required = [], validationSchema = {} }) => {
-  const [inputs, setInputs] = useState(initialValues);
-  const [meta, setMeta] = useState(getMetaState(initialValues, required));
-
-  const isValid = (name, value) =>
-    Object.prototype.hasOwnProperty.call(validationSchema, name)
-      ? validationSchema[name](value)
-      : { error: !value, message: 'Required' };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInputs((prev) => ({ ...prev, [name]: value }));
-
-    if (!required.includes(name)) return;
-    setMeta((prev) => {
-      const valid = isValid(name, value);
-      return {
-        ...prev,
-        [name]: {
-          ...prev[name],
-          error: valid.error,
-          message: valid.message,
-        },
-      };
+const useForm = (initialState, callback, validate) => {
+  const [values, setValues] = useState(initialState);
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setValues({
+      ...values,
+      [name]: value,
     });
   };
-
-  const handleBlur = (e) => {
-    const { name, value } = e.target;
-
-    if (!required.includes(name)) return;
-    setMeta((prev) => {
-      const valid = isValid(name, value);
-      return {
-        ...prev,
-        [name]: {
-          ...prev[name],
-          touched: true,
-          error: valid.error,
-          message: valid.message,
-        },
-      };
+  const handleCustomChange = (name, value) => {
+    setValues({
+      ...values,
+      [name]: value,
     });
   };
+  const handleUploadChange = (event) => {
+    const { name, files } = event.target;
+    setValues({
+      ...values,
+      [name]: files[0],
+    });
+  };
+  const handleAllValues = (value) => {
+    // const { name, value } = event.target;
+    setValues(value);
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-  const handleSubmit = () => {
-    const hasError = Object.values(meta).some((item) => item.error);
-
-    if (hasError) {
-      setMeta((prev) =>
-        Object.keys(prev).reduce(
-          (arr, key) => ({
-            ...arr,
-            [key]: {
-              ...prev[key],
-              touched: true,
-            },
-          }),
-          {},
-        ),
-      );
+    if (values?.bulk_id) {
+      setErrors({});
+      setIsSubmitting(true);
     } else {
-      onSubmit(inputs);
+      setErrors(validate(values));
+      setIsSubmitting(true);
     }
-  };
 
-  const inputProps = {
-    onBlur: handleBlur,
-  };
+    // eslint-disable-next-line no-console
 
+    // callback();
+    // submit();
+  };
+  useEffect(() => {
+    if (Object.keys(errors).length === 0 && isSubmitting) {
+      callback();
+      setValues(initialState);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [errors]);
+  useEffect(() => {
+    setValues(initialState);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialState]);
   return {
-    values: inputs,
-    inputProps,
     handleChange,
-    handleBlur,
     handleSubmit,
-    meta,
-    setValues: setInputs,
+    values,
+    errors,
+    handleCustomChange,
+    handleUploadChange,
+    handleAllValues,
+    setValues,
+    setErrors,
   };
 };
 

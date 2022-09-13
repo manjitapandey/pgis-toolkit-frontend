@@ -37,8 +37,9 @@ function App() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const newData = pathname?.includes('/organizations/') && pathname?.includes('/projects/');
-  const routesWithoutHeader = ['/login', '/', '/usecase', '/about'];
-  const hasNoHeader = newData || routesWithoutHeader.includes(pathname);
+  const paths = pathname?.includes('/verify-user/');
+  const routesWithoutHeader = ['/login', '/', '/usecase', '/about', '/signup'];
+  const hasNoHeader = paths || newData || routesWithoutHeader.includes(pathname);
   useEffect(() => {
     dispatch(CommonActions.setCsrfRequest());
     // if (!publicPageRoutes.includes(pathname)) {

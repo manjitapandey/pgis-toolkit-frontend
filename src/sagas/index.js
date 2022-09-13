@@ -6,6 +6,8 @@ import individualOrganizatonWatcher from './individualOrganization';
 import landing from './landing';
 import permission from './permission';
 import setCsrfWatcher from './common';
+import verifyWatcher from './verifyUser';
+import signupWatcher from './signup';
 
 function* rootSaga() {
   yield all([
@@ -16,6 +18,8 @@ function* rootSaga() {
     setCsrfWatcher(),
     landing(),
     permission(),
+    verifyWatcher(),
+    signupWatcher(),
   ]);
 }
 
