@@ -7,6 +7,7 @@ import PrivateRoute from '@Components/common/PrivateRoute';
 import Toast from '@Components/common/Toast';
 import Header from '@Components/common/Header/index';
 import CommonActions from '@Actions/common';
+import permissionAction from '@Actions/permission';
 import indexRoutes from './routes';
 
 function generateRoutes(routes) {
@@ -42,11 +43,13 @@ function App() {
   const hasNoHeader = paths || newData || routesWithoutHeader.includes(pathname);
   useEffect(() => {
     dispatch(CommonActions.setCsrfRequest());
+    dispatch(permissionAction.getPermissionRequest());
     // if (!publicPageRoutes.includes(pathname)) {
     //   dispatch(LoginActions.checkLoginRequest());
     // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, pathname]);
+
   return (
     <>
       <Toast />

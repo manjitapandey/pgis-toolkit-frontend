@@ -2,7 +2,16 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Search from '../Search/index';
 
-const Sidebar = ({ handleSearch, handleClick, children, buttonTitle, onButtonClick, searchValue, setHeaderHeight }) => {
+const Sidebar = ({
+  permission,
+  handleSearch,
+  handleClick,
+  children,
+  buttonTitle,
+  onButtonClick,
+  searchValue,
+  setHeaderHeight,
+}) => {
   const headerRef = useRef(null);
   useEffect(() => {
     setHeaderHeight(headerRef.current.clientHeight);
@@ -17,14 +26,16 @@ const Sidebar = ({ handleSearch, handleClick, children, buttonTitle, onButtonCli
           <span>Filters</span>
 </button> */}
           <div />
-          <a
-            className="is-btn is-btn_primary is-btn_sm is-btn_icon"
-            modal-link="create-project"
-            onClick={onButtonClick}
-          >
-            <i className="material-icons">add_circle_outline</i>
-            <p className="font-size-md">{buttonTitle}</p>
-          </a>
+          {permission?.includes('add_project') && (
+            <a
+              className="is-btn is-btn_primary is-btn_sm is-btn_icon"
+              modal-link="create-project"
+              onClick={onButtonClick}
+            >
+              <i className="material-icons">add_circle_outline</i>
+              <p className="font-size-md">{buttonTitle}</p>
+            </a>
+          )}
         </div>
       </div>
       {children}
@@ -40,6 +51,7 @@ Sidebar.propTypes = {
   buttonTitle: PropTypes.string,
   searchValue: PropTypes.string,
   setHeaderHeight: PropTypes.func,
+  permission: PropTypes.array,
 };
 
 Sidebar.defaultProps = {
@@ -49,6 +61,7 @@ Sidebar.defaultProps = {
   buttonTitle: '',
   searchValue: '',
   setHeaderHeight: () => {},
+  permission: [],
 };
 
 export default Sidebar;

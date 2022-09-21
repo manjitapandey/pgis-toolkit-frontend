@@ -16,4 +16,4 @@ export const postProjectData = (payload) => authenticated(api).post('/users/prel
 
 export const postProjectAdditionalData = (id, payload) => authenticated(api).patch(`/projects/project/${id}/`, payload);
 
-export const deleteProjectData = (id, payload) => authenticated(api).delete(`/projects/project/${id}/`, payload);
+export const deleteProjectData = (id, payload) => authenticated(api).patch(`/projects/project/${id}/`, payload);

@@ -163,3 +163,12 @@ export const tabOptions = [
 ];
 
 export const geomTypes = ['Point', 'Polygon', 'LineString'];
+
+export const tableHeaderData = ['Users', 'Roles'];
+
+export const checkboxData = [
+  { id: 1, name: 'Health', isSelected: false },
+  { id: 1, name: 'Education', isSelected: false },
+  { id: 1, name: 'Road', isSelected: false },
+  { id: 1, name: 'Health', isSelected: false },
+];

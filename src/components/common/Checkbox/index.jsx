@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SVGImageIcon from '@Components/common/SVGImageIcon/index';
 
-const Checkbox = ({ className, id, type, name, checked, label, onChange, icon }) => {
+const Checkbox = ({ className, id, type, name, checked, label, onChange, icon, spanClassname }) => {
   const [toggle, setToggle] = useState(false);
 
   const handleToggle = () => {
@@ -16,7 +16,7 @@ const Checkbox = ({ className, id, type, name, checked, label, onChange, icon })
         {/* icon && <i className="material-icons mr-10">{icon}</i>
          */}
         {/* icon && <img src={icon} alt="default" style={{ height: '20px', width: '20px', marginRight: '4px' }} /> */}
-        <span className="is-grow is-trim-1">{label}</span>
+        <span className={`is-grow ${spanClassname}`}>{label}</span>
       </label>
     </div>
   );
@@ -28,6 +28,7 @@ Checkbox.defaultProps = {
   className: '',
   icon: '',
   type: 'checkbox',
+  spanClassname: 'is-trim-1',
 };
 
 Checkbox.propTypes = {
@@ -39,6 +40,7 @@ Checkbox.propTypes = {
   icon: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   onChange: PropTypes.func,
+  spanClassname: PropTypes.string,
 };
 
 export default Checkbox;

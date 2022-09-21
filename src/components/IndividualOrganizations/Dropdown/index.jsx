@@ -4,7 +4,16 @@ import PropTypes from 'prop-types';
 
 const { BASE_URL } = process.env;
 
-const Dropdown = ({ handleZoomClick, handleDeleteClick, handleEdit, layerId, display, type, displayZoom }) => {
+const Dropdown = ({
+  permission,
+  handleZoomClick,
+  handleDeleteClick,
+  handleEdit,
+  layerId,
+  display,
+  type,
+  displayZoom,
+}) => {
   const [toggleRef, toggle, handleToggle] = useOutsideClick();
 
   return (
@@ -20,12 +29,14 @@ const Dropdown = ({ handleZoomClick, handleDeleteClick, handleEdit, layerId, dis
           <i className="material-icons-outlined">more_vert</i>
         </a>
         <ul className="pm-dropdown_menu">
-          <li style={{ cursor: 'pointer' }}>
-            <a onClick={handleEdit}>
-              <i className="material-icons-outlined">edit</i>
-              <span>Edit</span>
-            </a>
-          </li>
+          {permission?.includes('change_project') && (
+            <li style={{ cursor: 'pointer' }}>
+              <a onClick={handleEdit}>
+                <i className="material-icons-outlined">edit</i>
+                <span>Edit</span>
+              </a>
+            </li>
+          )}
           <li style={!displayZoom ? { display: 'inline', cursor: 'pointer' } : { display: 'none' }}>
             <a onClick={handleZoomClick}>
               <i className="material-icons-outlined">zoom_in</i>
@@ -44,12 +55,14 @@ const Dropdown = ({ handleZoomClick, handleDeleteClick, handleEdit, layerId, dis
               <span>add Feature</span>
             </a>
       </li> */}
-          <li style={!display ? { display: 'inline', cursor: 'pointer' } : { display: 'none' }}>
-            <a onClick={handleDeleteClick}>
-              <i className="material-icons-outlined">delete</i>
-              <span>Delete</span>
-            </a>
-          </li>
+          {permission?.includes('delete_project') && (
+            <li style={!display ? { display: 'inline', cursor: 'pointer' } : { display: 'none' }}>
+              <a onClick={handleDeleteClick}>
+                <i className="material-icons-outlined">delete</i>
+                <span>Delete</span>
+              </a>
+            </li>
+          )}
         </ul>
       </div>
     </div>
@@ -64,6 +77,7 @@ Dropdown.propTypes = {
   display: PropTypes.bool,
   displayZoom: PropTypes.bool,
   type: PropTypes.string,
+  permission: PropTypes.array,
 };
 
 Dropdown.defaultProps = {
@@ -74,6 +88,7 @@ Dropdown.defaultProps = {
   display: false,
   displayZoom: false,
   type: '',
+  permission: [],
 };
 
 export default Dropdown;

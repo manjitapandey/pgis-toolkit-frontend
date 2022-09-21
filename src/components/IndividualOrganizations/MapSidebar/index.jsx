@@ -15,7 +15,7 @@ const { setActive, openProjectPopup, getIndividualProjectDataRequest, handleInpu
   Creators;
 const { openPopup, setPopupType } = PopupCreator;
 
-const MapSidebar = ({ active, isLoading, setPopup }) => {
+const MapSidebar = ({ active, isLoading, setPopup, permission }) => {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -44,7 +44,13 @@ const MapSidebar = ({ active, isLoading, setPopup }) => {
     dispatch(setPopupType('Delete'));
   };
   return (
-    <Sidebar handleClick={handleClick} handleSearch={handleSearch} buttonTitle="Project" onButtonClick={onButtonClick}>
+    <Sidebar
+      handleClick={handleClick}
+      handleSearch={handleSearch}
+      buttonTitle="Project"
+      onButtonClick={onButtonClick}
+      permission={permission}
+    >
       <div className="dvd-sidebar-body is-overflow" style={{ height: '60vh' }}>
         <div className="project-list ">
           {isLoading ? (
@@ -57,7 +63,7 @@ const MapSidebar = ({ active, isLoading, setPopup }) => {
               >
                 <div
                   className="flex-content is-grow mr-15"
-                  onClick={() => handleRoute(item.id)}
+                  onClick={permission.includes('view_project') ? () => handleRoute(item.id) : () => {}}
                   style={{ cursor: 'pointer' }}
                 >
                   <h4>{item.name}</h4>
@@ -76,6 +82,7 @@ const MapSidebar = ({ active, isLoading, setPopup }) => {
                     handleDeleteClick(item.id, item.name);
                   }}
                   data={item}
+                  permission={permission}
                 />
               </div>
             ))
@@ -90,6 +97,7 @@ MapSidebar.propTypes = {
   active: PropTypes.string,
   isLoading: PropTypes.bool,
   setPopup: PropTypes.func.isRequired,
+  permission: PropTypes.array.isRequired,
 };
 
 MapSidebar.defaultProps = {

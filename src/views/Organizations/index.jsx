@@ -5,7 +5,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators, Types as OrganizationTypes } from '@Actions/organizations';
-import { Creators as PermissionCreator, Types as PermissionTypes } from '@Actions/permission';
 import { Creators as PopupCreator } from '@Actions/popup';
 import { checkIfLoading } from '@Utils/loaderSelector';
 import CreateOrganizationPopup from '@Components/Organizations/CreateOrganizarionPopup/index';
@@ -13,7 +12,6 @@ import Search from '@Components/common/Search/index';
 import OrganizationTable from '@Components/Organizations/OrganizationTable/index';
 import Loader from '@Components/common/Loader/index';
 
-const { getPermissionRequest } = PermissionCreator;
 const { getOrganizationDataRequest } = Creators;
 const { openPopup, setPopupType } = PopupCreator;
 
@@ -23,7 +21,6 @@ const Organizations = () => {
   const popup = useSelector((state) => state.popup.popup);
   const popupType = useSelector((state) => state.popup.popupType);
   const orgId = useSelector((state) => state.organizations.orgId);
-  const isLoading = useSelector((state) => checkIfLoading(state, PermissionTypes.GET_PERMISSION_REQUEST));
 
   const isTableLoading = useSelector((state) => checkIfLoading(state, OrganizationTypes.GET_ORGANIZATION_DATA_REQUEST));
 
@@ -35,7 +32,6 @@ const Organizations = () => {
   const handleSearch = () => {};
 
   useEffect(() => {
-    dispatch(getPermissionRequest());
     dispatch(getOrganizationDataRequest({ limit: 5 }));
   }, []);
 
@@ -45,9 +41,9 @@ const Organizations = () => {
     }
   }, [orgId]);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
 
   return (
     <main className="mt-30 pl-30 pr-30">
