@@ -25,6 +25,7 @@ const Login = () => {
   const loginbodyRef = useRef();
   const submitButtonRef = useRef();
   const [showPassword, setShowPassword] = useState(false);
+  const userData = useSelector((state) => state.verifyUser.userData);
 
   const isLoading = useSelector(loadingSelector([Types.LOGIN_REQUEST]));
 
@@ -32,7 +33,7 @@ const Login = () => {
     initialValues: initialState,
     required: ['username', 'password'],
     onSubmit: (data) => {
-      dispatch(loginActions.loginRequest(data));
+      dispatch(loginActions.loginRequest({ data, userData }));
     },
   });
 

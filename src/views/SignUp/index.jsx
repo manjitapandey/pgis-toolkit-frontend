@@ -50,12 +50,12 @@ const SignUp = () => {
     organization: userData?.organization,
     project: userData?.project,
     group: userData?.group,
+    email: userData?.email,
   };
 
   const submitForm = () => {
     dispatch(signupAction.signupRequest(finalData));
   };
-
   // if (isLoading) {
   //   return <Loader />;
   // }
@@ -120,10 +120,11 @@ const SignUp = () => {
                     type="email"
                     placeholder="Email"
                     name="email"
-                    value={values?.email}
+                    value={userData?.email}
                     onChange={handleChange}
-                    errorMessage={errors?.email}
+                    // errorMessage={errors?.email}
                     label="Email"
+                    readOnly
                   />
 
                   {/* <div className="pm-group">

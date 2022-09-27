@@ -14,7 +14,6 @@ const CreateUserPopup = () => {
   const selectedId = useSelector((state) => state.users.selectedId);
   const editedUserData = useSelector((state) => state.users.editedUserData);
   const individualUserData = useSelector((state) => state.users.individualUserData);
-  console.log(editedUserData, 'datas');
   const handleCloseClick = () => {
     dispatch(openUserPopup({ popup: false, type: '' }));
   };

@@ -2,10 +2,13 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import loginUser from '@Services/login';
 import loginActions, { Types } from '@Actions/login';
+import projectActions from '@Actions/individualOrganization';
+import popupActions from '@Actions/popup';
 import toastActions from '@Actions/toast';
 import withLoader from '@Utils/sagaUtils';
 
-export function* loginRequest({ payload: data }) {
+export function* loginRequest({ payload: { data, userData } }) {
+  console.log(data, userData, 'payload');
   try {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
@@ -16,7 +19,16 @@ export function* loginRequest({ payload: data }) {
     localStorage.setItem('userToken', response.data.access);
     yield put(loginActions.loginSuccess({ data: response.data }));
     yield put(toastActions.success({ message: 'Logged In successfully.' }));
-    yield put(push('/organizations'));
+    if (userData) {
+      yield put(push(`/organizations/${userData?.organization}`));
+      yield put(projectActions.getIndividualProjectDataRequest(userData?.project));
+      yield put(projectActions.getProjectCountryDataRequest());
+      yield put(popupActions.openPopup(true));
+      yield put(popupActions.setPopupType('Edit'));
+    }
+    if (!userData) {
+      yield put(push('/organizations'));
+    }
   } catch (error) {
     // yield put(toastActions.error({ message: error?.response?.data?.message }));
     yield put(toastActions.error({ message: 'Unable to login with provided credentials.' }));

@@ -25,7 +25,7 @@ const OrganizationsUsers = () => {
         <div className="mb-10">
           <div className="is-flex is-between is-align-start is-grow">
             <h3 className="mr-15 is-trim-2">Users</h3>
-            <Button label="Create New" iconName="add_circle_outline" onClick={handleButtonClick} />
+            {/* <Button label="Create New" iconName="add_circle_outline" onClick={handleButtonClick} /> */}
           </div>
         </div>
         <CreateUserPopup />

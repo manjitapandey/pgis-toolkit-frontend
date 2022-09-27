@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { capitalize } from '@Utils/commonUtils';
 import SVGImageIcon from '@Components/common/SVGImageIcon/index';
 
 const Checkbox = ({ className, id, type, name, checked, label, onChange, icon, spanClassname }) => {
@@ -16,7 +17,7 @@ const Checkbox = ({ className, id, type, name, checked, label, onChange, icon, s
         {/* icon && <i className="material-icons mr-10">{icon}</i>
          */}
         {/* icon && <img src={icon} alt="default" style={{ height: '20px', width: '20px', marginRight: '4px' }} /> */}
-        <span className={`is-grow ${spanClassname}`}>{label}</span>
+        <span className={`is-grow ${spanClassname}`}>{capitalize(label)}</span>
       </label>
     </div>
   );

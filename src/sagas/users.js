@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, all } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import toastActions from '@Actions/toast';
 import withLoader from '@Utils/sagaUtils';
@@ -8,6 +8,9 @@ import {
   deleteUserData,
   editUserData,
   individualUserData,
+  getUserGroupList,
+  individualOrganizationData,
+  getProjectList,
 } from '@Services/users';
 import verifyActions, { Types } from '@Actions/users';
 
@@ -22,6 +25,27 @@ export function* getOrganizationDataRequest(action) {
   }
 }
 
+export function* getIndividualOrganizationDataRequest(action) {
+  const { type, params } = action;
+  const useParsm = {
+    organization: params?.organization,
+  };
+  try {
+    const response = yield call(individualOrganizationData, useParsm);
+    if (params.name === 'OTHER') {
+      const responseData = yield all(response?.data?.results.map((item) => call(getProjectList, item.id)));
+      yield put(
+        verifyActions.getIndividualOrganizationDataSuccess({ data: response.data, childrenData: responseData }),
+      );
+    } else {
+      yield put(verifyActions.getIndividualOrganizationDataSuccess({ data: response.data, childrenData: [] }));
+    }
+  } catch (error) {
+    yield put(verifyActions.getIndividualOrganizationDataFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
 export function* getOrganizationUsersDataRequest(action) {
   const { type, params } = action;
   try {
@@ -29,6 +53,17 @@ export function* getOrganizationUsersDataRequest(action) {
     yield put(verifyActions.getOrganizationUsersDataSuccess({ data: response.data, id: params.organization }));
   } catch (error) {
     yield put(verifyActions.getOrganizationUsersDataFailure());
+    yield put(toastActions.error({ message: error?.response?.data?.message }));
+  }
+}
+
+export function* getUserGroupListRequest(action) {
+  const { type, params } = action;
+  try {
+    const response = yield call(getUserGroupList);
+    yield put(verifyActions.getUserGroupListSuccess({ data: response.data }));
+  } catch (error) {
+    yield put(verifyActions.getUserGroupListFailure());
     yield put(toastActions.error({ message: error?.response?.data?.message }));
   }
 }
@@ -82,8 +117,10 @@ export function* deleteUserDataRequest({ payload }) {
 
 function* usersWatcher() {
   yield takeLatest(Types.GET_ORGANIZATION_DATA_REQUEST, withLoader(getOrganizationDataRequest));
+  yield takeLatest(Types.GET_INDIVIDUAL_ORGANIZATION_DATA_REQUEST, withLoader(getIndividualOrganizationDataRequest));
   yield takeLatest(Types.GET_ORGANIZATION_USERS_DATA_REQUEST, withLoader(getOrganizationUsersDataRequest));
   yield takeLatest(Types.GET_INDIVIDUAL_USER_DATA_REQUEST, withLoader(getIndividualUserDataRequest));
+  yield takeLatest(Types.GET_USER_GROUP_LIST_REQUEST, withLoader(getUserGroupListRequest));
   yield takeLatest(Types.DELETE_USER_DATA_REQUEST, withLoader(deleteUserDataRequest));
   yield takeLatest(Types.EDIT_USER_DATA_REQUEST, withLoader(editUserDataRequest));
 }

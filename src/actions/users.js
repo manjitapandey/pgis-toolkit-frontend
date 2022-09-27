@@ -6,6 +6,10 @@ export const { Types, Creators } = createActions(
     getOrganizationDataSuccess: ['payload'],
     getOrganizationDataFailure: null,
 
+    getIndividualOrganizationDataRequest: ['params'],
+    getIndividualOrganizationDataSuccess: ['payload'],
+    getIndividualOrganizationDataFailure: null,
+
     editUserDataRequest: ['payload'],
     editUserDataSuccess: ['payload'],
     editUserDataFailure: null,
@@ -22,10 +26,19 @@ export const { Types, Creators } = createActions(
     getIndividualUserDataSuccess: ['payload'],
     getIndividualUserDataFailure: null,
 
+    getUserGroupListRequest: ['params'],
+    getUserGroupListSuccess: ['payload'],
+    getUserGroupListFailure: null,
+
     setToken: ['payload'],
     openUserPopup: ['payload'],
     getSelectedId: ['payoad'],
     setEditUserData: ['payload'],
+    getEmailList: ['payload'],
+    filterEmailList: ['payload'],
+    setAddAssignData: ['payload'],
+    getSelectedData: ['payload'],
+    clearOrganizationList: ['payload'],
   },
   { prefix: 'users/' },
 );
