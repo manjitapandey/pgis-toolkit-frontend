@@ -17,10 +17,13 @@ const ListData = ({ options, onClick }) => {
     </ul>
   );
 };
-
+ListData.defaultProps = {
+  options: [],
+  onClick: () => {},
+};
 ListData.propTypes = {
-  options: PropTypes.array.isRequired,
-  onClick: PropTypes.func.isRequired,
+  options: PropTypes.array,
+  onClick: PropTypes.func,
 };
 
 export default ListData;

@@ -18,6 +18,7 @@ import pagination from './pagination';
 import permission from './permission';
 import verifyUser from './verifyUser';
 import signup from './signup';
+import users from './users';
 
 export default combineReducers({
   router: connectRouter(history),
@@ -38,4 +39,5 @@ export default combineReducers({
   permission,
   verifyUser,
   signup,
+  users,
 });

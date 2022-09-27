@@ -23,6 +23,7 @@ const IndividualOrganization = () => {
   const [tab, setTab] = useState('Projects');
   const active = useSelector((state) => state.individualOrganizations.active);
   const mapToggle = useSelector((state) => state.individualOrganizations.mapToggle);
+  const permissionList = useSelector((state) => state.permission.permissionList);
   const isLoading = useSelector((state) =>
     checkIfLoading(
       state,
@@ -113,8 +114,8 @@ const IndividualOrganization = () => {
       {tab === 'Projects' && (
         <div className="dbd-body">
           <div className={mapToggle ? 'dbd-map is-flex dbd-map_active' : 'dbd-map is-flex'}>
-            <MapSidebar isLoading={isLoading} />
-            <FilterSidebar active={active} />
+            <MapSidebar isLoading={isLoading} permission={permissionList} />
+            <FilterSidebar active={active} permission={permissionList} />
             <CreateProjectPopup />
             <ProjectSetupPopup />
             <OlMap />

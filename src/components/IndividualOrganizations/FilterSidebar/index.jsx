@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import individualActions from '@Actions/individualOrganization';
 import { selectOptions } from '@src/constants/commonData';
 
-const FilterSidebar = ({ active }) => {
+const FilterSidebar = ({ active, permission }) => {
   const dispatch = useDispatch();
   const handleSelect = () => {};
 
@@ -104,6 +104,7 @@ FilterSidebar.defaultProps = {
 
 FilterSidebar.propTypes = {
   active: PropTypes.string,
+  permission: PropTypes.array.isRequired,
 };
 
 export default FilterSidebar;
