@@ -13,6 +13,7 @@ import CreateProjectPopup from '@Components/IndividualOrganizations/CreateProjec
 import { Creators, Types as IndividualOrganizationTypes } from '@Actions/individualOrganization';
 import { checkIfLoading } from '@Utils/loaderSelector';
 import Loader from '@Components/common/Loader/index';
+import permissionAction from '@Actions/permission';
 import ProjectSetupPopup from '@Components/IndividualOrganizations/ProjectSetupPopup/index';
 
 const { getIndividualOrganizationDataRequest, getOrganizationDetailDataRequest } = Creators;
@@ -35,6 +36,7 @@ const IndividualOrganization = () => {
   useEffect(() => {
     dispatch(getIndividualOrganizationDataRequest(id));
     dispatch(getOrganizationDetailDataRequest(id));
+    dispatch(permissionAction.getPermissionRequest({ organizaton: id }));
   }, []);
 
   if (isLoading) {

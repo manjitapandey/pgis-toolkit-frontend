@@ -11,6 +11,7 @@ import {
   getUserGroupList,
   individualOrganizationData,
   getProjectList,
+  postAssignUserData,
 } from '@Services/users';
 import verifyActions, { Types } from '@Actions/users';
 
@@ -79,6 +80,22 @@ export function* getIndividualUserDataRequest(action) {
   }
 }
 
+export function* postAssignUserDataRequest({ payload }) {
+  try {
+    const { finalData } = payload;
+    console.log(finalData, 'saga');
+    const data = new FormData();
+    Object.entries(finalData).forEach(([key, value]) => {
+      data.append(key, value);
+    });
+    const response = yield call(postAssignUserData, data);
+    yield put(verifyActions.postAssignUserDataSuccess({ data: response.data }));
+    yield put(toastActions.success({ message: 'User assigned sucessfully.' }));
+  } catch (error) {
+    yield put(toastActions.error({ message: error?.response?.data?.detail }));
+  }
+}
+
 export function* editUserDataRequest({ payload }) {
   try {
     const { id, finalData } = payload;
@@ -121,6 +138,7 @@ function* usersWatcher() {
   yield takeLatest(Types.GET_ORGANIZATION_USERS_DATA_REQUEST, withLoader(getOrganizationUsersDataRequest));
   yield takeLatest(Types.GET_INDIVIDUAL_USER_DATA_REQUEST, withLoader(getIndividualUserDataRequest));
   yield takeLatest(Types.GET_USER_GROUP_LIST_REQUEST, withLoader(getUserGroupListRequest));
+  yield takeLatest(Types.POST_ASSIGN_USER_DATA_REQUEST, withLoader(postAssignUserDataRequest));
   yield takeLatest(Types.DELETE_USER_DATA_REQUEST, withLoader(deleteUserDataRequest));
   yield takeLatest(Types.EDIT_USER_DATA_REQUEST, withLoader(editUserDataRequest));
 }

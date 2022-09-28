@@ -16,3 +16,5 @@ export const individualUserData = (params) => authenticated(api).get(`/users/use
 export const editUserData = (id, payload) => authenticated(api).patch(`/users/user/${id}/`, payload);
 
 export const deleteUserData = (id, payload) => authenticated(api).patch(`/users/user/${id}/`, payload);
+
+export const postAssignUserData = (payload) => authenticated(api).post(`/users/preliminary_user_create/`, payload);

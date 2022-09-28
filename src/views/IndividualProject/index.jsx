@@ -13,6 +13,7 @@ import popupAction from '@Actions/popup';
 import { Creators, Types as IndividualProjectTypes } from '@Actions/individualProject';
 import { checkIfLoading } from '@Utils/loaderSelector';
 import Loader from '@Components/common/Loader/index';
+import permissionAction from '@Actions/permission';
 import DetailDataPopup from '@Components/IndividualProject/DetailDataPopup/index';
 
 const {
@@ -77,6 +78,7 @@ const IndividualProject = () => {
     dispatch(getThemeListRequest({ project: uniqueId }));
     dispatch(getStandardIconsRequest());
     dispatch(getIndividualProjectDataRequest({ project: uniqueId }));
+    dispatch(permissionAction.getPermissionRequest({ project: uniqueId }));
   }, [dispatch]);
 
   // useEffect(() => {
