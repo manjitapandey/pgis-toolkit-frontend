@@ -26,6 +26,7 @@ const ProjectSetupPopup = () => {
   const geomData = useSelector((state) => state.individualOrganizations.geomData);
   const selectedTab = useSelector((state) => state.individualOrganizations.selectedTab);
   const file = useSelector((state) => state.individualOrganizations.file);
+  const userData = useSelector((state) => state.verifyUser.userData);
 
   const handleButtonClick = () => {
     if (popupType === 'Edit' && activeTab === 'Basic Info')
@@ -63,6 +64,7 @@ const ProjectSetupPopup = () => {
       }
       popup={popup}
       handleCloseClick={handleCloseClick}
+      displayClose={!userData}
       handleButtonClick={handleButtonClick}
       buttonTitle="Save"
       body={

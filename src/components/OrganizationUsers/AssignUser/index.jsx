@@ -31,7 +31,6 @@ const AssignUser = () => {
   const individualOrganizationData = useSelector((state) => state.users.individualOrganizationData);
   const finalData = useSelector((state) => state.users.finalData);
   const finalGroupData = useSelector((state) => state.users.finalGroupData);
-  console.log(finalData, finalGroupData, 'datas');
   const regex = new RegExp(
     "([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])",
   );
@@ -87,6 +86,8 @@ const AssignUser = () => {
     );
   };
 
+  const handleAssignClick1 = () => {};
+
   useEffect(() => {
     dispatch(getUserGroupListRequest());
   }, []);
@@ -139,7 +140,7 @@ const AssignUser = () => {
                   : 'is-btn is-btn_primary'
               }
               type="button"
-              onClick={handlAssignClick}
+              onClick={!emailList.length || !finalData || !finalGroupData ? handleAssignClick1() : handlAssignClick()}
             >
               Assign
             </button>
