@@ -26,11 +26,13 @@ const AssignTable = ({ title, handleSearch, options, onChange, onChangeChild, ty
                 {elem?.options?.map((item) => (
                   <li>
                     <Checkbox
-                      onChange={onChangeChild}
+                      onChange={(event) => onChangeChild(event, elem.name, elem.id)}
                       label={item.name}
                       name={item.name}
                       id={item.id}
                       spanClassname=""
+                      checked={item?.isSelected}
+                      type="radio"
                     />
                   </li>
                 ))}

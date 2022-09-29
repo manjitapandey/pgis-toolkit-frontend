@@ -30,6 +30,10 @@ export const { Types, Creators } = createActions(
     getUserGroupListSuccess: ['payload'],
     getUserGroupListFailure: null,
 
+    postAssignUserDataRequest: ['payload'],
+    postAssignUserDataSuccess: ['payload'],
+    postAssignUserDataFailure: null,
+
     setToken: ['payload'],
     openUserPopup: ['payload'],
     getSelectedId: ['payoad'],
@@ -39,6 +43,8 @@ export const { Types, Creators } = createActions(
     setAddAssignData: ['payload'],
     getSelectedData: ['payload'],
     clearOrganizationList: ['payload'],
+    getSelectedOrganization: ['payload'],
+    getSelectedProject: ['payload'],
   },
   { prefix: 'users/' },
 );

@@ -12,6 +12,8 @@ const initialState = {
   emailList: [],
   addAssignData: {},
   individualOrganizationData: [],
+  finalData: null,
+  finalGroupData: null,
 };
 
 const getOrganizationDataSuccess = (state, action) => {
@@ -35,12 +37,14 @@ const getIndividualOrganizationDataSuccess = (state, action) => {
   const individualOrganizationData = childrenData.length
     ? data.results.map((elem, index) => {
         const datas = childrenData
-          .map((item, i) => (i === index ? item.data.results : []))
+          .map((item, i) => (i === index ? item.data.results.map((items) => ({ ...items, isSelected: false })) : []))
           .filter((element) => element.length)[0];
-        console.log(datas, 'datas');
-        return { ...elem, options: datas || [] };
+        return { ...elem, isSelected: false, options: datas || [] };
       })
-    : data.results;
+    : data.results.map((elem) => ({
+        ...elem,
+        isSelected: false,
+      }));
   return {
     ...state,
     individualOrganizationData,
@@ -111,14 +115,75 @@ const setEditUserData = (state, action) => {
 
 const getSelectedData = (state, action) => {
   const data = action.payload;
-
   const { groupList } = state;
   const selectedData = groupList.map((elem) =>
     +elem.id === +data ? { ...elem, isSelected: true } : { ...elem, isSelected: false },
   );
+  const finalGroupData = selectedData.filter((elem) => elem.isSelected)[0];
   return {
     ...state,
     groupList: selectedData,
+    finalGroupData,
+  };
+};
+
+const getSelectedOrganization = (state, action) => {
+  const {
+    payload: { name, id },
+  } = action;
+  // const { individualOrganizationData } = state;
+
+  const individualOrganizationData = state.individualOrganizationData.map((elem) =>
+    elem.name.toLowerCase() === name.toLowerCase()
+      ? {
+          ...elem,
+          isSelected: true,
+          options: elem?.options?.map((element, index) => ({ ...element, isSelected: index === 0 })),
+        }
+      : {
+          ...elem,
+          isSelected: false,
+          options: elem?.options?.map((element, index) => ({ ...element, isSelected: false })),
+        },
+  );
+  const finalData = individualOrganizationData
+    .filter((element) => element.isSelected)
+    .map((elem) => ({ ...elem, options: elem?.options?.filter((item) => item.isSelected)[0]?.id }))[0];
+  return {
+    ...state,
+    individualOrganizationData,
+    finalData,
+  };
+};
+
+const getSelectedProject = (state, action) => {
+  const {
+    payload: { name, id, orgName, orgId },
+  } = action;
+  const data = state.individualOrganizationData.map((elem) =>
+    elem.name.toLowerCase() === orgName.toLowerCase()
+      ? {
+          ...elem,
+          // isSelected: !elem.isSelected,
+          options: elem?.options?.map((element) =>
+            element.name.toLowerCase() === name.toLowerCase()
+              ? { ...element, isSelected: true }
+              : { ...element, isSelected: false },
+          ),
+        }
+      : { ...elem },
+  );
+  const individualOrganizationData = data.map((item) => ({
+    ...item,
+    isSelected: item?.options?.some((datas) => datas?.isSelected === true),
+  }));
+  const finalData = individualOrganizationData
+    ?.filter((element) => element?.isSelected)
+    ?.map((elem) => ({ ...elem, options: elem?.options?.filter((item) => item?.isSelected)[0]?.id }))[0];
+  return {
+    ...state,
+    individualOrganizationData,
+    finalData,
   };
 };
 
@@ -180,6 +245,8 @@ const usersReducer = createReducer(initialState, {
   [Types.OPEN_USER_POPUP]: openUserPopup,
   [Types.GET_SELECTED_ID]: getSelectedId,
   [Types.GET_SELECTED_DATA]: getSelectedData,
+  [Types.GET_SELECTED_ORGANIZATION]: getSelectedOrganization,
+  [Types.GET_SELECTED_PROJECT]: getSelectedProject,
   [Types.GET_EMAIL_LIST]: getEmailList,
   [Types.FILTER_EMAIL_LIST]: filterEmailList,
   [Types.SET_ADD_ASSIGN_DATA]: setAddAssignData,

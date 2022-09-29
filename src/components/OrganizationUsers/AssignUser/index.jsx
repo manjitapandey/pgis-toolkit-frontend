@@ -17,6 +17,9 @@ const {
   getSelectedData,
   getIndividualOrganizationDataRequest,
   clearOrganizationList,
+  getSelectedOrganization,
+  getSelectedProject,
+  postAssignUserDataRequest,
 } = Creators;
 
 const AssignUser = () => {
@@ -26,7 +29,9 @@ const AssignUser = () => {
   const addAssignData = useSelector((state) => state.users.addAssignData);
   const groupList = useSelector((state) => state.users.groupList);
   const individualOrganizationData = useSelector((state) => state.users.individualOrganizationData);
-  // console.log(individualOrganizationData, 'datas');
+  const finalData = useSelector((state) => state.users.finalData);
+  const finalGroupData = useSelector((state) => state.users.finalGroupData);
+  console.log(finalData, finalGroupData, 'datas');
   const regex = new RegExp(
     "([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])",
   );
@@ -52,12 +57,34 @@ const AssignUser = () => {
     dispatch(getSelectedData(id));
   };
 
+  const handleCheckboxChange1 = (event) => {
+    const { name, checked, id } = event.target;
+    dispatch(getSelectedOrganization({ name, id }));
+  };
+  const handleChildCheckBoxChange = (event, orgName, orgId) => {
+    const { name, checked, id } = event.target;
+    dispatch(getSelectedProject({ name, id, orgName, orgId }));
+  };
+
   const handleSearch = () => {};
   const handleAddClick = () => {
     if (validMail) {
       dispatch(getEmailList([...emailList, email]));
       dispatch(setAddAssignData({ name: 'email', value: '' }));
     }
+  };
+
+  const handlAssignClick = () => {
+    dispatch(
+      postAssignUserDataRequest({
+        finalData: {
+          group: finalGroupData?.id,
+          organization: finalData?.id,
+          project: finalData?.options || null,
+          email: emailList,
+        },
+      }),
+    );
   };
 
   useEffect(() => {
@@ -95,10 +122,25 @@ const AssignUser = () => {
               type="radio"
               onChange={handleCheckboxChange}
             />
-            <AssignTable title="Assign to" handleSearch={handleSearch} options={individualOrganizationData} />
+            <AssignTable
+              title="Assign to"
+              handleSearch={handleSearch}
+              options={individualOrganizationData}
+              onChange={handleCheckboxChange1}
+              onChangeChild={handleChildCheckBoxChange}
+              type="radio"
+            />
           </div>
           <div className="is-flex is-center is-align-center mt-15">
-            <button className="is-btn is-btn_primary" type="button">
+            <button
+              className={
+                !emailList.length || !finalData || !finalGroupData
+                  ? 'is-btn is-btn_primary is-disable'
+                  : 'is-btn is-btn_primary'
+              }
+              type="button"
+              onClick={handlAssignClick}
+            >
               Assign
             </button>
           </div>
