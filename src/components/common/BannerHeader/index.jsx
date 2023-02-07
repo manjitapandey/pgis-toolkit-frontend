@@ -64,7 +64,7 @@ const BannerHeader = () => {
             </ul>
           </nav>
           <div className="is-flex is-end is-align-center is-gap-10">
-            <Link to="/organizations" className="is-btn is-btn_secondary">
+            <Link to="https://app.usafiri.io/" target="_blank" className="is-btn is-btn_secondary">
               <span>Sign in</span>
             </Link>
             <a className="is-btn is-btn_primary scroll-down" href="#usafiri-request">
