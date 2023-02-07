@@ -67,9 +67,9 @@ const BannerHeader = () => {
             <a to="https://app.usafiri.io/" target="_blank" className="is-btn is-btn_secondary">
               <span>Sign in</span>
             </a>
-            <a className="is-btn is-btn_primary scroll-down" href="#usafiri-request">
+            {/* <a className="is-btn is-btn_primary scroll-down" href="#usafiri-request">
               <span>Request for demo</span>
-            </a>
+            </a> */}
             <div className="toggle-btn material-icons-outlined" onClick={handleMenu}>
               menu
             </div>

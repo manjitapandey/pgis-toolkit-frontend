@@ -36,85 +36,86 @@ const RequestForDemo = () => {
     setCheckState({ name: false, email: false });
   };
   return (
-    <section className="usafiri-request" id="usafiri-request">
-      <div className="container">
-        <div className="usafiri-request-wrap">
-          <div className="usafiri-request-content">
-            <div className="row">
-              <div className="grid-lg-7 grid-sm-12">
-                <figure className="request-image">
-                  <img src={ctaImage} alt="cta" />
-                </figure>
-              </div>
-              <div className="grid-lg-5 grid-sm-12">
-                <form className="pd-25">
-                  <Input
-                    type="text"
-                    placeholder="Full name"
-                    name="full_name"
-                    value={addRequestData?.full_name}
-                    onChange={handleChange}
-                    errorMessage={checkState.name && addRequestData?.full_name === '' ? 'Cannot be empty' : ''}
-                  />
-                  <Input
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    value={addRequestData?.email}
-                    onChange={handleChange}
-                    errorMessage={checkState.email && addRequestData?.email === '' ? 'Cannot be empty' : ''}
-                  />
-                  <Input
-                    type="number"
-                    placeholder="Phone"
-                    name="phone"
-                    value={addRequestData?.phone}
-                    onChange={handleChange}
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Organization Name"
-                    name="organization_name"
-                    value={addRequestData?.organization_name}
-                    onChange={handleChange}
-                  />
-                  <div className="pm-group">
-                    <div className="pm-checkbox mb-0">
-                      <input
-                        type="checkbox"
-                        // id="signin"
-                        name="marketing_communications"
-                        onChange={handleCheckboxChange}
-                        value={addRequestData?.marketing_communications}
-                        checked={addRequestData?.marketing_communications}
-                      />
-                      <label htmlFor="signin" className="fs-md">
-                        Yes, I would like to receive marketing communications regarding USAFIRI.
-                      </label>
-                    </div>
-                  </div>
-                  <button className="is-btn is-btn_primary" type="button" onClick={handleSubmit}>
-                    {isLoading ? (
-                      <Spinner
-                        style={{
-                          width: '18px',
-                          height: '18px',
-                          border: '3px solid #ffffff',
-                          borderTop: '3px solid #0055ff',
-                          marginLeft: '6px',
-                        }}
-                      />
-                    ) : (
-                      <span>Request for demo</span>
-                    )}
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section/>
+    // <section className="usafiri-request" id="usafiri-request">
+    //   <div className="container">
+    //     <div className="usafiri-request-wrap">
+    //       <div className="usafiri-request-content">
+    //         <div className="row">
+    //           <div className="grid-lg-7 grid-sm-12">
+    //             <figure className="request-image">
+    //               <img src={ctaImage} alt="cta" />
+    //             </figure>
+    //           </div>
+    //           <div className="grid-lg-5 grid-sm-12">
+    //             <form className="pd-25">
+    //               <Input
+    //                 type="text"
+    //                 placeholder="Full name"
+    //                 name="full_name"
+    //                 value={addRequestData?.full_name}
+    //                 onChange={handleChange}
+    //                 errorMessage={checkState.name && addRequestData?.full_name === '' ? 'Cannot be empty' : ''}
+    //               />
+    //               <Input
+    //                 type="email"
+    //                 placeholder="Email"
+    //                 name="email"
+    //                 value={addRequestData?.email}
+    //                 onChange={handleChange}
+    //                 errorMessage={checkState.email && addRequestData?.email === '' ? 'Cannot be empty' : ''}
+    //               />
+    //               <Input
+    //                 type="number"
+    //                 placeholder="Phone"
+    //                 name="phone"
+    //                 value={addRequestData?.phone}
+    //                 onChange={handleChange}
+    //               />
+    //               <Input
+    //                 type="text"
+    //                 placeholder="Organization Name"
+    //                 name="organization_name"
+    //                 value={addRequestData?.organization_name}
+    //                 onChange={handleChange}
+    //               />
+    //               <div className="pm-group">
+    //                 <div className="pm-checkbox mb-0">
+    //                   <input
+    //                     type="checkbox"
+    //                     // id="signin"
+    //                     name="marketing_communications"
+    //                     onChange={handleCheckboxChange}
+    //                     value={addRequestData?.marketing_communications}
+    //                     checked={addRequestData?.marketing_communications}
+    //                   />
+    //                   <label htmlFor="signin" className="fs-md">
+    //                     Yes, I would like to receive marketing communications regarding USAFIRI.
+    //                   </label>
+    //                 </div>
+    //               </div>
+    //               <button className="is-btn is-btn_primary" type="button" onClick={handleSubmit}>
+    //                 {isLoading ? (
+    //                   <Spinner
+    //                     style={{
+    //                       width: '18px',
+    //                       height: '18px',
+    //                       border: '3px solid #ffffff',
+    //                       borderTop: '3px solid #0055ff',
+    //                       marginLeft: '6px',
+    //                     }}
+    //                   />
+    //                 ) : (
+    //                   <span>Request for demo</span>
+    //                 )}
+    //               </button>
+    //             </form>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </section>
   );
 };
 
