@@ -1,6 +1,7 @@
 import React from 'react';
 // import homeBanner from '@Assets/images/home-banner.jpg';
-import homeBanner from '@Assets/images/homeBanner3.jpg';
+// import homeBanner from '@Assets/images/homeBanner3.jpg';
+import homeBanner from '@Assets/images/banner_new.jpg';
 
 const Banner = () => (
   <section className="home-banner ">
