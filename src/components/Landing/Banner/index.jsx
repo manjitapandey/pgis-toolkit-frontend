@@ -2,6 +2,7 @@ import React from 'react';
 // import homeBanner from '@Assets/images/home-banner.jpg';
 // import homeBanner from '@Assets/images/homeBanner3.jpg';
 import homeBanner from '@Assets/images/banner_new.jpg';
+import brochurePDF from '@Assets/documents/usafiri-brochure.pdf';
 
 const Banner = () => (
   <section className="home-banner ">
@@ -19,7 +20,7 @@ const Banner = () => (
                   <h4>Piloting the tool for Transport Mobility Assessment in low-income countries.</h4>
                 </div>
                 <div className="mt-30 pt-15 is-flex">
-                  <a className="is-btn is-btn_primary scroll-down" href="#usafiri-request">
+                  <a className="is-btn is-btn_primary scroll-down" href={brochurePDF} target="_blank" rel="noreferrer">
                     <span>Download Brochure</span>
                   </a>
                 </div>
