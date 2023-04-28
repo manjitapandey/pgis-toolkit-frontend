@@ -13,7 +13,9 @@ import { selectedLayerStyleSelector, finalLayerStyleSelector } from '@Selectors/
 import useDebouncedInput from '@Hooks/useDebouncedInput';
 import Spinner from '@Components/common/Spinner/index';
 import SVGImageIcon from '@Components/common/SVGImageIcon/index';
-import { svgIcons, defaultColors } from '@src/constants/icons';
+import { svgIcons, defaultColors, buttonTabOptions } from '@src/constants/icons';
+import ColorSelect from '@Components/common/ColorSelect/index';
+import ButtonTab from '@Components/common/ButtonTab/indedx';
 
 const {
   setLayerFilterActive,
@@ -37,6 +39,7 @@ const {
 const LayerStyleFilter = ({ active, isGroupLoading }) => {
   const dispatch = useDispatch();
   const [activeStyleTab, setActiveStyleTab] = useState('Standard');
+  const [activeButton, setActiveButton] = useState('Svg Color');
   const [size, setSize] = useState('Choose');
   const [type, setType] = useState(null);
   const selectedLayerName = useSelector((state) => state.individualProject.selectedLayerName);
@@ -72,6 +75,7 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
     circleRadius,
     iconColor,
     layerName,
+    backgroundColor,
   } = layerStyle;
   const handleSelect = (value) => {
     setSize(value.name);
@@ -266,15 +270,40 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
             <div className="pm-group">
               <label>Default Color </label>
               <div className="color-list">
-                <ul className="is-flex is-start is-align-center is-wrap is-gap-10 " style={{ cursor: 'pointer' }}>
-                  {defaultColors.map(({ id, color }) => (
-                    <li
-                      style={{ backgroundColor: `${color}` }}
-                      className={iconColor === color ? 'is-active' : ''}
-                      onClick={() => dispatch(handleStyleInput({ name: 'iconColor', value: color }))}
-                    />
-                  ))}
-                </ul>
+                <ButtonTab options={buttonTabOptions} activeButton={activeButton} setActiveButton={setActiveButton} />
+                {activeButton === 'Svg Color' && (
+                  <ul className="is-flex is-start is-align-center is-wrap is-gap-10 " style={{ cursor: 'pointer' }}>
+                    {defaultColors.map(({ id, color }) => (
+                      <li
+                        style={{ backgroundColor: `${color}` }}
+                        className={iconColor === color ? 'is-active' : ''}
+                        onClick={() => dispatch(handleStyleInput({ name: 'iconColor', value: color }))}
+                      />
+                    ))}
+                  </ul>
+                )}
+                {activeButton === 'Background Color' && (
+                  <ul className="is-flex is-start is-align-center is-wrap is-gap-10 " style={{ cursor: 'pointer' }}>
+                    {defaultColors.map(({ id, color }) => (
+                      <li
+                        style={{ backgroundColor: `${color}` }}
+                        className={backgroundColor === color ? 'is-active' : ''}
+                        onClick={() => dispatch(handleStyleInput({ name: 'backgroundColor', value: color }))}
+                      />
+                    ))}
+                  </ul>
+                )}
+                {activeButton === 'Stroke Color' && (
+                  <ul className="is-flex is-start is-align-center is-wrap is-gap-10 " style={{ cursor: 'pointer' }}>
+                    {defaultColors.map(({ id, color }) => (
+                      <li
+                        style={{ backgroundColor: `${color}` }}
+                        className={backgroundColor === color ? 'is-active' : ''}
+                        onClick={() => dispatch(handleStyleInput({ name: 'backgroundColor', value: color }))}
+                      />
+                    ))}
+                  </ul>
+                )}
                 <div className="mt-15">
                   <button className="pmupload-btn is-btn is-btn_link is-btn_icon" type="button">
                     <label>
@@ -299,8 +328,18 @@ const LayerStyleFilter = ({ active, isGroupLoading }) => {
 
         {selectedType !== 'layerWithSubLayer' && (
           <>
-            <Input label="Fill Color" name="fillColor" value={fillColor} onChange={handleChange} type="color" />
-            <Input label="Line Color" name="lineColor" value={lineColor} onChange={handleChange} type="color" />
+            {individualLayerData?.geom_type !== 'Point' && activeStyleTab === 'Advance' && (
+              <>
+                <Input label="Fill Color" name="fillColor" value={fillColor} onChange={handleChange} type="color" />
+                <Input label="Line Color" name="lineColor" value={lineColor} onChange={handleChange} type="color" />
+              </>
+            )}
+            {individualLayerData?.geom_type !== 'Point' && activeStyleTab === 'Standard' && (
+              <>
+                <ColorSelect label="fillColor" options={defaultColors} colorName={fillColor} />
+                <ColorSelect label="lineColor" options={defaultColors} colorName={lineColor} />
+              </>
+            )}
             <RangeSlider label="Line Opacity" name="lineOpacity" value={lineOpacity} onChange={handleChange} />
             <RangeSlider label="Fill Opacity" name="fillOpacity" value={fillOpacity} onChange={handleChange} />
             <Input

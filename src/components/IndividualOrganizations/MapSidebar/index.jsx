@@ -5,19 +5,21 @@ import { useHistory, useParams, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators } from '@Actions/individualOrganization';
+import { Creators as PopupCreator } from '@Actions/popup';
 import { mapProjectOptions } from '@src/constants/commonData';
 import Sidebar from '@Components/common/Sidebar/index';
 import Dropdown from '../Dropdown/index';
 import CardLoader from '../CardLoader/index';
 
-const { setActive, openProjectPopup } = Creators;
+const { setActive, openProjectPopup, getIndividualProjectDataRequest, handleInput, getProjectCountryDataRequest } =
+  Creators;
+const { openPopup, setPopupType } = PopupCreator;
 
-const MapSidebar = ({ active, isLoading }) => {
+const MapSidebar = ({ active, isLoading, setPopup, permission }) => {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   const individualOrganizationData = useSelector((state) => state.individualOrganizations.individualOrganizationData);
-
   const handleSearch = () => {};
 
   const handleClick = () => {
@@ -30,8 +32,25 @@ const MapSidebar = ({ active, isLoading }) => {
     e.stopPropagation();
     dispatch(openProjectPopup(true));
   };
+  const handleEdit = (name, projectId) => {
+    dispatch(getIndividualProjectDataRequest(projectId));
+    dispatch(getProjectCountryDataRequest());
+    dispatch(openPopup(true));
+    dispatch(setPopupType('Edit'));
+  };
+  const handleDeleteClick = (projectId, projectName) => {
+    dispatch(handleInput({ id: projectId, name: projectName }));
+    dispatch(openPopup(true));
+    dispatch(setPopupType('Delete'));
+  };
   return (
-    <Sidebar handleClick={handleClick} handleSearch={handleSearch} buttonTitle="Project" onButtonClick={onButtonClick}>
+    <Sidebar
+      handleClick={handleClick}
+      handleSearch={handleSearch}
+      buttonTitle="Project"
+      onButtonClick={onButtonClick}
+      permission={permission}
+    >
       <div className="dvd-sidebar-body is-overflow" style={{ height: '60vh' }}>
         <div className="project-list ">
           {isLoading ? (
@@ -44,7 +63,7 @@ const MapSidebar = ({ active, isLoading }) => {
               >
                 <div
                   className="flex-content is-grow mr-15"
-                  onClick={() => handleRoute(item.id)}
+                  onClick={permission.includes('view_project') ? () => handleRoute(item.id) : () => {}}
                   style={{ cursor: 'pointer' }}
                 >
                   <h4>{item.name}</h4>
@@ -54,7 +73,17 @@ const MapSidebar = ({ active, isLoading }) => {
                     <></>
                   )}
                 </div>
-                <Dropdown />
+                <Dropdown
+                  setPopup={setPopup}
+                  handleEdit={() => {
+                    handleEdit(item.name, item.id);
+                  }}
+                  handleDeleteClick={() => {
+                    handleDeleteClick(item.id, item.name);
+                  }}
+                  data={item}
+                  permission={permission}
+                />
               </div>
             ))
           )}
@@ -67,6 +96,8 @@ const MapSidebar = ({ active, isLoading }) => {
 MapSidebar.propTypes = {
   active: PropTypes.string,
   isLoading: PropTypes.bool,
+  setPopup: PropTypes.func.isRequired,
+  permission: PropTypes.array.isRequired,
 };
 
 MapSidebar.defaultProps = {

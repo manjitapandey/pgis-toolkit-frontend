@@ -11,12 +11,12 @@ const Banner = () => (
         <div className="container">
           <div className="row is-center is-align-center">
             <div className="grid-lg-6 grid-sm-12 is-column is-flex is-center is-align-center">
-              <div className="home-banner_content is-text-center pd-15 mb-30">
+              <div className="home-banner_content pd-15 mb-30">
                 <div className="">
                   <h1 className="mb-30">About USAFIRI</h1>
                   <h4>
-                    Tackling a significant barrier (tech-literacy) to the implementation of participatory geographic
-                    information systems.
+                    USAFIRI is a web-based participatory mapping tool developed and coded by a multidisciplinary team
+                    consisting of academic institutions, technology service providers, and transportation practitioners.
                   </h4>
                 </div>
               </div>

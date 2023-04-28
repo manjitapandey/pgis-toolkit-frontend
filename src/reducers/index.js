@@ -16,6 +16,9 @@ import datasetPopup from './IndividualProject/datasetPopup';
 import landing from './landing';
 import pagination from './pagination';
 import permission from './permission';
+import verifyUser from './verifyUser';
+import signup from './signup';
+import users from './users';
 
 export default combineReducers({
   router: connectRouter(history),
@@ -34,4 +37,7 @@ export default combineReducers({
   datasetPopup,
   pagination,
   permission,
+  verifyUser,
+  signup,
+  users,
 });

@@ -7,6 +7,11 @@ import linkedinLogo from '@Assets/images/linkedin-logo.svg';
 import twitterLogo from '@Assets/images/twitter-logo.svg';
 import youtubeLogo from '@Assets/images/youtube-logo.svg';
 
+const facebookLink = 'https://www.facebook.com/profile.php?id=100091181447211';
+const twitterLink = 'https://twitter.com/usafiri_app';
+const linkedInLink = 'https://www.linkedin.com/company/92537525/';
+const youtubeLink = 'https://www.youtube.com/@usafiri-io';
+
 const Footer = () => (
   <footer className="site-footer pt-5 pb-5">
     <div className="container">
@@ -45,22 +50,22 @@ const Footer = () => (
           <div className="grid-lg-4 grid-md-6 grid-sm-12">
             <ul className="is-flex  is-align-center is-gap-20 social-icons mb-10">
               <li>
-                <a href={() => {}}>
+                <a href={facebookLink} target="_blank" rel="noreferrer">
                   <img src={fbLogo} alt="facebook" />
                 </a>
               </li>
               <li>
-                <a href={() => {}}>
+                <a href={twitterLink} target="_blank" rel="noreferrer">
                   <img src={twitterLogo} alt="twitter" />
                 </a>
               </li>
               <li>
-                <a href={() => {}}>
+                <a href={linkedInLink} target="_blank" rel="noreferrer">
                   <img src={linkedinLogo} alt="linkedin" />
                 </a>
               </li>
               <li>
-                <a href={() => {}}>
+                <a href={youtubeLink} target="_blank" rel="noreferrer">
                   <img src={youtubeLogo} alt="youtube" />
                 </a>
               </li>

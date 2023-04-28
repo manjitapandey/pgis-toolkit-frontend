@@ -13,6 +13,7 @@ import popupAction from '@Actions/popup';
 import { Creators, Types as IndividualProjectTypes } from '@Actions/individualProject';
 import { checkIfLoading } from '@Utils/loaderSelector';
 import Loader from '@Components/common/Loader/index';
+import permissionAction from '@Actions/permission';
 import DetailDataPopup from '@Components/IndividualProject/DetailDataPopup/index';
 
 const {
@@ -55,7 +56,6 @@ const IndividualProject = () => {
   const isProjectThemeLoading = useSelector((state) =>
     checkIfLoading(state, IndividualProjectTypes.GET_PROJECT_THEME_REQUEST),
   );
-  console.log(isProjectThemeLoading, 'loading');
   const isGroupLoading = useSelector((state) => checkIfLoading(state, IndividualProjectTypes.GET_GROUP_LIST_REQUEST));
   const handleClick = () => {
     history.push(`/organizations/${id}`);
@@ -78,6 +78,7 @@ const IndividualProject = () => {
     dispatch(getThemeListRequest({ project: uniqueId }));
     dispatch(getStandardIconsRequest());
     dispatch(getIndividualProjectDataRequest({ project: uniqueId }));
+    dispatch(permissionAction.getPermissionRequest({ project: uniqueId }));
   }, [dispatch]);
 
   // useEffect(() => {

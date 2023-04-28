@@ -8,15 +8,18 @@ const About = () => (
       </div>
       <div className="about-usafir_content is-text-center">
         <h2 className="fw-bold mb-20">
-          Usafiri is an Open-source, participatory mapping toolkit aimed at rural communities.
+          USAFIRI is a web-based participatory mapping tool developed and coded by a multidisciplinary team consisting
+          of academic institutions, technology service providers, and transportation practitioners.
         </h2>
         <p className="fs-xlg">
-          It is built on a partnership between the Ecole Polytechnique Fédérale de Lausanne (EPFL, Switzerland), World
-          Bicycle Relief (WBR), and Nepal Flying Labs (NFL), funded by the Swiss Agency for Development and Cooperation
-          (SDC). Usafiri is an Open-source, participatory mapping toolkit aimed at rural communities. Aims to identify
-          transportation needs and barriers in marginalized areas. The datasets prepared through this toolkit will be
-          synchronized to OpenStreetMap for wider dissemination. This project tackles a significant barrier
-          (tech-literacy) to the implementation of participatory geographic information systems.
+          The tool is co-designed with practitioners in the field of transportation need assessments, climate technology
+          and geospatial applications design and development.The tool addresses the need for combining datasets from
+          multiple sources via a web browser and allows basic levels of analysis to aid transport decision making.
+          Additionally, because the tool adapts existing mapping tools to make them more user-friendly, this project
+          tackles a significant barrier (tech-literacy) to the implementation of participatory geographic information
+          systems. As the tool is targeted for data scarce locations, it also has the ability to automatically download
+          required datasets using open mapping platforms such as OpenStreetMap and then use those data for a quick
+          analysis to understand the transportation scenario in a community.
         </p>
       </div>
     </div>

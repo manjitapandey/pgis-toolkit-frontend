@@ -20,7 +20,7 @@ const CaseTab = ({ selected, tabOptions, caseboxDetail, setSelected }) => (
         </li>
       ))}
     </ul>
-    {selected === 'Transport Assessment' && (
+    {selected === 'Transport Need Assessment' && (
       <div className="case-slider slick-initialized slick-slider">
         <div className="row">
           {caseboxDetail.map(({ heading, image, title, description, date }) => (

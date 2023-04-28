@@ -8,7 +8,7 @@ const Banner = () => (
         <div className="container">
           <div className="row is-center is-align-center">
             <div className="grid-lg-6 grid-sm-12 is-column is-flex is-center is-align-center">
-              <div className="home-banner_content is-text-center pd-15">
+              <div className="home-banner_content pd-15">
                 <h1 className="mb-30">Use Cases</h1>
                 <h4>
                   A GIS-based toolkit to assess, in a participatory way, the unmet transportation needs and mobility

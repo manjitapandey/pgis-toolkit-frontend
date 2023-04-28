@@ -4,7 +4,16 @@ import PropTypes from 'prop-types';
 
 const { BASE_URL } = process.env;
 
-const Dropdown = ({ handleZoomClick, handleDeleteClick, layerId, display, type, displayZoom }) => {
+const Dropdown = ({
+  permission,
+  handleZoomClick,
+  handleDeleteClick,
+  handleEdit,
+  layerId,
+  display,
+  type,
+  displayZoom,
+}) => {
   const [toggleRef, toggle, handleToggle] = useOutsideClick();
 
   return (
@@ -20,13 +29,21 @@ const Dropdown = ({ handleZoomClick, handleDeleteClick, layerId, display, type, 
           <i className="material-icons-outlined">more_vert</i>
         </a>
         <ul className="pm-dropdown_menu">
-          <li style={!displayZoom ? { display: 'inline' } : { display: 'none' }}>
+          {permission?.includes('change_project') && (
+            <li style={{ cursor: 'pointer' }}>
+              <a onClick={handleEdit}>
+                <i className="material-icons-outlined">edit</i>
+                <span>Edit</span>
+              </a>
+            </li>
+          )}
+          <li style={!displayZoom ? { display: 'inline', cursor: 'pointer' } : { display: 'none' }}>
             <a onClick={handleZoomClick}>
               <i className="material-icons-outlined">zoom_in</i>
               <span>Zoom to layer</span>
             </a>
           </li>
-          <li>
+          <li style={{ cursor: 'pointer' }}>
             <a href={`${BASE_URL}/maps/layer_download/?layer_id=${layerId}&output_format=kml`} download>
               <i className="material-icons-outlined">download</i>
               <span>Download</span>
@@ -38,12 +55,14 @@ const Dropdown = ({ handleZoomClick, handleDeleteClick, layerId, display, type, 
               <span>add Feature</span>
             </a>
       </li> */}
-          <li style={!display ? { display: 'inline' } : { display: 'none' }}>
-            <a onClick={handleDeleteClick}>
-              <i className="material-icons-outlined">delete</i>
-              <span>Delete</span>
-            </a>
-          </li>
+          {permission?.includes('delete_project') && (
+            <li style={!display ? { display: 'inline', cursor: 'pointer' } : { display: 'none' }}>
+              <a onClick={handleDeleteClick}>
+                <i className="material-icons-outlined">delete</i>
+                <span>Delete</span>
+              </a>
+            </li>
+          )}
         </ul>
       </div>
     </div>
@@ -53,19 +72,23 @@ const Dropdown = ({ handleZoomClick, handleDeleteClick, layerId, display, type, 
 Dropdown.propTypes = {
   handleDeleteClick: PropTypes.func,
   handleZoomClick: PropTypes.func,
+  handleEdit: PropTypes.func,
   layerId: PropTypes.any,
   display: PropTypes.bool,
   displayZoom: PropTypes.bool,
   type: PropTypes.string,
+  permission: PropTypes.array,
 };
 
 Dropdown.defaultProps = {
   handleDeleteClick: () => {},
   handleZoomClick: () => {},
+  handleEdit: () => {},
   layerId: '',
   display: false,
   displayZoom: false,
   type: '',
+  permission: [],
 };
 
 export default Dropdown;

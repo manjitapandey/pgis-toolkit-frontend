@@ -41,7 +41,11 @@ const Accordion = ({
             </button>
           </div>
         )}
-        {h4Header && <h4 className="is-grow">{h4Header}</h4>}
+        {h4Header && (
+          <h4 className="is-grow" style={{ fontWeight: 600 }}>
+            {h4Header}
+          </h4>
+        )}
         {description && <p className="mt-05">{description}</p>}
       </div>
       {!collapse && <div className="acc-list_body">{body}</div>}

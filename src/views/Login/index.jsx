@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import LoaderImage from '@Assets/images/login-cover.png';
 import LoginLogo from '@Assets/images/login-logo.png';
 import Profile from '@Assets/images/admin/profile.jpg';
-import useForm from '@Hooks/useForm';
+import useForm from '@Hooks/useForm1';
 import Spinner from '@Components/common/Spinner';
 import { loadingSelector } from '@src/selectors/loader';
 
@@ -25,6 +25,7 @@ const Login = () => {
   const loginbodyRef = useRef();
   const submitButtonRef = useRef();
   const [showPassword, setShowPassword] = useState(false);
+  const userData = useSelector((state) => state.verifyUser.userData);
 
   const isLoading = useSelector(loadingSelector([Types.LOGIN_REQUEST]));
 
@@ -32,7 +33,7 @@ const Login = () => {
     initialValues: initialState,
     required: ['username', 'password'],
     onSubmit: (data) => {
-      dispatch(loginActions.loginRequest(data));
+      dispatch(loginActions.loginRequest({ data, userData }));
     },
   });
 

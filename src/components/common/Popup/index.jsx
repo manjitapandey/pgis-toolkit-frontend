@@ -13,16 +13,19 @@ const Popup = ({
   handleCloseClick,
   isLoading,
   tagId,
+  displayClose,
 }) => (
   <div className={popup ? 'pm-modal pm-modal_show' : 'pm-modal'} id={tagId}>
     <div className={`pm-modal_cntr ${className}`}>
       <div className="pm-modal_header is-gap-15 mt-15">
         <h3 className="is-grow is-capitalize">{header}</h3>
-        <div className="is-flex is-end is-align-center">
-          <a className="pm-modal_close" onClick={handleCloseClick}>
-            <i className="material-icons-outlined">close</i>
-          </a>
-        </div>
+        {displayClose && (
+          <div className="is-flex is-end is-align-center">
+            <a className="pm-modal_close" onClick={handleCloseClick}>
+              <i className="material-icons-outlined">close</i>
+            </a>
+          </div>
+        )}
       </div>
       <div className="pm-modal_body">{body}</div>
       {buttonTitle && (
@@ -57,6 +60,7 @@ Popup.defaultProps = {
   popup: false,
   isLoading: false,
   tagId: 'create-theme',
+  displayClose: true,
 };
 
 Popup.propTypes = {
@@ -69,6 +73,7 @@ Popup.propTypes = {
   popup: PropTypes.bool,
   isLoading: PropTypes.bool,
   tagId: PropTypes.string,
+  displayClose: PropTypes.bool,
 };
 
 export default Popup;

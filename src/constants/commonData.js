@@ -108,6 +108,11 @@ export const layerPopupTabOptions = [
   // { id: '5', name: 'WMS layer' },
 ];
 
+export const projectPopupTabOptions = [
+  { id: '1', name: 'Basic Info' },
+  { id: '2', name: 'Location' },
+];
+
 export const selectOptions = ['Bagmati', 'Gandaki', 'Lumbini', 'Gandaki'];
 
 export const selectSizeOptions = [
@@ -126,6 +131,8 @@ export const vectorTileData = [
 
 export const optionTypeList = ['Individual', 'Group', 'Sub-layer'];
 
+export const optionSelectList = ['Upload Area', 'Draw Area on Map'];
+
 export const optionStyleList = ['Standard', 'Advance'];
 
 export const paginationOptions = [
@@ -140,7 +147,7 @@ export const paginationOptions = [
 export const tabOptions = [
   {
     id: 1,
-    name: 'Transport Assessment',
+    name: 'Transport Need Assessment',
     icon: 'layers',
   },
   {
@@ -153,4 +160,15 @@ export const tabOptions = [
     name: 'Participator Risk Mapping',
     icon: 'warning_amber',
   },
+];
+
+export const geomTypes = ['Point', 'Polygon', 'LineString'];
+
+export const tableHeaderData = ['Users', 'Roles'];
+
+export const checkboxData = [
+  { id: 1, name: 'Health', isSelected: false },
+  { id: 1, name: 'Education', isSelected: false },
+  { id: 1, name: 'Road', isSelected: false },
+  { id: 1, name: 'Health', isSelected: false },
 ];

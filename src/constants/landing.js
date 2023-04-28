@@ -34,26 +34,59 @@ export const cardData = [
   },
   {
     id: '5',
-    heading: '5. Run participatory data planning',
+    heading: '5. Automatic data cleaning',
     description:
       'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
   },
   {
     id: '6',
-    heading: '6. Conduct spatial analysis & map designs',
+    heading: '6. Conduct participatory data validation',
     description:
       'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
   },
+  {
+    id: '7',
+    heading: '7. Spatial analysis for transport need assessment',
+    description:
+      'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
+  },
+  {
+    id: '8',
+    heading: '8. Map design and export',
+    description:
+      'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
+  },
+  // {
+  //   id: '5',
+  //   heading: '5. Run participatory data planning',
+  //   description:
+  //     'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
+  // },
+  // {
+  //   id: '6',
+  //   heading: '6. Conduct spatial analysis & map designs',
+  //   description:
+  //     'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
+  // },
 ];
 
 export const caseboxDetail = [
   {
     id: '1',
-    heading: 'TRANSPORT ASSESSMENT',
+    heading: 'Transport Need Assessment',
     title: 'Mapping Kakamega, Kenya for Transportation Needs Assessment',
     description:
       'The first pilot of the Usafiri tool was conducted here. The learnings from this assessment drove the technical feature development of the tool.',
     date: 'Aug 2020 - Jan 2022',
+    image: case1,
+  },
+  {
+    id: '2',
+    heading: 'birendranagar ASSESSMENT',
+    title: 'Mapping Birendranagar , Surkhet  for Transportation Needs Assessment',
+    description:
+      'Local youths from birendranagar surkhet carried out a data collection exercise in rural and urban wards of BIRENDRANAGAR, SURKHET. This data was then uploaded to usafiri to conduct different basic transport need assessment and spatial analysis.',
+    date: 'Feb 2023 - Mar 2023',
     image: case1,
   },
 ];
@@ -96,5 +129,5 @@ export const getImage = (value) => {
   if (value === '6') {
     return working6;
   }
-  return () => {};
+  return working6;
 };
