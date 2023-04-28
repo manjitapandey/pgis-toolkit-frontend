@@ -36,7 +36,7 @@ const RequestForDemo = () => {
     setCheckState({ name: false, email: false });
   };
   return (
-    <section/>
+    <section />
     // <section className="usafiri-request" id="usafiri-request">
     //   <div className="container">
     //     <div className="usafiri-request-wrap">
