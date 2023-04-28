@@ -4,7 +4,7 @@ const About = () => (
   <section className="about-usafir pt-pb-100">
     <div className="container">
       <div className="section-title is-text-center mb-20">
-        <h6 className="is-uppercase clr-primary-500 fw-bold">ABOUT USAFIR</h6>
+        <h6 className="is-uppercase clr-primary-500 fw-bold">ABOUT USAFIRI</h6>
       </div>
       <div className="about-usafir_content is-text-center">
         <h2 className="fw-bold mb-20">

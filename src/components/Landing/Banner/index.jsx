@@ -1,6 +1,7 @@
 import React from 'react';
 // import homeBanner from '@Assets/images/home-banner.jpg';
-import homeBanner from '@Assets/images/homeBanner3.jpg';
+// import homeBanner from '@Assets/images/homeBanner3.jpg';
+import homeBanner from '@Assets/images/banner_new.jpg';
 
 const Banner = () => (
   <section className="home-banner ">
@@ -23,9 +24,9 @@ const Banner = () => (
                   </a>
                 </div>
               </div>
-              <a href={() => {}} className="is-circle is-circle_sm is-circle_hover scroll-down mt-30">
-                <i className="material-icons-outlined">expand_more</i>
-              </a>
+               {/* <a href={() => {}} className="is-circle is-circle_sm is-circle_hover scroll-down mt-30"> */}
+                 {/* <i className="material-icons-outlined">expand_more</i> */}
+               {/* </a> */}
             </div>
             <div className="grid-lg-6 grid-sm-12">
               <figure className="home-banner_figure" style={{ minHeight: '568px' }}>

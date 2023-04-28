@@ -64,12 +64,12 @@ const BannerHeader = () => {
             </ul>
           </nav>
           <div className="is-flex is-end is-align-center is-gap-10">
-            <Link to="/organizations" className="is-btn is-btn_secondary">
+            <a href="https://app.usafiri.io/" target="_blank" className="is-btn is-btn_secondary">
               <span>Sign in</span>
-            </Link>
-            <a className="is-btn is-btn_primary scroll-down" href="#usafiri-request">
-              <span>Request for demo</span>
             </a>
+            {/* <a className="is-btn is-btn_primary scroll-down" href="#usafiri-request">
+              <span>Request for demo</span>
+            </a> */}
             <div className="toggle-btn material-icons-outlined" onClick={handleMenu}>
               menu
             </div>
