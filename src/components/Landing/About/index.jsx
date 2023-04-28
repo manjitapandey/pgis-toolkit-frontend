@@ -8,12 +8,12 @@ const About = () => (
       </div>
       <div className="about-usafir_content is-text-center">
         <h2 className="fw-bold mb-20">
-          Usafiri is an Open-source, participatory mapping toolkit aimed at rural communities.
+          Usafiri is an open-source, participatory mapping toolkit aimed at rural communities.
         </h2>
         <p className="fs-xlg">
           It is built on a partnership between the Ecole Polytechnique Fédérale de Lausanne (EPFL, Switzerland), World
           Bicycle Relief (WBR), and Nepal Flying Labs (NFL), funded by the Swiss Agency for Development and Cooperation
-          (SDC). Usafiri is an Open-source, participatory mapping toolkit aimed at rural communities. Aims to identify
+          (SDC). Usafiri is an open-source, participatory mapping toolkit aimed at rural communities. Aims to identify
           transportation needs and barriers in marginalized areas. The datasets prepared through this toolkit will be
           synchronized to OpenStreetMap for wider dissemination. This project tackles a significant barrier
           (tech-literacy) to the implementation of participatory geographic information systems.

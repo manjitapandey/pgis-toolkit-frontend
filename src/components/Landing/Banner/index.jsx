@@ -13,14 +13,14 @@ const Banner = () => (
         <div className="container">
           <div className="row is-center" style={{ marginTop: '3rem' }}>
             <div className="grid-lg-6 grid-sm-12 is-column is-flex is-center is-align-center">
-              <div className="home-banner_content is-text-center pd-15 mb-30">
+              <div className="home-banner_content pd-15 mb-30">
                 <div className="">
                   <h1 className="mb-30">A Participatory Mapping Toolkit to aid Evidence-based decision-making</h1>
                   <h4>Piloting the tool for Transport Mobility Assessment in low-income countries.</h4>
                 </div>
-                <div className="mt-30 pt-15 is-flex is-center">
+                <div className="mt-30 pt-15 is-flex">
                   <a className="is-btn is-btn_primary scroll-down" href="#usafiri-request">
-                    <span>Request for demo</span>
+                    <span>Download Brochure</span>
                   </a>
                 </div>
               </div>
