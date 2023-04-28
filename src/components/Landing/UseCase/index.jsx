@@ -4,7 +4,8 @@ import { caseboxDetail } from '@src/constants/landing';
 import { tabOptions } from '@src/constants/commonData';
 
 const UseCase = () => {
-  const [tab, setTab] = useState('Transport Assessment');
+  const [tab, setTab] = useState('Transport Need Assessment');
+
   return (
     <section className="usafiri-cases pt-pb-100 is-bg ">
       <div className="container">

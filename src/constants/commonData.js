@@ -147,7 +147,7 @@ export const paginationOptions = [
 export const tabOptions = [
   {
     id: 1,
-    name: 'Transport Assessment',
+    name: 'Transport Need Assessment',
     icon: 'layers',
   },
   {

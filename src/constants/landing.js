@@ -49,11 +49,20 @@ export const cardData = [
 export const caseboxDetail = [
   {
     id: '1',
-    heading: 'TRANSPORT ASSESSMENT',
+    heading: 'Transport Need Assessment',
     title: 'Mapping Kakamega, Kenya for Transportation Needs Assessment',
     description:
       'The first pilot of the Usafiri tool was conducted here. The learnings from this assessment drove the technical feature development of the tool.',
     date: 'Aug 2020 - Jan 2022',
+    image: case1,
+  },
+  {
+    id: '2',
+    heading: 'birendranagar ASSESSMENT',
+    title: 'Mapping Birendranagar , Surkhet  for Transportation Needs Assessment',
+    description:
+      'Local youths from birendranagar surkhet carried out a data collection exercise in rural and urban wards of BIRENDRANAGAR, SURKHET. This data was then uploaded to usafiri to conduct different basic transport need assessment and spatial analysis',
+    date: 'Feb 2023 - Mar 2023',
     image: case1,
   },
 ];
