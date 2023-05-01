@@ -61,7 +61,7 @@ export const caseboxDetail = [
   },
   {
     id: '2',
-    heading: 'birendranagar ASSESSMENT',
+    heading: 'Transport Need Assessment',
     title: 'Mapping Birendranagar , Surkhet  for Transportation Needs Assessment',
     description:
       'Local youths from birendranagar surkhet carried out a data collection exercise in rural and urban wards of BIRENDRANAGAR, SURKHET. This data was then uploaded to usafiri to conduct different basic transport need assessment and spatial analysis.',
