@@ -47,148 +47,144 @@
   margin-bottom: 1rem;
 }
 
-.document-date{
+.document-date {
   margin-top: 5px;
-  time{
-    &::after{
-      content:'';
-      width:6px;
+  time {
+    &::after {
+      content: '';
+      width: 6px;
       height: 6px;
       border-radius: 100%;
       background-color: var(--clr-body-900);
       display: inline-flex;
-      margin:0 .5rem;
+      margin: 0 0.5rem;
     }
   }
 }
 
-
-.home-banner{
-  
-  padding-top:2rem;
-  .container-fluid{
-    padding:0 1rem;
-    @include breakpoint-up('md-tab'){
-      padding:0  2rem ;
+.home-banner {
+  padding-top: 2rem;
+  .container-fluid {
+    padding: 0 1rem;
+    @include breakpoint-up('md-tab') {
+      padding: 0 2rem;
     }
   }
-  &_content{
+  &_content {
     height: 100%;
   }
-  &_wrap{
-    background: linear-gradient(180deg, #FF5A5F 0%, #A41D55 100%) 0% 0% ;
-    padding-bottom:48px;
-    color:var(--clr-white-900);
+  &_wrap {
+    background: linear-gradient(180deg, #ff5a5f 0%, #a41d55 100%) 0% 0%;
+    padding-bottom: 48px;
+    color: var(--clr-white-900);
     border-radius: 12px;
     .is-btn {
-      &_primary{
+      &_primary {
         background-color: var(--clr-white-900);
-        color:var(--clr-primary-500);
-        &:hover{
+        color: var(--clr-primary-500);
+        &:hover {
           background-color: var(--clr-primary-50);
         }
       }
     }
   }
-  &_figure{
+  &_figure {
     max-width: 560px;
-    margin:0 auto;
+    margin: 0 auto;
     position: relative;
     border-radius: 20px;
     min-height: 600px;
     overflow: hidden;
-    img{
+    img {
       width: 100%;
       object-fit: cover;
       border-radius: 20px;
     }
-    
   }
-  
-  .scroll-down{
-   &.is-circle_hover{
-     color:var(--clr-white-900);
-     &:hover{
-       background-color: var(--clr-primary-500);
-     }
-   }
+
+  .scroll-down {
+    &.is-circle_hover {
+      color: var(--clr-white-900);
+      &:hover {
+        background-color: var(--clr-primary-500);
+      }
+    }
   }
-  &_case{
-    .home-banner_wrap{
+  &_case {
+    .home-banner_wrap {
       min-height: unset !important;
     }
-    .home-banner_figure{
+    .home-banner_figure {
       max-width: 100%;
       min-height: 350px;
       max-height: 350px;
     }
   }
 }
-.about-usafir{
-  &_content{
+.about-usafir {
+  &_content {
     max-width: 800px;
-    margin:0 auto;
-    p{
+    margin: 0 auto;
+    p {
       // font-size: var(--fs-lg);
       // changed scss
       font-size: var(--fs-xlg);
 
-      &:not(:last-child){
+      &:not(:last-child) {
         margin-bottom: 1rem;
       }
     }
   }
 }
-.usafir-works{
-  .tab-list{
-    li{
+.usafir-works {
+  .tab-list {
+    li {
       border-radius: 12px;
       background-color: var(--clr-white-900);
       cursor: pointer;
 
-      .tab-body{
+      .tab-body {
         display: none;
       }
-      &.is-active{
-        border-color:var(--clr-body-600);
-        .tab-body{
+      &.is-active {
+        border-color: var(--clr-body-600);
+        .tab-body {
           display: block;
         }
       }
-      &:hover{
-        border-color:var(--clr-body-500);
-        border-color:var(--clr-body-600);
+      &:hover {
+        border-color: var(--clr-body-500);
+        border-color: var(--clr-body-600);
       }
-      &:not(:last-child){
-        margin-bottom: .5rem;
+      &:not(:last-child) {
+        margin-bottom: 0.5rem;
       }
     }
   }
-  .pl-30{
-    padding-left:0;
-    @include breakpoint-up('lg-tab'){
-      &:not(:last-child){
+  .pl-30 {
+    padding-left: 0;
+    @include breakpoint-up('lg-tab') {
+      &:not(:last-child) {
         padding-left: 3rem;
       }
     }
   }
-  &_figure{
-    box-shadow: -30px 5px 40px #0000001F;
+  &_figure {
+    box-shadow: -30px 5px 40px #0000001f;
     position: relative;
     border-radius: 20px;
     min-height: 400px;
-    
-    img{
+
+    img {
       border-radius: 20px;
       width: 100%;
       object-fit: cover;
-      
     }
     @supports not (aspect-ratio: 1) {
-        position: relative;
-        height: 0;
-        padding-bottom: 100%;
-       img {
+      position: relative;
+      height: 0;
+      padding-bottom: 100%;
+      img {
         position: absolute;
         height: 100%;
       }
@@ -196,70 +192,68 @@
   }
 }
 
-.usafir-features{
-  .grid-sm-12{
+.usafir-features {
+  .grid-sm-12 {
     margin-bottom: 3rem;
-    @include breakpoint-up('md-tab'){
-      &:not(:last-child){
+    @include breakpoint-up('md-tab') {
+      &:not(:last-child) {
         margin-bottom: 3rem;
       }
     }
   }
 }
-.featuresBox{
-  .featuresBox-icon{
-    img{
+.featuresBox {
+  .featuresBox-icon {
+    img {
       max-width: 80px;
       max-height: 80px;
     }
   }
 }
-.case-slider{
-  
-  .casebox-wrapper{
-    padding:.5rem;
+.case-slider {
+  .casebox-wrapper {
+    padding: 0.5rem;
   }
 }
-.cases-tab{
-  ul{
-    li{
-      opacity: .5;
-      a{
-        padding:1rem;
+.cases-tab {
+  ul {
+    li {
+      opacity: 0.5;
+      a {
+        padding: 1rem;
         border-radius: 8px;
-        color:var(--clr-body-600);
+        color: var(--clr-body-600);
       }
-      &.is-active{
+      &.is-active {
         opacity: 1;
-        a{
+        a {
           background-color: var(--clr-white-900);
-          color:var(--clr-body-900);
+          color: var(--clr-body-900);
         }
       }
-      &:hover{
+      &:hover {
         opacity: 1;
-        a{
-          
-          color:var(--clr-body-900);
+        a {
+          color: var(--clr-body-900);
         }
       }
     }
-    &.is-grey-tab{
-      li{
-        &.is-active{
-          a{
+    &.is-grey-tab {
+      li {
+        &.is-active {
+          a {
             background-color: var(--clr-body-200);
           }
         }
       }
     }
   }
-  .casebox-item{
-    &_image{
+  .casebox-item {
+    &_image {
       position: relative;
       border-radius: 8px;
       min-height: 150px;
-      img{
+      img {
         position: absolute;
         top: 0px;
         left: 0px;
@@ -273,85 +267,96 @@
   }
 }
 
-.usafiri-faqs{
-  .acc{
-    &-border{
-      .acc-list{
-        &_header{
-          padding:1rem;
-          &::after{
-            top:15px;
+.usafiri-faqs {
+  .acc {
+    &-border {
+      .acc-list {
+        &_header {
+          padding: 1rem;
+          &::after {
+            top: 15px;
           }
         }
-        &_body{
-          padding:0 1rem 1.25rem 1rem;
+        &_body {
+          padding: 0 1rem 1.25rem 1rem;
         }
       }
     }
   }
 }
 
-.usafiri-request{
-  .usafiri-request-wrap{
+.usafiri-request {
+  .usafiri-request-wrap {
     position: relative;
-    &::after{
-      content:'';
+    &::after {
+      content: '';
       position: absolute;
-      top:0;
-      right:0;
-      left:0;
-      bottom:0;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
       z-index: 1;
       background-color: var(--clr-body-100);
       border-radius: 20px;
     }
-    .usafiri-request-content{
+    .usafiri-request-content {
       position: relative;
       z-index: 2;
-      .pm-group{
-        input{
-          &.pm-control{
+      .pm-group {
+        input {
+          &.pm-control {
             background-color: var(--clr-white-900);
           }
         }
       }
     }
-    .request-image{
+    .request-image {
       border-radius: 20px 0 0 20px;
-      img{
+      img {
         border-radius: 20px 0 0 20px;
       }
     }
   }
 }
 
-.storybox{
+.storybox {
   background-color: var(--clr-white-900);
   @include radius(8px);
-  padding:1.25rem;
-  border:1px solid var(--clr-white-900);
+  padding: 1.25rem;
+  border: 1px solid var(--clr-white-900);
   cursor: pointer;
-  &:hover,&-active{
+  &:hover,
+  &-active {
     border-color: var(--clr-secondary-500);
   }
 }
-.sm-container{
+.sm-container {
   max-width: 992px;
-  margin:0 auto;
+  margin: 0 auto;
 }
-.awardbox{
+.awardbox {
   background-color: var(--clr-primary-100);
   @include radius(8px);
-  padding:1.25rem;
-  .awardbox-content{
+  padding: 1.25rem;
+  .awardbox-content {
     padding-right: 2rem;
   }
-  .awardbox-figure{
+  .awardbox-figure {
     max-width: 100px;
   }
 }
-.partnerBox-logos{
-  img{
+.partnerBox-logos {
+  img {
     max-height: 50px;
+  }
+}
+
+.casebox-item_body {
+  p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
