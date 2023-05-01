@@ -2,7 +2,9 @@
 import React, { useState } from 'react';
 import Slider from 'react-slick';
 import { useLocation, Link } from 'react-router-dom';
-import logoWhite from '@Assets/images/logo-white.svg';
+// import logoWhite from '@Assets/images/logo-white.svg';
+import logoWhite from '@Assets/images/usafiri-beta-white-logo.svg';
+import logoDark from '@Assets/images/usafiri-beta-logo.svg';
 
 const BannerHeader = () => {
   const { pathname } = useLocation();
@@ -44,7 +46,7 @@ const BannerHeader = () => {
       <div className="container">
         <div className="is-flex is-between is-align-center is-wrap is-gap-15 dbd-header-in">
           <Link to="/" className="logo">
-            <img src={logoWhite} alt="logo" />
+            <img src={header ? logoDark : logoWhite} alt="logo" />
           </Link>
           <nav className="nav is-grow">
             <div className="toggle-btn material-icons-outlined" onClick={handleClose}>

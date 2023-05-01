@@ -109,7 +109,7 @@ module.exports = (env = {}) => {
           template: 'public/index.html',
           filename: 'index.html',
           inject: true,
-          favicon: './src/assets/image/favicon.jpg',
+          favicon: './src/assets/image/favicon.png',
           minify: {
             collapseWhitespace: true,
             collapseInlineTagWhitespace: true,
