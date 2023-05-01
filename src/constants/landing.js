@@ -3,71 +3,50 @@ import case1 from '@Assets/images/case-1.jpg';
 import working1 from '@Assets/images/working1.png';
 import working2 from '@Assets/images/working2.png';
 import working3 from '@Assets/images/working3.jpeg';
-import working4 from '@Assets/images/working4.jpeg';
-import working5 from '@Assets/images/working5.jpeg';
-import working6 from '@Assets/images/working6.jpeg';
+import working4 from '@Assets/images/working4.png';
+import working5 from '@Assets/images/working5.png';
+import working6 from '@Assets/images/working6.png';
+import working7 from '@Assets/images/working7.png';
 
 export const cardData = [
   {
     id: '1',
     heading: '1. Multi-source data import',
     description:
-      'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
+      'Allows importation of spatial data layers from multiple external sources such as OSM import and WMS layer import.',
   },
   {
     id: '2',
     heading: '2. Conduct data gap analysis',
-    description:
-      'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
+    description: 'Supports data gap identification based on participatory approach and remote mapping.',
   },
   {
     id: '3',
     heading: '3. Do data collection planning',
-    description:
-      'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
+    description: 'Provides standard USAFIRI data template for field data collection and mapping exercise.',
   },
   {
     id: '4',
     heading: '4. Upload collected data into USAFIRI',
-    description:
-      'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
+    description: 'Supports multiple spatial data uploads into USAFIRI to visualize the data collection.',
   },
   {
     id: '5',
     heading: '5. Automatic data cleaning',
     description:
-      'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
+      'Facilitates data validation module to identify the geometry errors and supports automatic data cleaning.',
   },
   {
     id: '6',
-    heading: '6. Conduct participatory data validation',
+    heading: '6. Spatial analysis for transport need assessment',
     description:
-      'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
+      'Supports spatial analysis operations such as proximity analysis, optimal route analysis, buffer analysis using available datasets.',
   },
   {
     id: '7',
-    heading: '7. Spatial analysis for transport need assessment',
-    description:
-      'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
+    heading: '7. Map design and export',
+    description: 'Publish a customized map based on standard USAFIRI map layout and existing data layers.',
   },
-  {
-    id: '8',
-    heading: '8. Map design and export',
-    description:
-      'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
-  },
-  // {
-  //   id: '5',
-  //   heading: '5. Run participatory data planning',
-  //   description:
-  //     'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
-  // },
-  // {
-  //   id: '6',
-  //   heading: '6. Conduct spatial analysis & map designs',
-  //   description:
-  //     'We offer a range of participatory mapping services to voluntary and community groups, business organisations and government bodies.',
-  // },
 ];
 
 export const caseboxDetail = [
@@ -128,6 +107,9 @@ export const getImage = (value) => {
   }
   if (value === '6') {
     return working6;
+  }
+  if (value === '7') {
+    return working7;
   }
   return working6;
 };
