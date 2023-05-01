@@ -1,5 +1,5 @@
 import React from 'react';
-import image from '@Assets/images/home-banner.jpg';
+import image from '@Assets/images/use-cases.jpg';
 
 const Banner = () => (
   <section className="home-banner home-banner_case">
