@@ -9,7 +9,9 @@ const CaseboxWrapper = ({ heading, title, image, date, description }) => (
       </figure>
       <div className="casebox-item_header mt-15">
         <p className="fw-bold is-uppercase fs-md">{heading}</p>
-        <h4 className="mb-12 mt-05">{title}</h4>
+        <h4 className="mb-12 mt-05" style={{ fontWeight: 600 }}>
+          {title}
+        </h4>
         <date className="fs-md">{date}</date>
       </div>
       <div className="casebox-item_body mt-15 fs-lg">
