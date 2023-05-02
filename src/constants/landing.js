@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-import case1 from '@Assets/images/case-1.jpg';
+import case1 from '@Assets/images/use-cases.jpg';
+import case2 from '@Assets/images/birendranagar-case.jpg';
 import working1 from '@Assets/images/working1.png';
 import working2 from '@Assets/images/working2.png';
 import working3 from '@Assets/images/working3.jpeg';
@@ -66,7 +67,7 @@ export const caseboxDetail = [
     description:
       'Local youths from birendranagar surkhet carried out a data collection exercise in rural and urban wards of BIRENDRANAGAR, SURKHET. This data was then uploaded to usafiri to conduct different basic transport need assessment and spatial analysis.',
     date: 'Feb 2023 - Mar 2023',
-    image: case1,
+    image: case2,
   },
 ];
 
