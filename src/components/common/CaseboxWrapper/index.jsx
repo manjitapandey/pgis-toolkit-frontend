@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const textLimit = 120;
+const textLimit = 112;
 
 const CaseboxWrapper = ({ heading, title, image, date, description }) => {
   const [hideText, setHideText] = useState(false);
