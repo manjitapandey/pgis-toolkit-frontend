@@ -17,7 +17,11 @@ const Banner = () => (
               <div className="home-banner_content pd-15 mb-30">
                 <div className="">
                   <h1 className="mb-30">A Participatory Mapping Toolkit to aid Evidence-based decision-making</h1>
-                  <h4>Piloting the tool for Transport Mobility Assessment in low-income countries.</h4>
+                  {/* <h4>Piloting the tool for Transport Mobility Assessment in low-income countries.</h4> */}
+                  <h4>
+                    Creating an open-source, participatory GIS mapping toolkit for last mile communities to engage in
+                    the identification of transportation needs and barriers in their regions.
+                  </h4>
                 </div>
                 <div className="mt-30 pt-15 is-flex">
                   <a className="is-btn is-btn_primary scroll-down" href={brochurePDF} target="_blank" rel="noreferrer">
