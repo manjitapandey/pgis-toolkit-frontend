@@ -43,7 +43,7 @@ jobs:
             DASHBOARD_API_URL=https://pgis.naxa.com.np/api/v2
             LOGIN_API_URL=https://pgis.naxa.com.np/api
             BIPAD_API_URL=https://bipadportal.gov.np/api/v1
-            TOKEN=2a739503c612aa5862cd481974e2dcad3e5d288c
+            TOKEN=${{ secrets.ENV_SECRET }}
           EOF
               ;;
             refs/heads/master)
