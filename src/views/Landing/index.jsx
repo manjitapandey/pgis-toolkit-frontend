@@ -1,8 +1,8 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import RequestForDemo from '@Components/Landing/RequestForDemo/index';
 import Slider from 'react-slick';
+import RequestForDemo from '@Components/Landing/RequestForDemo/index';
 import Banner from '@Components/Landing/Banner/index';
 import About from '@Components/Landing/About/index';
 import WorkingUsafiri from '@Components/Landing/WokingUsafiri/index';

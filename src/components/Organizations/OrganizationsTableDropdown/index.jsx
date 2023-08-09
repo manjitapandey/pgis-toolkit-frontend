@@ -1,6 +1,6 @@
 import React from 'react';
-import useOutsideClick from '@Hooks/useOutsideClick';
 import PropTypes from 'prop-types';
+import useOutsideClick from '@Hooks/useOutsideClick';
 
 const TableDropdown = ({ data, handleDelete, handleEdit, handleAssign, deleteData, editData, assignData }) => {
   const [toggleRef, toggle, handleToggle] = useOutsideClick();

@@ -3,10 +3,10 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Popup from '@Components/common/Popup/index';
 import { Creators } from '@Actions/individualOrganization';
 import toastAction from '@Actions/toast';
-import { useDispatch, useSelector } from 'react-redux';
 import Input from '@Components/common/Input/index';
 import ListData from '@Components/Organizations/ListData/index';
 

@@ -4,9 +4,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import loginActions, { Types } from '@Actions/login';
 import Loader from '@Components/common/Loader';
-import { useDispatch, useSelector } from 'react-redux';
 import LoaderImage from '@Assets/images/login-cover.png';
 import LoginLogo from '@Assets/images/login-logo.png';
 import Profile from '@Assets/images/admin/profile.jpg';

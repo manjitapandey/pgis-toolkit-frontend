@@ -1,8 +1,8 @@
 /* eslint-disable  no-undef */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import Popup from '@Components/common/Popup/index';
 import { useDispatch, useSelector } from 'react-redux';
+import Popup from '@Components/common/Popup/index';
 import { Creators } from '@Actions/individualProject';
 import toastAction from '@Actions/toast';
 import { layerPopupTabOptions } from '@src/constants/commonData';

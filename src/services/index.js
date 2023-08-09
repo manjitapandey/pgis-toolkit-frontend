@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
-import getCookie from '@Utils/cookieUtils';
 import axios from 'axios';
+import getCookie from '@Utils/cookieUtils';
 
 const { BASE_URL } = process.env;
 export const api = axios.create({
