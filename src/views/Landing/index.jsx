@@ -12,6 +12,8 @@ import Partners from '@Components/Landing/Partners/index';
 import FAQs from '@Components/Landing/FAQs/index';
 import BannerHeader from '@Components/common/BannerHeader/index';
 import Footer from '@Components/common/Footer/index';
+import SpatialAnalysis from '@Components/Landing/SpatialAnalysis/index';
+import GetInTouch from '@Components/Landing/GetInTouch/index';
 
 const settings = { slidesToShow: 1, infinite: true, arrows: true, className: 'modal-slick' };
 
@@ -24,6 +26,7 @@ const Landing = () => (
       <About />
       <WorkingUsafiri />
       <Features />
+      <SpatialAnalysis />
       <UseCase />
       <Partners />
       <div className="border">
@@ -32,7 +35,8 @@ const Landing = () => (
         </div>
       </div>
       <FAQs />
-      <RequestForDemo />
+      <GetInTouch />
+      {/* <RequestForDemo /> */}
     </main>
 
     <Footer />
