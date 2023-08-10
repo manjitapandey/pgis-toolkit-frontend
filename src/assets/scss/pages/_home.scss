@@ -442,6 +442,28 @@
   }
 }
 
+.landing-main-container {
+  position: relative;
+  .landing-up-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #000000;
+    opacity: 50%;
+    color: white;
+    width: fit-contentrgb(121, 121, 121);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
+  }
+}
+
 // .casebox-item_body {
 //   p {
 //     display: -webkit-box;

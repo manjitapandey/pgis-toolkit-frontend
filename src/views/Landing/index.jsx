@@ -17,30 +17,58 @@ import GetInTouch from '@Components/Landing/GetInTouch/index';
 
 const settings = { slidesToShow: 1, infinite: true, arrows: true, className: 'modal-slick' };
 
-const Landing = () => (
-  <>
-    <BannerHeader />
-    {/* MAIN BODY STARTS HERE */}
-    <main className="">
-      <Banner />
-      <About />
-      <WorkingUsafiri />
-      <Features />
-      <SpatialAnalysis />
-      <UseCase />
-      <Partners />
-      <div className="border">
-        <div className="container">
-          <div className="is-border" />
-        </div>
-      </div>
-      <FAQs />
-      <GetInTouch />
-      {/* <RequestForDemo /> */}
-    </main>
+const Landing = () => {
+  const [showUpBtn, setShowUpBtn] = useState(false);
 
-    <Footer />
-  </>
-);
+  const showUpBtnStatus = () => {
+    if (window.scrollY >= 650) {
+      setShowUpBtn(true);
+    } else {
+      setShowUpBtn(false);
+    }
+  };
+
+  window.addEventListener('scroll', showUpBtnStatus);
+
+  return (
+    <div className="landing-main-container">
+      <BannerHeader />
+      {/* MAIN BODY STARTS HERE */}
+      <main className="">
+        <Banner />
+        <About />
+        <WorkingUsafiri />
+        <Features />
+        <SpatialAnalysis />
+        <UseCase />
+        <Partners />
+        <div className="border">
+          <div className="container">
+            <div className="is-border" />
+          </div>
+        </div>
+        <FAQs />
+        <GetInTouch />
+        {/* <RequestForDemo /> */}
+        {showUpBtn && (
+          <div className="landing-up-btn">
+            <a
+              className=""
+              onClick={() => {
+                document.querySelector('#landing-header').scrollIntoView({
+                  behavior: 'smooth',
+                });
+              }}
+            >
+              <i className="material-icons">north</i>
+            </a>
+          </div>
+        )}
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
 
 export default Landing;

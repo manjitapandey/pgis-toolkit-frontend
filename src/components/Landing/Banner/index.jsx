@@ -5,7 +5,7 @@ import homeBanner from '@Assets/images/banner_new.jpg';
 import brochurePDF from '@Assets/documents/usafiri-brochure.pdf';
 
 const Banner = () => (
-  <section className="home-banner ">
+  <section className="home-banner " id="landing-header">
     <div className="container-fluid">
       <div
         className="home-banner_wrap is-flex is-center is-align-center"

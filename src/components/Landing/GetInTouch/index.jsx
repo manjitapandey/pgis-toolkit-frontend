@@ -58,7 +58,7 @@ const GetInTouch = () => {
               />
               <Input
                 label="Phone"
-                type="number"
+                type="text"
                 name="phone"
                 placeholder="Enter your Phone"
                 value={values.phone}
