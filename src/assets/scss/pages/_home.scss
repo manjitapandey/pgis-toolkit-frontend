@@ -69,13 +69,27 @@
     @include breakpoint-up('md-tab') {
       padding: 0 2rem;
     }
+    .intro-text {
+      font-size: 26px;
+      line-height: 32px;
+    }
+    .intro-image {
+      display: flex;
+      justify-content: end;
+      .home-banner_figure {
+        margin: 0px;
+        @media screen and (max-width: 1024px) {
+          margin: auto;
+        }
+      }
+    }
   }
   &_content {
     height: 100%;
   }
   &_wrap {
     background: linear-gradient(180deg, #ff5a5f 0%, #a41d55 100%) 0% 0%;
-    padding-bottom: 48px;
+    // padding-bottom: 48px;
     color: var(--clr-white-900);
     border-radius: 12px;
     .is-btn {
@@ -89,11 +103,11 @@
     }
   }
   &_figure {
-    max-width: 560px;
+    max-width: 470px;
     margin: 0 auto;
     position: relative;
     border-radius: 20px;
-    min-height: 600px;
+    // min-height: 600px;
     overflow: hidden;
     img {
       width: 100%;
