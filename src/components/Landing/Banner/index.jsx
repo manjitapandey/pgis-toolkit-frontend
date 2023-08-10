@@ -12,9 +12,9 @@ const Banner = () => (
         style={{ paddingTop: '103.188px', minHeight: '585px', paddingBottom: '130px' }}
       >
         <div className="container">
-          <div className="row is-center" style={{ marginTop: '3rem' }}>
-            <div className="grid-lg-6 grid-sm-12 is-column is-flex is-center is-align-center">
-              <div className="home-banner_content pd-15 ">
+          <div className="row" style={{ marginTop: '3rem' }}>
+            <div className="grid-lg-5 grid-sm-12 is-column is-flex is-center is-align-center">
+              <div className="home-banner_content pd-15">
                 <div className="">
                   {/* <h1 className="mb-30">A Participatory Mapping Toolkit to aid Evidence-based decision-making</h1> */}
                   {/* <h4>Piloting the tool for Transport Mobility Assessment in low-income countries.</h4> */}
@@ -37,7 +37,7 @@ const Banner = () => (
               {/* <i className="material-icons-outlined">expand_more</i> */}
               {/* </a> */}
             </div>
-            <div className="grid-lg-6 grid-sm-12 intro-image">
+            <div className="grid-lg-7 grid-sm-12 intro-image">
               <figure className="home-banner_figure">
                 <img src={homeBanner} alt="" />
               </figure>
