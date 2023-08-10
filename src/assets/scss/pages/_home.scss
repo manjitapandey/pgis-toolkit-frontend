@@ -248,6 +248,41 @@
   }
 }
 
+.usafiri-get-in-touch {
+  .container {
+    display: flex;
+    justify-content: space-between;
+    @media screen and (max-width: 1024px) { 
+      flex-direction: column;
+    }
+    .form-container {
+      width: 50%;
+      @media screen and (max-width: 1024px) { 
+        width: 100%;
+      }
+      .form-fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 2rem;
+      }
+    }
+    .image-container {
+      .image {
+        width: 425px;
+        @media screen and (max-width: 1024px) { 
+          width: 70%;
+          max-width: 425px;
+        }
+      } 
+      @media screen and (max-width: 1024px) { 
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+      }
+    }
+  }
+}
+
 .usafir-features {
   .grid-sm-12 {
     margin-bottom: 3rem;

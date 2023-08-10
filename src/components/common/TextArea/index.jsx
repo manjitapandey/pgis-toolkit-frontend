@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextArea = ({ value, onChange, label, placeholder, name, type, className, readOnly, id }) => (
+const TextArea = ({ value, onChange, label, placeholder, name, type, className, readOnly, id, errorMessage }) => (
   <div className="pm-group">
     <label>{label}</label>
     <textarea
@@ -15,6 +15,7 @@ const TextArea = ({ value, onChange, label, placeholder, name, type, className, 
       readOnly={readOnly}
       id={id}
     />
+    {errorMessage && <span className="is-error">{errorMessage}</span>}
   </div>
 );
 
@@ -28,6 +29,7 @@ TextArea.defaultProps = {
   type: 'textarea',
   readOnly: false,
   id: '',
+  errorMessage: '',
 };
 
 TextArea.propTypes = {
@@ -40,6 +42,7 @@ TextArea.propTypes = {
   type: PropTypes.string,
   readOnly: PropTypes.bool,
   id: PropTypes.string,
+  errorMessage: PropTypes.string,
 };
 
 export default TextArea;
