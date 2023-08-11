@@ -84,6 +84,20 @@
         }
       }
     }
+    .download-btn {
+      color: white;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .about-btn {
+      background-color: transparent;
+      border: 1px solid white;
+      color: white;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
   &_content {
     height: 100%;
