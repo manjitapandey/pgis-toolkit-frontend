@@ -77,10 +77,8 @@ const BannerHeader = () => {
                 });
               }}
             >
-              <i className="material-icons-outlined" style={{ color: 'white', textDecoration: 'none' }}>
-                message
-              </i>
-              <p className="request-btn fw-700">Request Access</p>
+              <i className={`material-icons-outlined ${header ? 'has-header-icon' : 'header-icon'}`}>message</i>
+              <p className={`${header ? 'request-btn-header' : 'request-btn'} fw-700`}>Request Access</p>
             </a>
 
             <a href="https://app.usafiri.io/" target="_blank" className="is-btn is-btn_secondary" rel="noreferrer">

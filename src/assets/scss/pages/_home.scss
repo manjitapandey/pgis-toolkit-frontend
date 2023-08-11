@@ -69,6 +69,18 @@
       text-decoration: underline;
     }
   }
+  .header-icon {
+    color: white;
+  }
+  .has-header-icon{
+    color: #484848;
+  }
+  .request-btn-header{
+    color: #484848;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .home-banner {
@@ -113,7 +125,7 @@
   }
   &_wrap {
     background: linear-gradient(180deg, #ff5a5f 0%, #a41d55 100%) 0% 0%;
-    // padding-bottom: 48px;
+    padding-bottom: 48px;
     color: var(--clr-white-900);
     border-radius: 12px;
     .is-btn {
