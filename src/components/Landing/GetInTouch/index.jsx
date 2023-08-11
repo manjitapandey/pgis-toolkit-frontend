@@ -66,10 +66,10 @@ const GetInTouch = () => {
                 errorMessage={errors?.phone}
               />
               <Input
-                label="Organization"
+                label="Organisation"
                 type="text"
                 name="organization"
-                placeholder="Enter your Organization"
+                placeholder="Enter your Organisation"
                 value={values.organization}
                 onChange={handleChange}
                 errorMessage={errors?.organization}
