@@ -128,7 +128,7 @@ textarea {
 
     @include input-placeholder {
       color: var(--clr-body-500);
-      text-transform: capitalize;
+      text-transform: none;
     }
 
     &_valid {

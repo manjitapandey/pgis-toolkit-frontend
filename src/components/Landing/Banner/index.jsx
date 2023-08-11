@@ -22,17 +22,17 @@ const Banner = () => {
                   <div className="">
                     {/* <h1 className="mb-30">A Participatory Mapping Toolkit to aid Evidence-based decision-making</h1> */}
                     {/* <h4>Piloting the tool for Transport Mobility Assessment in low-income countries.</h4> */}
-                    {/* <h4>
-                    Creating an open-source, participatory GIS mapping toolkit for last mile communities to engage in
-                    the identification of transportation needs and barriers in their regions.
-                  </h4> */}
-                    <h3 className="intro-text mb-3">
+                    <h4 className="intro-text mb-3">
+                      Creating an open-source, participatory GIS mapping tool for last mile communities to engage in the
+                      identification of transportation needs and barriers in their regions.
+                    </h4>
+                    {/* <h3 className="intro-text mb-3">
                       USAFIRI is a web-based participatory mapping tool developed and coded by a multidisciplinary team
                       consisting of academic institutions, technology service providers, and transportation
                       practitioners.
-                    </h3>
+                    </h3> */}
                     <h5>
-                      <i>USAFIRI:</i> Store, Map and Analyse mobility related spatial datasets with communities.
+                      <i>USAFIRI: Store, Map and Analyse mobility related spatial datasets with communities.</i>
                     </h5>
                   </div>
                   <div className="mt-30 pt-15 is-flex is-gap-15">

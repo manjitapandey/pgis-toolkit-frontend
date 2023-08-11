@@ -1,4 +1,7 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-disable import/prefer-default-export */
+import React from 'react';
 import case1 from '@Assets/images/use-cases.jpg';
 import case2 from '@Assets/images/birendranagar-case.jpg';
 import working1 from '@Assets/images/working1.png';
@@ -87,6 +90,23 @@ export const accordionDetails = [
     id: '3',
     h4Header: 'Does Usafiri share data among organizations?',
     description: 'No, the data collected by your organization is strictly yours and is not shared with anyone.',
+  },
+  {
+    id: '4',
+    h4Header: 'Can we download standard data templates?',
+    description: (
+      <span>
+        Yes, we can. Please check in the following links to download them in{' '}
+        <a className="csv-link" style={{ color: '#4649EF' }} target="_blank" rel="noreferrer" type="button">
+          .shp format
+        </a>{' '}
+        and{' '}
+        <a className="csv-link" style={{ color: '#4649EF' }} target="_blank" rel="noreferrer" type="button">
+          .csv format
+        </a>
+        .
+      </span>
+    ),
   },
 ];
 

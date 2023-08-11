@@ -78,7 +78,7 @@ const GetInTouch = () => {
             <TextArea
               type="text"
               name="description"
-              placeholder="Describe to us how you would use Usafiri"
+              placeholder="Tell us how you would use Usafiri"
               value={values.description}
               onChange={handleChange}
               errorMessage={errors?.description}
@@ -103,7 +103,7 @@ const GetInTouch = () => {
             </button>
           </form>
           <p>
-            Or for general queries directly mail us at{' '}
+            Or for general queries, directly mail us at{' '}
             <a href="mailto: hello@usafiri.io" className="clr-primary-500">
               hello@usafiri.io
             </a>
