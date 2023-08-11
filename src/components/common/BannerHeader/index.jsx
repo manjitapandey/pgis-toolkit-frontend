@@ -43,7 +43,7 @@ const BannerHeader = () => {
           : 'dbd-header dbd-header_home'
       }
     >
-      <div className="container">
+      <div className="container landing-header">
         <div className="is-flex is-between is-align-center is-wrap is-gap-15 dbd-header-in">
           <Link to="/" className="logo">
             <img src={header ? logoDark : logoWhite} alt="logo" />
@@ -66,6 +66,23 @@ const BannerHeader = () => {
             </ul>
           </nav>
           <div className="is-flex is-end is-align-center is-gap-10">
+            <a
+              type="button"
+              className="is-btn is-gap-10"
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => {
+                document.querySelector('#usafiri-get-in-touch').scrollIntoView({
+                  behavior: 'smooth',
+                });
+              }}
+            >
+              <i className="material-icons-outlined" style={{ color: 'white', textDecoration: 'none' }}>
+                message
+              </i>
+              <p className="request-btn fw-700">Request Access</p>
+            </a>
+
             <a href="https://app.usafiri.io/" target="_blank" className="is-btn is-btn_secondary" rel="noreferrer">
               <span>Sign in</span>
             </a>

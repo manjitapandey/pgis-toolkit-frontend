@@ -21,7 +21,7 @@ const Landing = () => {
   const [showUpBtn, setShowUpBtn] = useState(false);
 
   const showUpBtnStatus = () => {
-    if (window.scrollY >= 650) {
+    if (window.scrollY >= 500) {
       setShowUpBtn(true);
     } else {
       setShowUpBtn(false);
