@@ -1,10 +1,13 @@
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import contactImg from '@Assets/images/spatialAnalysis/get-in-touch.svg';
 import Input from '@Components/common/Input/index';
 import Spinner from '@Components/common/Spinner/index';
 import TextArea from '@Components/common/TextArea/index';
+import Creators, { Types as LandingTypes } from '@Actions/landing';
 import Button from '@Components/common/Button/index';
 import useForm from '@Hooks/useForm';
 import getInTouchVaidation from './getInTouchValidation';
@@ -17,17 +20,21 @@ const initialState = {
   description: '',
 };
 
+const { postRequestForDemoRequest, setAddRequestData } = Creators;
+
 const GetInTouch = () => {
+  const dispatch = useDispatch();
+  const addRequestData = useSelector((state) => state.landing.addRequestData);
+
   const submission = () => {
     // eslint-disable-next-line no-use-before-define
     submitForm();
   };
 
-  const { handleChange, handleSubmit, values, errors } = useForm(initialState, submission, getInTouchVaidation);
+  const { handleChange, handleSubmit, values, errors } = useForm(addRequestData, submission, getInTouchVaidation);
 
   const submitForm = () => {
-    // dispatch(signupAction.signupRequest(finalData));
-    console.log('val', values);
+    dispatch(postRequestForDemoRequest(values));
   };
 
   return (
@@ -41,11 +48,11 @@ const GetInTouch = () => {
               <Input
                 label="Name"
                 type="text"
-                name="name"
+                name="full_name"
                 placeholder="Enter your Name"
-                value={values.name}
+                value={values.full_name}
                 onChange={handleChange}
-                errorMessage={errors?.name}
+                errorMessage={errors?.full_name}
               />
               <Input
                 label="Email"
@@ -68,11 +75,11 @@ const GetInTouch = () => {
               <Input
                 label="Organisation"
                 type="text"
-                name="organization"
+                name="organization_name"
                 placeholder="Enter your Organisation"
-                value={values.organization}
+                value={values.organization_name}
                 onChange={handleChange}
-                errorMessage={errors?.organization}
+                errorMessage={errors?.organization_name}
               />
             </div>
             <TextArea

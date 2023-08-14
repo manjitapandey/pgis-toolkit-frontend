@@ -4,8 +4,8 @@
 function getInTouchVaidation(values) {
   // eslint-disable-next-line no-console
   const errors = {};
-  if (!values?.name) {
-    errors.name = 'Name is Required.';
+  if (!values?.full_name) {
+    errors.full_name = 'Name is Required.';
   }
   if (!values?.email) {
     errors.email = 'Email is Required.';
@@ -13,8 +13,8 @@ function getInTouchVaidation(values) {
   if (!values?.phone) {
     errors.phone = 'Phone is Required.';
   }
-  if (!values?.organization) {
-    errors.organization = 'Organization is Required.';
+  if (!values?.organization_name) {
+    errors.organization_name = 'Organisation is Required.';
   }
   if (!values?.description) {
     errors.description = 'Description is Required.';
@@ -29,7 +29,9 @@ function getInTouchVaidation(values) {
       values.phone.toString().length < 7 || values.phone.toString().length > 13 ? (error = true) : (error = false);
     }
     const message = !error ? '' : !values.phone ? 'Contact number is required' : 'Enter a valid contact number';
-    errors.phone = message;
+    if (message !== '') {
+      errors.phone = message;
+    }
   }
   if (values?.email) {
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
