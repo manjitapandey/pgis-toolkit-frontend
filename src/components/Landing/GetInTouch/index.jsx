@@ -10,6 +10,7 @@ import TextArea from '@Components/common/TextArea/index';
 import Creators, { Types as LandingTypes } from '@Actions/landing';
 import Button from '@Components/common/Button/index';
 import useForm from '@Hooks/useForm';
+import { loadingSelector } from '@src/selectors/loader';
 import getInTouchVaidation from './getInTouchValidation';
 
 const initialState = {
@@ -36,6 +37,8 @@ const GetInTouch = () => {
   const submitForm = () => {
     dispatch(postRequestForDemoRequest(values));
   };
+
+  const isLoading = useSelector(loadingSelector([LandingTypes.POST_REQUEST_FOR_DEMO_REQUEST]));
 
   return (
     <section className="usafiri-get-in-touch pt-pb-100" id="usafiri-get-in-touch">
@@ -91,7 +94,7 @@ const GetInTouch = () => {
               errorMessage={errors?.description}
             />
             <button className="is-btn is-btn_primary" type="button" onClick={handleSubmit}>
-              {/* {isLoading ? (
+              {isLoading ? (
                 <Spinner
                   style={{
                     width: '18px',
@@ -101,12 +104,12 @@ const GetInTouch = () => {
                     marginLeft: '6px',
                   }}
                 />
-              ) : ( */}
-              <div className="is-flex is-align-center is-gap-10">
-                <span>Send message</span>
-                <i className="material-icons-outlined">send</i>
-              </div>
-              {/* )} */}
+              ) : (
+                <div className="is-flex is-align-center is-gap-10">
+                  <span>Send message</span>
+                  <i className="material-icons-outlined">send</i>
+                </div>
+              )}
             </button>
           </form>
           <p>

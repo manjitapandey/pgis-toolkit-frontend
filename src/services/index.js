@@ -74,6 +74,7 @@ api.interceptors.response.use(
 
 export const authenticated = (apiInstance) => {
   const token = localStorage.getItem('userToken');
+  if (!token) return apiInstance;
   // const token = localStorage.getItem('token');
   // const isPublicPage = localStorage.getItem('isPublicPage');
   if (process.env.NODE_ENV === 'development') {
