@@ -3,8 +3,6 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import Creators from '@Actions/landing';
 import case1 from '@Assets/images/use-cases.jpg';
 import case2 from '@Assets/images/birendranagar-case.jpg';
 import working1 from '@Assets/images/working1.png';
@@ -14,8 +12,7 @@ import working4 from '@Assets/images/working4.png';
 import working5 from '@Assets/images/working5.png';
 import working6 from '@Assets/images/working6.png';
 import working7 from '@Assets/images/working7.png';
-
-const { getFileForDownloadRequest } = Creators;
+import AccordionDownloadDetail from '@Components/Landing/FAQs/AccordionDownloadDetail';
 
 export const cardData = [
   {
@@ -78,36 +75,6 @@ export const caseboxDetail = [
     image: case2,
   },
 ];
-
-const AccordionDownloadDetail = (params) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const dispatch = useDispatch();
-  return (
-    <span>
-      Yes, we can. Please check in the following links to download them in{' '}
-      <span
-        className="csv-link"
-        style={{ color: '#4649EF' }}
-        type="button"
-        onClick={() => {
-          dispatch(getFileForDownloadRequest({ output_format: 'shapefile' }));
-        }}
-      >
-        .shp format
-      </span>{' '}
-      and{' '}
-      <span
-        className="csv-link"
-        style={{ color: '#4649EF' }}
-        type="button"
-        onClick={() => dispatch(getFileForDownloadRequest({ output_format: 'csv' }))}
-      >
-        .csv format
-      </span>
-      .
-    </span>
-  );
-};
 
 export const accordionDetails = [
   {
