@@ -1,7 +1,10 @@
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import Creators from '@Actions/landing';
 import case1 from '@Assets/images/use-cases.jpg';
 import case2 from '@Assets/images/birendranagar-case.jpg';
 import working1 from '@Assets/images/working1.png';
@@ -11,6 +14,8 @@ import working4 from '@Assets/images/working4.png';
 import working5 from '@Assets/images/working5.png';
 import working6 from '@Assets/images/working6.png';
 import working7 from '@Assets/images/working7.png';
+
+const { getFileForDownloadRequest } = Creators;
 
 export const cardData = [
   {
@@ -74,6 +79,36 @@ export const caseboxDetail = [
   },
 ];
 
+const AccordionDownloadDetail = (params) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const dispatch = useDispatch();
+  return (
+    <span>
+      Yes, we can. Please check in the following links to download them in{' '}
+      <span
+        className="csv-link"
+        style={{ color: '#4649EF' }}
+        type="button"
+        onClick={() => {
+          dispatch(getFileForDownloadRequest({ output_format: 'shapefile' }));
+        }}
+      >
+        .shp format
+      </span>{' '}
+      and{' '}
+      <span
+        className="csv-link"
+        style={{ color: '#4649EF' }}
+        type="button"
+        onClick={() => dispatch(getFileForDownloadRequest({ output_format: 'csv' }))}
+      >
+        .csv format
+      </span>
+      .
+    </span>
+  );
+};
+
 export const accordionDetails = [
   {
     id: '1',
@@ -94,19 +129,7 @@ export const accordionDetails = [
   {
     id: '4',
     h4Header: 'Can we download standard data templates?',
-    description: (
-      <span>
-        Yes, we can. Please check in the following links to download them in{' '}
-        <a className="csv-link" style={{ color: '#4649EF' }} target="_blank" rel="noreferrer" type="button">
-          .shp format
-        </a>{' '}
-        and{' '}
-        <a className="csv-link" style={{ color: '#4649EF' }} target="_blank" rel="noreferrer" type="button">
-          .csv format
-        </a>
-        .
-      </span>
-    ),
+    description: <AccordionDownloadDetail />,
   },
 ];
 
