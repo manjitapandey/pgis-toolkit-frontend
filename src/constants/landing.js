@@ -1,4 +1,8 @@
+/* eslint-disable import/no-named-as-default */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-disable import/prefer-default-export */
+import React from 'react';
 import case1 from '@Assets/images/use-cases.jpg';
 import case2 from '@Assets/images/birendranagar-case.jpg';
 import working1 from '@Assets/images/working1.png';
@@ -8,6 +12,7 @@ import working4 from '@Assets/images/working4.png';
 import working5 from '@Assets/images/working5.png';
 import working6 from '@Assets/images/working6.png';
 import working7 from '@Assets/images/working7.png';
+import AccordionDownloadDetail from '@Components/Landing/FAQs/AccordionDownloadDetail';
 
 export const cardData = [
   {
@@ -87,6 +92,11 @@ export const accordionDetails = [
     id: '3',
     h4Header: 'Does Usafiri share data among organizations?',
     description: 'No, the data collected by your organization is strictly yours and is not shared with anyone.',
+  },
+  {
+    id: '4',
+    h4Header: 'Can we download standard data templates?',
+    description: <AccordionDownloadDetail />,
   },
 ];
 

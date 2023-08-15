@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from '@Assets/images/usafiri-beta-logo.svg';
 import { Link } from 'react-router-dom';
+import logo from '@Assets/images/usafiri-beta-logo.svg';
 // import logo from '@Assets/images/logo.svg';
 import fbLogo from '@Assets/images/fb-logo.svg';
 import linkedinLogo from '@Assets/images/linkedin-logo.svg';

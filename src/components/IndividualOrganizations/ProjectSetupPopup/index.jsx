@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import Popup from '@Components/common/Popup/index';
 import { Creators } from '@Actions/individualOrganization';
 import { Creators as PopupCreator } from '@Actions/popup';
-import { useDispatch, useSelector } from 'react-redux';
 import Tab from '@Components/common/Tab/index';
 import { projectPopupTabOptions } from '@src/constants/commonData';
 import MultistepLabel from '@Components/common/MultistepLabel/index';

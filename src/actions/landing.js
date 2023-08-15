@@ -8,6 +8,8 @@ export const { Types, Creators } = createActions(
 
     setAddRequestData: ['payload'],
     clearData: ['payload'],
+
+    getFileForDownloadRequest: ['params'],
   },
   { prefix: 'Landing/' },
 );

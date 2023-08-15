@@ -1,9 +1,9 @@
 /* eslint-disable import/no-named-as-default */
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ctaImage from '@Assets/images/CTA-img.jpg';
 import useForm from '@Hooks/useForm';
 import { checkIfLoading } from '@Utils/loaderSelector';
-import { useDispatch, useSelector } from 'react-redux';
 import Input from '@Components/common/Input';
 import Creators, { Types as LandingTypes } from '@Actions/landing';
 import Spinner from '@Components/common/Spinner/index';

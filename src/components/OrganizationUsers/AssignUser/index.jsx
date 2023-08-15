@@ -3,10 +3,10 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ListData from '@Components/Organizations/ListData/index';
 import { checkboxData } from '@src/constants/commonData';
 import { Creators } from '@Actions/users';
-import { useDispatch, useSelector } from 'react-redux';
 import AssignTable from '../AssignTable/index';
 
 const {

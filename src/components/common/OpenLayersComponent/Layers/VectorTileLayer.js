@@ -10,11 +10,11 @@ import MVT from 'ol/format/MVT';
 import { fromExtent } from 'ol/geom/Polygon';
 import VectorTileSource from 'ol/source/VectorTile';
 import { transformExtent } from 'ol/proj';
+import { Fill, Icon, Stroke, Style, Text } from 'ol/style';
+import { LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from 'ol/geom';
 import getSvgImageIcon from '@Utils/map/getSvgImageIcon';
 import SVGMapIcon from '@Utils/map/svgIcon';
 import { Creators } from '@Actions/individualProject';
-import { Fill, Icon, Stroke, Style, Text } from 'ol/style';
-import { LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from 'ol/geom';
 import { getStyles, defaultStyles } from '../helpers/styleUtils';
 import { isExtentValid } from '../helpers/layerUtils';
 

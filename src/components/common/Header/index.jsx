@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Logo from '@Assets/images/logo.png';
 import ProfileImage from '@Assets/images/admin/profile.jpg';
 import { Creators } from '@Actions/login';
-import { useDispatch } from 'react-redux';
 
 const { logoutRequest } = Creators;
 

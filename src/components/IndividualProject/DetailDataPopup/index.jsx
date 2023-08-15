@@ -2,12 +2,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import Popup from '@Components/common/Popup/index';
 import { Creators } from '@Actions/individualProject';
 import { Creators as PaginationCreators } from '@Actions/pagination';
 import Search from '@Components/common/Search/index';
 import Table, { TableHeader } from '@Components/common/Table';
-import PropTypes from 'prop-types';
 import useDebouncedInput from '@Hooks/useDebouncedInput';
 import TableLoader from '@Components/common/TableLoader/index';
 import Pagination from '@Components/common/Pagination/index';

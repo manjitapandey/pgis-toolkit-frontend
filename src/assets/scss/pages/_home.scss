@@ -62,12 +62,62 @@
   }
 }
 
+.landing-header {
+  .request-btn {
+    color: white;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .header-icon {
+    color: white;
+  }
+  .has-header-icon{
+    color: #484848;
+  }
+  .request-btn-header{
+    color: #484848;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 .home-banner {
   padding-top: 2rem;
   .container-fluid {
     padding: 0 1rem;
     @include breakpoint-up('md-tab') {
       padding: 0 2rem;
+    }
+    .intro-text {
+      font-size: 26px;
+      line-height: 32px;
+    }
+    .intro-image {
+      display: flex;
+      justify-content: end;
+      .home-banner_figure {
+        margin: 0px;
+        @media screen and (max-width: 1024px) {
+          margin: auto;
+          margin-top: 3rem;
+        }
+      }
+    }
+    .download-btn {
+      color: white;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .about-btn {
+      background-color: transparent;
+      border: 1px solid white;
+      color: white;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
   &_content {
@@ -89,11 +139,11 @@
     }
   }
   &_figure {
-    max-width: 560px;
+    max-width: 470px;
     margin: 0 auto;
     position: relative;
     border-radius: 20px;
-    min-height: 600px;
+    // min-height: 600px;
     overflow: hidden;
     img {
       width: 100%;
@@ -187,6 +237,97 @@
       img {
         position: absolute;
         height: 100%;
+      }
+    }
+  }
+}
+
+.usafiri-spatial-analysis {
+  .line {
+    border-top: 1px solid #BDBDBD;
+    width: 100%;
+  }
+  .main-container {
+    display: flex;
+    padding: 7rem 0rem;
+    gap: 9rem;
+    @media screen and (max-width: 1024px) { 
+      flex-direction: column;
+      padding: 3.5rem 0rem;
+      gap: 3.5rem;
+    }
+
+    .title-container {
+      width: 50%;
+      @media screen and (max-width: 1024px) { 
+        width: 100%;
+      }
+      .title {
+        font-size: 34px;
+        font-weight: 700;
+      }
+    }
+    .content-container {
+      width: 50%;
+      @media screen and (max-width: 1024px) { 
+        width: 100%;
+      }
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      .ind-item {
+        display: flex;
+        gap: 3rem;
+        .item-container {
+          .item-title {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 26px;
+            padding-bottom: 6px;
+          }
+          .item-content {
+            font-size: 14px;
+          }
+        }
+      }
+      .change-direction {
+        flex-direction: row-reverse;
+        justify-content: start;
+      }
+    }
+  }
+}
+
+.usafiri-get-in-touch {
+  .container {
+    display: flex;
+    justify-content: space-between;
+    @media screen and (max-width: 1024px) { 
+      flex-direction: column;
+    }
+    .form-container {
+      width: 50%;
+      @media screen and (max-width: 1024px) { 
+        width: 100%;
+      }
+      .form-fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 2rem;
+      }
+    }
+    .image-container {
+      .image {
+        width: 425px;
+        @media screen and (max-width: 1024px) { 
+          width: 70%;
+          max-width: 425px;
+        }
+      } 
+      @media screen and (max-width: 1024px) { 
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
       }
     }
   }
@@ -348,6 +489,31 @@
 .partnerBox-logos {
   img {
     max-height: 50px;
+  }
+}
+
+.landing-main-container {
+  position: relative;
+  .landing-up-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #000000;
+    opacity: 50%;
+    color: white;
+    width: fit-contentrgb(121, 121, 121);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
+    &:hover {
+      opacity: 60%;
+    }
   }
 }
 

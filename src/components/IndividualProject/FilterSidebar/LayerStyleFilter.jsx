@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useEffect, useState } from 'react';
-import Select from '@Components/common/Select/index';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import Select from '@Components/common/Select/index';
 import { selectOptions, selectSizeOptions, optionTypeList, optionStyleList } from '@src/constants/commonData';
 import { Creators, Types as IndividualProjectTypes } from '@Actions/individualProject';
 import Input from '@Components/common/Input/index';

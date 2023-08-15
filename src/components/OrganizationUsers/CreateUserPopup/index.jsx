@@ -1,8 +1,8 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Popup from '@Components/common/Popup/index';
 import { Creators } from '@Actions/users';
-import { useDispatch, useSelector } from 'react-redux';
 import EditPopup from './EditPopup';
 
 const { openUserPopup, deleteUserDataRequest, editUserDataRequest } = Creators;
