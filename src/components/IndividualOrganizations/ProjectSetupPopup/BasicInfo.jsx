@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Input from '@Components/common/Input/index';
 import PropTypes from 'prop-types';
+import Input from '@Components/common/Input/index';
 
 const BasicInfo = ({ handleChange }) => {
   const addBasicData = useSelector((state) => state.individualOrganizations.addBasicData);

@@ -7,7 +7,8 @@ const initialState = {
     email: '',
     phone: '',
     organization_name: '',
-    marketing_communications: false,
+    description: '',
+    // marketing_communications: false,
   },
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import useOutsideClick from '@Hooks/useOutsideClick';
 import PropTypes from 'prop-types';
+import useOutsideClick from '@Hooks/useOutsideClick';
 
 const { BASE_URL } = process.env;
 

@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Creators } from '@Actions/pagination';
 import { useDispatch } from 'react-redux';
+import { Creators } from '@Actions/pagination';
 import DropdownSelect from '../DropdownSelect/index';
 
 const { getCurrentPage } = Creators;
