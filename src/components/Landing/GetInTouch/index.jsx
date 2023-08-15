@@ -114,8 +114,8 @@ const GetInTouch = () => {
           </form>
           <p>
             Or for general queries, directly mail us at{' '}
-            <a href="mailto: hello@usafiri.io" className="clr-primary-500">
-              hello@usafiri.io
+            <a href="mailto: hello.usafiri@gmail.com" className="clr-primary-500">
+              hello.usafiri@gmail.com
             </a>
           </p>
         </div>
