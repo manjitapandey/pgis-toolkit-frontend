@@ -36,7 +36,7 @@ const Footer = () => (
         <div className="row">
           <div className="grid-lg-4 grid-md-6 grid-sm-12">
             <div className="copyright-term is-flex  is-align-center is-wrap is-gap-15 fs-md mb-10">
-              <p>© 2022 USAFIR.</p>
+              <p>© 2022 USAFIRI</p>
               <ul className="is-flex is-start is-align-center is-gap-15 fw-bold">
                 <li>
                   <a href={() => {}}>Terms of Service</a>
