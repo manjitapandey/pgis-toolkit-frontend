@@ -66,20 +66,22 @@ const BannerHeader = () => {
             </ul>
           </nav>
           <div className="is-flex is-end is-align-center is-gap-10">
-            <a
-              type="button"
-              className="is-btn is-gap-10"
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => {
-                document.querySelector('#usafiri-get-in-touch').scrollIntoView({
-                  behavior: 'smooth',
-                });
-              }}
-            >
-              <i className={`material-icons-outlined ${header ? 'has-header-icon' : 'header-icon'}`}>message</i>
-              <p className={`${header ? 'request-btn-header' : 'request-btn'} fw-700`}>Request Access</p>
-            </a>
+            {pathname === '/' && (
+              <a
+                type="button"
+                className="is-btn is-gap-10"
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => {
+                  document.querySelector('#usafiri-get-in-touch').scrollIntoView({
+                    behavior: 'smooth',
+                  });
+                }}
+              >
+                <i className={`material-icons-outlined ${header ? 'has-header-icon' : 'header-icon'}`}>message</i>
+                <p className={`${header ? 'request-btn-header' : 'request-btn'} fw-700`}>Request Access</p>
+              </a>
+            )}
 
             <a href="https://app.usafiri.io/" target="_blank" className="is-btn is-btn_secondary" rel="noreferrer">
               <span>Sign in</span>
