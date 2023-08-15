@@ -11,7 +11,7 @@ const Banner = () => (
               <div className="home-banner_content pd-15">
                 <h1 className="mb-30">Use Cases</h1>
                 <h4>
-                  A GIS-based toolkit to assess, in a participatory way, the unmet transportation needs and mobility
+                  A GIS-based tool to assess, in a participatory way, the unmet transportation needs and mobility
                   barriers of rural communities.
                 </h4>
               </div>
