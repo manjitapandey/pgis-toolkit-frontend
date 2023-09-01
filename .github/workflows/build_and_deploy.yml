@@ -47,9 +47,18 @@ jobs:
           EOF
               ;;
             refs/heads/master)
-              echo '
-              # Write Production Environment
-              ' > .env
+            cat > .env <<EOF
+            #PROD MODE
+            TITLE=USAFIRI
+            BASE_URL=https:///app.usafiri.io/api
+            USERS_URL=https:///app.usafiri.io/api
+            ASSETS_URL=https:///app.usafiri.io
+            API_URL=https:///app.usafiri.io/api/v1
+            DASHBOARD_API_URL=https:///app.usafiri.io/api/v2
+            LOGIN_API_URL=https:///app.usafiri.io/api
+            BIPAD_API_URL=https://bipadportal.gov.np/api/v1
+            TOKEN=${{ secrets.ENV_SECRET }}
+          EOF
               ;;
           esac
       - name: Install dependencies
@@ -64,13 +73,13 @@ jobs:
         with:
           name: Pgis-${{ github.ref_name }}
           path: dist
-          retention-days: 1
+          retention-days: 2
 
   deploy:
     name: Deploy static files
     needs:
       - build
-    if: ${{ github.ref == 'refs/heads/staging'  }}
+    if: ${{ github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/master'  }}
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -90,6 +99,11 @@ jobs:
               export SERVER_HOST=159.89.164.123
               export SERVER_USERNAME=devops
               export PROJECT_PATH=/srv/Projects/pgis-toolkit_frontend_staging/dist
+              ;;
+            refs/heads/master)
+              export SERVER_HOST=13.39.95.193
+              export SERVER_USERNAME=ubuntu
+              export PROJECT_PATH=/home/ubuntu/Projects/pgis-toolkit_frontend_prod_landing/dist
               ;;
           esac
           echo "SERVER_HOST=${SERVER_HOST}" >> $GITHUB_OUTPUT
