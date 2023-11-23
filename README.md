@@ -58,6 +58,12 @@
     -- views/               -->  for page specific components / container components
 
 ```
+### User Manual
+
+Having problem to navigate to the problem? Dive in to our user manual to use uSAFIRI smoothly. <br>
+To access the user manual, simply follow this link.
+[User Manual for  USAFIRI .pdf]()
+
 
 ### [Help]
 
